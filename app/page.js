@@ -22,6 +22,8 @@ export default function Home() {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <nav className="navbar" role="navigation">
       <div className="navbar-inner">
@@ -29,6 +31,8 @@ function Navbar() {
           <img src="/logo.svg" alt="ProxyBase" className="logo-icon" />
           ProxyBase
         </a>
+
+        {/* Desktop Links */}
         <ul className="nav-links">
           <li><a href="#how-it-works">How It Works</a></li>
           <li><a href="#pricing">Pricing</a></li>
@@ -37,6 +41,29 @@ function Navbar() {
           <li><a href="#faq">FAQ</a></li>
         </ul>
         <a href="#api" className="nav-cta">Get API Key →</a>
+
+        {/* Mobile Hamburger Toggle */}
+        <button
+          className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle navigation menu"
+        >
+          <span className="hamburger-box">
+            <span className="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
+
+      {/* Mobile Menu Panel */}
+      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+        <ul className="mobile-nav-links">
+          <li><a href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How It Works</a></li>
+          <li><a href="#pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</a></li>
+          <li><a href="#api" onClick={() => setMobileMenuOpen(false)}>API Docs</a></li>
+          <li><a href="#mcp" onClick={() => setMobileMenuOpen(false)}>MCP</a></li>
+          <li><a href="#faq" onClick={() => setMobileMenuOpen(false)}>FAQ</a></li>
+        </ul>
+        <a href="#api" className="mobile-nav-cta" onClick={() => setMobileMenuOpen(false)}>Get API Key →</a>
       </div>
     </nav>
   );
