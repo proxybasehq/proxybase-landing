@@ -50,6 +50,22 @@ Packages:
 
 ---
 
+### GET /currencies
+List available payment currencies for orders and top-ups.
+
+\`\`\`
+curl https://api.proxybase.xyz/currencies -H "X-API-Key: pk_YOUR_KEY"
+\`\`\`
+
+Response:
+\`\`\`json
+{
+  "currencies": ["btc", "eth", "sol", "usdttrc20", "ltc", ...]
+}
+\`\`\`
+
+---
+
 ### POST /orders
 Create a new proxy order with crypto payment.
 
@@ -75,7 +91,7 @@ Response:
 
 Parameters:
 - package_id (required): Package ID from /packages
-- pay_currency (optional): "btc", "eth", "sol", "usdttrc20" (default)
+- pay_currency (optional): Use GET /currencies for valid values (default: "usdttrc20")
 - callback_url (optional): Webhook URL for notifications
 
 ---
@@ -126,10 +142,11 @@ curl -X POST https://api.proxybase.xyz/orders/kQx7p3Wn/topup \\
 
 1. Register:  curl -X POST https://api.proxybase.xyz/agents
 2. List:      curl https://api.proxybase.xyz/packages -H "X-API-Key: pk_..."
-3. Order:     curl -X POST https://api.proxybase.xyz/orders -H "X-API-Key: pk_..." -d '{"package_id":"us_residential_1gb"}'
-4. Pay the crypto address returned in step 3
-5. Poll:      curl https://api.proxybase.xyz/orders/{id}/status -H "X-API-Key: pk_..."
-6. Connect:   socks5://username:password@api.proxybase.xyz:1080
+3. Currencies: curl https://api.proxybase.xyz/currencies -H "X-API-Key: pk_..."
+4. Order:     curl -X POST https://api.proxybase.xyz/orders -H "X-API-Key: pk_..." -d '{"package_id":"us_residential_1gb"}'
+5. Pay the crypto address returned in step 4
+6. Poll:      curl https://api.proxybase.xyz/orders/{id}/status -H "X-API-Key: pk_..."
+7. Connect:   socks5://username:password@api.proxybase.xyz:1080
 
 ## MCP Server
 
@@ -146,7 +163,7 @@ Add to your MCP client config:
 }
 \`\`\`
 
-Tools: register_agent, list_packages, create_order, check_order_status, topup_order
+Tools: register_agent, list_packages, list_currencies, create_order, check_order_status, topup_order
 `;
 
 // Non-browser user agents that should receive markdown

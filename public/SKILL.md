@@ -42,7 +42,16 @@ Available packages:
 - `us_residential_5gb` — 5 GB, $50
 - `us_residential_10gb` — 10 GB, $100
 
-### Step 3: Create Order
+### Step 3: List Available Currencies
+
+```bash
+curl https://api.proxybase.xyz/currencies \
+  -H "X-API-Key: pk_YOUR_KEY"
+```
+
+Returns the list of valid `pay_currency` values for orders and top-ups.
+
+### Step 4: Create Order
 
 ```bash
 curl -X POST https://api.proxybase.xyz/orders \
@@ -56,16 +65,16 @@ curl -X POST https://api.proxybase.xyz/orders \
 
 Parameters:
 - `package_id` (required): ID from step 2
-- `pay_currency` (optional): `btc`, `eth`, `sol`, `usdttrc20` (default), `ltc`, and more
+- `pay_currency` (optional): Use `GET /currencies` for valid values (default: `usdttrc20`)
 - `callback_url` (optional): URL to receive webhook notifications
 
 Returns `order_id`, `payment_id`, `pay_address`, `pay_amount`, and `status`.
 
-### Step 4: Send Payment
+### Step 5: Send Payment
 
 Send the exact `pay_amount` in the specified `pay_currency` to the `pay_address`.
 
-### Step 5: Poll Order Status
+### Step 6: Poll Order Status
 
 ```bash
 curl https://api.proxybase.xyz/orders/{order_id}/status \
@@ -86,7 +95,7 @@ When status is `proxy_active`, the response includes:
 }
 ```
 
-### Step 6: Use the Proxy
+### Step 7: Use the Proxy
 
 Connect via SOCKS5: `socks5://username:password@api.proxybase.xyz:1080`
 
@@ -102,7 +111,7 @@ proxies = {"https": "socks5://pb_xxxx:xxxx@api.proxybase.xyz:1080"}
 r = requests.get("https://example.com", proxies=proxies)
 ```
 
-### Step 7: Top Up (Optional)
+### Step 8: Top Up (Optional)
 
 When bandwidth runs low, add more without changing credentials:
 
@@ -129,7 +138,7 @@ For AI assistants (Claude, Cursor, etc.), use the MCP server:
 
 Download: https://github.com/proxybasehq/proxybase-mcp/releases
 
-Tools: `register_agent`, `list_packages`, `create_order`, `check_order_status`, `topup_order`
+Tools: `register_agent`, `list_packages`, `list_currencies`, `create_order`, `check_order_status`, `topup_order`
 
 ## Important Notes
 

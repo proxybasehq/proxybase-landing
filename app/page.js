@@ -102,21 +102,31 @@ function Hero() {
                 curl -X POST https://api.proxybase.xyz/agents
               </div>
               <div className="terminal-line">
-                <span className="terminal-comment"># 2. Create an order</span>
+                <span className="terminal-comment"># 2. Get supported currencies</span>
+              </div>
+              <div className="terminal-line">
+                <span className="terminal-prompt">$ </span>
+                curl https://api.proxybase.xyz/currencies \
+              </div>
+              <div className="terminal-line">
+                {"  "}-H <span className="terminal-string">&quot;X-API-Key: pk_...&quot;</span>
+              </div>
+              <div className="terminal-line">
+                <span className="terminal-comment"># 3. Create an order with chosen currency</span>
               </div>
               <div className="terminal-line">
                 <span className="terminal-prompt">$ </span>
                 curl -X POST https://api.proxybase.xyz/orders \
               </div>
               <div className="terminal-line">
-                {"  "}-H <span className="terminal-string">"X-API-Key: pk_..."</span> -d{" "}
+                {"  "}-H <span className="terminal-string">&quot;X-API-Key: pk_...&quot;</span> -d{" "}
                 <span className="terminal-string">
-                  {"'{\"package_id\":\"us_residential_1gb\"}'"}
+                  {"'{\"package_id\":\"us_residential_1gb\",\"pay_currency\":\"sol\"}'"}
                 </span>
               </div>
               <div className="terminal-line">
                 <span className="terminal-comment">
-                  # → pay_address: "TXyz..." | socks5://pb_user:pass@api.proxybase.xyz:1080
+                  # → pay_address: &quot;TXyz...&quot; | socks5://pb_user:pass@api.proxybase.xyz:1080
                 </span>
               </div>
             </div>
@@ -146,7 +156,7 @@ function HowItWorks() {
     {
       icon: "💰",
       title: "Pay with Crypto",
-      desc: "POST /orders — receive a payment address. Send BTC, ETH, SOL, or USDT.",
+      desc: "GET /currencies then POST /orders — select your preferred cryptocurrency to receive a payment address. Send BTC, ETH, SOL, or USDT.",
     },
     {
       icon: "🔌",
@@ -311,6 +321,19 @@ function ApiDocs() {
 ]`,
     },
     {
+      method: "GET",
+      path: "/currencies",
+      title: "List Currencies",
+      desc: "List all available payment currencies (cryptocurrencies) that can be used for the pay_currency field when creating an order or topping up. Call this before creating an order to know which values are valid.",
+      params: [],
+      headers: true,
+      curlExample: `curl https://api.proxybase.xyz/currencies \\\\
+  -H "X-API-Key: pk_YOUR_KEY"`,
+      responseExample: `{
+  "currencies": ["btc", "eth", "sol", "usdttrc20", "ltc", ...]
+}`,
+    },
+    {
       method: "POST",
       path: "/orders",
       title: "Create Order",
@@ -320,7 +343,7 @@ function ApiDocs() {
         {
           name: "pay_currency",
           required: false,
-          desc: 'Crypto to pay with: "btc", "eth", "sol", "usdttrc20" (default)',
+          desc: 'Crypto to pay with (default: "usdttrc20"). Use GET /currencies for valid values',
         },
         { name: "callback_url", required: false, desc: "Webhook URL for status notifications" },
       ],
@@ -370,7 +393,7 @@ function ApiDocs() {
       desc: "Add more bandwidth to an existing order. Your proxy credentials stay the same — only the bandwidth allowance increases. Works on active or exhausted proxies.",
       params: [
         { name: "package_id", required: true, desc: "Bandwidth package to add" },
-        { name: "pay_currency", required: false, desc: 'Crypto to pay with (default: "usdttrc20")' },
+        { name: "pay_currency", required: false, desc: 'Crypto to pay with. Use GET /currencies for valid values (default: "usdttrc20")' },
       ],
       headers: true,
       curlExample: `curl -X POST https://api.proxybase.xyz/orders/kQx7p3Wn/topup \\
@@ -514,7 +537,7 @@ function McpSection() {
 
         <div className="mcp-grid">
           <div className="mcp-text">
-            <h3>One Binary, Five Tools</h3>
+            <h3>One Binary, Six Tools</h3>
             <p>
               The ProxyBase MCP server exposes the entire proxy lifecycle as
               tools. Download the binary, point it at your MCP client, and your
@@ -523,6 +546,7 @@ function McpSection() {
             <ul className="mcp-features">
               <li>register_agent — Get an API key instantly</li>
               <li>list_packages — Browse available bandwidth packages</li>
+              <li>list_currencies — See valid payment currencies</li>
               <li>create_order — Generate a crypto payment invoice</li>
               <li>check_order_status — Poll until proxy is active</li>
               <li>topup_order — Add bandwidth without new credentials</li>
