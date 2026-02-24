@@ -532,7 +532,7 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82rem;
   line-height: 1.8;
-  color: var(--text-secondary);
+  color: #f1f5f9;
   overflow-x: auto;
   white-space: nowrap;
 }
@@ -1056,7 +1056,7 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.8rem;
   line-height: 1.7;
-  color: var(--text-secondary);
+  color: #f1f5f9;
 }
 
 /* =========================================================================
