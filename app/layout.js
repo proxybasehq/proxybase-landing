@@ -14,8 +14,8 @@ export const metadata = {
     type: "website",
   },
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/favicon.svg",
+    apple: "/logo.svg",
   },
 };
 
