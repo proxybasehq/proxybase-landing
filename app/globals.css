@@ -339,6 +339,7 @@ body {
   position: relative;
   z-index: 2;
   max-width: 900px;
+  width: 100%;
   text-align: center;
 }
 
@@ -486,6 +487,7 @@ body {
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+  max-width: 100%;
 }
 
 .terminal-header {
@@ -1025,6 +1027,7 @@ body {
   border-radius: var(--radius-md);
   overflow: hidden;
   margin-bottom: 16px;
+  max-width: 100%;
 }
 
 .code-block-header {
