@@ -1,0 +1,244 @@
+openapi: 3.0.3
+info:
+  title: ProxyBase API
+  version: 1.0.0
+  description: API for creating and managing programmatic SOCKS5 proxy orders via cryptocurrency payments.
+servers:
+  - url: https://api.proxybase.xyz
+    description: Production Environment
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Your ProxyBase API key (starts with pk_)
+
+  schemas:
+    Agent:
+      type: object
+      properties:
+        id:
+          type: string
+        api_key:
+          type: string
+          description: Starts with pk_
+        created_at:
+          type: integer
+
+    Package:
+      type: object
+      properties:
+        id:
+          type: string
+          example: us_residential_1gb
+        name:
+          type: string
+          example: US Residential - 1GB
+        bandwidth_bytes:
+          type: integer
+          example: 1073741824
+        price_usd:
+          type: number
+          format: double
+          example: 5.0
+        proxy_type:
+          type: string
+          example: residential
+        country:
+          type: string
+          example: US
+
+    CurrenciesResponse:
+      type: object
+      properties:
+        currencies:
+          type: array
+          items:
+            type: string
+          example: ["usdttrc20", "btc", "eth", "sol"]
+
+    CreateOrderRequest:
+      type: object
+      required:
+        - package_id
+      properties:
+        package_id:
+          type: string
+          description: The package ID to purchase
+        pay_currency:
+          type: string
+          description: Cryptocurrency to pay with. Defaults to 'usdttrc20'.
+        callback_url:
+          type: string
+          description: Optional webhook URL to receive status notifications
+
+    CreateOrderResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+        payment_id:
+          type: string
+        pay_address:
+          type: string
+        pay_currency:
+          type: string
+        pay_amount:
+          type: number
+          format: double
+        price_usd:
+          type: number
+          format: double
+        status:
+          type: string
+          example: payment_pending
+        expiration_estimate_date:
+          type: string
+
+    TopupRequest:
+      type: object
+      required:
+        - package_id
+      properties:
+        package_id:
+          type: string
+          description: The bandwidth package to add
+        pay_currency:
+          type: string
+          description: Cryptocurrency to pay with. Defaults to 'usdttrc20'.
+
+    OrderStatusResponse:
+      type: object
+      properties:
+        order_id:
+          type: string
+        package_id:
+          type: string
+        status:
+          type: string
+          enum: [payment_pending, confirming, paid, proxy_active, bandwidth_exhausted]
+        bandwidth_bytes:
+          type: integer
+        bandwidth_used:
+          type: integer
+        price_usd:
+          type: number
+          format: double
+        proxy_credentials:
+          type: string
+          nullable: true
+          description: SOCKS5 proxy credentials formatted as host:port:username:password
+
+paths:
+  /agents:
+    post:
+      summary: Register Agent
+      description: Register a new AI agent with ProxyBase to receive an API key. 
+      responses:
+        '200':
+          description: Successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+
+  /packages:
+    get:
+      summary: List Packages
+      description: List all available proxy bandwidth packages with pricing.
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: A list of proxy packages
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  packages:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Package'
+
+  /currencies:
+    get:
+      summary: List Currencies
+      description: List all available payment cryptocurrencies.
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: A list of supported cryptocurrencies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrenciesResponse'
+
+  /orders:
+    post:
+      summary: Create Order
+      description: Create a new proxy order and generate a cryptocurrency payment invoice.
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrderRequest'
+      responses:
+        '201':
+          description: Order successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrderResponse'
+
+  /orders/{order_id}/status:
+    get:
+      summary: Check Order Status
+      description: Poll for the current status of an order, including proxy credentials when active.
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Current order status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderStatusResponse'
+
+  /orders/{order_id}/topup:
+    post:
+      summary: Top Up Order
+      description: Add more bandwidth to an existing order by creating a new payment invoice.
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TopupRequest'
+      responses:
+        '201':
+          description: Top up order successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateOrderResponse'
