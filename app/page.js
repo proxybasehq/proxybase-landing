@@ -26,7 +26,7 @@ function Navbar() {
     <nav className="navbar" role="navigation">
       <div className="navbar-inner">
         <a href="#" className="logo">
-          <span className="logo-icon">P</span>
+          <img src="/logo.png" alt="ProxyBase" className="logo-icon" />
           ProxyBase
         </a>
         <ul className="nav-links">
@@ -704,7 +704,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <span className="logo-icon" style={{ width: 24, height: 24, fontSize: 14 }}>P</span>
+          <img src="/logo.png" alt="ProxyBase" className="logo-icon" style={{ width: 24, height: 24 }} />
           <span className="footer-text">
             © {new Date().getFullYear()} ProxyBase. AI Infrastructure for Agents.
           </span>
