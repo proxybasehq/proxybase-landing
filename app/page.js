@@ -47,26 +47,27 @@ function Navbar() {
   return (
     <nav className="navbar" role="navigation">
       <div className="navbar-inner">
-        <a href="#" className="logo">
+        <a href="#" className="logo" data-umami-event="Nav: Logo Click">
           <img src="/logo.svg" alt="ProxyBase" className="logo-icon" />
           ProxyBase
         </a>
 
         {/* Desktop Links */}
         <ul className="nav-links">
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#pricing">Pricing</a></li>
-          <li><a href="#api">API Docs</a></li>
-          <li><a href="#mcp">MCP</a></li>
-          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#how-it-works" data-umami-event="Nav: How It Works">How It Works</a></li>
+          <li><a href="#pricing" data-umami-event="Nav: Pricing">Pricing</a></li>
+          <li><a href="#api" data-umami-event="Nav: API Docs">API Docs</a></li>
+          <li><a href="#mcp" data-umami-event="Nav: MCP">MCP</a></li>
+          <li><a href="#faq" data-umami-event="Nav: FAQ">FAQ</a></li>
         </ul>
-        <a href="#api" className="nav-cta">Get API Key →</a>
+        <a href="#api" className="nav-cta" data-umami-event="Nav: Get API Key CTA">Get API Key →</a>
 
         {/* Mobile Hamburger Toggle */}
         <button
           className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle navigation menu"
+          data-umami-event="Mobile Nav: Toggle Menu"
         >
           <span className="hamburger-box">
             <span className="hamburger-inner"></span>
@@ -77,13 +78,13 @@ function Navbar() {
       {/* Mobile Menu Panel */}
       <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
         <ul className="mobile-nav-links">
-          <li><a href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How It Works</a></li>
-          <li><a href="#pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</a></li>
-          <li><a href="#api" onClick={() => setMobileMenuOpen(false)}>API Docs</a></li>
-          <li><a href="#mcp" onClick={() => setMobileMenuOpen(false)}>MCP</a></li>
-          <li><a href="#faq" onClick={() => setMobileMenuOpen(false)}>FAQ</a></li>
+          <li><a href="#how-it-works" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: How It Works">How It Works</a></li>
+          <li><a href="#pricing" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Pricing">Pricing</a></li>
+          <li><a href="#api" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: API Docs">API Docs</a></li>
+          <li><a href="#mcp" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: MCP">MCP</a></li>
+          <li><a href="#faq" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: FAQ">FAQ</a></li>
         </ul>
-        <a href="#api" className="mobile-nav-cta" onClick={() => setMobileMenuOpen(false)}>Get API Key →</a>
+        <a href="#api" className="mobile-nav-cta" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Get API Key CTA">Get API Key →</a>
       </div>
     </nav>
   );
@@ -119,7 +120,7 @@ function Hero() {
         </p>
 
         <div className="hero-actions">
-          <a href="#api" className="btn-primary">
+          <a href="#api" className="btn-primary" data-umami-event="Hero: Read Docs CTA">
             Read the Docs ↓
           </a>
           <a
@@ -127,6 +128,7 @@ function Hero() {
             className="btn-secondary"
             target="_blank"
             rel="noopener noreferrer"
+            data-umami-event="Hero: GitHub MCP Link"
           >
             ★ GitHub / MCP
           </a>
@@ -318,7 +320,7 @@ function Pricing() {
                   <li key={j}>{f}</li>
                 ))}
               </ul>
-              <a href="#api" className="price-btn">
+              <a href="#api" className="price-btn" data-umami-event={`Pricing: Get Started (${pkg.name})`}>
                 Get Started →
               </a>
             </div>
@@ -493,7 +495,7 @@ function ApiDocs() {
             <ul className="api-nav">
               {endpoints.map((ep, i) => (
                 <li key={i}>
-                  <a href={`#api-${ep.path.replace(/[/{}_]/g, "-")}`}>
+                  <a href={`#api-${ep.path.replace(/[/{}_]/g, "-")}`} data-umami-event={`API Sidebar: ${ep.title}`}>
                     <span className={ep.method === "POST" ? "method-post" : "method-get"} style={{ fontSize: "0.7rem", padding: "2px 6px", borderRadius: "3px", marginRight: "6px" }}>
                       {ep.method}
                     </span>
@@ -619,6 +621,7 @@ function McpSection() {
               className="btn-primary"
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="MCP Section: GitHub CTA"
             >
               ★ Get MCP Server from GitHub
             </a>
@@ -743,6 +746,7 @@ function Faq() {
               <button
                 className="faq-question"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                data-umami-event={`FAQ: Toggled Question ${i + 1}`}
               >
                 {faq.q}
                 <span className="faq-icon">+</span>
@@ -774,19 +778,20 @@ function Footer() {
         </div>
         <ul className="footer-links">
           <li>
-            <a href="#api">API Docs</a>
+            <a href="#api" data-umami-event="Footer: API Docs">API Docs</a>
           </li>
           <li>
             <a
               href="https://github.com/proxybasehq/proxybase-mcp"
               target="_blank"
               rel="noopener noreferrer"
+              data-umami-event="Footer: GitHub"
             >
               GitHub
             </a>
           </li>
           <li>
-            <a href="mailto:humanshere@proxybase.xyz">Contact</a>
+            <a href="mailto:humanshere@proxybase.xyz" data-umami-event="Footer: Contact">Contact</a>
           </li>
         </ul>
       </div>
