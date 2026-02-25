@@ -891,6 +891,11 @@ body {
   top: 100px;
 }
 
+.api-main {
+  min-width: 0;
+  width: 100%;
+}
+
 .api-nav {
   list-style: none;
 }
@@ -988,6 +993,9 @@ body {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.85rem;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 .api-params-table th {
@@ -1072,6 +1080,12 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
+}
+
+.mcp-text,
+.mcp-code {
+  min-width: 0;
+  width: 100%;
 }
 
 .mcp-text h3 {
