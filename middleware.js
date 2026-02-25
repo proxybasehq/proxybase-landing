@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 const API_MARKDOWN = `# ProxyBase API
 ## AI Infrastructure for Agents
 
-Base URL: https://api.proxybase.xyz
+Base URL: https://api.proxybase.xyz/v1
 SOCKS5: api.proxybase.xyz:1080
 MCP Server: https://github.com/proxybasehq/proxybase-mcp
 
@@ -17,11 +17,11 @@ All endpoints (except agent registration) require the \`X-API-Key\` header.
 
 ## Endpoints
 
-### POST /agents
+### POST /v1/agents
 Register a new AI agent and receive an API key.
 
 \`\`\`
-curl -X POST https://api.proxybase.xyz/agents
+curl -X POST https://api.proxybase.xyz/v1/agents
 \`\`\`
 
 Response:
@@ -34,11 +34,11 @@ Response:
 
 ---
 
-### GET /packages
+### GET /v1/packages
 List available proxy bandwidth packages.
 
 \`\`\`
-curl https://api.proxybase.xyz/packages -H "X-API-Key: pk_YOUR_KEY"
+curl https://api.proxybase.xyz/v1/packages -H "X-API-Key: pk_YOUR_KEY"
 \`\`\`
 
 Packages:
@@ -50,11 +50,11 @@ Packages:
 
 ---
 
-### GET /currencies
+### GET /v1/currencies
 List available payment currencies for orders and top-ups.
 
 \`\`\`
-curl https://api.proxybase.xyz/currencies -H "X-API-Key: pk_YOUR_KEY"
+curl https://api.proxybase.xyz/v1/currencies -H "X-API-Key: pk_YOUR_KEY"
 \`\`\`
 
 Response:
@@ -66,11 +66,11 @@ Response:
 
 ---
 
-### POST /orders
+### POST /v1/orders
 Create a new proxy order with crypto payment.
 
 \`\`\`
-curl -X POST https://api.proxybase.xyz/orders \\
+curl -X POST https://api.proxybase.xyz/v1/orders \\
   -H "X-API-Key: pk_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{"package_id":"us_residential_1gb","pay_currency":"sol"}'
@@ -90,17 +90,17 @@ Response:
 \`\`\`
 
 Parameters:
-- package_id (required): Package ID from /packages
-- pay_currency (optional): Use GET /currencies for valid values (default: "usdttrc20")
+- package_id (required): Package ID from /v1/packages
+- pay_currency (optional): Use GET /v1/currencies for valid values (default: "usdttrc20")
 - callback_url (optional): Webhook URL for notifications
 
 ---
 
-### GET /orders/{order_id}/status
+### GET /v1/orders/{order_id}/status
 Poll order status. Returns proxy credentials when active.
 
 \`\`\`
-curl https://api.proxybase.xyz/orders/kQx7p3Wn/status \\
+curl https://api.proxybase.xyz/v1/orders/kQx7p3Wn/status \\
   -H "X-API-Key: pk_YOUR_KEY"
 \`\`\`
 
@@ -126,11 +126,11 @@ Status flow: payment_pending → confirming → paid → proxy_active → bandwi
 
 ---
 
-### POST /orders/{order_id}/topup
+### POST /v1/orders/{order_id}/topup
 Add bandwidth to an existing proxy. Same credentials, more bandwidth.
 
 \`\`\`
-curl -X POST https://api.proxybase.xyz/orders/kQx7p3Wn/topup \\
+curl -X POST https://api.proxybase.xyz/v1/orders/kQx7p3Wn/topup \\
   -H "X-API-Key: pk_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{"package_id":"us_residential_1gb"}'
@@ -138,15 +138,35 @@ curl -X POST https://api.proxybase.xyz/orders/kQx7p3Wn/topup \\
 
 ---
 
+### POST /v1/orders/{order_id}/rotate
+Rotate the proxy to get a fresh IP address. Only works on active proxies.
+
+\`\`\`
+curl -X POST https://api.proxybase.xyz/v1/orders/kQx7p3Wn/rotate \\
+  -H "X-API-Key: pk_YOUR_KEY"
+\`\`\`
+
+Response:
+\`\`\`json
+{
+  "order_id": "kQx7p3Wn",
+  "message": "Proxy rotated successfully. You will receive a fresh IP on your next connection.",
+  "rotated": true
+}
+\`\`\`
+
+---
+
 ## Quick Start
 
-1. Register:  curl -X POST https://api.proxybase.xyz/agents
-2. List:      curl https://api.proxybase.xyz/packages -H "X-API-Key: pk_..."
-3. Currencies: curl https://api.proxybase.xyz/currencies -H "X-API-Key: pk_..."
-4. Order:     curl -X POST https://api.proxybase.xyz/orders -H "X-API-Key: pk_..." -d '{"package_id":"us_residential_1gb"}'
+1. Register:  curl -X POST https://api.proxybase.xyz/v1/agents
+2. List:      curl https://api.proxybase.xyz/v1/packages -H "X-API-Key: pk_..."
+3. Currencies: curl https://api.proxybase.xyz/v1/currencies -H "X-API-Key: pk_..."
+4. Order:     curl -X POST https://api.proxybase.xyz/v1/orders -H "X-API-Key: pk_..." -d '{"package_id":"us_residential_1gb"}'
 5. Pay the crypto address returned in step 4
-6. Poll:      curl https://api.proxybase.xyz/orders/{id}/status -H "X-API-Key: pk_..."
+6. Poll:      curl https://api.proxybase.xyz/v1/orders/{id}/status -H "X-API-Key: pk_..."
 7. Connect:   socks5://username:password@api.proxybase.xyz:1080
+8. Rotate:    curl -X POST https://api.proxybase.xyz/v1/orders/{id}/rotate -H "X-API-Key: pk_..."
 
 ## MCP Server
 
@@ -163,7 +183,7 @@ Add to your MCP client config:
 }
 \`\`\`
 
-Tools: register_agent, list_packages, list_currencies, create_order, check_order_status, topup_order
+Tools: register_agent, list_packages, list_currencies, create_order, check_order_status, topup_order, rotate_proxy
 `;
 
 // Non-browser user agents that should receive markdown

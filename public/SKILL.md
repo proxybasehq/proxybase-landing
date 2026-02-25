@@ -9,21 +9,21 @@ ProxyBase provides SOCKS5 proxy infrastructure for AI agents via a REST API.
 ## Base URL
 
 ```
-https://api.proxybase.xyz
+https://api.proxybase.xyz/v1
 ```
 
 SOCKS5 endpoint: `api.proxybase.xyz:1080`
 
 ## Authentication
 
-All endpoints except `/agents` require the `X-API-Key` header with a key starting with `pk_`.
+All endpoints except `/v1/agents` require the `X-API-Key` header with a key starting with `pk_`.
 
 ## Workflow
 
 ### Step 1: Register Agent
 
 ```bash
-curl -X POST https://api.proxybase.xyz/agents
+curl -X POST https://api.proxybase.xyz/v1/agents
 ```
 
 Save the returned `api_key`. Use it in all subsequent requests.
@@ -31,7 +31,7 @@ Save the returned `api_key`. Use it in all subsequent requests.
 ### Step 2: List Available Packages
 
 ```bash
-curl https://api.proxybase.xyz/packages \
+curl https://api.proxybase.xyz/v1/packages \
   -H "X-API-Key: pk_YOUR_KEY"
 ```
 
@@ -45,7 +45,7 @@ Available packages:
 ### Step 3: List Available Currencies
 
 ```bash
-curl https://api.proxybase.xyz/currencies \
+curl https://api.proxybase.xyz/v1/currencies \
   -H "X-API-Key: pk_YOUR_KEY"
 ```
 
@@ -54,7 +54,7 @@ Returns the list of valid `pay_currency` values for orders and top-ups.
 ### Step 4: Create Order
 
 ```bash
-curl -X POST https://api.proxybase.xyz/orders \
+curl -X POST https://api.proxybase.xyz/v1/orders \
   -H "X-API-Key: pk_YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -65,7 +65,7 @@ curl -X POST https://api.proxybase.xyz/orders \
 
 Parameters:
 - `package_id` (required): ID from step 2
-- `pay_currency` (optional): Use `GET /currencies` for valid values (default: `usdttrc20`)
+- `pay_currency` (optional): Use `GET /v1/currencies` for valid values (default: `usdttrc20`)
 - `callback_url` (optional): URL to receive webhook notifications
 
 Returns `order_id`, `payment_id`, `pay_address`, `pay_amount`, and `status`.
@@ -77,7 +77,7 @@ Send the exact `pay_amount` in the specified `pay_currency` to the `pay_address`
 ### Step 6: Poll Order Status
 
 ```bash
-curl https://api.proxybase.xyz/orders/{order_id}/status \
+curl https://api.proxybase.xyz/v1/orders/{order_id}/status \
   -H "X-API-Key: pk_YOUR_KEY"
 ```
 
@@ -116,10 +116,28 @@ r = requests.get("https://example.com", proxies=proxies)
 When bandwidth runs low, add more without changing credentials:
 
 ```bash
-curl -X POST https://api.proxybase.xyz/orders/{order_id}/topup \
+curl -X POST https://api.proxybase.xyz/v1/orders/{order_id}/topup \
   -H "X-API-Key: pk_YOUR_KEY" \
   -H "Content-Type: application/json" \
   -d '{"package_id": "us_residential_1gb"}'
+```
+
+### Step 9: Rotate Proxy (Optional)
+
+Get a fresh IP address without changing your credentials:
+
+```bash
+curl -X POST https://api.proxybase.xyz/v1/orders/{order_id}/rotate \
+  -H "X-API-Key: pk_YOUR_KEY"
+```
+
+Response:
+```json
+{
+  "order_id": "kQx7p3Wn",
+  "message": "Proxy rotated successfully. You will receive a fresh IP on your next connection.",
+  "rotated": true
+}
 ```
 
 ## MCP Server
@@ -138,7 +156,7 @@ For AI assistants (Claude, Cursor, etc.), use the MCP server:
 
 Download: https://github.com/proxybasehq/proxybase-mcp/releases
 
-Tools: `register_agent`, `list_packages`, `list_currencies`, `create_order`, `check_order_status`, `topup_order`
+Tools: `register_agent`, `list_packages`, `list_currencies`, `create_order`, `check_order_status`, `topup_order`, `rotate_proxy`
 
 ## Important Notes
 

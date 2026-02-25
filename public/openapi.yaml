@@ -4,8 +4,8 @@ info:
   version: 1.0.0
   description: API for creating and managing programmatic SOCKS5 proxy orders via cryptocurrency payments.
 servers:
-  - url: https://api.proxybase.xyz
-    description: Production Environment
+  - url: https://api.proxybase.xyz/v1
+    description: Production Environment (v1)
 
 components:
   securitySchemes:
@@ -242,3 +242,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CreateOrderResponse'
+
+  /orders/{order_id}/rotate:
+    post:
+      summary: Rotate Proxy
+      description: Rotate the proxy to get a fresh IP address. Calls the upstream partner's reset endpoint to invalidate the current session. Only works on orders with proxy_active status.
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: order_id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Proxy rotated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  order_id:
+                    type: string
+                  message:
+                    type: string
+                  rotated:
+                    type: boolean

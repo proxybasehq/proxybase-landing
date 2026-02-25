@@ -126,14 +126,14 @@ function Hero() {
               </div>
               <div className="terminal-line">
                 <span className="terminal-prompt">$ </span>
-                curl -X POST https://api.proxybase.xyz/agents
+                curl -X POST https://api.proxybase.xyz/v1/agents
               </div>
               <div className="terminal-line">
                 <span className="terminal-comment"># 2. Get supported currencies</span>
               </div>
               <div className="terminal-line">
                 <span className="terminal-prompt">$ </span>
-                curl https://api.proxybase.xyz/currencies \
+                curl https://api.proxybase.xyz/v1/currencies \
               </div>
               <div className="terminal-line">
                 {"  "}-H <span className="terminal-string">&quot;X-API-Key: pk_...&quot;</span>
@@ -143,7 +143,7 @@ function Hero() {
               </div>
               <div className="terminal-line">
                 <span className="terminal-prompt">$ </span>
-                curl -X POST https://api.proxybase.xyz/orders \
+                curl -X POST https://api.proxybase.xyz/v1/orders \
               </div>
               <div className="terminal-line">
                 {"  "}-H <span className="terminal-string">&quot;X-API-Key: pk_...&quot;</span> -d{" "}
@@ -173,22 +173,22 @@ function HowItWorks() {
     {
       icon: "🤖",
       title: "Register Agent",
-      desc: "POST /agents — get your API key instantly. No signups, no forms, no humans.",
+      desc: "POST /v1/agents — get your API key instantly. No signups, no forms, no humans.",
     },
     {
       icon: "📦",
       title: "Choose Package",
-      desc: "GET /packages — browse bandwidth packages with transparent per-GB pricing.",
+      desc: "GET /v1/packages — browse bandwidth packages with transparent per-GB pricing.",
     },
     {
       icon: "💰",
       title: "Pay with Crypto",
-      desc: "GET /currencies then POST /orders — select your preferred cryptocurrency to receive a payment address. Send BTC, ETH, SOL, or USDT.",
+      desc: "GET /v1/currencies then POST /v1/orders — select your preferred cryptocurrency to receive a payment address. Send BTC, ETH, SOL, or USDT.",
     },
     {
       icon: "🔌",
       title: "Use Your Proxy",
-      desc: "Poll /orders/{id}/status — once confirmed, connect via SOCKS5 with your credentials.",
+      desc: "Poll /v1/orders/{id}/status — once confirmed, connect via SOCKS5 with your credentials.",
     },
   ];
 
@@ -317,11 +317,11 @@ function ApiDocs() {
   const endpoints = [
     {
       method: "POST",
-      path: "/agents",
+      path: "/v1/agents",
       title: "Register Agent",
       desc: "Register a new AI agent and receive an API key. This is the first step — all other endpoints require authentication via X-API-Key header.",
       params: [],
-      curlExample: `curl -X POST https://api.proxybase.xyz/agents`,
+      curlExample: `curl -X POST https://api.proxybase.xyz/v1/agents`,
       responseExample: `{
   "agent_id": "6xAMqAGN",
   "api_key": "pk_c8c91c8a0e5b3e2c..."
@@ -329,12 +329,12 @@ function ApiDocs() {
     },
     {
       method: "GET",
-      path: "/packages",
+      path: "/v1/packages",
       title: "List Packages",
       desc: "List all available proxy bandwidth packages with transparent pricing. Returns package IDs needed for order creation.",
       params: [],
       headers: true,
-      curlExample: `curl https://api.proxybase.xyz/packages \\
+      curlExample: `curl https://api.proxybase.xyz/v1/packages \\
   -H "X-API-Key: pk_YOUR_KEY"`,
       responseExample: `[
   {
@@ -349,12 +349,12 @@ function ApiDocs() {
     },
     {
       method: "GET",
-      path: "/currencies",
+      path: "/v1/currencies",
       title: "List Currencies",
       desc: "List all available payment currencies (cryptocurrencies) that can be used for the pay_currency field when creating an order or topping up. Call this before creating an order to know which values are valid.",
       params: [],
       headers: true,
-      curlExample: `curl https://api.proxybase.xyz/currencies \\\\
+      curlExample: `curl https://api.proxybase.xyz/v1/currencies \\\\
   -H "X-API-Key: pk_YOUR_KEY"`,
       responseExample: `{
   "currencies": ["btc", "eth", "sol", "usdttrc20", "ltc", ...]
@@ -362,7 +362,7 @@ function ApiDocs() {
     },
     {
       method: "POST",
-      path: "/orders",
+      path: "/v1/orders",
       title: "Create Order",
       desc: "Purchase a proxy package. Creates a crypto payment invoice. Once the payment confirms on-chain, your SOCKS5 proxy credentials are provisioned automatically.",
       params: [
@@ -370,12 +370,12 @@ function ApiDocs() {
         {
           name: "pay_currency",
           required: false,
-          desc: 'Crypto to pay with (default: "usdttrc20"). Use GET /currencies for valid values',
+          desc: 'Crypto to pay with (default: "usdttrc20"). Use GET /v1/currencies for valid values',
         },
         { name: "callback_url", required: false, desc: "Webhook URL for status notifications" },
       ],
       headers: true,
-      curlExample: `curl -X POST https://api.proxybase.xyz/orders \\
+      curlExample: `curl -X POST https://api.proxybase.xyz/v1/orders \\
   -H "X-API-Key: pk_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{"package_id":"us_residential_1gb","pay_currency":"sol"}'`,
@@ -391,12 +391,12 @@ function ApiDocs() {
     },
     {
       method: "GET",
-      path: "/orders/{order_id}/status",
+      path: "/v1/orders/{order_id}/status",
       title: "Check Order Status",
       desc: 'Poll the order status. Once status is "proxy_active", the response includes your SOCKS5 credentials (host, port, username, password). Status progression: payment_pending → confirming → paid → proxy_active → bandwidth_exhausted.',
       params: [],
       headers: true,
-      curlExample: `curl https://api.proxybase.xyz/orders/kQx7p3Wn/status \\
+      curlExample: `curl https://api.proxybase.xyz/v1/orders/kQx7p3Wn/status \\
   -H "X-API-Key: pk_YOUR_KEY"`,
       responseExample: `{
   "order_id": "kQx7p3Wn",
@@ -415,15 +415,15 @@ function ApiDocs() {
     },
     {
       method: "POST",
-      path: "/orders/{order_id}/topup",
+      path: "/v1/orders/{order_id}/topup",
       title: "Top Up Order",
       desc: "Add more bandwidth to an existing order. Your proxy credentials stay the same — only the bandwidth allowance increases. Works on active or exhausted proxies.",
       params: [
         { name: "package_id", required: true, desc: "Bandwidth package to add" },
-        { name: "pay_currency", required: false, desc: 'Crypto to pay with. Use GET /currencies for valid values (default: "usdttrc20")' },
+        { name: "pay_currency", required: false, desc: 'Crypto to pay with. Use GET /v1/currencies for valid values (default: "usdttrc20")' },
       ],
       headers: true,
-      curlExample: `curl -X POST https://api.proxybase.xyz/orders/kQx7p3Wn/topup \\
+      curlExample: `curl -X POST https://api.proxybase.xyz/v1/orders/kQx7p3Wn/topup \\
   -H "X-API-Key: pk_YOUR_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{"package_id":"us_residential_1gb"}'`,
@@ -438,6 +438,21 @@ function ApiDocs() {
   "status": "payment_pending"
 }`,
     },
+    {
+      method: "POST",
+      path: "/v1/orders/{order_id}/rotate",
+      title: "Rotate Proxy",
+      desc: "Rotate the proxy to get a fresh IP address. Calls the upstream partner to invalidate the current session. Only works on orders with proxy_active status. Your next SOCKS5 connection will use a new IP.",
+      params: [],
+      headers: true,
+      curlExample: `curl -X POST https://api.proxybase.xyz/v1/orders/kQx7p3Wn/rotate \\
+  -H "X-API-Key: pk_YOUR_KEY"`,
+      responseExample: `{
+  "order_id": "kQx7p3Wn",
+  "message": "Proxy rotated successfully. You will receive a fresh IP on your next connection.",
+  "rotated": true
+}`,
+    },
   ];
 
   return (
@@ -447,7 +462,7 @@ function ApiDocs() {
           <span className="section-label">API Reference</span>
           <h2 className="section-title">REST API Documentation</h2>
           <p className="section-desc">
-            Base URL: <code style={{ fontFamily: "'JetBrains Mono', monospace", color: "var(--accent-primary)" }}>https://api.proxybase.xyz</code>
+            Base URL: <code style={{ fontFamily: "'JetBrains Mono', monospace", color: "var(--accent-primary)" }}>https://api.proxybase.xyz/v1</code>
             <br />
             Authentication: <code style={{ fontFamily: "'JetBrains Mono', monospace", color: "var(--accent-primary)" }}>X-API-Key</code> header
           </p>
@@ -564,7 +579,7 @@ function McpSection() {
 
         <div className="mcp-grid">
           <div className="mcp-text">
-            <h3>One Binary, Six Tools</h3>
+            <h3>One Binary, Seven Tools</h3>
             <p>
               The ProxyBase MCP server exposes the entire proxy lifecycle as
               tools. Download the binary, point it at your MCP client, and your
@@ -577,6 +592,7 @@ function McpSection() {
               <li>create_order — Generate a crypto payment invoice</li>
               <li>check_order_status — Poll until proxy is active</li>
               <li>topup_order — Add bandwidth without new credentials</li>
+              <li>rotate_proxy — Get a fresh IP on your next connection</li>
             </ul>
             <a
               href="https://github.com/proxybasehq/proxybase-mcp"
