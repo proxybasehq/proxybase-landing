@@ -100,7 +100,7 @@ export default function OpenClawPage() {
                         <p>- Price: $10.00 USD<br />
                             - Send exactly: 13.929377 USDT (TRC20)<br />
                             - To address: <code>TVZytxrpRRnMMgHSRiFVeswwTE3fD4cNUS</code><br />
-                            - Expires: ~05:50 UTC (about 11 minutes from now)</p>
+                            - Expires: ~05:50 PT (about 11 minutes from now)</p>
                         <p>Once you've sent the payment, let me know and I'll poll for confirmation. Or if you want, I can set up automatic polling right now...</p>
                     </div>
                     <div className="message user">
@@ -112,7 +112,7 @@ export default function OpenClawPage() {
                         <p>- Price: $10.00 USD<br />
                             - Send exactly: 10.630188 USDC (SOL)<br />
                             - To address: <code>8V4gDs1bNM8qbp4gskMM8V3qCC4HxR8PhwJXCmPqMnvM</code><br />
-                            - Expires: ~05:51 UTC (about 10 minutes)<br />
+                            - Expires: ~05:51 PT(about 10 minutes)<br />
                             - Order ID: <code>W6z16paP</code></p>
                         <p>Let me know once you've sent the payment and I'll check the status!</p>
                     </div>
@@ -137,8 +137,8 @@ export default function OpenClawPage() {
                     </div>
                     <div className="message ai">
                         <p>Working perfectly! ✅</p>
-                        <p>- Your real IP: 89.167.79.98<br />
-                            - Proxied IP: 172.56.219.95 (US residential)</p>
+                        <p>- Your real IP: 89.167.**.**<br />
+                            - Proxied IP: 172.56.**.** (US residential)</p>
                         <p>Two different IPs — the proxy is routing traffic through a US residential address as expected. You're good to go! 🚀</p>
                     </div>
                     <div className="message user">
