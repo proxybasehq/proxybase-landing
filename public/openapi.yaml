@@ -57,7 +57,7 @@ components:
           type: array
           items:
             type: string
-          example: ["usdttrc20", "btc", "eth", "sol"]
+          example: ["usdcsol", "btc", "eth", "sol"]
 
     CreateOrderRequest:
       type: object
@@ -69,7 +69,7 @@ components:
           description: The package ID to purchase
         pay_currency:
           type: string
-          description: Cryptocurrency to pay with. Defaults to 'usdttrc20'.
+          description: Cryptocurrency to pay with. Defaults to 'usdcsol'.
         callback_url:
           type: string
           description: Optional webhook URL to receive status notifications
@@ -107,7 +107,7 @@ components:
           description: The bandwidth package to add
         pay_currency:
           type: string
-          description: Cryptocurrency to pay with. Defaults to 'usdttrc20'.
+          description: Cryptocurrency to pay with. Defaults to 'usdcsol'.
 
     OrderStatusResponse:
       type: object

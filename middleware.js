@@ -60,7 +60,7 @@ curl https://api.proxybase.xyz/v1/currencies -H "X-API-Key: pk_YOUR_KEY"
 Response:
 \`\`\`json
 {
-  "currencies": ["btc", "eth", "sol", "usdttrc20", "ltc", ...]
+  "currencies": ["btc", "eth", "sol", "usdcsol", "ltc", ...]
 }
 \`\`\`
 
@@ -91,7 +91,7 @@ Response:
 
 Parameters:
 - package_id (required): Package ID from /v1/packages
-- pay_currency (optional): Use GET /v1/currencies for valid values (default: "usdttrc20")
+- pay_currency (optional): Use GET /v1/currencies for valid values (default: "usdcsol")
 - callback_url (optional): Webhook URL for notifications
 
 ---

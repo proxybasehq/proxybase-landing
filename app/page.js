@@ -379,7 +379,7 @@ function ApiDocs() {
       curlExample: `curl https://api.proxybase.xyz/v1/currencies \\\\
   -H "X-API-Key: pk_YOUR_KEY"`,
       responseExample: `{
-  "currencies": ["btc", "eth", "sol", "usdttrc20", "ltc", ...]
+  "currencies": ["btc", "eth", "sol", "usdcsol", "ltc", ...]
 }`,
     },
     {
@@ -392,7 +392,7 @@ function ApiDocs() {
         {
           name: "pay_currency",
           required: false,
-          desc: 'Crypto to pay with (default: "usdttrc20"). Use GET /v1/currencies for valid values',
+          desc: 'Crypto to pay with (default: "usdcsol"). Use GET /v1/currencies for valid values',
         },
         { name: "callback_url", required: false, desc: "Webhook URL for status notifications" },
       ],
@@ -442,7 +442,7 @@ function ApiDocs() {
       desc: "Add more bandwidth to an existing order. Your proxy credentials stay the same — only the bandwidth allowance increases. Works on active or exhausted proxies.",
       params: [
         { name: "package_id", required: true, desc: "Bandwidth package to add" },
-        { name: "pay_currency", required: false, desc: 'Crypto to pay with. Use GET /v1/currencies for valid values (default: "usdttrc20")' },
+        { name: "pay_currency", required: false, desc: 'Crypto to pay with. Use GET /v1/currencies for valid values (default: "usdcsol")' },
       ],
       headers: true,
       curlExample: `curl -X POST https://api.proxybase.xyz/v1/orders/kQx7p3Wn/topup \\
@@ -453,7 +453,7 @@ function ApiDocs() {
   "order_id": "kQx7p3Wn",
   "topup_payment_id": "5832461999",
   "pay_address": "TXyz...",
-  "pay_currency": "usdttrc20",
+  "pay_currency": "usdcsol",
   "pay_amount": 10.15,
   "additional_bandwidth_bytes": 1073741824,
   "additional_price_usd": 10.00,

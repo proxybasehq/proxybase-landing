@@ -59,13 +59,13 @@ curl -X POST https://api.proxybase.xyz/v1/orders \
   -H "Content-Type: application/json" \
   -d '{
     "package_id": "us_residential_1gb",
-    "pay_currency": "usdttrc20"
+    "pay_currency": "usdcsol"
   }'
 ```
 
 Parameters:
 - `package_id` (required): ID from step 2
-- `pay_currency` (optional): Use `GET /v1/currencies` for valid values (default: `usdttrc20`)
+- `pay_currency` (optional): Use `GET /v1/currencies` for valid values (default: `usdcsol`)
 - `callback_url` (optional): URL to receive webhook notifications
 
 Returns `order_id`, `payment_id`, `pay_address`, `pay_amount`, and `status`.
