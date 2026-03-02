@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 export default function Home() {
   const jsonLd = {
@@ -37,58 +39,6 @@ export default function Home() {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   NAVBAR
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  return (
-    <nav className="navbar" role="navigation">
-      <div className="navbar-inner">
-        <a href="#" className="logo" data-umami-event="Nav: Logo Click">
-          <img src="/logo.svg" alt="ProxyBase" className="logo-icon" />
-          ProxyBase
-        </a>
-
-        {/* Desktop Links */}
-        <ul className="nav-links">
-          <li><a href="#how-it-works" data-umami-event="Nav: How It Works">How It Works</a></li>
-          <li><a href="#pricing" data-umami-event="Nav: Pricing">Pricing</a></li>
-          <li><a href="#api" data-umami-event="Nav: API Docs">API Docs</a></li>
-          <li><a href="#mcp" data-umami-event="Nav: MCP">MCP</a></li>
-          <li><a href="#faq" data-umami-event="Nav: FAQ">FAQ</a></li>
-        </ul>
-        <a href="#api" className="nav-cta" data-umami-event="Nav: Get API Key CTA">Get API Key →</a>
-
-        {/* Mobile Hamburger Toggle */}
-        <button
-          className={`mobile-menu-btn ${mobileMenuOpen ? 'active' : ''}`}
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle navigation menu"
-          data-umami-event="Mobile Nav: Toggle Menu"
-        >
-          <span className="hamburger-box">
-            <span className="hamburger-inner"></span>
-          </span>
-        </button>
-      </div>
-
-      {/* Mobile Menu Panel */}
-      <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
-        <ul className="mobile-nav-links">
-          <li><a href="#how-it-works" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: How It Works">How It Works</a></li>
-          <li><a href="#pricing" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Pricing">Pricing</a></li>
-          <li><a href="#api" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: API Docs">API Docs</a></li>
-          <li><a href="#mcp" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: MCP">MCP</a></li>
-          <li><a href="#faq" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: FAQ">FAQ</a></li>
-        </ul>
-        <a href="#api" className="mobile-nav-cta" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Get API Key CTA">Get API Key →</a>
-      </div>
-    </nav>
-  );
-}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    HERO
@@ -762,39 +712,3 @@ function Faq() {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-function Footer() {
-  return (
-    <footer className="footer">
-      <div className="footer-inner">
-        <div className="footer-brand">
-          <img src="/logo.svg" alt="ProxyBase" className="logo-icon" style={{ width: 24, height: 24 }} />
-          <span className="footer-text">
-            © {new Date().getFullYear()} ProxyBase. AI Infrastructure for Agents.
-          </span>
-        </div>
-        <ul className="footer-links">
-          <li>
-            <a href="#api" data-umami-event="Footer: API Docs">API Docs</a>
-          </li>
-          <li>
-            <a
-              href="https://github.com/proxybasehq/proxybase-mcp"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-umami-event="Footer: GitHub"
-            >
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a href="mailto:humanshere@proxybase.xyz" data-umami-event="Footer: Contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </footer>
-  );
-}

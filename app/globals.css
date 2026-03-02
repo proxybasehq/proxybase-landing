@@ -145,6 +145,24 @@ body {
   width: 100%;
 }
 
+.nav-links a.nav-glow-btn {
+  color: #fff;
+  background: var(--accent-gradient);
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+  transition: all var(--transition-fast);
+}
+
+.nav-links a.nav-glow-btn::after {
+  display: none;
+}
+
+.nav-links a.nav-glow-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.8);
+}
+
 /* Mobile Menu Button */
 .mobile-menu-btn {
   display: none;
@@ -1339,4 +1357,147 @@ body {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+/* =========================================================================
+   OPENCLAW PAGE
+   ========================================================================= */
+
+.openclaw-hero {
+  padding: 140px 24px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.openclaw-hero p {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto 40px;
+}
+
+.openclaw-hero .gradient-text {
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.openclaw-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-smooth);
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: var(--border-hover);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.openclaw-install {
+  max-width: 800px;
+  margin: 0 auto 100px;
+  padding: 0 24px;
+}
+
+.openclaw-install .terminal {
+  margin-top: 30px;
+}
+
+.chat-showcase {
+  max-width: 800px;
+  margin: 0 auto 100px;
+  padding: 0 24px;
+}
+
+.chat-container {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
+}
+
+.message {
+  max-width: 85%;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  position: relative;
+}
+
+.message.user {
+  background: var(--accent-gradient);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.message.ai {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  align-self: flex-start;
+  border: 1px solid var(--border-subtle);
+  border-bottom-left-radius: 4px;
+}
+
+.message p {
+  margin-bottom: 10px;
+}
+.message p:last-child {
+  margin-bottom: 0;
+}
+
+.message pre {
+  background: #0f172a;
+  color: #f1f5f9;
+  padding: 12px;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  margin: 10px 0;
+}
+
+.message code {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(0,0,0,0.05);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.message.user code {
+  background: rgba(255,255,255,0.2);
 }
