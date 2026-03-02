@@ -2,13 +2,28 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
-    title: "ProxyBase OpenClaw Skill — Unlock the Internet for Your AI",
-    description: "The easiest way to let your AI agents access the internet securely without getting blocked.",
+    title: "proxybase-openclaw-skill — Unlock the Internet for Your AI Agent",
+    description: "Install proxybase-openclaw-skill to securely grant your AI agents residential internet access. The easiest way to let your AI access the internet without getting blocked.",
+    keywords: "proxybase-openclaw-skill, openclaw, ai proxy, residential proxy for ai, openclaw skill",
 };
 
 export default function OpenClawPage() {
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "proxybase-openclaw-skill",
+        "operatingSystem": "All",
+        "applicationCategory": "DeveloperApplication",
+        "description": "Install proxybase-openclaw-skill to securely grant your AI agents residential internet access. The easiest way to let your AI access the internet without getting blocked.",
+        "url": "https://proxybase.xyz/openclaw",
+    };
+
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <Navbar />
 
             <section className="openclaw-hero">
@@ -16,9 +31,9 @@ export default function OpenClawPage() {
                     <span className="badge-dot" />
                     For Non-Technical Users
                 </div>
-                <h1 className="gradient-text">Unlock the Internet<br />for your AI</h1>
+                <h1 className="gradient-text">Master the<br />proxybase-openclaw-skill</h1>
                 <p>
-                    AI assistants are smart, but they get blocked when trying to read websites like Yahoo Finance or check local prices. ProxyBase gives your AI a "real human disguise" (a residential connection) so it can browse anywhere without getting stopped by security challenges.
+                    AI assistants are smart, but they get blocked when trying to read websites like Yahoo Finance or check local prices. The <strong>proxybase-openclaw-skill</strong> gives your AI a "real human disguise" (a residential connection) so it can browse anywhere without getting stopped by security challenges.
                 </p>
             </section>
 
@@ -43,8 +58,8 @@ export default function OpenClawPage() {
             <section className="openclaw-install" id="install">
                 <div className="section-header">
                     <span className="section-label">Installation</span>
-                    <h2 className="section-title">How To Install</h2>
-                    <p className="section-desc">Just one command to install the skill in your OpenClaw environment.</p>
+                    <h2 className="section-title">Install proxybase-openclaw-skill</h2>
+                    <p className="section-desc">Just one command to install the proxybase-openclaw-skill in your OpenClaw environment.</p>
                 </div>
 
                 <div className="terminal">

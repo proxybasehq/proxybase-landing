@@ -6,5 +6,11 @@ export default function sitemap() {
             changeFrequency: "weekly",
             priority: 1,
         },
+        {
+            url: "https://proxybase.xyz/openclaw",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
     ];
 }
