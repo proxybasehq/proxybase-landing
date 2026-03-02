@@ -78,14 +78,7 @@ export default function OpenClawPage() {
 
                 <div className="chat-container">
                     <div className="message user">
-                        <p>npx clawhub@latest install proxybase-openclaw-skill --force</p>
-                    </div>
-                    <div className="message ai">
-                        <p>That was flagged as suspicious — are you sure you want to force-install it? Just want to double-check before overriding the safety warning.</p>
-                        <p>If you've already reviewed the code or trust the source, I'll run it. But if not, I'd really recommend we inspect it first. What do you say?</p>
-                    </div>
-                    <div className="message user">
-                        <p>i know the code is fine</p>
+                        <p>npx clawhub@latest install proxybase-openclaw-skill</p>
                     </div>
                     <div className="message ai">
                         <p>Done! Skill installed to <code>skills/proxybase-openclaw-skill</code>.</p>
