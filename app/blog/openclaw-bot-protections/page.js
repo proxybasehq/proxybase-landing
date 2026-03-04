@@ -102,9 +102,9 @@ export default function OpenClawBotProtections() {
                             <strong>The immediate solution:</strong> Use the dedicated ProxyBase skill for OpenClaw. You can install it directly via the ClawHub registry:
                         </p>
 
-                        <div style={{ background: "#111", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px", padding: "1.2rem", marginBottom: "2.5rem", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.95rem" }}>
-                            <span style={{ color: "#888", userSelect: "none", marginRight: "12px" }}>$</span>
-                            <span style={{ color: "var(--text-primary)" }}>clawhub install proxybase</span>
+                        <div style={{ background: "rgba(0, 0, 0, 0.4)", border: "1px solid rgba(6, 214, 160, 0.3)", borderRadius: "8px", padding: "1.2rem", marginBottom: "2.5rem", fontFamily: "'JetBrains Mono', monospace", fontSize: "1.05rem", color: "#fff", display: "flex", alignItems: "center" }}>
+                            <span style={{ color: "var(--accent-primary)", userSelect: "none", marginRight: "12px", fontWeight: "bold" }}>$</span>
+                            <span style={{ color: "#ffffff", fontWeight: "500", letterSpacing: "0.5px" }}>npx clawhub@latest install <span style={{ color: "var(--accent-primary)" }}>proxybase-openclaw-skill</span></span>
                         </div>
 
                         <p style={{ marginBottom: "2.5rem" }}>
