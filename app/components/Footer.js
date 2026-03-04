@@ -12,6 +12,9 @@ export default function Footer() {
                 </div>
                 <ul className="footer-links">
                     <li>
+                        <Link href="/blog" data-umami-event="Footer: Blog">Blog</Link>
+                    </li>
+                    <li>
                         <Link href="/terms" data-umami-event="Footer: Terms">Terms</Link>
                     </li>
                     <li>
