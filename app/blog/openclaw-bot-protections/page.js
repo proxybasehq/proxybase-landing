@@ -44,80 +44,87 @@ export default function OpenClawBotProtections() {
                     <div className="blog-content" style={{ color: "var(--text-secondary)", lineHeight: "1.8", fontSize: "1.1rem" }}>
 
                         <p style={{ marginBottom: "1.5rem" }}>
-                            I’ve been trying to use OpenClaw for scraping protected sites lately, and let me tell you, the out-of-the-box <code className="inline-code">web_fetch</code> is basically useless for anything remotely secure. There is no native proxy support, no fingerprint management, and if you touch anything sitting behind Cloudflare, you’re getting blocked in minutes.
+                            If you’ve been building autonomous agents recently, you already know the pain of sending an AI into the wild internet. You fire up your OpenClaw setup, tell it to scrape data from a target, and watch in despair as the built-in <code className="inline-code">web_fetch</code> gets instantly stonewalled by Cloudflare or DataDome.
                         </p>
 
                         <p style={{ marginBottom: "2.5rem" }}>
-                            I spent a grueling couple of weeks figuring out what actually works, so here’s where I ultimately landed. Consider this the first in a deep dive series on getting AI agents to actually browse the web like humans.
+                            Out of the box, standard scraping on modern agentic frameworks is deeply flawed. No fingerprint obfuscation, no proxy injection, zero JS rendering in primitive fetches. After weeks of banging my head against enterprise WAFs (Web Application Firewalls), I want to share a concrete breakdown of what anti-bot engines check for today—and how I finally got my swarm past them.
                         </p>
 
-                        <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>Why Out-of-the-box OpenClaw Fails</h3>
-                        <p style={{ marginBottom: "1rem" }}>The problem is three-fold:</p>
+                        <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>The Three Pillars of WAF Rejection</h3>
+                        <p style={{ marginBottom: "1rem" }}>When your agent clicks a link, the defense systems aren't just looking at what it asks for; they dissect <em>how</em> it asks.</p>
                         <ul style={{ listStyleType: "decimal", paddingLeft: "1.5rem", marginBottom: "2.5rem" }}>
                             <li style={{ marginBottom: "0.8rem" }}>
-                                <strong style={{ color: "var(--text-primary)" }}>IP Reputation:</strong> <code className="inline-code">web_fetch</code> just fires off from wherever your OpenClaw gateway is running. If you're running it on a VPS, the target site immediately flags the datacenter IP.
+                                <strong style={{ color: "var(--text-primary)" }}>The ASN Trap (Datacenter IPs):</strong> If your agent runs on AWS, DigitalOcean, or Hetzner, your request is dead before the TLS handshake finishes. The IP's Autonomous System Number screams "Server!" instead of "Consumer device!"
                             </li>
                             <li style={{ marginBottom: "0.8rem" }}>
-                                <strong style={{ color: "var(--text-primary)" }}>Fingerprinting:</strong> The HTTP client’s TLS fingerprint looks exactly like what it is—an automation tool. WAFs like Akamai and DataDome use JA3/JA4 fingerprinting and instantly spot the discrepancy between what your agent claims to be (a normal browser) and how it’s actually shaking hands with the server.
+                                <strong style={{ color: "var(--text-primary)" }}>JA3 / JA4 Fingerprinting mismatches:</strong> The underlying HTTP client creates a unique mathematical signature during the TLS negotiation. If the user-agent header claims to be Chrome on macOS, but the JA4 fingerprint matches a Python Requests library (or Node's <code className="inline-code">undici</code>), WAFs auto-block you.
                             </li>
                             <li style={{ marginBottom: "0.8rem" }}>
-                                <strong style={{ color: "var(--text-primary)" }}>No JS Rendering:</strong> A lot of modern sites are just SPAs that need JavaScript to render. <code className="inline-code">web_fetch</code> just grabs the HTML shell.
+                                <strong style={{ color: "var(--text-primary)" }}>Empty Shells:</strong> Using primitive fetch tools ignores React/Vue hydration entirely, resulting in blank responses where the data requires a JS engine.
                             </li>
                         </ul>
 
-                        <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>The IP Progression (And Why Most Suck)</h3>
-                        <p style={{ marginBottom: "1.5rem" }}>For proxies, I went through the classic stages of grief:</p>
-
+                        <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>Finding IPs That Anti-Bots Can't Block</h3>
                         <p style={{ marginBottom: "1.5rem" }}>
-                            <strong style={{ color: "var(--text-primary)" }}>Datacenter IPs (AWS, GCP, Hetzner, etc.):</strong> Dead on arrival. Every anti-bot system has these subnets pre-flagged. You might get away with it for a few requests on a poorly secured site, but anything serious will hand you a 403 immediately.
+                            I went through a very expensive trial-and-error phase with proxy networks. First came standard Datacenter rotating pools, which failed predictably. Next, I switched to traditional "Residential" rotating networks. These performed somewhat better on mid-tier sites, but PerimeterX and DataDome still caught them because the packet signatures and agent behavioral cadences were completely unnatural.
                         </p>
 
                         <p style={{ marginBottom: "1.5rem" }}>
-                            <strong style={{ color: "var(--text-primary)" }}>Residential Rotating Proxies:</strong> These worked on moderately protected stuff, but they still got caught by DataDome or PerimeterX. The issue here is behavior—even with a "clean" home IP, the automated request patterns give it away.
+                            The golden bullet right now? <strong>Mobile Carrier Proxies routing through CGNAT.</strong>
                         </p>
 
                         <p style={{ marginBottom: "1.5rem" }}>
-                            <strong style={{ color: "var(--text-primary)" }}>Mobile Carrier Proxies:</strong> This is what finally worked consistently. Mobile IPs sit behind Carrier-Grade NAT (CGNAT), meaning thousands of real humans on their iPhones share the exact same IP pool. Anti-bot systems simply <i>can't</i> ban these IP addresses without inadvertently blocking massive chunks of legitimate mobile traffic. Plus, the TCP fingerprint from carrier infrastructure matches what mobile browsers actually look like, which helps immensely with the JA4 checks.
+                            Carrier-Grade NAT means that thousands of legitimate human mobile users on Verizon, AT&T, or T-Mobile share a tiny pool of public IPv4 addresses. Anti-bot logic dictates that blocking one of these IPs wipes out a huge chunk of legitimate mobile traffic. WAF vendors explicitly whitelist or dramatically lower threat scores for these ASNs. Furthermore, the TCP packet structures originating from carrier hardware align perfectly with authentic mobile browser behavior.
                         </p>
 
                         <p style={{ marginBottom: "1.5rem" }}>
-                            When you look at vendors, you hit a different wall. Companies like Bright Data have massive mobile pools, but their per-GB pricing is criminal when your agent needs to run all day and download large DOMs. Others like Oxylabs or SOAX are faster but hit you with the same pricing model. I briefly used some dedicated 5G modem providers (like Illusory)—which give you unlimited bandwidth per port—but the pools are tiny, usually US-only, and setting them up is a headache.
+                            However, traditional proxy cartels (like Oxylabs or Bright Data) punish you financially. When you're managing LLM agents that download megabytes of DOM structure over long sessions, their strict per-GB pricing models become unsustainable. At the other end of the spectrum, boutique 5G modem farms offer unmetered bandwidth but usually have terrible hardware uptime or force you to negotiate with humans on Telegram.
                         </p>
 
                         <div style={{ background: "rgba(6, 214, 160, 0.05)", borderLeft: "4px solid var(--accent-primary)", padding: "1.5rem", borderRadius: "0 8px 8px 0", margin: "2rem 0", fontStyle: "italic" }}>
                             <p style={{ margin: 0 }}>
-                                Side note: I eventually moved my agent infrastructure over to <Link href="/" style={{ color: "var(--accent-primary)", textDecoration: "none", fontWeight: "bold" }}>ProxyBase</Link> for this exact reason. Since they route via an API specifically built for AI swarms, my agents can just hit an endpoint, grab a high-trust mobile proxy, and pay for the exact bandwidth they need using crypto. It skips the massive corporate dashboards entirely.
+                                This gap is ultimately why <Link href="/" style={{ color: "var(--accent-primary)", textDecoration: "none", fontWeight: "bold" }}>ProxyBase</Link> shines for agentic workflows. Instead of haggling over bandwidth plans, your agents can spin up high-trust US mobile proxies dynamically. ProxyBase is 100% API-driven, which means an agent can request a route, fund its own data usage via crypto, and continue executing without you ever logging into a billing dashboard.
                             </p>
                         </div>
 
-                        <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>Fixing the OpenClaw Setup</h3>
+                        <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>Bypassing OpenClaw's Proxy Limitations</h3>
                         <p style={{ marginBottom: "1.5rem" }}>
-                            For the actual OpenClaw configuration, you absolutely have to drop raw HTTP and use a stealth browser.
+                            Acquiring a powerful proxy is only half the battle. If you've looked closely at OpenClaw's architecture, you'll notice a massive roadblock: injecting proxy credentials into the native tools remains a huge pain point.
                         </p>
                         <p style={{ marginBottom: "1.5rem" }}>
-                            Tools like <strong>Camoufox</strong> or <strong>Nodriver</strong> pass the JA4 checks where stock Playwright or Puppeteer get flagged instantly.
+                            First, you absolutely need to swap out raw HTTP for stealth orchestration. Environments like <strong>Camoufox</strong> or <strong>Nodriver</strong> are explicitly configured to randomize and pass strict JA4 checks, whereas out-of-the-box Puppeteer fails instantly.
                         </p>
                         <p style={{ marginBottom: "1.5rem" }}>
-                            The biggest headache right now is that there is <strong>no native proxy config in OpenClaw’s browser tool</strong>. Setting standard <code className="inline-code">HTTP_PROXY</code> env vars doesn't work either because <code className="inline-code">undici</code> (the underlying HTTP client) just ignores them. Issue #2102 on their repo has been open forever about this and was actually closed as "not planned." There is an open PR (#20578) that attempts to add native <code className="inline-code">browser.proxy</code> config with per-profile credential support, but until that gets merged, you have to get creative.
+                            But what about forcing the agent into the proxy? Setting global <code className="inline-code">HTTP_PROXY</code> environment variables doesn't work out of the box because <code className="inline-code">undici</code> ignores them natively. If you check GitHub, <a href="https://github.com/openclaw/openclaw/issues/2102" target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-primary)", textDecoration: "none" }}>Issue #2102</a> about global proxy support has been open indefinitely, and was recently closed as "not planned." The community is fighting back with <a href="https://github.com/openclaw/openclaw/pull/20578" target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-primary)", textDecoration: "none" }}>Pull Request #20578</a> aiming to add <code className="inline-code">browser.proxy</code> config with per-profile support, but we are still waiting on maintainers to merge it.
                         </p>
                         <p style={{ marginBottom: "2.5rem" }}>
-                            Your best bet right now is either using a managed service that handles the proxying for you (like Firecrawl), or doing what I do: running a local proxy client that the browser is forced to route through at the OS level.
+                            <strong>The immediate solution:</strong> Use the dedicated ProxyBase skill for OpenClaw. You can install it directly via the ClawHub registry:
                         </p>
 
-                        <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>A Surprising Tip on IP Rotation</h3>
+                        <div style={{ background: "#111", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px", padding: "1.2rem", marginBottom: "2.5rem", fontFamily: "'JetBrains Mono', monospace", fontSize: "0.95rem" }}>
+                            <span style={{ color: "#888", userSelect: "none", marginRight: "12px" }}>$</span>
+                            <span style={{ color: "var(--text-primary)" }}>clawhub install proxybase</span>
+                        </div>
+
+                        <p style={{ marginBottom: "2.5rem" }}>
+                            Once installed, your agent handles the entire lifecycle itself. It negotiates the payment invoice, waits for the proxy to activate, and injects the routing properties seamlessly across its execution environment. When a target bans an IP, the proxybase skill just rotates it automatically.
+                        </p>
+
+                        <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>The Anti-Bot "Session" Paradox</h3>
                         <p style={{ marginBottom: "1.5rem" }}>
-                            One thing that completely surprised me: <strong>Keeping the same IP for 5-10 minutes works way better than rotating on every single request.</strong>
+                            A major misconception in scraping is that you should rotate your IP on every single HTTP request. I found that <strong>holding the same IP across a 5-10 minute window drastically reduces blocks.</strong>
                         </p>
                         <p style={{ marginBottom: "2.5rem" }}>
-                            It sounds counterintuitive, but anti-bot systems track <i>sessions</i>. If you're constantly rotating IPs while trying to maintain cookies or session state, it actually looks <i>more</i> suspicious than just browsing stably from one IP. OpenClaw’s natural "thinking" time between actions actually helps here. The 2-to-5-second gaps between page loads mimic human hesitation, preventing behavioral flags without needing to code explicit <code className="inline-code">sleep()</code> delays.
+                            Modern defense suites track session continuation. If you load an index page on IP A, then request the CSS stylesheet on IP B, and the JSON payload on IP C, the WAF immediately nukes your session. Constant rotation looks far more malicious than a steady, slightly hesitant browsing flow. The natural "thinking" delay inside OpenClaw’s execution loops actually creates beautiful, human-like gaps (2–5 seconds) between loads, saving you from writing messy <code className="inline-code">await delay(...)</code> wrappers.
                         </p>
 
-                        <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>The Reality for All Agents</h3>
+                        <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>Final Thoughts for Agent Engineers</h3>
                         <p style={{ marginBottom: "1.5rem" }}>
-                            FWIW, this doesn't just apply to OpenClaw. If you're using LangChain, Browser Use, CrewAI, etc., you're going to hit the exact same wall. AI agents simply browse differently than humans and trigger detection at much higher rates. The proxy you use is basically your identity layer—it determines whether a site sees your agent as a suspicious piece of automation or just another normal user on their phone.
+                            These struggles aren't unique to OpenClaw. Whether you're wrangling LangChain, kicking off Browser Use, or structuring CrewAI, the fundamental identity problem remains the same. Your proxy is your identity layer. If you ignore it, you will fail.
                         </p>
                         <p style={{ marginBottom: "1.5rem" }}>
-                            Got questions about setting up stealth browsers or handling agent networking? Ask away. Happy Clawing.
+                            Quit fighting datacenter blocking on headless browsers. Give your AI a high-trust mobile proxy and let it traverse the internet like a real person.
                         </p>
 
                         <style jsx>{`
