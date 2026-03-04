@@ -24,5 +24,23 @@ export default function sitemap() {
             changeFrequency: "monthly",
             priority: 0.5,
         },
+        {
+            url: "https://proxybase.xyz/terms",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.5,
+        },
+        {
+            url: "https://proxybase.xyz/blog",
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/blog/openclaw-bot-protections",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
     ];
 }
