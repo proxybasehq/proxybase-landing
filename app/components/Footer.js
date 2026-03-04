@@ -33,6 +33,12 @@ export default function Footer() {
                     <li>
                         <a href="mailto:humanshere@proxybase.xyz" data-umami-event="Footer: Contact">Contact</a>
                     </li>
+                    <li>
+                        <a href="/SKILL.md" target="_blank" rel="noopener noreferrer" data-umami-event="Footer: SKILL.md">SKILL.md</a>
+                    </li>
+                    <li>
+                        <a href="/openapi.yaml" target="_blank" rel="noopener noreferrer" data-umami-event="Footer: OpenAPI">openapi.yaml</a>
+                    </li>
                 </ul>
             </div>
         </footer>
