@@ -86,6 +86,41 @@ export default function OpenClawPage() {
 
             <section className="chat-showcase">
                 <div className="section-header">
+                    <span className="section-label">Security First</span>
+                    <h2 className="section-title">Verified Safe by Security Experts</h2>
+                    <p className="section-desc">Because giving AI access to your terminal requires trust.</p>
+                </div>
+
+                <div style={{ maxWidth: "800px", margin: "0 auto", padding: "2rem", background: "rgba(6, 214, 160, 0.05)", border: "1px solid rgba(6, 214, 160, 0.2)", borderRadius: "12px", borderLeft: "4px solid var(--accent-primary)", textAlign: "left" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "1.5rem" }}>
+                        <div style={{ fontSize: "2rem" }}>🛡️</div>
+                        <div>
+                            <h3 style={{ margin: 0, fontSize: "1.2rem", color: "var(--text-primary)" }}>Independent Security Audit</h3>
+                            <div style={{ fontSize: "0.9rem", color: "var(--text-secondary)" }}>Target: <code style={{ color: "var(--accent-primary)", background: "rgba(6, 214, 160, 0.1)", padding: "2px 6px", borderRadius: "4px", fontSize: "0.85rem", marginLeft: "4px" }}>proxybase-openclaw-skill</code></div>
+                        </div>
+                    </div>
+
+                    <p style={{ color: "var(--text-secondary)", lineHeight: "1.7", marginBottom: "1.5rem", fontSize: "1.05rem" }}>
+                        "The ProxyBase skill bundle demonstrates a <strong>strong focus on security, particularly against shell injection and prompt injection</strong>. The underlying scripts implement comprehensive input validation for all critical inputs (API keys, order IDs, credentials), aggressively rejecting shell metacharacters and enforcing strict patterns.
+                    </p>
+                    <p style={{ color: "var(--text-secondary)", lineHeight: "1.7", marginBottom: "2rem", fontSize: "1.05rem" }}>
+                        Sensitive operations use single-quoted values to prevent shell expansion. The commands that modify system files include multiple safety checks, backups, and strict URL validation. <strong>No evidence of intentional malicious behavior</strong> (data exfiltration, backdoors) was found; all risky capabilities are heavily guarded and directly tied to proxy management."
+                    </p>
+
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "1px solid rgba(255, 255, 255, 0.1)", paddingTop: "1.5rem", marginTop: "1rem" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", color: "var(--text-secondary)", fontSize: "0.9rem" }}>
+                            <span style={{ display: "inline-block", width: "8px", height: "8px", borderRadius: "50%", background: "#28c840" }}></span>
+                            Zero detections across 60+ security vendors
+                        </div>
+                        <a href="https://www.virustotal.com/gui/file/6c7e3e86a7f5adebb9c8cc2223bc6e2fb6c784d28b9a56f0d8501b97f795ea36/detection" target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-primary)", textDecoration: "none", fontSize: "0.95rem", fontWeight: "600", display: "flex", alignItems: "center", gap: "6px" }}>
+                            View full VirusTotal Report →
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section className="chat-showcase">
+                <div className="section-header">
                     <span className="section-label">See It In Action</span>
                     <h2 className="section-title">Talk to Your AI</h2>
                     <p className="section-desc">Once installed, you can just talk to your AI naturally. Here's a real example of what that looks like.</p>
