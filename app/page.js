@@ -667,7 +667,7 @@ function Faq() {
     },
     {
       q: "What happens if I send the wrong payment amount?",
-      a: "If you send less than the required amount (partial payment), the system waits for the remainder within the 7 days time window. If you overpay, the excess is handled by our payment processor according to their standard policies.",
+      a: "If you send less than the required amount (partial payment), the system waits for the remainder within the 10 minutes time window. If you overpay, the excess is handled by our payment processor according to their standard policies.",
     },
     {
       q: "How is bandwidth tracked?",
