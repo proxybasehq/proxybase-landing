@@ -8,6 +8,14 @@ import Head from "next/head";
 export default function BlogIndex() {
     const posts = [
         {
+            title: "Why Your AI Agent Needs a Proxy",
+            excerpt: "An agent without a proxy isn't autonomous at all. Learn why cloud IPs fail, why stealth plugins aren't the answer, and what makes a proxy truly agent-ready.",
+            date: "March 2026",
+            readTime: "5 min read",
+            author: "Ross",
+            slug: "/blog/why-your-ai-agent-needs-a-proxy"
+        },
+        {
             title: "The Current State of OpenClaw and Bot Protections",
             excerpt: "A deep dive into why OpenClaw's web_fetch fails on protected sites, the progression of anti-bot IP blocking, and how to actually scrape with AI agents.",
             date: "March 2026",
