@@ -67,7 +67,7 @@ export default async function MppPage() {
                         <a href="https://mpp.dev" target="_blank" rel="noopener noreferrer" className="mpp-link">
                             MPP (Micropayments Protocol)
                         </a>
-                        . No accounts. No API keys. Just pay with <strong>pathUSD on Tempo</strong> and
+                        . No accounts. No API keys. Just pay with <strong>stable coins on Tempo</strong> and
                         get instant proxy credentials back.
                     </p>
                     <div className="mpp-hero-features">
@@ -78,7 +78,7 @@ export default async function MppPage() {
                             <span>🔐</span> No Account Required
                         </div>
                         <div className="mpp-feature-pill">
-                            <span>💸</span> Pay with pathUSD
+                            <span>💸</span> Pay with stable coins
                         </div>
                     </div>
                 </div>
@@ -114,7 +114,7 @@ export default async function MppPage() {
                             <div className="mpp-flow-content">
                                 <h3>Pay</h3>
                                 <p>
-                                    Your agent submits a <strong>pathUSD</strong> payment on Tempo matching the
+                                    Your agent submits a <strong>stable coins</strong> payment on Tempo matching the
                                     package price. The MPP client handles the payment flow automatically.
                                 </p>
                             </div>
@@ -325,7 +325,7 @@ console.log(data.proxy)
                                     <span>curl</span>
                                 </div>
                                 <pre><code>{`curl --socks5 pb_a1b2c3d4e5f6g7h8:9f8e7d6c@api.proxybase.xyz:1080 \\
-  https://httpbin.org/ip`}</code></pre>
+  https://lemontv.xyz/api/ip`}</code></pre>
                             </div>
                             <div className="mpp-code-block">
                                 <div className="mpp-code-header">
@@ -338,7 +338,7 @@ proxies = {
     "https": "socks5://pb_a1b2c3d4e5f6g7h8:9f8e7d6c@api.proxybase.xyz:1080",
 }
 
-r = requests.get("https://httpbin.org/ip", proxies=proxies)
+r = requests.get("https://lemontv.xyz/api/ip", proxies=proxies)
 print(r.json())`}</code></pre>
                             </div>
                             <div className="mpp-code-block">
@@ -351,7 +351,7 @@ const agent = new SocksProxyAgent(
   'socks5://pb_a1b2c3d4e5f6g7h8:9f8e7d6c@api.proxybase.xyz:1080'
 )
 
-const res = await fetch('https://httpbin.org/ip', { agent })
+const res = await fetch('https://lemontv.xyz/api/ip', { agent })
 console.log(await res.json())`}</code></pre>
                             </div>
                         </div>
