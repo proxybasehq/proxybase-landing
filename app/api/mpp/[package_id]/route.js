@@ -6,7 +6,7 @@ const AGENT_API_KEY = process.env.THIRD_PARTY_AGENT_API_KEY
 
 const mppx = Mppx.create({
   methods: [tempo({
-    currency: '0x20c0000000000000000000000000000000000000', // pathUSD on Tempo
+    currency: '0x20c000000000000000000000b9537d11c60e8b50', // usdC on Tempo
     recipient: '0x2a8dc787453c8e369770f4d6752E171A3e75A9b3',
   })],
 })

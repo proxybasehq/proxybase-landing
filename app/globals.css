@@ -1945,6 +1945,16 @@ body {
   flex-wrap: wrap;
 }
 
+.mpp-cta-actions .btn-secondary {
+  color: #f1f5f9;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.mpp-cta-actions .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
 /* Responsive */
 @media (max-width: 968px) {
   .mpp-packages-grid {

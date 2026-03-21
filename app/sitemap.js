@@ -13,6 +13,12 @@ export default function sitemap() {
             priority: 0.8,
         },
         {
+            url: "https://proxybase.xyz/mpp",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
             url: "https://proxybase.xyz/SKILL.md",
             lastModified: new Date(),
             changeFrequency: "monthly",
@@ -38,6 +44,12 @@ export default function sitemap() {
         },
         {
             url: "https://proxybase.xyz/blog/openclaw-bot-protections",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
+            url: "https://proxybase.xyz/blog/why-your-ai-agent-needs-a-proxy",
             lastModified: new Date(),
             changeFrequency: "monthly",
             priority: 0.8,
