@@ -8,6 +8,14 @@ import Head from "next/head";
 export default function BlogIndex() {
     const posts = [
         {
+            title: "What is ProxyBase MPP and Why Does it Matter?",
+            excerpt: "Machine-to-Machine Payment Protocols (MPP) change the web by letting software agents request access, pay automatically, and keep working without human help.",
+            date: "March 2026",
+            readTime: "4 min read",
+            author: "ProxyBase Team",
+            slug: "/blog/what-is-proxybase-mpp"
+        },
+        {
             title: "Why Your AI Agent Needs a Proxy",
             excerpt: "An agent without a proxy isn't autonomous at all. Learn why cloud IPs fail, why stealth plugins aren't the answer, and what makes a proxy truly agent-ready.",
             date: "March 2026",

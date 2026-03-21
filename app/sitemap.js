@@ -54,5 +54,11 @@ export default function sitemap() {
             changeFrequency: "monthly",
             priority: 0.8,
         },
+        {
+            url: "https://proxybase.xyz/blog/what-is-proxybase-mpp",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
     ];
 }
