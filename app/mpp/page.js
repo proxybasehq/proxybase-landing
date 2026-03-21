@@ -58,9 +58,9 @@ export default async function MppPage() {
                         Micropayments Protocol
                     </div>
                     <h1>
-                        <span className="gradient-text">Pay-per-Request</span>
+                        <span className="gradient-text">Get your Proxy Access</span>
                         <br />
-                        Proxy Access
+                        One Single Request
                     </h1>
                     <p className="mpp-hero-subtitle">
                         Purchase SOCKS5 proxy bandwidth with a single HTTP request using{" "}
