@@ -9,9 +9,8 @@ export async function GET(request) {
   }
 
   try {
-    // The fields=66846719 parameter ensures we get the exact same data format
-    // Proxying this request server-side avoids CORS and Mixed-Content (HTTP on HTTPS) errors.
-    const res = await fetch(`http://ip-api.com/json/${ip}?fields=66846719`, {
+    // Fetch all available fields to provide comprehensive whois data
+    const res = await fetch(`http://ip-api.com/json/${ip}?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query`, {
       headers: {
         'Accept': 'application/json',
         'User-Agent': 'ProxyBase-Whois-Aggregator/1.0'

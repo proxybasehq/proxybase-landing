@@ -18,13 +18,33 @@ const providers = [
       const data = await res.json();
       if (data.status === "fail") throw new Error(data.message || "Query failed");
 
-      return [
-        { label: "IP Address", value: data.query },
-        { label: "Location", value: `${data.city}, ${data.regionName}, ${data.country}` },
-        { label: "Coordinates", value: `${data.lat}, ${data.lon}` },
-        { label: "ISP / Org", value: data.isp },
-        { label: "ASN", value: data.as }
-      ];
+      const results = [];
+      if (data.query) results.push({ label: "IP Address", value: data.query });
+      if (data.reverse) results.push({ label: "Reverse DNS", value: data.reverse });
+      
+      const loc = [data.city, data.regionName, data.country].filter(Boolean).join(", ");
+      if (loc) results.push({ label: "Location", value: loc });
+      
+      if (data.district) results.push({ label: "District", value: data.district });
+      if (data.zip) results.push({ label: "Zip Code", value: data.zip });
+      if (data.lat && data.lon) results.push({ label: "Coordinates", value: `${data.lat}, ${data.lon}` });
+      if (data.timezone) results.push({ label: "Timezone", value: data.timezone });
+      if (data.currency) results.push({ label: "Currency", value: data.currency });
+      
+      if (data.isp) results.push({ label: "ISP", value: data.isp });
+      if (data.org && data.org !== data.isp) results.push({ label: "Organization", value: data.org });
+      if (data.as) results.push({ label: "ASN", value: data.as });
+      if (data.asname) results.push({ label: "AS Name", value: data.asname });
+
+      // Network flags
+      const flags = [];
+      if (data.mobile) flags.push("Mobile/Cellular");
+      if (data.proxy) flags.push("Proxy/VPN/Tor");
+      if (data.hosting) flags.push("Hosting/Data Center");
+      if (flags.length > 0) results.push({ label: "Network Type", value: flags.join(" • ") });
+      else results.push({ label: "Network Type", value: "Residential / Standard" });
+
+      return results;
     }
   }
 ];
