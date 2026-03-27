@@ -8,6 +8,14 @@ import Head from "next/head";
 export default function BlogIndex() {
     const posts = [
         {
+            title: "Why We Built an IP Whois Aggregator for AI Agents",
+            excerpt: "If your agent hits a block, it needs to know why. The IP Whois Aggregator gives agents real-time context on the networks they exit from.",
+            date: "March 2026",
+            readTime: "3 min read",
+            author: "Ross",
+            slug: "/blog/ip-whois-aggregator"
+        },
+        {
             title: "What is ProxyBase MPP and Why Does it Matter?",
             excerpt: "Machine-to-Machine Payment Protocols (MPP) change the web by letting software agents request access, pay automatically, and keep working without human help.",
             date: "March 2026",
