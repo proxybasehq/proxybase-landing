@@ -86,11 +86,6 @@ export async function GET(request) {
         if (title) flags.push(title);
     });
 
-    $('.privacy-pill').each((i, el) => {
-        const title = $(el).text().replace(/\s+/g, ' ').trim();
-        if (title) flags.push(title);
-    });
-
     if (flags.length > 0) {
         const uniqueFlags = [...new Set(flags)];
         results.push({ label: 'Network Type', value: uniqueFlags.join(' • ') });
