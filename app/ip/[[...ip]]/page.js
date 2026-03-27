@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import styles from "./ip.module.css";
+import { useState, useEffect, useRef } from "react";
+import { useParams, useRouter } from "next/navigation";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import styles from "../ip.module.css";
 
 // Provider registry allows easy extension in the future
 const providers = [
@@ -50,16 +51,42 @@ const providers = [
 ];
 
 export default function IpWhoisPage() {
-  const [ipInput, setIpInput] = useState("");
+  const params = useParams();
+  const router = useRouter();
+  
+  // [[...ip]] catch-all sets params.ip as an array. E.g. /ip/8.8.8.8 -> ["8.8.8.8"]
+  const urlIp = params?.ip?.[0] || ""; 
+  
+  const [ipInput, setIpInput] = useState(urlIp);
   const [results, setResults] = useState(null); // null means hasn't searched yet
   const [isSearching, setIsSearching] = useState(false);
+  
+  const lastSearchedIp = useRef("");
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!ipInput.trim()) return;
+  useEffect(() => {
+    // 1. If we have a URL IP and it differs from the last searched IP
+    if (urlIp && lastSearchedIp.current !== urlIp) {
+      lastSearchedIp.current = urlIp;
+      setIpInput(urlIp);
+      executeSearch(urlIp);
+    } 
+    // 2. If visiting just /ip, grab the user's IP to pre-populate
+    else if (!urlIp && !ipInput && lastSearchedIp.current === "") {
+      lastSearchedIp.current = "fetched_own"; // prevent re-fetching
+      fetch('https://api.ipify.org?format=json')
+        .then(res => res.json())
+        .then(data => {
+          if (data.ip) {
+            setIpInput(data.ip);
+          }
+        })
+        .catch(err => console.error("Failed to fetch own IP", err));
+    }
+  }, [urlIp, ipInput]);
 
+  const executeSearch = async (searchIp) => {
     setIsSearching(true);
-
+    
     // Initialize results state with loading for all providers
     const initialResults = {};
     providers.forEach(p => {
@@ -71,7 +98,7 @@ export default function IpWhoisPage() {
     await Promise.allSettled(
       providers.map(async (provider) => {
         try {
-          const data = await provider.fetchData(ipInput.trim());
+          const data = await provider.fetchData(searchIp);
           setResults(prev => ({
             ...prev,
             [provider.id]: { status: "success", data, error: null }
@@ -88,36 +115,50 @@ export default function IpWhoisPage() {
     setIsSearching(false);
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const cleanIp = ipInput.trim();
+    if (!cleanIp) return;
+    
+    // Changing the URL drives the search via the useEffect hook
+    if (cleanIp !== urlIp) {
+      router.push(`/ip/${cleanIp}`);
+    } else {
+      // Force search again if same IP clicked
+      executeSearch(cleanIp);
+    }
+  };
+
   return (
     <div className={styles.ipContainer}>
       <Navbar />
-
+      
       <main className={styles.mainContent}>
         <section className={styles.heroSection}>
           <div className="hero-bg">
             <div className="hero-grid" />
           </div>
-
+          
           <h1 className={styles.title}>
             IP Whois <span className={styles.gradientText}>Aggregator</span>
           </h1>
           <p className={styles.subtitle}>
-            Instantly query IP addresses across multiple data providers.
+            Instantly query IP addresses across multiple data providers. 
             Get location, ISP, and ASN data in one unified dashboard.
           </p>
-
+          
           <div className={styles.searchContainer}>
             <form onSubmit={handleSearch} className={styles.searchForm}>
-              <input
-                type="text"
+              <input 
+                type="text" 
                 value={ipInput}
                 onChange={(e) => setIpInput(e.target.value)}
                 placeholder="Enter IP address (e.g. 8.8.8.8)"
                 className={styles.searchInput}
                 required
               />
-              <button
-                type="submit"
+              <button 
+                type="submit" 
                 className={styles.searchButton}
                 disabled={isSearching}
               >
@@ -153,9 +194,9 @@ export default function IpWhoisPage() {
                       {result?.status === "loading" && (
                         <div className={styles.dataGrid}>
                           {[1, 2, 3].map(i => (
-                            <div key={i} className={styles.dataRow} style={{ opacity: 0.5 }}>
-                              <div className={styles.dataLabel} style={{ background: 'var(--border-subtle)', width: '30%', height: '12px', borderRadius: '4px' }}></div>
-                              <div className={styles.dataValue} style={{ background: 'var(--bg-secondary)', width: '70%', height: '20px', borderRadius: '4px' }}></div>
+                            <div key={i} className={styles.dataRow} style={{opacity: 0.5}}>
+                              <div className={styles.dataLabel} style={{background: 'var(--border-subtle)', width: '30%', height: '12px', borderRadius: '4px'}}></div>
+                              <div className={styles.dataValue} style={{background: 'var(--bg-secondary)', width: '70%', height: '20px', borderRadius: '4px'}}></div>
                             </div>
                           ))}
                         </div>
@@ -163,7 +204,7 @@ export default function IpWhoisPage() {
 
                       {result?.status === "error" && (
                         <div className={styles.dataRow}>
-                          <div className={styles.dataLabel} style={{ color: '#ff5f57' }}>Error</div>
+                          <div className={styles.dataLabel} style={{color: '#ff5f57'}}>Error</div>
                           <div className={styles.dataValue}>{result.error}</div>
                         </div>
                       )}
