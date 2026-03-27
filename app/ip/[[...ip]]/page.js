@@ -47,6 +47,18 @@ const providers = [
 
       return results;
     }
+  },
+  {
+    id: "ipinfo",
+    name: "IPinfo.io",
+    icon: "📌",
+    fetchData: async (ip) => {
+      const res = await fetch(`/api/whois/ipinfo?ip=${ip}`);
+      if (!res.ok) throw new Error("Network response was not ok");
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      return data; // Return the perfectly mapped array from the backend
+    }
   }
 ];
 
