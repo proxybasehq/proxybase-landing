@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "cheerio": "^1.2.0",
-    "cuimp": "^1.10.0",
     "mppx": "^0.4.8",
     "next": "16.1.6",
     "react": "19.2.3",

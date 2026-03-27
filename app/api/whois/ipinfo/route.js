@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { load } from 'cheerio';
-import { get as cuimpGet } from 'cuimp';
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -11,8 +10,25 @@ export async function GET(request) {
   }
 
   try {
-    const response = await cuimpGet(`https://ipinfo.io/${ip}`);
-    const html = response.data; // cuimp returns HTML string via response.data
+    const response = await fetch(`https://ipinfo.io/${ip}`, {
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Sec-Fetch-Site': 'none',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Dest': 'document',
+            'sec-ch-ua': '"Chromium";v="122", "Google Chrome";v="122"',
+            'sec-ch-ua-mobile': '?0',
+            'sec-ch-ua-platform': '"macOS"'
+        }
+    });
+    
+    if (!response.ok) {
+        throw new Error(`IPinfo returned status ${response.status}`);
+    }
+
+    const html = await response.text();
 
     const $ = load(html);
     const results = [];
