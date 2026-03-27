@@ -12,9 +12,8 @@ const providers = [
     name: "IP-API",
     icon: "🌐",
     fetchData: async (ip) => {
-      // Free endpoint requires http. If you ever deploy to https, users might see mixed content warnings.
-      // But for the scope of this aggregator, it works exactly as requested.
-      const res = await fetch(`http://ip-api.com/json/${ip}?fields=66846719`);
+      // Call our internal Next.js API route to bypass CORS block on production
+      const res = await fetch(`/api/whois/ip-api?ip=${ip}`);
       if (!res.ok) throw new Error("Network response was not ok");
       const data = await res.json();
       if (data.status === "fail") throw new Error(data.message || "Query failed");
