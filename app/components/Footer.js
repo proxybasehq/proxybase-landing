@@ -21,6 +21,9 @@ export default function Footer() {
                         <Link href="/ip" data-umami-event="Footer: IP Whois">IP Whois</Link>
                     </li>
                     <li>
+                        <Link href="/whois" data-umami-event="Footer: Domain Whois">Domain Whois</Link>
+                    </li>
+                    <li>
                         <Link href="/#api" data-umami-event="Footer: API Docs">API Docs</Link>
                     </li>
                     <li>
