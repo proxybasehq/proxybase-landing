@@ -12,6 +12,9 @@ export default function Footer() {
                 </div>
                 <ul className="footer-links">
                     <li>
+                        <Link href="/what-is-proxybase" data-umami-event="Footer: What Is ProxyBase">What It Is</Link>
+                    </li>
+                    <li>
                         <Link href="/blog" data-umami-event="Footer: Blog">Blog</Link>
                     </li>
                     <li>

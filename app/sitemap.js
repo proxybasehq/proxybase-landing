@@ -7,6 +7,12 @@ export default function sitemap() {
             priority: 1,
         },
         {
+            url: "https://proxybase.xyz/what-is-proxybase",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.9,
+        },
+        {
             url: "https://proxybase.xyz/openclaw",
             lastModified: new Date(),
             changeFrequency: "monthly",
