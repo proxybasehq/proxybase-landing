@@ -22,6 +22,7 @@ export default function Navbar() {
                     <li><Link href="/#mcp" data-umami-event="Nav: MCP">MCP</Link></li>
                     <li><Link href="/openclaw" data-umami-event="Nav: OpenClaw" className="nav-glow-btn">OpenClaw</Link></li>
                     <li><Link href="/mpp" data-umami-event="Nav: MPP" className="nav-glow-btn">MPP</Link></li>
+                    <li><Link href="/headers" data-umami-event="Nav: Headers">Headers</Link></li>
                     <li><Link href="/#faq" data-umami-event="Nav: FAQ">FAQ</Link></li>
                 </ul>
                 <Link href="/#api" className="nav-cta" data-umami-event="Nav: Get API Key CTA">Get API Key →</Link>
@@ -48,6 +49,7 @@ export default function Navbar() {
                     <li><Link href="/#mcp" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: MCP">MCP</Link></li>
                     <li><Link href="/openclaw" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: OpenClaw" className="nav-glow-btn">OpenClaw</Link></li>
                     <li><Link href="/mpp" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: MPP" className="nav-glow-btn">MPP</Link></li>
+                    <li><Link href="/headers" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Headers">Headers</Link></li>
                     <li><Link href="/#faq" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: FAQ">FAQ</Link></li>
                 </ul>
                 <Link href="/#api" className="mobile-nav-cta" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Get API Key CTA">Get API Key →</Link>
