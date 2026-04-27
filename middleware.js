@@ -209,12 +209,21 @@ const NON_BROWSER_PATTERNS = [
 ];
 
 export function middleware(request) {
-  const ua = (request.headers.get("user-agent") || "").toLowerCase();
+  const { hostname } = request.nextUrl;
 
-  // Only intercept root path
+  // Redirect www → non-www (permanent 301)
+  if (hostname === "www.proxybase.xyz") {
+    const url = request.nextUrl.clone();
+    url.hostname = "proxybase.xyz";
+    return NextResponse.redirect(url, 301);
+  }
+
+  // Only serve markdown API docs on root path
   if (request.nextUrl.pathname !== "/") {
     return NextResponse.next();
   }
+
+  const ua = (request.headers.get("user-agent") || "").toLowerCase();
 
   // Check if it looks like a non-browser client
   const isNonBrowser =
@@ -239,5 +248,13 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: "/",
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization)
+     * - favicon.ico, logo.svg, etc.
+     */
+    "/((?!_next/static|_next/image|favicon\\.ico|favicon\\.svg|logo\\.svg|.*\\.png$|.*\\.jpg$|.*\\.webp$).*)",
+  ],
 };
