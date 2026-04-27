@@ -1,9 +1,21 @@
-"use client";
-
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Link from "next/link";
-import Head from "next/head";
+
+export const metadata = {
+    title: "Blog | ProxyBase",
+    description:
+        "Technical deep dives, tutorials, and insights on building autonomous AI agents and scraping the web without getting blocked.",
+    alternates: {
+        canonical: "/blog",
+    },
+    openGraph: {
+        title: "Blog | ProxyBase",
+        description:
+            "Technical deep dives, tutorials, and insights on building autonomous AI agents and scraping the web without getting blocked.",
+        url: "https://proxybase.xyz/blog",
+    },
+};
 
 export default function BlogIndex() {
     const posts = [
@@ -43,10 +55,6 @@ export default function BlogIndex() {
 
     return (
         <>
-            <Head>
-                <title>Blog | ProxyBase</title>
-                <meta name="description" content="Technical deep dives, tutorials, and insights on building autonomous AI agents and scraping the web without getting blocked." />
-            </Head>
             <Navbar />
 
             <section className="section" style={{ minHeight: "80vh", paddingTop: "120px", paddingBottom: "80px" }}>
@@ -65,25 +73,7 @@ export default function BlogIndex() {
                     <div className="blog-list" style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
                         {posts.map((post, idx) => (
                             <Link href={post.slug} key={idx} style={{ textDecoration: "none" }}>
-                                <div
-                                    className="blog-card"
-                                    style={{
-                                        padding: "2rem",
-                                        background: "rgba(255, 255, 255, 0.02)",
-                                        border: "1px solid rgba(255, 255, 255, 0.05)",
-                                        borderRadius: "12px",
-                                        transition: "all 0.2s ease",
-                                        cursor: "pointer"
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.background = "rgba(6, 214, 160, 0.03)";
-                                        e.currentTarget.style.borderColor = "rgba(6, 214, 160, 0.2)";
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.02)";
-                                        e.currentTarget.style.borderColor = "rgba(255, 255, 255, 0.05)";
-                                    }}
-                                >
+                                <div className="blog-card">
                                     <div style={{ display: "flex", alignItems: "center", gap: "10px", color: "var(--text-secondary)", fontSize: "0.9rem", marginBottom: "1rem" }}>
                                         <span>{post.date}</span>
                                         <span style={{ width: "4px", height: "4px", background: "var(--text-secondary)", borderRadius: "50%" }}></span>

@@ -1256,6 +1256,20 @@ body {
   color: var(--text-primary);
 }
 
+.blog-card {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.blog-card:hover {
+  background: rgba(6, 214, 160, 0.03);
+  border-color: rgba(6, 214, 160, 0.2);
+}
+
 /* =========================================================================
    10. RESPONSIVE
    ========================================================================= */

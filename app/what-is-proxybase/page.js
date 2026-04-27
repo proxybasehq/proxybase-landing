@@ -1,8 +1,20 @@
-"use client";
-
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import Head from "next/head";
+
+export const metadata = {
+  title: "What is ProxyBase? — A Plain English Guide | ProxyBase",
+  description:
+    "ProxyBase is programmatic SOCKS5 proxy infrastructure designed for AI agents, autonomous systems, and web scrapers. Learn what it is, who it's for, and when to use it.",
+  alternates: {
+    canonical: "/what-is-proxybase",
+  },
+  openGraph: {
+    title: "What is ProxyBase? — A Plain English Guide",
+    description:
+      "ProxyBase is programmatic SOCKS5 proxy infrastructure designed for AI agents, autonomous systems, and web scrapers.",
+    url: "https://proxybase.xyz/what-is-proxybase",
+  },
+};
 
 export default function WhatIsProxyBase() {
   return (

@@ -1,17 +1,26 @@
-"use client";
-
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Link from "next/link";
-import Head from "next/head";
+
+export const metadata = {
+    title: "Why We Built an IP Whois Aggregator for AI Agents | ProxyBase",
+    description:
+        "If your agent hits a block, it needs to know why. The IP Whois Aggregator gives agents real-time context on the networks they exit from.",
+    alternates: {
+        canonical: "/blog/ip-whois-aggregator",
+    },
+    openGraph: {
+        title: "Why We Built an IP Whois Aggregator for AI Agents | ProxyBase",
+        description:
+            "If your agent hits a block, it needs to know why. The IP Whois Aggregator gives agents real-time context on the networks they exit from.",
+        url: "https://proxybase.xyz/blog/ip-whois-aggregator",
+        type: "article",
+    },
+};
 
 export default function IpWhoisAggregatorBlog() {
     return (
         <>
-            <Head>
-                <title>Why We Built an IP Whois Aggregator for AI Agents | ProxyBase</title>
-                <meta name="description" content="If your agent hits a block, it needs to know why. The IP Whois Aggregator gives agents real-time context on the networks they exit from." />
-            </Head>
             <Navbar />
 
             <article className="section" style={{ minHeight: "80vh", paddingTop: "120px", paddingBottom: "80px" }}>

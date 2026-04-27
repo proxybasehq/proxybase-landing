@@ -1,7 +1,20 @@
-"use client";
-
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+
+export const metadata = {
+  title: "Terms of Service | ProxyBase",
+  description:
+    "ProxyBase Terms of Service. Read the rules, acceptable use policy, crypto payment terms, uptime expectations, and data privacy practices for our AI proxy infrastructure.",
+  alternates: {
+    canonical: "/terms",
+  },
+  openGraph: {
+    title: "Terms of Service | ProxyBase",
+    description:
+      "ProxyBase Terms of Service — acceptable use, crypto payments, uptime, and data privacy for our AI proxy infrastructure.",
+    url: "https://proxybase.xyz/terms",
+  },
+};
 
 export default function TermsOfService() {
   return (

@@ -1,17 +1,26 @@
-"use client";
-
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Link from "next/link";
-import Head from "next/head";
+
+export const metadata = {
+    title: "Why Your AI Agent Needs a Proxy | ProxyBase",
+    description:
+        "An agent without a proxy isn't autonomous at all. Learn why cloud IPs fail, why stealth plugins aren't the answer, and what makes a proxy truly agent-ready.",
+    alternates: {
+        canonical: "/blog/why-your-ai-agent-needs-a-proxy",
+    },
+    openGraph: {
+        title: "Why Your AI Agent Needs a Proxy | ProxyBase",
+        description:
+            "An agent without a proxy isn't autonomous at all. Learn why cloud IPs fail, why stealth plugins aren't the answer, and what makes a proxy truly agent-ready.",
+        url: "https://proxybase.xyz/blog/why-your-ai-agent-needs-a-proxy",
+        type: "article",
+    },
+};
 
 export default function WhyYourAiAgentNeedsAProxy() {
     return (
         <>
-            <Head>
-                <title>Why Your AI Agent Needs a Proxy | ProxyBase</title>
-                <meta name="description" content="An agent without a proxy isn't autonomous at all. Learn why cloud IPs fail, why stealth plugins aren't the answer, and what makes a proxy truly agent-ready." />
-            </Head>
             <Navbar />
 
             <article className="section" style={{ minHeight: "80vh", paddingTop: "120px", paddingBottom: "80px" }}>
@@ -108,16 +117,6 @@ export default function WhyYourAiAgentNeedsAProxy() {
                             You can patch around that with stealth tools and home laptops for a while. But to run reliably across concurrent tasks, you need infrastructure that handles identity, routing, and recovery natively. Proxies aren't a scraping trick. For an autonomous agent, they are core infrastructure.
                         </p>
 
-                        <style jsx>{`
-                            .inline-code {
-                                background: rgba(255, 255, 255, 0.1);
-                                padding: 2px 6px;
-                                border-radius: 4px;
-                                font-family: 'JetBrains Mono', monospace;
-                                font-size: 0.9em;
-                                color: var(--text-primary);
-                            }
-                        `}</style>
                     </div>
                 </div>
             </article>

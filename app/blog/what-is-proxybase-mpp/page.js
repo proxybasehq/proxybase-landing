@@ -1,17 +1,26 @@
-"use client";
-
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Link from "next/link";
-import Head from "next/head";
+
+export const metadata = {
+    title: "What is ProxyBase MPP and Why Does it Matter? | ProxyBase",
+    description:
+        "Machine-to-Machine Payment Protocols (MPP) change the web by letting software agents request access, pay automatically, and keep working without human help.",
+    alternates: {
+        canonical: "/blog/what-is-proxybase-mpp",
+    },
+    openGraph: {
+        title: "What is ProxyBase MPP and Why Does it Matter? | ProxyBase",
+        description:
+            "Machine-to-Machine Payment Protocols (MPP) change the web by letting software agents request access, pay automatically, and keep working without human help.",
+        url: "https://proxybase.xyz/blog/what-is-proxybase-mpp",
+        type: "article",
+    },
+};
 
 export default function WhatIsProxyBaseMPP() {
     return (
         <>
-            <Head>
-                <title>What is ProxyBase MPP and Why Does it Matter? | ProxyBase</title>
-                <meta name="description" content="Machine-to-Machine Payment Protocols (MPP) change the web by letting software agents request access, pay automatically, and keep working without human help." />
-            </Head>
             <Navbar />
 
             <article className="section" style={{ minHeight: "80vh", paddingTop: "120px", paddingBottom: "80px" }}>

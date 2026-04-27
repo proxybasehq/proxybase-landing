@@ -5,6 +5,9 @@ export const metadata = {
     title: "proxybase-openclaw-skill — Unlock the Internet for Your AI Agent",
     description: "Install proxybase-openclaw-skill to securely grant your AI agents residential internet access. The easiest way to let your AI access the internet without getting blocked.",
     keywords: "proxybase-openclaw-skill, openclaw, ai proxy, residential proxy for ai, openclaw skill",
+    alternates: {
+        canonical: "/openclaw",
+    },
 };
 
 export default function OpenClawPage() {

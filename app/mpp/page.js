@@ -6,6 +6,9 @@ export const metadata = {
     title: "MPP — Pay-per-Request Proxy Access | ProxyBase",
     description: "Buy SOCKS5 proxy bandwidth with a single HTTP request using the Micropayments Protocol (MPP). No accounts, no API keys — just pay and connect.",
     keywords: "mpp, micropayments, pay per request, proxy api, socks5 proxy, tempo, pathUSD, ai agent proxy stable coins",
+    alternates: {
+        canonical: "/mpp",
+    },
 };
 
 export default async function MppPage() {
