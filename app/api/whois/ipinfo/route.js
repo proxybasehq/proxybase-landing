@@ -81,9 +81,20 @@ export async function GET(request) {
 
     // Privacy Badges
     const flags = [];
+    
+    // Old format fallback
     $('.privacy-card-detected').each((i, el) => {
         const title = $(el).find('h3').text().replace(/\s+/g, ' ').trim();
         if (title) flags.push(title);
+    });
+
+    // New Anonymization format
+    $('li').each((i, el) => {
+        const hasDetectedBadge = $(el).find('span').filter((_, span) => $(span).text().trim() === 'Detected').length > 0;
+        if (hasDetectedBadge) {
+            const title = $(el).find('span.text-lg').text().replace(/\s+/g, ' ').trim();
+            if (title) flags.push(title);
+        }
     });
 
     if (flags.length > 0) {
