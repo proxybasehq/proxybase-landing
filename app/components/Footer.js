@@ -31,6 +31,9 @@ export default function Footer() {
                             <Link href="/headers" data-umami-event="Footer: Headers">Headers</Link>
                         </li>
                         <li>
+                            <Link href="/antibot" data-umami-event="Footer: Antibot">Antibot</Link>
+                        </li>
+                        <li>
                             <Link href="/#api" data-umami-event="Footer: API Docs">API Docs</Link>
                         </li>
                         <li>
