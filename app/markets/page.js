@@ -91,7 +91,7 @@ export default function MarketsPage() {
                                 </li>
                             </ul>
                             <div className="card-actions">
-                                <a href="#pricing-catalog" className="btn-card-primary">View Pricing Catalog ↓</a>
+                                <a href="#pricing-catalog" className="btn-primary" style={{ display: "block", textAlign: "center" }}>View Pricing Catalog ↓</a>
                             </div>
                         </div>
                     </div>
@@ -120,7 +120,7 @@ export default function MarketsPage() {
                                 </li>
                             </ul>
                             <div className="card-actions">
-                                <a href="#downloads" className="btn-card-secondary" onClick={() => setActiveTab("gui")}>Run a Node Now →</a>
+                                <a href="#downloads" className="btn-secondary" style={{ display: "block", textAlign: "center" }} onClick={() => setActiveTab("gui")}>Run a Node Now →</a>
                             </div>
                         </div>
                     </div>
