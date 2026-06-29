@@ -282,15 +282,15 @@ export default function MarketsPage() {
                                 <span className="os-icon">🍎</span>
                                 <div>
                                     <h3>macOS (CLI)</h3>
-                                    <p className="os-version">v0.4.0 • M1/M2/M3 & Intel Darwin</p>
+                                    <p className="os-version">v0.4.0 • M1/M2/M3 Apple Silicon</p>
                                 </div>
                             </div>
                             <p className="os-desc">Headless CLI daemon to run proxybase in shell environments. Fully controllable via config.toml and local system APIs.</p>
                             <a 
-                                href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-macos-universal"
+                                href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-aarch64-apple-darwin.tar.gz"
                                 className="btn-download"
                             >
-                                Download CLI Binary
+                                Download macOS Archive (.tar.gz)
                             </a>
                             <div className="cli-install-cmd">
                                 <code>curl -fsSL https://proxybase.xyz/install.sh | sh</code>
@@ -302,15 +302,15 @@ export default function MarketsPage() {
                                 <span className="os-icon">🪟</span>
                                 <div>
                                     <h3>Windows (CLI)</h3>
-                                    <p className="os-version">v0.4.0 • PowerShell Command Line</p>
+                                    <p className="os-version">v0.4.0 • PowerShell Command Line x64</p>
                                 </div>
                             </div>
                             <p className="os-desc">Compiled executable for background headless execution. Perfect for integration into Windows background services and automated scripts.</p>
                             <a 
-                                href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-windows-amd64.exe"
+                                href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-x86_64-pc-windows-msvc.zip"
                                 className="btn-download"
                             >
-                                Download CLI Executable
+                                Download Windows Archive (.zip)
                             </a>
                             <div className="cli-install-cmd">
                                 <code>iwr https://proxybase.xyz/install.ps1 | iex</code>
@@ -322,15 +322,15 @@ export default function MarketsPage() {
                                 <span className="os-icon">🐧</span>
                                 <div>
                                     <h3>Linux (CLI)</h3>
-                                    <p className="os-version">v0.4.0 • Systemd Service Ready</p>
+                                    <p className="os-version">v0.4.0 • Systemd Service Ready x64</p>
                                 </div>
                             </div>
                             <p className="os-desc">High performance daemon built to operate headlessly. Features native systemd configuration templates to run as a boot service.</p>
                             <a 
-                                href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-linux-amd64"
+                                href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-x86_64-unknown-linux-gnu.tar.gz"
                                 className="btn-download"
                             >
-                                Download Linux Binary
+                                Download Linux Archive (.tar.gz)
                             </a>
                             <div className="cli-install-cmd">
                                 <code>wget -qO- https://proxybase.xyz/install.sh | sh</code>
