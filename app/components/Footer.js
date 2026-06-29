@@ -16,6 +16,9 @@ export default function Footer() {
                             <Link href="/what-is-proxybase" data-umami-event="Footer: What Is ProxyBase">What It Is</Link>
                         </li>
                         <li>
+                            <Link href="/markets" data-umami-event="Footer: Markets">Markets</Link>
+                        </li>
+                        <li>
                             <Link href="/blog" data-umami-event="Footer: Blog">Blog</Link>
                         </li>
                         <li>
