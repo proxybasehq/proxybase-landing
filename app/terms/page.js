@@ -33,10 +33,10 @@ export default function TermsOfService() {
           <div className="terms-content" style={{ color: "var(--text-secondary)", lineHeight: "1.7", textAlign: "left" }}>
             <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>1. What even is ProxyBase?</h3>
             <p style={{ marginBottom: "1rem" }}>
-              Look, we built ProxyBase to solve a very specific problem: autonomous AI agents and headless scraper swarms need a programmatic way to get reliable residential IP addresses without clicking around a web dashboard. 
+              Look, we built ProxyBase (operated by DEEPWALKER LLC) to solve a very specific problem: autonomous AI agents and headless scraper swarms need a programmatic way to get reliable residential IP addresses without clicking around a web dashboard. 
             </p>
             <p style={{ marginBottom: "1rem" }}>
-              By using our API, our MCP servers, or our OpenClaw skills, you're agreeing to these terms. If you don't agree, our API simply won't return any 200 OKs to you. Just don't use it.
+              By using our API, our MCP servers, or our OpenClaw skills, you're agreeing to these terms with DEEPWALKER LLC. If you don't agree, our API simply won't return any 200 OKs to you. Just don't use it.
             </p>
 
             <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>2. Acceptable Use (Don't be that person)</h3>
