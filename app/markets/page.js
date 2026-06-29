@@ -231,7 +231,7 @@ export default function MarketsPage() {
                             </div>
                             <p className="os-desc">Beautiful native app featuring interactive active sessions map, wallet manager, real-time bandwidth logs, and local proxy gateway controller.</p>
                             <a 
-                                href="https://github.com/proxybasehq/proxybase2/releases/download/proxybase-gui-v0.1.0/ProxyBase_0.1.0_universal.dmg"
+                                href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/ProxyBase_0.1.0_universal.dmg"
                                 className="btn-download"
                             >
                                 Download Universal .DMG
@@ -248,7 +248,7 @@ export default function MarketsPage() {
                             </div>
                             <p className="os-desc">Native Windows client built on light webview2 architecture. Features taskbar tray integration, automated startup settings, and wallet integration.</p>
                             <a 
-                                href="https://github.com/proxybasehq/proxybase2/releases/download/proxybase-gui-v0.1.0/ProxyBase_0.1.0_x64_en-US.msi"
+                                href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/ProxyBase_0.1.0_x64_en-US.msi"
                                 className="btn-download"
                             >
                                 Download Windows .MSI
@@ -265,7 +265,7 @@ export default function MarketsPage() {
                             </div>
                             <p className="os-desc">GTK3 bundle optimized for lightweight Linux desktop environments. Relays local traffic to SOCKS5 gateway with native system tray control panels.</p>
                             <a 
-                                href="https://github.com/proxybasehq/proxybase2/releases/download/proxybase-gui-v0.1.0/proxybase_0.1.0_amd64.deb"
+                                href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/proxybase_0.1.0_amd64.deb"
                                 className="btn-download"
                             >
                                 Download Debian .deb
@@ -287,7 +287,7 @@ export default function MarketsPage() {
                             </div>
                             <p className="os-desc">Headless CLI daemon to run proxybase in shell environments. Fully controllable via config.toml and local system APIs.</p>
                             <a 
-                                href="https://github.com/proxybasehq/proxybase2/releases/download/proxybase-cli-v0.1.0/proxybase-cli-macos-universal"
+                                href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-macos-universal"
                                 className="btn-download"
                             >
                                 Download CLI Binary
@@ -307,7 +307,7 @@ export default function MarketsPage() {
                             </div>
                             <p className="os-desc">Compiled executable for background headless execution. Perfect for integration into Windows background services and automated scripts.</p>
                             <a 
-                                href="https://github.com/proxybasehq/proxybase2/releases/download/proxybase-cli-v0.1.0/proxybase-cli-windows-amd64.exe"
+                                href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-windows-amd64.exe"
                                 className="btn-download"
                             >
                                 Download CLI Executable
@@ -327,7 +327,7 @@ export default function MarketsPage() {
                             </div>
                             <p className="os-desc">High performance daemon built to operate headlessly. Features native systemd configuration templates to run as a boot service.</p>
                             <a 
-                                href="https://github.com/proxybasehq/proxybase2/releases/download/proxybase-cli-v0.1.0/proxybase-cli-linux-amd64"
+                                href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-linux-amd64"
                                 className="btn-download"
                             >
                                 Download Linux Binary
