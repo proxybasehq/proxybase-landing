@@ -22,6 +22,12 @@ export default function Footer() {
                             <Link href="/terms" data-umami-event="Footer: Terms">Terms</Link>
                         </li>
                         <li>
+                            <Link href="/privacy" data-umami-event="Footer: Privacy">Privacy</Link>
+                        </li>
+                        <li>
+                            <Link href="/refund" data-umami-event="Footer: Refund">Refunds</Link>
+                        </li>
+                        <li>
                             <Link href="/ip" data-umami-event="Footer: IP Whois">IP Whois</Link>
                         </li>
                         <li>

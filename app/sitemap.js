@@ -31,6 +31,18 @@ export default function sitemap() {
             priority: 0.5,
         },
         {
+            url: "https://proxybase.xyz/privacy",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.5,
+        },
+        {
+            url: "https://proxybase.xyz/refund",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.5,
+        },
+        {
             url: "https://proxybase.xyz/blog",
             lastModified: new Date(),
             changeFrequency: "weekly",
