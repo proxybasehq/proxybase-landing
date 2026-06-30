@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function MarketsPage() {
     const [searchQuery, setSearchQuery] = useState("");
     const [activeTab, setActiveTab] = useState("gui"); // 'gui' or 'cli'
-
-    // Mock pricing database mapping to /v2/catalog/pricing
-    const basePricing = [
+    
+    // Mock initial database mapping to /v2/catalog/pricing used as fallback/pre-render values
+    const basePricingFallback = [
         { country: "United States", code: "US", category: "Residential", price: 3.00, sellerCredit: 1.80, status: "High Availability", nodes: 1420 },
         { country: "United States", code: "US", category: "Mobile", price: 5.00, sellerCredit: 3.00, status: "High Availability", nodes: 850 },
         { country: "United Kingdom", code: "GB", category: "Residential", price: 3.50, sellerCredit: 2.10, status: "High Availability", nodes: 640 },
@@ -24,7 +24,20 @@ export default function MarketsPage() {
         { country: "Canada", code: "CA", category: "Mobile", price: 5.40, sellerCredit: 3.24, status: "Normal", nodes: 195 },
     ];
 
-    const filteredPricing = basePricing.filter(item => 
+    const [pricing, setPricing] = useState(basePricingFallback);
+
+    useEffect(() => {
+        fetch("/pricing.json")
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    setPricing(data);
+                }
+            })
+            .catch(err => console.error("Failed to load real-time catalog pricing:", err));
+    }, []);
+
+    const filteredPricing = pricing.filter(item => 
         item.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.category.toLowerCase().includes(searchQuery.toLowerCase())
