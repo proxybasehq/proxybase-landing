@@ -207,6 +207,57 @@ export default function MarketsPage() {
                 </div>
             </section>
 
+            {/* PROXY TYPES TAXONOMY */}
+            <section className="proxy-types-section" id="proxy-types">
+                <div className="section-header">
+                    <span className="section-label">Fleet Taxonomy</span>
+                    <h2>Proxy Types & Classifications</h2>
+                    <p className="section-desc">ProxyBase routes traffic through multiple distinct network tiers, optimized for specific speed, reputation, and concurrency needs.</p>
+                </div>
+
+                <div className="proxy-types-grid">
+                    <div className="proxy-type-card">
+                        <span>🏡</span>
+                        <h3>Residential</h3>
+                        <p>
+                            Sourced from real residential broadband connections (e.g., Comcast, AT&T, BT). Excellent reputation scores ensure these IPs bypass standard anti-bot protections invisible to web host firewalls.
+                        </p>
+                    </div>
+
+                    <div className="proxy-type-card">
+                        <span>📱</span>
+                        <h3>Mobile</h3>
+                        <p>
+                            Routed through dynamic 3G/4G/5G mobile carriers. Since thousands of users share mobile gateways, target sites rarely block these IPs to prevent cutting off legitimate consumers.
+                        </p>
+                    </div>
+
+                    <div className="proxy-type-card">
+                        <span>⚡</span>
+                        <h3>Datacenter</h3>
+                        <p>
+                            Hosted in high-speed enterprise servers. Offers ultra-low latency, maximum throughput, and the lowest cost per gigabyte. Ideal for high-speed indexing where anti-bot rules are relaxed.
+                        </p>
+                    </div>
+
+                    <div className="proxy-type-card">
+                        <span>💼</span>
+                        <h3>ISP (Static Residential)</h3>
+                        <p>
+                            Sourced directly from co-located server farms but registered under residential ISP ASN identifiers. Blends the high speed and static nature of servers with the trust score of home broadbands.
+                        </p>
+                    </div>
+
+                    <div className="proxy-type-card">
+                        <span>🔥</span>
+                        <h3>Burner</h3>
+                        <p>
+                            High-rotation, short-lived residential IPs designed for concurrent scraping tasks. These proxies change or auto-expire rapidly, distributing requests across a massive pool.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
             {/* DOWNLOAD CENTER */}
             <section className="downloads-section" id="downloads">
                 <div className="section-header">
