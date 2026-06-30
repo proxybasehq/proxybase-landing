@@ -138,5 +138,11 @@ export default function sitemap() {
             changeFrequency: "monthly",
             priority: 0.7,
         },
+        {
+            url: "https://proxybase.xyz/blog/how-to-bypass-polymarket-geo-restrictions",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
     ];
 }

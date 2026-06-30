@@ -20,6 +20,14 @@ export const metadata = {
 export default function BlogIndex() {
     const posts = [
         {
+            title: "Bypassing Polymarket Geo-Restrictions: Why VPNs Fail and How to Use SOCKS5 Proxies",
+            excerpt: "Learn how to bypass geo-blocking restrictions on Polymarket. Discover why traditional VPNs get flagged and how to configure SOCKS5 residential proxies to automate prediction market trades securely.",
+            date: "June 2026",
+            readTime: "7 min read",
+            author: "ProxyBase Team",
+            slug: "/blog/how-to-bypass-polymarket-geo-restrictions"
+        },
+        {
             title: "Why We Built an IP Whois Aggregator for AI Agents",
             excerpt: "If your agent hits a block, it needs to know why. The IP Whois Aggregator gives agents real-time context on the networks they exit from.",
             date: "March 2026",
