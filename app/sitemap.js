@@ -108,5 +108,35 @@ export default function sitemap() {
             changeFrequency: "weekly",
             priority: 0.8,
         },
+        {
+            url: "https://proxybase.xyz/compare/iproyal",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/compare/decodo",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/compare/proxyempire",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/compare/oxylabs",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/compare/brightdata",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
     ];
 }
