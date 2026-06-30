@@ -3230,11 +3230,12 @@ body {
   .connector-hero-content h1 {
     font-size: 2rem;
   }
-  .market-pricing-table th:nth-child(5),
-  .market-pricing-table td:nth-child(5),
-  .market-pricing-table th:nth-child(6),
-  .market-pricing-table td:nth-child(6) {
-    display: none;
+  .pricing-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .market-pricing-table {
+    min-width: 640px;
   }
   .steps-flow {
     grid-template-columns: 1fr;
