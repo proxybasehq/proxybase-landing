@@ -15,6 +15,11 @@ export default function Footer() {
                     <span className="footer-text-copyright">
                         © {new Date().getFullYear()} ProxyBase. All rights reserved.
                     </span>
+                    <div className="footer-os-downloads">
+                        <a href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/ProxyBase_0.1.0_universal.dmg" className="footer-os-link" title="Download GUI for macOS" data-umami-event="Footer: Download macOS GUI">🍎</a>
+                        <a href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/ProxyBase_0.1.0_x64_en-US.msi" className="footer-os-link" title="Download GUI for Windows" data-umami-event="Footer: Download Windows GUI">🪟</a>
+                        <a href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/proxybase_0.1.0_amd64.deb" className="footer-os-link" title="Download GUI for Linux" data-umami-event="Footer: Download Linux GUI">🐧</a>
+                    </div>
                 </div>
                 
                 <div className="footer-vertical-columns">

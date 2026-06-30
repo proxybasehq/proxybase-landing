@@ -1267,6 +1267,25 @@ body {
   color: var(--text-muted);
 }
 
+.footer-os-downloads {
+  margin-top: 16px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.footer-os-link {
+  font-size: 1.25rem;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: color var(--transition-fast) ease, transform var(--transition-fast) ease;
+}
+
+.footer-os-link:hover {
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
 .footer-vertical-columns {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
