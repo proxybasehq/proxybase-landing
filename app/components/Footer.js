@@ -26,6 +26,7 @@ export default function Footer() {
                             <li><Link href="/#pricing" data-umami-event="Footer: Pricing">Pricing</Link></li>
                             <li><Link href="/mpp" data-umami-event="Footer: MPP">MPP</Link></li>
                             <li><Link href="/openclaw" data-umami-event="Footer: OpenClaw">OpenClaw</Link></li>
+                            <li><Link href="/connector" data-umami-event="Footer: Connector">Connector</Link></li>
                         </ul>
                     </div>
 
