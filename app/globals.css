@@ -1222,7 +1222,7 @@ body {
   max-width: var(--max-width);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1.2fr 2.8fr;
+  grid-template-columns: 1fr 3.5fr;
   gap: 64px;
 }
 
@@ -1269,7 +1269,7 @@ body {
 
 .footer-vertical-columns {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 32px;
 }
 
