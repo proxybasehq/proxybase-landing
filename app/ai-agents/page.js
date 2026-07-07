@@ -46,12 +46,12 @@ export default function AIAgentsPage() {
 
 function Hero() {
   return (
-    <section className="hero" id="hero">
+    <section className="hero" id="hero" style={{ padding: "140px 24px 100px" }}>
       <div className="hero-bg">
         <div className="hero-grid" />
       </div>
 
-      <div className="hero-content">
+      <div className="hero-content" style={{ maxWidth: "960px", margin: "0 auto" }}>
         <div className="hero-badge">
           <span className="badge-dot" />
           Now accepting USDC, USDT
@@ -63,14 +63,14 @@ function Hero() {
           for Agents
         </h1>
 
-        <p className="hero-subtitle">
+        <p className="hero-subtitle" style={{ maxWidth: "740px", margin: "0 auto 44px" }}>
           Programmatic SOCKS5 proxies built for autonomous AI agents.
           No dashboards. No humans. Just an API, a payment address,
           and instant proxy credentials.
         </p>
 
-        <div className="hero-actions">
-          <a href="#api" className="btn-primary" data-umami-event="Hero: Read Docs CTA">
+        <div className="hero-actions" style={{ justifyContent: "center", marginBottom: "70px" }}>
+          <a href="#api" className="btn-primary" data-umami-event="Hero: Read Docs CTA" style={{ padding: "16px 36px", fontSize: "1.05rem" }}>
             Read the Docs ↓
           </a>
           <a
@@ -79,12 +79,13 @@ function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             data-umami-event="Hero: GitHub MCP Link"
+            style={{ padding: "16px 36px", fontSize: "1.05rem" }}
           >
             ★ GitHub / MCP
           </a>
         </div>
 
-        <div className="hero-terminal">
+        <div className="hero-terminal" style={{ marginTop: 48, maxWidth: "840px", margin: "48px auto 0", textAlign: "left" }}>
           <div className="terminal">
             <div className="terminal-header">
               <span className="terminal-dot" />
@@ -131,7 +132,7 @@ function Hero() {
 
 function HowItWorks() {
   return (
-    <section className="how-it-works" id="how-it-works">
+    <section className="how-it-works" id="how-it-works" style={{ borderTop: "1px solid var(--border-subtle)", padding: "110px 24px", background: "var(--bg-secondary)" }}>
       <div className="section-inner-container">
         <div className="section-header">
           <span className="section-label">Architecture</span>
@@ -142,8 +143,8 @@ function HowItWorks() {
           </p>
         </div>
 
-        <div className="steps-flow">
-          <div className="step-card">
+        <div className="steps-flow" style={{ marginTop: 60 }}>
+          <div className="step-card" style={{ borderRadius: "var(--radius-xl)", padding: "44px 32px" }}>
             <div className="step-num">01</div>
             <h3>Wallet Authentication</h3>
             <p>
@@ -153,7 +154,7 @@ function HowItWorks() {
             </p>
           </div>
 
-          <div className="step-card">
+          <div className="step-card" style={{ borderRadius: "var(--radius-xl)", padding: "44px 32px" }}>
             <div className="step-num">02</div>
             <h3>Intent-Based SOCKS5</h3>
             <p>
@@ -162,7 +163,7 @@ function HowItWorks() {
             </p>
           </div>
 
-          <div className="step-card">
+          <div className="step-card" style={{ borderRadius: "var(--radius-xl)", padding: "44px 32px" }}>
             <div className="step-num">03</div>
             <h3>Dual-Path Self-Healing</h3>
             <p>
@@ -171,7 +172,7 @@ function HowItWorks() {
             </p>
           </div>
 
-          <div className="step-card">
+          <div className="step-card" style={{ borderRadius: "var(--radius-xl)", padding: "44px 32px" }}>
             <div className="step-num">04</div>
             <h3>Real-Time Telemetry</h3>
             <p>
@@ -192,7 +193,7 @@ function HowItWorks() {
 
 function Pricing() {
   return (
-    <section className="pricing-section" id="pricing">
+    <section className="pricing-section" id="pricing" style={{ padding: "110px 24px", borderTop: "1px solid var(--border-subtle)" }}>
       <div className="section-inner-container">
         <div className="section-header">
           <span className="section-label">Pricing</span>
@@ -203,8 +204,8 @@ function Pricing() {
           </p>
         </div>
 
-        <div className="pricing-grid-2">
-          <div className="price-card">
+        <div className="pricing-grid-2" style={{ marginTop: 60, maxWidth: "960px", margin: "60px auto 0" }}>
+          <div className="price-card" style={{ borderRadius: "var(--radius-xl)", padding: "44px 36px" }}>
             <h3 className="price-name">Residential</h3>
             <div className="price-amount">
               $3.00<span>/GB</span>
@@ -221,7 +222,7 @@ function Pricing() {
             <a href="#api" className="price-btn">Deposit Now</a>
           </div>
 
-          <div className="price-card featured">
+          <div className="price-card featured" style={{ borderRadius: "var(--radius-xl)", padding: "44px 36px" }}>
             <div className="price-tag">Most Popular</div>
             <h3 className="price-name">Mobile (4G/5G)</h3>
             <div className="price-amount">
@@ -253,7 +254,7 @@ function ApiDocs() {
   const [activeTab, setActiveTab] = useState('auth');
 
   return (
-    <section className="api-section" id="api">
+    <section className="api-section" id="api" style={{ borderTop: "1px solid var(--border-subtle)", padding: "110px 24px", background: "var(--bg-secondary)" }}>
       <div className="section-inner-container">
         <div className="section-header">
           <span className="section-label">Developer Docs</span>
@@ -263,7 +264,7 @@ function ApiDocs() {
           </p>
         </div>
 
-        <div className="api-content">
+        <div className="api-content" style={{ marginTop: 60 }}>
           {/* STICKY SIDEBAR NAV */}
           <div className="api-sidebar">
             <ul className="api-nav">
@@ -692,7 +693,7 @@ function ApiDocs() {
 
 function McpSection() {
   return (
-    <section className="mcp-section" id="mcp">
+    <section className="mcp-section" id="mcp" style={{ borderTop: "1px solid var(--border-subtle)", padding: "110px 24px" }}>
       <div className="section-inner-container">
         <div className="section-header">
           <span className="section-label">LLM Native</span>
@@ -703,7 +704,7 @@ function McpSection() {
           </p>
         </div>
 
-        <div className="mcp-grid">
+        <div className="mcp-grid" style={{ marginTop: 60, alignItems: "center", gap: 60 }}>
           <div className="mcp-text">
             <h3>Autonomous Web Browsing for LLMs</h3>
             <p>
@@ -769,7 +770,7 @@ function Faq() {
   ];
 
   return (
-    <section className="faq-section" id="faq">
+    <section className="faq-section" id="faq" style={{ borderTop: "1px solid var(--border-subtle)", padding: "110px 24px", background: "var(--bg-secondary)" }}>
       <div className="section-inner-container">
         <div className="section-header">
           <span className="section-label">Support</span>
@@ -777,12 +778,13 @@ function Faq() {
           <p className="section-desc">Common questions regarding ProxyBase client integration.</p>
         </div>
 
-        <div className="faq-grid">
+        <div className="faq-grid" style={{ marginTop: 48 }}>
           {faqs.map((faq, i) => (
             <div
               key={i}
               className={`faq-item ${openIndex === i ? 'open' : ''}`}
               onClick={() => setOpenIndex(openIndex === i ? null : i)}
+              style={{ borderRadius: "var(--radius-lg)" }}
             >
               <div className="faq-question">
                 <h3>{faq.q}</h3>

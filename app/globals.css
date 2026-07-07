@@ -3441,6 +3441,7 @@ body {
 .faq-section {
   width: 100% !important;
   max-width: 100% !important;
+  padding: 110px 24px;
   box-sizing: border-box;
 }
 
