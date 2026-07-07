@@ -1,10 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 export default function Home() {
+  useEffect(() => {
+    const handleHashScroll = () => {
+      if (typeof window !== "undefined" && window.location.hash) {
+        const id = window.location.hash.substring(1);
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    };
+
+    const timer1 = setTimeout(handleHashScroll, 100);
+    const timer2 = setTimeout(handleHashScroll, 500);
+    window.addEventListener("hashchange", handleHashScroll);
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      window.removeEventListener("hashchange", handleHashScroll);
+    };
+  }, []);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",

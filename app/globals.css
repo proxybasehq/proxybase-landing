@@ -47,6 +47,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 100px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -3438,11 +3439,15 @@ body {
 .pricing-section,
 .mcp-section,
 .how-it-works,
-.faq-section {
+.faq-section,
+.downloads-section,
+.proxy-types-section,
+.market-explainers-section {
   width: 100% !important;
   max-width: 100% !important;
   padding: 110px 24px;
   box-sizing: border-box;
+  scroll-margin-top: 100px;
 }
 
 /* Constrain all direct children inside these sections to max-width and center align */
