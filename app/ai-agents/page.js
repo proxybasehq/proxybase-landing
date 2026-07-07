@@ -244,62 +244,385 @@ function Pricing() {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 function ApiDocs() {
+  const [activeTab, setActiveTab] = useState('auth');
+
   return (
     <section className="api-section" id="api">
       <div className="section-inner-container">
         <div className="section-header">
           <span className="section-label">Developer Docs</span>
-          <h2>Headless Integration</h2>
+          <h2>Headless API Reference</h2>
           <p className="section-desc">
-            No dashboards. Manage everything using simple curl requests.
+            Full programmatic control for autonomous agents and scrapers. Manage wallets, query telemetry, and route SOCKS5 tunnels via simple REST and socket requests.
           </p>
         </div>
 
-        <div className="api-grid">
-          <div className="api-docs-content">
-            <div className="api-endpoint">
+        <div className="api-content">
+          {/* STICKY SIDEBAR NAV */}
+          <div className="api-sidebar">
+            <ul className="api-nav">
+              <li>
+                <a href="#auth" className={activeTab === 'auth' ? 'active' : ''} onClick={() => setActiveTab('auth')}>
+                  1. Authentication
+                </a>
+              </li>
+              <li>
+                <a href="#wallet" className={activeTab === 'wallet' ? 'active' : ''} onClick={() => setActiveTab('wallet')}>
+                  2. Wallet & Balance
+                </a>
+              </li>
+              <li>
+                <a href="#sessions" className={activeTab === 'sessions' ? 'active' : ''} onClick={() => setActiveTab('sessions')}>
+                  3. Active Sessions
+                </a>
+              </li>
+              <li>
+                <a href="#socks5" className={activeTab === 'socks5' ? 'active' : ''} onClick={() => setActiveTab('socks5')}>
+                  4. SOCKS5 Gateway
+                </a>
+              </li>
+              <li>
+                <a href="#payouts" className={activeTab === 'payouts' ? 'active' : ''} onClick={() => setActiveTab('payouts')}>
+                  5. Yield Payouts
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* MAIN DOCS AREA */}
+          <div className="api-main">
+            {/* 1. AUTHENTICATION */}
+            <div className="api-endpoint" id="auth">
+              <div className="api-method-badge">
+                <span className="method-get">AUTH</span>
+                <span className="api-path">https://api.proxybase.xyz/v2</span>
+              </div>
+              <h3>Cryptographic Agent Authentication</h3>
+              <p>
+                All ProxyBase API endpoints require stateless authentication using ED25519 or ECDSA cryptographic signatures. Instead of managing fragile API keys or OAuth tokens, autonomous AI agents sign requests directly using their private wallet key.
+              </p>
+
+              <div className="api-params">
+                <h4>Required Headers</h4>
+                <div style={{ overflowX: "auto" }}>
+                  <table className="api-params-table">
+                    <thead>
+                      <tr>
+                        <th>Header</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>X-Agent-Wallet</code></td>
+                        <td>string</td>
+                        <td><span className="api-required">Required</span></td>
+                        <td>The public hex address of your agent wallet (e.g., <code>0x71C...8932</code>).</td>
+                      </tr>
+                      <tr>
+                        <td><code>X-Agent-Signature</code></td>
+                        <td>string</td>
+                        <td><span className="api-required">Required</span></td>
+                        <td>Hex-encoded cryptographic signature of the unix timestamp string.</td>
+                      </tr>
+                      <tr>
+                        <td><code>X-Timestamp</code></td>
+                        <td>integer</td>
+                        <td><span className="api-required">Required</span></td>
+                        <td>Current unix timestamp in milliseconds. Requests older than 30s are rejected.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span>Authentication Example (cURL)</span>
+                  <span className="code-block-lang">bash</span>
+                </div>
+                <pre>
+{`curl -X GET https://api.proxybase.xyz/v2/wallet \\
+  -H "X-Agent-Wallet: 0x71C8375628293746582937465829374658293746" \\
+  -H "X-Timestamp: 1720339200000" \\
+  -H "X-Agent-Signature: 3045022100a8...f9e202207b1c..."`}
+                </pre>
+              </div>
+            </div>
+
+            {/* 2. WALLET & BALANCE */}
+            <div className="api-endpoint" id="wallet">
               <div className="api-method-badge">
                 <span className="method-post">POST</span>
                 <span className="api-path">/v2/wallet</span>
               </div>
-              <p>Register or retrieve wallet information.</p>
+              <h3>Register or Retrieve Wallet Balance</h3>
+              <p>
+                Registers a new agent wallet address on the ProxyBase routing grid or retrieves current real-time stablecoin balances, microcredit allocations, and active proxy utilization tiers.
+              </p>
+
+              <div className="api-params">
+                <h4>Request Body (JSON)</h4>
+                <div style={{ overflowX: "auto" }}>
+                  <table className="api-params-table">
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>public_key</code></td>
+                        <td>string</td>
+                        <td><span className="api-required">Required</span></td>
+                        <td>The cryptographic public key or wallet address of the agent.</td>
+                      </tr>
+                      <tr>
+                        <td><code>webhook_url</code></td>
+                        <td>string</td>
+                        <td>Optional</td>
+                        <td>HTTPS endpoint to receive asynchronous balance threshold alerts.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span>POST /v2/wallet — Response</span>
+                  <span className="code-block-lang">json</span>
+                </div>
+                <pre>
+{`{
+  "status": "success",
+  "wallet": "0x71C8375628293746582937465829374658293746",
+  "balance_usdc": 45.50,
+  "credits_available": 4550000,
+  "active_sessions": 3,
+  "tier": "Residential_Mobile_Hybrid"
+}`}
+                </pre>
+              </div>
             </div>
 
-            <div className="api-endpoint">
+            {/* 3. ACTIVE SESSIONS */}
+            <div className="api-endpoint" id="sessions">
               <div className="api-method-badge">
                 <span className="method-get">GET</span>
                 <span className="api-path">/v2/sessions</span>
               </div>
-              <p>List all active proxy sessions and bandwidth utilization.</p>
-            </div>
+              <h3>List Active Proxy Sessions & Telemetry</h3>
+              <p>
+                Returns live telemetry on all active SOCKS5 proxy streams connected to your agent wallet, including real-time bandwidth consumption, destination target hosts, latency metrics, and path health.
+              </p>
 
-            <div className="api-endpoint">
-              <div className="api-method-badge">
-                <span className="method-post">POST</span>
-                <span className="api-path">/v2/payouts</span>
+              <div className="api-params">
+                <h4>Query Parameters</h4>
+                <div style={{ overflowX: "auto" }}>
+                  <table className="api-params-table">
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>limit</code></td>
+                        <td>integer</td>
+                        <td>Optional</td>
+                        <td>Maximum number of sessions to return (default: 50, max: 250).</td>
+                      </tr>
+                      <tr>
+                        <td><code>status</code></td>
+                        <td>string</td>
+                        <td>Optional</td>
+                        <td>Filter by session state: <code>Active</code>, <code>Idle</code>, or <code>Terminated</code>.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <p>Create a withdrawal order for accrued node yields.</p>
-            </div>
-          </div>
 
-          <div className="code-block">
-            <div className="code-block-header">
-              <span>GET /v2/sessions</span>
-              <span className="code-block-lang">JSON</span>
-            </div>
-            <pre>
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span>GET /v2/sessions?status=Active — Response</span>
+                  <span className="code-block-lang">json</span>
+                </div>
+                <pre>
 {`{
   "sessions": [
     {
       "id": "sess_81a2f90b",
-      "target": "google.com:443",
+      "target": "api.openai.com:443",
       "bandwidth_bytes": 1048576,
+      "latency_ms": 94,
+      "node_country": "US",
+      "path_status": "Active"
+    },
+    {
+      "id": "sess_49c3e12a",
+      "target": "scholar.google.com:443",
+      "bandwidth_bytes": 5242880,
       "latency_ms": 112,
+      "node_country": "GB",
       "path_status": "Active"
     }
-  ]
+  ],
+  "total_active_bandwidth_mb": 6.29
 }`}
-            </pre>
+                </pre>
+              </div>
+            </div>
+
+            {/* 4. SOCKS5 GATEWAY */}
+            <div className="api-endpoint" id="socks5">
+              <div className="api-method-badge">
+                <span className="method-get">SOCKS5</span>
+                <span className="api-path">socks5://socks5.proxybase.xyz:1080</span>
+              </div>
+              <h3>Intent-Based SOCKS5 Proxy Gateway</h3>
+              <p>
+                Connect your AI agents directly to the headless ProxyBase routing grid using standard SOCKS5 protocols. Specify geolocation, session rotation, and carrier preferences dynamically inside the connection username string.
+              </p>
+
+              <div className="api-params">
+                <h4>Connection String Parameters</h4>
+                <div style={{ overflowX: "auto" }}>
+                  <table className="api-params-table">
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>country</code></td>
+                        <td>string</td>
+                        <td>Optional</td>
+                        <td>2-letter ISO country code for geolocation targeting (e.g., <code>us</code>, <code>gb</code>, <code>de</code>).</td>
+                      </tr>
+                      <tr>
+                        <td><code>state</code></td>
+                        <td>string</td>
+                        <td>Optional</td>
+                        <td>State or region targeting for domestic residential nodes (e.g., <code>ca</code>, <code>ny</code>).</td>
+                      </tr>
+                      <tr>
+                        <td><code>session</code></td>
+                        <td>string</td>
+                        <td>Optional</td>
+                        <td>Custom session identifier. Maintain the same ID across requests to keep a sticky IP address.</td>
+                      </tr>
+                      <tr>
+                        <td><code>network</code></td>
+                        <td>string</td>
+                        <td>Optional</td>
+                        <td>Specify IP network type: <code>residential</code> (default) or <code>mobile</code>.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span>SOCKS5 Connection Example (Python Requests / cURL)</span>
+                  <span className="code-block-lang">bash</span>
+                </div>
+                <pre>
+{`# cURL example targeting US Residential sticky session
+curl -x "socks5://0xYourWallet:signature_timestamp@socks5.proxybase.xyz:1080?country=us&session=agent_task_1" \\
+  https://httpbin.org/ip
+
+# Python Requests example
+import requests
+
+proxies = {
+    'http': 'socks5://0xYourWallet:sig@socks5.proxybase.xyz:1080?country=de&network=mobile',
+    'https': 'socks5://0xYourWallet:sig@socks5.proxybase.xyz:1080?country=de&network=mobile'
+}
+response = requests.get('https://api.targetdomain.com/data', proxies=proxies)`}
+                </pre>
+              </div>
+            </div>
+
+            {/* 5. YIELD PAYOUTS */}
+            <div className="api-endpoint" id="payouts">
+              <div className="api-method-badge">
+                <span className="method-post">POST</span>
+                <span className="api-path">/v2/payouts</span>
+              </div>
+              <h3>Create Yield Withdrawal Order</h3>
+              <p>
+                Initiates an automated on-chain withdrawal of accrued node bandwidth earnings or excess agent balance directly to your specified cryptocurrency wallet address.
+              </p>
+
+              <div className="api-params">
+                <h4>Request Body (JSON)</h4>
+                <div style={{ overflowX: "auto" }}>
+                  <table className="api-params-table">
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>amount_credits</code></td>
+                        <td>integer</td>
+                        <td><span className="api-required">Required</span></td>
+                        <td>Number of microcredits to withdraw (100,000 credits = $1.00 USD). Minimum: 100,000.</td>
+                      </tr>
+                      <tr>
+                        <td><code>destination_address</code></td>
+                        <td>string</td>
+                        <td><span className="api-required">Required</span></td>
+                        <td>On-chain wallet address receiving the stablecoin transfer.</td>
+                      </tr>
+                      <tr>
+                        <td><code>network</code></td>
+                        <td>string</td>
+                        <td><span className="api-required">Required</span></td>
+                        <td>Target blockchain: <code>polygon</code>, <code>solana</code>, <code>arbitrum</code>, or <code>ethereum</code>.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span>POST /v2/payouts — Response</span>
+                  <span className="code-block-lang">json</span>
+                </div>
+                <pre>
+{`{
+  "status": "success",
+  "payout_id": "po_99283746a",
+  "amount_usdc": 10.00,
+  "credits_deducted": 1000000,
+  "network": "polygon",
+  "tx_hash": "0x3892847562938475629384756293847562938475629384756293847562938475",
+  "estimated_arrival_seconds": 15
+}`}
+                </pre>
+              </div>
+            </div>
           </div>
         </div>
       </div>
