@@ -50,7 +50,7 @@ export default function SellInternetPage() {
                 </section>
 
                 {/* TRUSTED LOGOS */}
-                <section style={{ padding: "40px 24px 20px", textAlignment: "center", borderBottom: "1px solid var(--border-subtle)", background: "var(--bg-secondary)" }}>
+                <section style={{ padding: "40px 24px 20px", textAlign: "center", borderBottom: "1px solid var(--border-subtle)", background: "var(--bg-secondary)" }}>
                     <div style={{ maxWidth: "var(--max-width)", margin: "0 auto", textAlign: "center" }}>
                         <p style={{ fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-muted)", marginBottom: "20px", fontWeight: 700 }}>
                             Proxy Sourcing Ecosystem Backed by Industry Mentions
@@ -206,7 +206,7 @@ export default function SellInternetPage() {
                         <p className="section-desc">Everything you need to know about selling internet bandwidth on ProxyBase.</p>
                     </div>
 
-                    <div className="deepdive-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
+                    <div className="deepdive-grid grid-2-cols">
                         <div className="deepdive-card">
                             <h3>What is the best app to sell internet data?</h3>
                             <p>

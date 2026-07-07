@@ -80,7 +80,7 @@ export default function DownloadPage() {
 
                     {/* GUI DOWNLOADS */}
                     {activeTab === 'gui' && (
-                        <div className="downloads-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "32px" }}>
+                        <div className="downloads-grid">
                             <div className="download-card macos" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                                 <div>
                                     <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
@@ -151,7 +151,7 @@ export default function DownloadPage() {
 
                     {/* CLI DOWNLOADS */}
                     {activeTab === 'cli' && (
-                        <div className="downloads-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "32px" }}>
+                        <div className="downloads-grid">
                             <div className="download-card macos" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
                                 <div>
                                     <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>

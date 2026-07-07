@@ -79,7 +79,7 @@ function Hero() {
         </div>
 
         {/* HERO STATS */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px", maxWidth: "700px", margin: "0 auto", padding: "24px", background: "rgba(255, 255, 255, 0.01)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", backdropFilter: "blur(10px)" }}>
+        <div className="hero-stats-grid">
           <div>
             <h3 style={{ fontSize: "2rem", color: "var(--accent-secondary)", fontWeight: 900, marginBottom: "4px" }}>12M+</h3>
             <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>Users Worldwide</p>
@@ -109,7 +109,7 @@ function FeaturedOn() {
         <p style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-muted)", marginBottom: "20px", fontWeight: 700 }}>
           Featured and Discussed In
         </p>
-        <div style={{ display: "flex", gap: "40px", justifyContent: "center", flexWrap: "wrap", alignItems: "center", opacity: 0.6 }}>
+        <div className="featured-logos">
           <span style={{ fontSize: "1.1rem", fontWeight: "900", color: "var(--text-primary)" }}>Forbes</span>
           <span style={{ fontSize: "1.1rem", fontWeight: "900", color: "var(--text-primary)" }}>Entrepreneur</span>
           <span style={{ fontSize: "1.1rem", fontWeight: "900", color: "var(--text-primary)" }}>Yahoo Finance</span>
@@ -283,7 +283,7 @@ function FeaturesList() {
         </p>
       </div>
 
-      <div className="intro-card-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
+      <div className="intro-card-grid">
         <div className="intro-card" style={{ background: "var(--bg-card)" }}>
           <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "16px" }}>⚙️ Runs Quietly in the Background</h3>
           <p className="brand-desc" style={{ marginBottom: 0 }}>
@@ -385,7 +385,7 @@ function RedditReviews() {
         <p className="section-desc">Real stories from nodes sellers turning unused bandwidth into extra income.</p>
       </div>
 
-      <div className="deepdive-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+      <div className="deepdive-grid">
         {reviews.map((rev, i) => (
           <div key={i} className="deepdive-card" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
             <p style={{ fontStyle: "italic", fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: 20 }}>

@@ -313,14 +313,14 @@ function McpSection() {
         </p>
       </div>
 
-      <div className="mcp-container">
+      <div className="mcp-grid">
         <div className="mcp-text">
           <h3>Autonomous Web Browsing for LLMs</h3>
           <p>
             By launching the ProxyBase MCP server, you give your LLM agent tools to
             manage its own routing infrastructure. The agent can:
           </p>
-          <ul className="mcp-list">
+          <ul className="mcp-features">
             <li>⚡ Read wallet status and check balance</li>
             <li>⚡ Generate ephemeral proxy credentials</li>
             <li>⚡ Switch target locations programmatically</li>
@@ -336,12 +336,14 @@ function McpSection() {
             Setup MCP Server →
           </a>
         </div>
-        <div className="mcp-graphic">
-          <div className="mcp-node">LLM Agent</div>
-          <div className="mcp-arrow">MCP Protocol</div>
-          <div className="mcp-node highlight">ProxyBase MCP Server</div>
-          <div className="mcp-arrow">Yamux Tunnel</div>
-          <div className="mcp-node">Residential Node</div>
+        <div className="mcp-code">
+          <div className="mcp-diagram">
+            <div className="mcp-node">LLM Agent</div>
+            <div className="mcp-arrow">↓ MCP Protocol</div>
+            <div className="mcp-node highlight">ProxyBase MCP Server</div>
+            <div className="mcp-arrow">↓ Yamux Tunnel</div>
+            <div className="mcp-node">Residential Node</div>
+          </div>
         </div>
       </div>
     </section>

@@ -221,7 +221,7 @@ export default function EarnMoneyOnlinePage() {
                         <p className="section-desc">Clear answers to help you navigate digital earning paths safely.</p>
                     </div>
 
-                    <div className="deepdive-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
+                    <div className="deepdive-grid grid-2-cols">
                         <div className="deepdive-card">
                             <h3>Can you make $100 a day online?</h3>
                             <p>

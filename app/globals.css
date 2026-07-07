@@ -3395,4 +3395,166 @@ body {
   width: 100%;
 }
 
+/* =========================================================================
+   GLOBAL SECTION ALIGNMENT & RESPONSIVE REFINEMENTS
+   ========================================================================= */
+
+/* Ensure all layout sections span 100% full-width on large monitors so background colors and borders never cut off */
+.section,
+.compare-intro-section,
+.compare-matrix-section,
+.compare-deepdive-section,
+.compare-cta-section,
+.connector-features-section,
+.connector-steps-section,
+.connector-privacy-section,
+.pricing-catalog-section,
+.markets-hero-section,
+.mpp-section,
+.mpp-section-alt,
+.openclaw-features,
+.api-section,
+.pricing-section,
+.mcp-section,
+.how-it-works,
+.faq-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* Constrain all direct children inside these sections to max-width and center align */
+.section > *,
+.compare-intro-section > *,
+.compare-matrix-section > *,
+.compare-deepdive-section > *,
+.compare-cta-section > *,
+.connector-features-section > *,
+.connector-steps-section > *,
+.connector-privacy-section > *,
+.pricing-catalog-section > *,
+.markets-hero-section > *,
+.mpp-section > *,
+.mpp-section-alt > *,
+.openclaw-features > *,
+.api-section > *,
+.pricing-section > *,
+.mcp-section > *,
+.how-it-works > *,
+.faq-section > *,
+.section-inner-container {
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Responsive grid helper classes for mobile and desktop */
+.grid-2-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.hero-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+}
+
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+.featured-logos {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+  opacity: 0.65;
+}
+
+/* MCP Diagram Styling */
+.mcp-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 36px 24px;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.02);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.mcp-node {
+  padding: 14px 28px;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.mcp-node.highlight {
+  background: var(--accent-gradient);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
+}
+
+.mcp-arrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Responsive Overrides for Mobile Viewports */
+@media (max-width: 968px) {
+  .intro-card-grid,
+  .deepdive-grid,
+  .grid-2-cols,
+  .downloads-grid,
+  .features-grid,
+  .openclaw-features,
+  .mcp-grid,
+  .pricing-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-stats-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    padding: 16px;
+  }
+  .featured-logos {
+    gap: 24px;
+  }
+  .mcp-diagram {
+    padding: 24px 16px;
+  }
+}
+
+
 

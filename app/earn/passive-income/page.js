@@ -201,7 +201,7 @@ export default function PassiveIncomePage() {
                         <p className="section-desc">Clear, honest answers about passive earning on the ProxyBase platform.</p>
                     </div>
 
-                    <div className="deepdive-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
+                    <div className="deepdive-grid grid-2-cols">
                         <div className="deepdive-card">
                             <h3>Is ProxyBase a real passive income app?</h3>
                             <p>
