@@ -188,7 +188,7 @@ function HowItWorks() {
           </p>
         </div>
 
-        <div className="steps-flow">
+        <div className="steps-flow-3">
           <div className="step-card">
             <div className="step-num">01</div>
             <h3>Get the App for Free</h3>

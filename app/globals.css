@@ -3537,7 +3537,9 @@ body {
   .features-grid,
   .openclaw-features,
   .mcp-grid,
-  .pricing-grid {
+  .pricing-grid,
+  .steps-flow,
+  .steps-flow-3 {
     grid-template-columns: 1fr !important;
   }
 }
@@ -3554,6 +3556,70 @@ body {
   .mcp-diagram {
     padding: 24px 16px;
   }
+}
+
+/* =========================================================================
+   ONBOARDING & WORKFLOW STEP CARDS POLISH
+   ========================================================================= */
+
+.steps-flow-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 48px;
+  width: 100%;
+}
+
+.step-card {
+  position: relative;
+  padding: 40px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg) !important;
+  text-align: center;
+  transition: all var(--transition-smooth);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.02);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  z-index: 2;
+  box-shadow: 0 16px 30px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.step-number,
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--accent-gradient);
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #ffffff;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.step-card h3 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.step-card p {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
 }
 
 
