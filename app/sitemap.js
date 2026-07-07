@@ -163,6 +163,24 @@ export default function sitemap() {
             priority: 0.7,
         },
         {
+            url: "https://proxybase.xyz/earn/sell-internet",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
+            url: "https://proxybase.xyz/earn/passive-income",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
+            url: "https://proxybase.xyz/earn/earn-money-online",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
             url: "https://proxybase.xyz/blog/how-to-bypass-polymarket-geo-restrictions",
             lastModified: new Date(),
             changeFrequency: "monthly",

@@ -16,6 +16,14 @@ export default function Navbar() {
 
                 {/* Desktop Links */}
                 <ul className="nav-links">
+                    <li className="nav-dropdown-wrapper">
+                        <span className="nav-dropdown-trigger">Earn <span className="dropdown-arrow">▼</span></span>
+                        <ul className="nav-dropdown-menu">
+                            <li><Link href="/earn/sell-internet" data-umami-event="Nav: Sell Internet">Sell Internet</Link></li>
+                            <li><Link href="/earn/passive-income" data-umami-event="Nav: Passive Income">Passive Income</Link></li>
+                            <li><Link href="/earn/earn-money-online" data-umami-event="Nav: Earn Money Online">Earn Money Online</Link></li>
+                        </ul>
+                    </li>
                     <li><Link href="/#how-it-works" data-umami-event="Nav: How It Works">How It Works</Link></li>
                     <li><Link href="/markets" data-umami-event="Nav: Markets">Markets</Link></li>
                     <li><Link href="/#pricing" data-umami-event="Nav: Pricing">Pricing</Link></li>
@@ -40,6 +48,11 @@ export default function Navbar() {
             {/* Mobile Menu Panel */}
             <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
                 <ul className="mobile-nav-links">
+                    <li className="mobile-dropdown-header">Earn</li>
+                    <li className="mobile-dropdown-item"><Link href="/earn/sell-internet" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Sell Internet">Sell Internet</Link></li>
+                    <li className="mobile-dropdown-item"><Link href="/earn/passive-income" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Passive Income">Passive Income</Link></li>
+                    <li className="mobile-dropdown-item"><Link href="/earn/earn-money-online" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Earn Money Online">Earn Money Online</Link></li>
+                    <li className="mobile-nav-divider"></li>
                     <li><Link href="/#how-it-works" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: How It Works">How It Works</Link></li>
                     <li><Link href="/markets" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Markets">Markets</Link></li>
                     <li><Link href="/#pricing" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Pricing">Pricing</Link></li>
