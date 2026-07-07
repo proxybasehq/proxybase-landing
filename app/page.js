@@ -356,7 +356,7 @@ function RedditReviews() {
       date: "Reddit User"
     },
     {
-      text: "ProxyBase/Honeygain is legit. It’s a passive income app so you will not earn big amounts fastly. If you want to increase your earnings use their referral scheme, participate in contests.",
+      text: "ProxyBase is legit. It’s a passive income app so you will not earn big amounts fastly. If you want to increase your earnings use their referral scheme, participate in contests.",
       user: "natsumer",
       date: "Reddit User"
     },
