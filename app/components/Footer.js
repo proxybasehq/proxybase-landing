@@ -43,6 +43,10 @@ export default function Footer() {
                             <li><Link href="/compare/proxyempire" data-umami-event="Footer: Compare ProxyEmpire">VS ProxyEmpire</Link></li>
                             <li><Link href="/compare/oxylabs" data-umami-event="Footer: Compare Oxylabs">VS Oxylabs</Link></li>
                             <li><Link href="/compare/brightdata" data-umami-event="Footer: Compare Bright Data">VS Bright Data</Link></li>
+                            <li><Link href="/compare/earnapp" data-umami-event="Footer: Compare EarnApp">VS EarnApp</Link></li>
+                            <li><Link href="/compare/pawns" data-umami-event="Footer: Compare Pawns">VS Pawns.app</Link></li>
+                            <li><Link href="/compare/packetstream" data-umami-event="Footer: Compare PacketStream">VS PacketStream</Link></li>
+                            <li><Link href="/compare/traffmonetizer" data-umami-event="Footer: Compare TraffMonetizer">VS TraffMonetizer</Link></li>
                         </ul>
                     </div>
 

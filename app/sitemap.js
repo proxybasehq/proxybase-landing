@@ -139,6 +139,30 @@ export default function sitemap() {
             priority: 0.7,
         },
         {
+            url: "https://proxybase.xyz/compare/earnapp",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/compare/pawns",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/compare/packetstream",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/compare/traffmonetizer",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
             url: "https://proxybase.xyz/blog/how-to-bypass-polymarket-geo-restrictions",
             lastModified: new Date(),
             changeFrequency: "monthly",
