@@ -114,6 +114,7 @@ body {
   display: flex;
   gap: 32px;
   list-style: none;
+  align-items: center;
 }
 
 .nav-links a {
@@ -3295,7 +3296,7 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 0;
+  padding: 0;
   transition: color var(--transition-fast);
 }
 

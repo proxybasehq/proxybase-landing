@@ -24,13 +24,13 @@ export default function Navbar() {
                             <li><Link href="/earn/earn-money-online" data-umami-event="Nav: Earn Money Online">Earn Money Online</Link></li>
                         </ul>
                     </li>
-                    <li><Link href="/#how-it-works" data-umami-event="Nav: How It Works">How It Works</Link></li>
+                    <li><Link href="/ai-agents" data-umami-event="Nav: AI Agents">AI Agents</Link></li>
                     <li><Link href="/markets" data-umami-event="Nav: Markets">Markets</Link></li>
-                    <li><Link href="/#pricing" data-umami-event="Nav: Pricing">Pricing</Link></li>
-                    <li><Link href="/#api" data-umami-event="Nav: API Docs">API Docs</Link></li>
-                    <li><Link href="/#mcp" data-umami-event="Nav: MCP">MCP</Link></li>
+                    <li><Link href="/ai-agents#pricing" data-umami-event="Nav: Pricing">Pricing</Link></li>
+                    <li><Link href="/ai-agents#api" data-umami-event="Nav: API Docs">API Docs</Link></li>
+                    <li><Link href="/ai-agents#mcp" data-umami-event="Nav: MCP">MCP</Link></li>
                 </ul>
-                <Link href="/#api" className="nav-cta" data-umami-event="Nav: Get API Key CTA">Get API Key →</Link>
+                <Link href="/ai-agents#api" className="nav-cta" data-umami-event="Nav: Get API Key CTA">Get API Key →</Link>
 
                 {/* Mobile Hamburger Toggle */}
                 <button
@@ -53,13 +53,13 @@ export default function Navbar() {
                     <li className="mobile-dropdown-item"><Link href="/earn/passive-income" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Passive Income">Passive Income</Link></li>
                     <li className="mobile-dropdown-item"><Link href="/earn/earn-money-online" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Earn Money Online">Earn Money Online</Link></li>
                     <li className="mobile-nav-divider"></li>
-                    <li><Link href="/#how-it-works" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: How It Works">How It Works</Link></li>
+                    <li><Link href="/ai-agents" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: AI Agents">AI Agents</Link></li>
                     <li><Link href="/markets" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Markets">Markets</Link></li>
-                    <li><Link href="/#pricing" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Pricing">Pricing</Link></li>
-                    <li><Link href="/#api" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: API Docs">API Docs</Link></li>
-                    <li><Link href="/#mcp" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: MCP">MCP</Link></li>
+                    <li><Link href="/ai-agents#pricing" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Pricing">Pricing</Link></li>
+                    <li><Link href="/ai-agents#api" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: API Docs">API Docs</Link></li>
+                    <li><Link href="/ai-agents#mcp" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: MCP">MCP</Link></li>
                 </ul>
-                <Link href="/#api" className="mobile-nav-cta" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Get API Key CTA">Get API Key →</Link>
+                <Link href="/ai-agents#api" className="mobile-nav-cta" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Get API Key CTA">Get API Key →</Link>
             </div>
         </nav>
     );

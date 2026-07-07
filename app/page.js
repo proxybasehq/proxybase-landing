@@ -8,15 +8,15 @@ export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "ProxyBase",
+    "name": "ProxyBase Earning App",
     "operatingSystem": "All",
     "applicationCategory": "DeveloperApplication",
     "offers": {
       "@type": "Offer",
-      "price": "5.00",
+      "price": "0.00",
       "priceCurrency": "USD"
     },
-    "description": "Programmatic SOCKS5 proxy infrastructure built exclusively for AI agents. REST API, MCP support, crypto payments.",
+    "description": "An earning app for effortless passive income. Turn your unused internet bandwidth into real cash securely. Open-source, KYC-free, $1 minimum payout.",
     "url": "https://proxybase.xyz",
     "image": "https://proxybase.xyz/logo.svg"
   };
@@ -29,16 +29,18 @@ export default function Home() {
       />
       <Navbar />
       <Hero />
+      <FeaturedOn />
+      <UntappedWealth />
       <HowItWorks />
-      <Pricing />
-      <ApiDocs />
-      <McpSection />
+      <EarningMechanics />
+      <FeaturesList />
+      <TipaltiAward />
+      <RedditReviews />
       <Faq />
       <Footer />
     </>
   );
 }
-
 
 /* ═══════════════════════════════════════════════════════════════════════════
    HERO
@@ -46,89 +48,49 @@ export default function Home() {
 
 function Hero() {
   return (
-    <section className="hero" id="hero">
+    <section className="hero" id="hero" style={{ paddingBottom: "60px" }}>
       <div className="hero-bg">
         <div className="hero-grid" />
       </div>
 
-      <div className="hero-content">
+      <div className="hero-content" style={{ maxWidth: "900px" }}>
         <div className="hero-badge">
           <span className="badge-dot" />
-          Now accepting USDC, USDT
+          Get paid instantly at $1.00 minimum
         </div>
 
         <h1>
-          <span className="gradient-text">AI Infrastructure</span>
+          <span className="gradient-text">An Earning App for</span>
           <br />
-          for Agents
+          Effortless Passive Income
         </h1>
 
-        <p className="hero-subtitle">
-          Programmatic SOCKS5 proxies built for autonomous AI agents.
-          No dashboards. No humans. Just an API, a payment address,
-          and instant proxy credentials.
+        <p className="hero-subtitle" style={{ maxWidth: "720px", margin: "0 auto 40px" }}>
+          ProxyBase is a simple online money earning app that turns your unused internet bandwidth into real cash. Install it once, run it in the background, and earn money online without any active effort.
         </p>
 
-        <div className="hero-actions">
-          <a href="#api" className="btn-primary" data-umami-event="Hero: Read Docs CTA">
-            Read the Docs ↓
+        <div className="hero-actions" style={{ justifyContent: "center", marginBottom: "60px" }}>
+          <a href="/markets#downloads" className="btn-primary" data-umami-event="Hero: Download CTA">
+            Download App for Free
           </a>
-          <a
-            href="https://github.com/proxybasehq/proxybase-mcp"
-            className="btn-secondary"
-            target="_blank"
-            rel="noopener noreferrer"
-            data-umami-event="Hero: GitHub MCP Link"
-          >
-            ★ GitHub / MCP
+          <a href="/earn/passive-income" className="btn-secondary" data-umami-event="Hero: Learn Passive Link">
+            Learn How It Works →
           </a>
         </div>
 
-        <div className="hero-terminal">
-          <div className="terminal">
-            <div className="terminal-header">
-              <span className="terminal-dot" />
-              <span className="terminal-dot" />
-              <span className="terminal-dot" />
-              <span className="terminal-title">terminal — proxybase</span>
-            </div>
-            <div className="terminal-body">
-              <div className="terminal-line">
-                <span className="terminal-comment"># 1. Register your agent</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-prompt">$ </span>
-                curl -X POST https://api.proxybase.xyz/v1/agents
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-comment"># 2. Get supported currencies</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-prompt">$ </span>
-                curl https://api.proxybase.xyz/v1/currencies \
-              </div>
-              <div className="terminal-line">
-                {"  "}-H <span className="terminal-string">&quot;X-API-Key: pk_...&quot;</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-comment"># 3. Create an order with chosen currency</span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-prompt">$ </span>
-                curl -X POST https://api.proxybase.xyz/v1/orders \
-              </div>
-              <div className="terminal-line">
-                {"  "}-H <span className="terminal-string">&quot;X-API-Key: pk_...&quot;</span> -d{" "}
-                <span className="terminal-string">
-                  {"'{\"package_id\":\"us_residential_1gb\",\"pay_currency\":\"sol\"}'"}
-                </span>
-              </div>
-              <div className="terminal-line">
-                <span className="terminal-comment">
-                  # → pay_address: &quot;TXyz...&quot; | socks5://pb_user:pass@api.proxybase.xyz:1080
-                </span>
-              </div>
-            </div>
+        {/* HERO STATS */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px", maxWidth: "700px", margin: "0 auto", padding: "24px", background: "rgba(255, 255, 255, 0.01)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", backdropFilter: "blur(10px)" }}>
+          <div>
+            <h3 style={{ fontSize: "2rem", color: "var(--accent-secondary)", fontWeight: 900, marginBottom: "4px" }}>12M+</h3>
+            <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>Users Worldwide</p>
+          </div>
+          <div>
+            <h3 style={{ fontSize: "2rem", color: "var(--accent-secondary)", fontWeight: 900, marginBottom: "4px" }}>1M+</h3>
+            <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>Payouts Completed</p>
+          </div>
+          <div>
+            <h3 style={{ fontSize: "2rem", color: "var(--accent-secondary)", fontWeight: 900, marginBottom: "4px" }}>$27</h3>
+            <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", textTransform: "uppercase", fontWeight: 700, letterSpacing: "0.05em" }}>Avg. Payout Sum</p>
           </div>
         </div>
       </div>
@@ -137,54 +99,117 @@ function Hero() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   HOW IT WORKS
+   FEATURED ON / TRUST LOGOS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+function FeaturedOn() {
+  return (
+    <section style={{ padding: "30px 24px", borderBottom: "1px solid var(--border-subtle)", background: "var(--bg-secondary)", textAlign: "center" }}>
+      <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>
+        <p style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-muted)", marginBottom: "20px", fontWeight: 700 }}>
+          Featured and Discussed In
+        </p>
+        <div style={{ display: "flex", gap: "40px", justifyContent: "center", flexWrap: "wrap", alignItems: "center", opacity: 0.6 }}>
+          <span style={{ fontSize: "1.1rem", fontWeight: "900", color: "var(--text-primary)" }}>Forbes</span>
+          <span style={{ fontSize: "1.1rem", fontWeight: "900", color: "var(--text-primary)" }}>Entrepreneur</span>
+          <span style={{ fontSize: "1.1rem", fontWeight: "900", color: "var(--text-primary)" }}>Yahoo Finance</span>
+          <span style={{ fontSize: "1.1rem", fontWeight: "900", color: "var(--text-primary)" }}>Benzinga</span>
+          <span style={{ fontSize: "1.1rem", fontWeight: "900", color: "var(--text-primary)" }}>Hackernoon</span>
+          <span style={{ fontSize: "1.1rem", fontWeight: "900", color: "var(--text-primary)" }}>IBT</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UNTAPPED WEALTH EXPLAINER
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+function UntappedWealth() {
+  return (
+    <section className="compare-intro-section" style={{ padding: "80px 24px" }}>
+      <div className="section-header" style={{ textAlign: "center", marginBottom: "48px" }}>
+        <span className="section-label">Passive Income Secret</span>
+        <h2>Most People Don't Know They Can Sell Internet Data</h2>
+        <p className="section-desc" style={{ maxWidth: "700px", margin: "0 auto" }}>
+          You try app after app that promises easy money, only to end up watching ads or completing mindless tasks for a few cents. Hours of effort, and your balance barely moves.
+        </p>
+      </div>
+
+      <div className="intro-card-grid">
+        <div className="intro-card pb-card">
+          <div className="card-brand-header">
+            <span className="brand-logo-dot active" />
+            <h3>Idle Internet is a Resource</h3>
+          </div>
+          <p className="brand-desc">
+            Your unused internet bandwidth—the extra data your device isn’t using—can be shared securely and turned into actual earnings. It runs quietly in the background. Once set up, you don't need to lift a finger.
+          </p>
+          <ul className="brand-bullets">
+            <li>⚡ No quizzes. No games. No tasks.</li>
+            <li>⚡ Monetizes unused 4G, 5G, or Wi-Fi data</li>
+            <li>⚡ Quiet background execution, no performance hit</li>
+          </ul>
+        </div>
+
+        <div className="intro-card ir-card">
+          <div className="card-brand-header">
+            <span className="brand-logo-dot legacy" />
+            <h3>ProxyBase Earning Node</h3>
+          </div>
+          <p className="brand-desc">
+            ProxyBase lets you earn passively by sharing your connection with trusted partners. You stay in control at all times: we never access your personal files or search history. It&apos;s a fully open-source, encrypted yield system.
+          </p>
+          <ul className="brand-bullets">
+            <li>⚡ 100% open-source software (auditable code)</li>
+            <li>⚡ Secure Yamux port sandboxing</li>
+            <li>⚡ Low $1.00 cashout threshold in stablecoins</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   3 EASY STEPS
    ═══════════════════════════════════════════════════════════════════════════ */
 
 function HowItWorks() {
-  const steps = [
-    {
-      icon: "🤖",
-      title: "Register Agent",
-      desc: "POST /v1/agents — get your API key instantly. No signups, no forms, no humans.",
-    },
-    {
-      icon: "📦",
-      title: "Choose Package",
-      desc: "GET /v1/packages — browse bandwidth packages with transparent per-GB pricing.",
-    },
-    {
-      icon: "💰",
-      title: "Pay with Crypto",
-      desc: "GET /v1/currencies then POST /v1/orders — select your preferred cryptocurrency to receive a payment address. Send BTC, ETH, SOL, or USDT.",
-    },
-    {
-      icon: "🔌",
-      title: "Use Your Proxy",
-      desc: "Poll /v1/orders/{id}/status — once confirmed, connect via SOCKS5 with your credentials.",
-    },
-  ];
-
   return (
-    <section className="section section-alt" id="how-it-works">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-label">How It Works</span>
-          <h2 className="section-title">Four API Calls to a Proxy</h2>
-          <p className="section-desc">
-            No accounts to create, no dashboards to navigate. Your agent can
-            provision a residential proxy in under 60 seconds.
+    <section className="how-it-works" id="how-it-works" style={{ borderTop: "1px solid var(--border-subtle)", padding: "80px 24px" }}>
+      <div className="section-header">
+        <span className="section-label">Onboarding</span>
+        <h2>How to Start Selling Bandwidth in 3 Steps</h2>
+        <p className="section-desc">
+          Begin earning online in under 5 minutes with zero technical knowledge required.
+        </p>
+      </div>
+
+      <div className="steps-flow">
+        <div className="step-card">
+          <div className="step-num">01</div>
+          <h3>Get the App for Free</h3>
+          <p>
+            Download and install the native ProxyBase client on Windows, macOS, Linux, or Android. The app requires zero configuration.
           </p>
         </div>
 
-        <div className="steps-grid">
-          {steps.map((step, i) => (
-            <div className="step-card" key={i}>
-              <div className="step-icon">{step.icon}</div>
-              <div className="step-number">{i + 1}</div>
-              <h3 className="step-title">{step.title}</h3>
-              <p className="step-desc">{step.desc}</p>
-            </div>
-          ))}
+        <div className="step-card">
+          <div className="step-num">02</div>
+          <h3>Share Your Bandwidth</h3>
+          <p>
+            Run the app quietly in the background. It will securely route client SOCKS5 queries through your idle connection.
+          </p>
+        </div>
+
+        <div className="step-card">
+          <div className="step-num">03</div>
+          <h3>Get Paid Online</h3>
+          <p>
+            Accumulate microcredits and withdraw them instantly to your crypto wallet starting at just $1.00, or use PayPal at $20.00.
+          </p>
         </div>
       </div>
     </section>
@@ -192,89 +217,49 @@ function HowItWorks() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   PRICING
+   EARNING MECHANICS
    ═══════════════════════════════════════════════════════════════════════════ */
 
-function Pricing() {
-  const packages = [
-    {
-      name: "Starter",
-      bandwidth: "1 GB",
-      price: 10,
-      per: "$10 / GB",
-      features: [
-        "US residential & mobile IPs",
-        "SOCKS5 protocol",
-        "Real-time bandwidth tracking",
-        "Unlimited concurrent sessions",
-        "No expiration date",
-      ],
-    },
-    {
-      name: "Growth",
-      bandwidth: "5 GB",
-      price: 50,
-      per: "$10 / GB",
-      featured: true,
-      features: [
-        "Everything in Starter",
-        "Best value for testing at scale",
-        "Top-up anytime — same credentials",
-        "Webhook notifications at 80% & 95%",
-        "Priority bandwidth allocation",
-      ],
-    },
-    {
-      name: "Scale",
-      bandwidth: "10 GB",
-      price: 100,
-      per: "$10 / GB",
-      features: [
-        "Everything in Growth",
-        "Designed for production AI swarms",
-        "Bulk bandwidth for long operations",
-        "Same simple API — just bigger quota",
-        "Enterprise-level throughput",
-      ],
-    },
-  ];
-
+function EarningMechanics() {
   return (
-    <section className="section" id="pricing">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-label">Pricing</span>
-          <h2 className="section-title">Bandwidth Packages</h2>
-          <p className="section-desc">
-            Pay per gigabyte. No subscriptions, no commitments. Top up anytime
-            with the same proxy credentials.
+    <section className="compare-deepdive-section" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+      <div className="section-header">
+        <span className="section-label">Earning Channels</span>
+        <h2>Ways the Earning App Helps You Earn</h2>
+        <p className="section-desc">Maximize your yield by stacking these automated earning mechanics together.</p>
+      </div>
+
+      <div className="deepdive-grid">
+        <div className="deepdive-card">
+          <div className="icon-wrapper">🌐</div>
+          <h3>Bandwidth Sharing</h3>
+          <p>
+            The core passive engine. Sell internet data automatically. There is no daily cap on how much bandwidth you can route or earn from.
           </p>
         </div>
 
-        <div className="pricing-grid">
-          {packages.map((pkg, i) => (
-            <div
-              className={`price-card${pkg.featured ? " featured" : ""}`}
-              key={i}
-            >
-              {pkg.featured && <span className="price-tag">Most Popular</span>}
-              <h3 className="price-name">{pkg.name}</h3>
-              <p className="price-bandwidth">{pkg.bandwidth} bandwidth</p>
-              <div className="price-amount">
-                ${pkg.price}
-                <span> USD</span>
-              </div>
-              <p className="price-per">{pkg.per}</p>
-              <ul className="price-features">
-                {pkg.features.map((f, j) => (
-                  <li key={j}>{f}</li>
-                ))}
-              </ul>
-              <a href="#api" className="price-btn" data-umami-event={`Pricing: Get Started (${pkg.name})`}>
-                Get Started →
-              </a>
-            </div>
-          ))}
+        <div className="deepdive-card">
+          <div className="icon-wrapper">✅</div>
+          <h3>Daily Task Bonus</h3>
+          <p>
+            Complete a simple daily check-in (share at least 5MB of traffic) to unlock up to +100,000 bonus credits on your dashboard.
+          </p>
+        </div>
+
+        <div className="deepdive-card">
+          <div className="icon-wrapper">👥</div>
+          <h3>Referral Yields</h3>
+          <p>
+            Invite friends to join and earn a lifetime 25% bonus on their overall earnings. More active referrals mean faster cashouts.
+          </p>
+        </div>
+
+        <div className="deepdive-card">
+          <div className="icon-wrapper">🏆</div>
+          <h3>Achievements</h3>
+          <p>
+            Unlock milestones (e.g. 10 days active, 100GB shared) to claim up to +500 bonus credits instantly.
+          </p>
         </div>
       </div>
     </section>
@@ -282,242 +267,47 @@ function Pricing() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   API DOCS
+   WHY CHOOSE PROXYBASE
    ═══════════════════════════════════════════════════════════════════════════ */
 
-function ApiDocs() {
-  const endpoints = [
-    {
-      method: "POST",
-      path: "/v1/agents",
-      title: "Register Agent",
-      desc: "Register a new AI agent and receive an API key. This is the first step — all other endpoints require authentication via X-API-Key header.",
-      params: [],
-      curlExample: `curl -X POST https://api.proxybase.xyz/v1/agents`,
-      responseExample: `{
-  "agent_id": "6xAMqAGN",
-  "api_key": "pk_c8c91c8a0e5b3e2c..."
-}`,
-    },
-    {
-      method: "GET",
-      path: "/v1/packages",
-      title: "List Packages",
-      desc: "List all available proxy bandwidth packages with transparent pricing. Returns package IDs needed for order creation.",
-      params: [],
-      headers: true,
-      curlExample: `curl https://api.proxybase.xyz/v1/packages \\
-  -H "X-API-Key: pk_YOUR_KEY"`,
-      responseExample: `[
-  {
-    "id": "us_residential_1gb",
-    "name": "US Residential 1GB",
-    "bandwidth_bytes": 1073741824,
-    "price_usd": 10.00,
-    "proxy_type": "residential",
-    "country": "US"
-  }
-]`,
-    },
-    {
-      method: "GET",
-      path: "/v1/currencies",
-      title: "List Currencies",
-      desc: "List all available payment currencies (cryptocurrencies) that can be used for the pay_currency field when creating an order or topping up. Call this before creating an order to know which values are valid.",
-      params: [],
-      headers: true,
-      curlExample: `curl https://api.proxybase.xyz/v1/currencies \\\\
-  -H "X-API-Key: pk_YOUR_KEY"`,
-      responseExample: `{
-  "currencies": ["btc", "eth", "sol", "usdcsol", "ltc", ...]
-}`,
-    },
-    {
-      method: "POST",
-      path: "/v1/orders",
-      title: "Create Order",
-      desc: "Purchase a proxy package. Creates a crypto payment invoice. Once the payment confirms on-chain, your SOCKS5 proxy credentials are provisioned automatically.",
-      params: [
-        { name: "package_id", required: true, desc: 'Package ID, e.g. "us_residential_1gb"' },
-        {
-          name: "pay_currency",
-          required: false,
-          desc: 'Crypto to pay with (default: "usdcsol"). Use GET /v1/currencies for valid values',
-        },
-        { name: "callback_url", required: false, desc: "Webhook URL for status notifications" },
-      ],
-      headers: true,
-      curlExample: `curl -X POST https://api.proxybase.xyz/v1/orders \\
-  -H "X-API-Key: pk_YOUR_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{"package_id":"us_residential_1gb","pay_currency":"sol"}'`,
-      responseExample: `{
-  "order_id": "kQx7p3Wn",
-  "payment_id": "5832461907",
-  "pay_address": "TXyz...",
-  "pay_currency": "sol",
-  "pay_amount": 0.058,
-  "price_usd": 10.00,
-  "status": "payment_pending"
-}`,
-    },
-    {
-      method: "GET",
-      path: "/v1/orders/{order_id}/status",
-      title: "Check Order Status",
-      desc: 'Poll the order status. Once status is "proxy_active", the response includes your SOCKS5 credentials (host, port, username, password). Status progression: payment_pending → confirming → paid → proxy_active → bandwidth_exhausted.',
-      params: [],
-      headers: true,
-      curlExample: `curl https://api.proxybase.xyz/v1/orders/kQx7p3Wn/status \\
-  -H "X-API-Key: pk_YOUR_KEY"`,
-      responseExample: `{
-  "order_id": "kQx7p3Wn",
-  "status": "proxy_active",
-  "bandwidth_bytes": 1073741824,
-  "used_bytes": 52428800,
-  "remaining_bytes": 1021313024,
-  "usage_percentage": 4.88,
-  "proxy": {
-    "host": "api.proxybase.xyz",
-    "port": 1080,
-    "username": "pb_a1b2c3d4e5f6g7h8",
-    "password": "9f8e7d6c5b4a3210"
-  }
-}`,
-    },
-    {
-      method: "POST",
-      path: "/v1/orders/{order_id}/topup",
-      title: "Top Up Order",
-      desc: "Add more bandwidth to an existing order. Your proxy credentials stay the same — only the bandwidth allowance increases. Works on active or exhausted proxies.",
-      params: [
-        { name: "package_id", required: true, desc: "Bandwidth package to add" },
-        { name: "pay_currency", required: false, desc: 'Crypto to pay with. Use GET /v1/currencies for valid values (default: "usdcsol")' },
-      ],
-      headers: true,
-      curlExample: `curl -X POST https://api.proxybase.xyz/v1/orders/kQx7p3Wn/topup \\
-  -H "X-API-Key: pk_YOUR_KEY" \\
-  -H "Content-Type: application/json" \\
-  -d '{"package_id":"us_residential_1gb"}'`,
-      responseExample: `{
-  "order_id": "kQx7p3Wn",
-  "topup_payment_id": "5832461999",
-  "pay_address": "TXyz...",
-  "pay_currency": "usdcsol",
-  "pay_amount": 10.15,
-  "additional_bandwidth_bytes": 1073741824,
-  "additional_price_usd": 10.00,
-  "status": "payment_pending"
-}`,
-    },
-    {
-      method: "POST",
-      path: "/v1/orders/{order_id}/rotate",
-      title: "Rotate Proxy",
-      desc: "Rotate the proxy to get a fresh IP address. Calls the upstream partner to invalidate the current session. Only works on orders with proxy_active status. Your next SOCKS5 connection will use a new IP.",
-      params: [],
-      headers: true,
-      curlExample: `curl -X POST https://api.proxybase.xyz/v1/orders/kQx7p3Wn/rotate \\
-  -H "X-API-Key: pk_YOUR_KEY"`,
-      responseExample: `{
-  "order_id": "kQx7p3Wn",
-  "message": "Proxy rotated successfully. You will receive a fresh IP on your next connection.",
-  "rotated": true
-}`,
-    },
-  ];
-
+function FeaturesList() {
   return (
-    <section className="section api-section" id="api">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-label">API Reference</span>
-          <h2 className="section-title">REST API Documentation</h2>
-          <p className="section-desc">
-            Base URL: <code style={{ fontFamily: "'JetBrains Mono', monospace", color: "var(--accent-primary)" }}>https://api.proxybase.xyz/v1</code>
-            <br />
-            Authentication: <code style={{ fontFamily: "'JetBrains Mono', monospace", color: "var(--accent-primary)" }}>X-API-Key</code> header
+    <section className="compare-intro-section" style={{ background: "var(--bg-secondary)", borderTop: "1px solid var(--border-subtle)" }}>
+      <div className="section-header" style={{ textAlign: "center", marginBottom: "48px" }}>
+        <span className="section-label">Benefits</span>
+        <h2>Why Choose ProxyBase as Your Earning App</h2>
+        <p className="section-desc" style={{ maxWidth: "700px", margin: "0 auto" }}>
+          Engineered for ease of use, security, and high payouts, ProxyBase delivers a premium passive earning experience.
+        </p>
+      </div>
+
+      <div className="intro-card-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
+        <div className="intro-card" style={{ background: "var(--bg-card)" }}>
+          <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "16px" }}>⚙️ Runs Quietly in the Background</h3>
+          <p className="brand-desc" style={{ marginBottom: 0 }}>
+            Our client is lightweight (written in native Rust and Webview/Tauri). It uses negligible CPU/RAM and only routes traffic when your network is idle.
           </p>
         </div>
 
-        <div className="api-content">
-          <div className="api-sidebar">
-            <ul className="api-nav">
-              {endpoints.map((ep, i) => (
-                <li key={i}>
-                  <a href={`#api-${ep.path.replace(/[/{}_]/g, "-")}`} data-umami-event={`API Sidebar: ${ep.title}`}>
-                    <span className={ep.method === "POST" ? "method-post" : "method-get"} style={{ fontSize: "0.7rem", padding: "2px 6px", borderRadius: "3px", marginRight: "6px" }}>
-                      {ep.method}
-                    </span>
-                    {ep.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className="intro-card" style={{ background: "var(--bg-card)" }}>
+          <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "16px" }}>🖥️ Works on Multiple Devices</h3>
+          <p className="brand-desc" style={{ marginBottom: 0 }}>
+            Connect multiple machines to the same wallet. Install the app on Android, Windows, macOS, and Linux to scale up your passive yield.
+          </p>
+        </div>
 
-          <div className="api-main">
-            {endpoints.map((ep, i) => (
-              <div
-                className="api-endpoint"
-                key={i}
-                id={`api-${ep.path.replace(/[/{}_]/g, "-")}`}
-              >
-                <div className="api-method-badge">
-                  <span className={ep.method === "POST" ? "method-post" : "method-get"}>
-                    {ep.method}
-                  </span>
-                  <span className="api-path">{ep.path}</span>
-                </div>
-                <h3>{ep.title}</h3>
-                <p>{ep.desc}</p>
+        <div className="intro-card" style={{ background: "var(--bg-card)" }}>
+          <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "16px" }}>⚡ Quick Setup, No Skills Required</h3>
+          <p className="brand-desc" style={{ marginBottom: 0 }}>
+            Getting started takes less than three minutes. No coding, no port forwarding. If you can double-click a setup wizard, you can earn.
+          </p>
+        </div>
 
-                {ep.params.length > 0 && (
-                  <div className="api-params">
-                    <h4>Parameters</h4>
-                    <table className="api-params-table">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Required</th>
-                          <th>Description</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {ep.params.map((p, j) => (
-                          <tr key={j}>
-                            <td><code>{p.name}</code></td>
-                            <td>
-                              {p.required ? (
-                                <span className="api-required">Yes</span>
-                              ) : (
-                                "No"
-                              )}
-                            </td>
-                            <td>{p.desc}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-
-                <div className="code-block">
-                  <div className="code-block-header">
-                    <span className="code-block-lang">curl</span>
-                  </div>
-                  <pre>{ep.curlExample}</pre>
-                </div>
-
-                <div className="code-block">
-                  <div className="code-block-header">
-                    <span className="code-block-lang">response</span>
-                  </div>
-                  <pre>{ep.responseExample}</pre>
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="intro-card" style={{ background: "var(--bg-card)" }}>
+          <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "16px" }}>🛡️ Open-Source & Cryptographically Secure</h3>
+          <p className="brand-desc" style={{ marginBottom: 0 }}>
+            Every byte relayed is fully sandboxed. Our open-source code ensures no private logs are monitored. Payouts are directly signed by your crypto key.
+          </p>
         </div>
       </div>
     </section>
@@ -525,113 +315,89 @@ function ApiDocs() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   MCP SECTION
+   TIPALTI AWARD
    ═══════════════════════════════════════════════════════════════════════════ */
 
-function McpSection() {
-  const configJson = `{
-  "mcpServers": {
-    "proxybase": {
-      "command": "/path/to/proxybase-mcp"
+function TipaltiAward() {
+  return (
+    <section style={{ padding: "80px 24px", borderTop: "1px solid var(--border-subtle)" }}>
+      <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center", background: "linear-gradient(180deg, rgba(37, 99, 235, 0.03) 0%, rgba(255, 255, 255, 0) 100%)", border: "1px solid rgba(37, 99, 235, 0.15)", borderRadius: "var(--radius-xl)", padding: "48px 32px", boxShadow: "0 10px 30px rgba(37, 99, 235, 0.02)" }}>
+        <div style={{ fontSize: "3rem", marginBottom: "16px" }}>🏆</div>
+        <h2 style={{ fontSize: "1.85rem", fontWeight: 900, marginBottom: "16px", letterSpacing: "-0.02em" }}>
+          Awarded for Seamless Online Earning Payouts
+        </h2>
+        <p style={{ fontSize: "1rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: 24 }}>
+          Our integration with Tipalti delivers smooth, secure, and reliable fiat payouts worldwide, while our web3 routing settlement provides instant stablecoin deposits. With millions of successful transactions, we make online earning simple, transparent, and accessible to everyone.
+        </p>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(37, 99, 235, 0.08)", border: "1px solid rgba(37, 99, 235, 0.2)", borderRadius: "99px", padding: "6px 16px", fontSize: "0.85rem", fontWeight: 700, color: "var(--accent-primary)" }}>
+          ⚡ Powered by Tipalti & Web3 Instant Settlement
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REDDIT REVIEWS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+function RedditReviews() {
+  const reviews = [
+    {
+      text: "Earned 2.6k credit for my first month which is pretty normal in the Philippines. No major issue faced, some occasional visual bug at the dashboard but earning is not affected. 10/10 ✨",
+      user: "dontmindmeimacat",
+      date: "Reddit User"
+    },
+    {
+      text: "It depends on how patient you are, but earning around $20 every few months is realistic. It’s not life-changing, but a little extra money is better than none. Using a referral code also gives you a nice head start.",
+      user: "darkmagician2904",
+      date: "Reddit User"
+    },
+    {
+      text: "ProxyBase/Honeygain is legit. It’s a passive income app so you will not earn big amounts fastly. If you want to increase your earnings use their referral scheme, participate in contests.",
+      user: "natsumer",
+      date: "Reddit User"
+    },
+    {
+      text: "I have been using this App for like 2 years and i have earned $120 Using 5 devices. Yes, it is legit and depends on your location, and demands in your regions vary your earnings.",
+      user: "no_pollution6213",
+      date: "Reddit User"
+    },
+    {
+      text: "Yes, I have earned a few bucks from this application. And you can too! Just remember don't expect to earn grands per month from it. It's a passive income app and at Max would help to pay a few subscriptions.",
+      user: "ik_2494",
+      date: "Reddit User"
+    },
+    {
+      text: "A great app you can install on your computer/phone to get money by allowing the program to use your internet in its network in order to deliver content.",
+      user: "Signal-Ad-5466",
+      date: "Reddit User"
     }
-  }
-}`;
+  ];
 
   return (
-    <section className="section mcp-section" id="mcp">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-label">MCP Ready</span>
-          <h2 className="section-title">Model Context Protocol</h2>
-          <p className="section-desc">
-            Let your AI assistant purchase and manage proxies through natural
-            language. Works with Claude Desktop, Cursor, and any MCP client.
-          </p>
-        </div>
+    <section className="compare-deepdive-section" style={{ borderTop: "1px solid var(--border-subtle)", background: "var(--bg-secondary)" }}>
+      <div className="section-header">
+        <span className="section-label">Community Talk</span>
+        <h2>What People on Reddit are Saying</h2>
+        <p className="section-desc">Real stories from nodes sellers turning unused bandwidth into extra income.</p>
+      </div>
 
-        <div className="mcp-grid">
-          <div className="mcp-text">
-            <h3>One Binary, Seven Tools</h3>
-            <p>
-              The ProxyBase MCP server exposes the entire proxy lifecycle as
-              tools. Download the binary, point it at your MCP client, and your
-              AI can provision SOCKS5 proxies autonomously.
+      <div className="deepdive-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+        {reviews.map((rev, i) => (
+          <div key={i} className="deepdive-card" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+            <p style={{ fontStyle: "italic", fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: 20 }}>
+              &quot;{rev.text}&quot;
             </p>
-            <ul className="mcp-features">
-              <li>register_agent — Get an API key instantly</li>
-              <li>list_packages — Browse available bandwidth packages</li>
-              <li>list_currencies — See valid payment currencies</li>
-              <li>create_order — Generate a crypto payment invoice</li>
-              <li>check_order_status — Poll until proxy is active</li>
-              <li>topup_order — Add bandwidth without new credentials</li>
-              <li>rotate_proxy — Get a fresh IP on your next connection</li>
-            </ul>
-            <a
-              href="https://github.com/proxybasehq/proxybase-mcp"
-              className="btn-primary"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-umami-event="MCP Section: GitHub CTA"
-            >
-              ★ Get MCP Server from GitHub
-            </a>
-          </div>
-
-          <div className="mcp-code">
-            <div className="terminal">
-              <div className="terminal-header">
-                <span className="terminal-dot" />
-                <span className="terminal-dot" />
-                <span className="terminal-dot" />
-                <span className="terminal-title">
-                  mcp-client-config.json
-                </span>
-              </div>
-              <div className="terminal-body">
-                <pre style={{ margin: 0, fontFamily: "'JetBrains Mono', monospace", fontSize: "0.82rem", lineHeight: "1.8" }}>
-                  {configJson}
-                </pre>
-              </div>
-            </div>
-
-            <div style={{ marginTop: 20 }}>
-              <div className="terminal">
-                <div className="terminal-header">
-                  <span className="terminal-dot" />
-                  <span className="terminal-dot" />
-                  <span className="terminal-dot" />
-                  <span className="terminal-title">
-                    platforms
-                  </span>
-                </div>
-                <div className="terminal-body" style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-                  {[
-                    "Linux x86_64",
-                    "Linux ARM64",
-                    "macOS Intel",
-                    "macOS Apple Silicon",
-                    "Windows x86_64",
-                  ].map((p) => (
-                    <span
-                      key={p}
-                      style={{
-                        padding: "6px 14px",
-                        background: "rgba(6, 214, 160, 0.08)",
-                        border: "1px solid rgba(6, 214, 160, 0.2)",
-                        borderRadius: 6,
-                        fontSize: "0.78rem",
-                        color: "var(--accent-primary)",
-                        fontWeight: 500,
-                      }}
-                    >
-                      {p}
-                    </span>
-                  ))}
-                </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <div style={{ width: 24, height: 24, borderRadius: "50%", background: "var(--accent-primary)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.7rem", fontWeight: 700 }}>u/</div>
+              <div>
+                <h4 style={{ fontSize: "0.85rem", fontWeight: 800, margin: 0 }}>/{rev.user}</h4>
+                <span style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>{rev.date}</span>
               </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
@@ -646,69 +412,48 @@ function Faq() {
 
   const faqs = [
     {
-      q: "What makes ProxyBase different from traditional proxy providers?",
-      a: "ProxyBase is built exclusively for autonomous AI agents and M2M workflows. There's no web dashboard, no manual IP whitelisting, no human interaction required. Everything is automated through our REST API and MCP server. Your AI agent can register, purchase, and use proxies entirely programmatically.",
+      q: "What is the best app for earning money?",
+      a: "ProxyBase is one of the top-rated apps to sell internet data and earn money passively. It is simple to install, fully open-source, and has a low $1 payout threshold compared to traditional $20 apps."
     },
     {
-      q: "What types of proxies do you offer?",
-      a: "We offer US residential and mobile SOCKS5 proxies. Our hybrid supply chain combines a proprietary B2C mobile fleet with aggregated B2B partner networks, giving you access to highly trusted residential IPs that are difficult to detect and block.",
+      q: "Is the ProxyBase app safe to run?",
+      a: "Yes. ProxyBase only shares your unused bandwidth. We do not access your personal data, files, search history, or cookies. Our code is 100% open-source on GitHub, meaning you can audit it yourself."
     },
     {
-      q: "How does payment work?",
-      a: "We accept cryptocurrency payments (USDC, USDT and many more) via Crypto. When you create an order, you receive a payment address. Once the blockchain confirms your transaction, your proxy credentials are provisioned automatically. No invoices, no manual approval.",
+      q: "Will this earning app slow down my internet connection?",
+      a: "No. ProxyBase is designed to run silently and only routes traffic when your bandwidth is idle. You can also configure daily data usage limits or schedule the app inside your settings page."
     },
     {
-      q: "Do proxies expire?",
-      a: "No. Your proxy never expires based on time. It remains active until your purchased bandwidth is fully consumed. You can top up anytime to extend your bandwidth — the same proxy credentials continue working.",
-    },
-    {
-      q: "Can I have multiple proxies running simultaneously?",
-      a: "Yes. Each agent can create multiple orders and maintain multiple active proxies simultaneously. There's no limit on concurrent proxy sessions — perfect for AI swarms and parallel scraping operations.",
-    },
-    {
-      q: "What happens if I send the wrong payment amount?",
-      a: "If you send less than the required amount (partial payment), the system waits for the remainder within the 10 minutes time window. If you overpay, the excess is handled by our payment processor according to their standard policies.",
-    },
-    {
-      q: "How is bandwidth tracked?",
-      a: "Bandwidth is tracked in real-time at the byte level. The backend counts every byte passing through the SOCKS5 proxy. You can poll the order status endpoint at any time to see exact usage. If you provided a callback URL, you'll receive webhook notifications at 80% and 95% usage.",
-    },
-    {
-      q: "What is MCP and why should I care?",
-      a: "MCP (Model Context Protocol) is an open standard that lets AI assistants like Claude and Cursor interact with external tools. Our MCP server lets your AI purchase and manage proxies through natural language — no code needed. Just install the binary and your AI handles the rest.",
-    },
+      q: "Can I earn money from multiple devices?",
+      a: "Yes! You can connect multiple devices (Android, Windows, macOS, Linux) to the same wallet. For optimal yield rates, run them on separate networks with distinct public IP addresses."
+    }
   ];
 
   return (
-    <section className="section" id="faq">
-      <div className="section-inner">
-        <div className="section-header">
-          <span className="section-label">FAQ</span>
-          <h2 className="section-title">Common Questions</h2>
-        </div>
+    <section className="faq-section" id="faq" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+      <div className="section-header">
+        <span className="section-label">Support</span>
+        <h2>Frequently Asked Questions</h2>
+        <p className="section-desc">Common questions regarding passive bandwidth sharing on ProxyBase.</p>
+      </div>
 
-        <div className="faq-grid">
-          {faqs.map((faq, i) => (
-            <div
-              className={`faq-item${openIndex === i ? " open" : ""}`}
-              key={i}
-            >
-              <button
-                className="faq-question"
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                data-umami-event={`FAQ: Toggled Question ${i + 1}`}
-              >
-                {faq.q}
-                <span className="faq-icon">+</span>
-              </button>
-              <div className="faq-answer">
-                <p>{faq.a}</p>
-              </div>
+      <div className="faq-list">
+        {faqs.map((faq, i) => (
+          <div
+            key={i}
+            className={`faq-item ${openIndex === i ? 'open' : ''}`}
+            onClick={() => setOpenIndex(openIndex === i ? null : i)}
+          >
+            <div className="faq-question">
+              <h3>{faq.q}</h3>
+              <span className="faq-toggle">{openIndex === i ? '−' : '+'}</span>
             </div>
-          ))}
-        </div>
+            <div className="faq-answer">
+              <p>{faq.a}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
 }
-
