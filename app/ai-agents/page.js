@@ -187,49 +187,51 @@ function HowItWorks() {
 function Pricing() {
   return (
     <section className="pricing-section" id="pricing">
-      <div className="section-header">
-        <span className="section-label">Pricing</span>
-        <h2>No Subscriptions. Pay-as-you-Go.</h2>
-        <p className="section-desc">
-          Pay strictly for the bandwidth your agents consume. Credits never
-          expire. Deposit stablecoins anytime.
-        </p>
-      </div>
-
-      <div className="pricing-grid">
-        <div className="pricing-card">
-          <h3>Residential</h3>
-          <div className="price-amount">
-            $3.00<span>/GB</span>
-          </div>
-          <p className="pricing-desc">
-            Bypass Geo-blocking and scrapers using residential IPs.
+      <div className="section-inner-container">
+        <div className="section-header">
+          <span className="section-label">Pricing</span>
+          <h2>No Subscriptions. Pay-as-you-Go.</h2>
+          <p className="section-desc">
+            Pay strictly for the bandwidth your agents consume. Credits never
+            expire. Deposit stablecoins anytime.
           </p>
-          <ul className="pricing-features">
-            <li>✓ Global Geo-Targeting (State/City)</li>
-            <li>✓ Rotating or Sticky Sessions</li>
-            <li>✓ Yamux Stream Multiplexing</li>
-            <li>✓ Dual-Path Failover Enabled</li>
-          </ul>
-          <a href="#api" className="btn-primary">Deposit Now</a>
         </div>
 
-        <div className="pricing-card premium">
-          <div className="card-badge">Most Popular</div>
-          <h3>Mobile (4G/5G)</h3>
-          <div className="price-amount">
-            $5.00<span>/GB</span>
+        <div className="pricing-grid-2">
+          <div className="price-card">
+            <h3 className="price-name">Residential</h3>
+            <div className="price-amount">
+              $3.00<span>/GB</span>
+            </div>
+            <p className="price-per">
+              Bypass Geo-blocking and scrapers using residential IPs.
+            </p>
+            <ul className="price-features">
+              <li>Global Geo-Targeting (State/City)</li>
+              <li>Rotating or Sticky Sessions</li>
+              <li>Yamux Stream Multiplexing</li>
+              <li>Dual-Path Failover Enabled</li>
+            </ul>
+            <a href="#api" className="price-btn">Deposit Now</a>
           </div>
-          <p className="pricing-desc">
-            Highest trust score IPs sourced from active mobile carriers.
-          </p>
-          <ul className="pricing-features">
-            <li>✓ Carrier-Level Targeting</li>
-            <li>✓ Automatic IP Rotation (Self-Healing)</li>
-            <li>✓ High-Throughput Relays</li>
-            <li>✓ Cleanest ASN Reputations</li>
-          </ul>
-          <a href="#api" className="btn-primary">Deposit Now</a>
+
+          <div className="price-card featured">
+            <div className="price-tag">Most Popular</div>
+            <h3 className="price-name">Mobile (4G/5G)</h3>
+            <div className="price-amount">
+              $5.00<span>/GB</span>
+            </div>
+            <p className="price-per">
+              Highest trust score IPs sourced from active mobile carriers.
+            </p>
+            <ul className="price-features">
+              <li>Carrier-Level Targeting</li>
+              <li>Automatic IP Rotation (Self-Healing)</li>
+              <li>High-Throughput Relays</li>
+              <li>Cleanest ASN Reputations</li>
+            </ul>
+            <a href="#api" className="price-btn">Deposit Now</a>
+          </div>
         </div>
       </div>
     </section>
@@ -244,40 +246,48 @@ function Pricing() {
 function ApiDocs() {
   return (
     <section className="api-section" id="api">
-      <div className="section-header">
-        <span className="section-label">Developer Docs</span>
-        <h2>Headless Integration</h2>
-        <p className="section-desc">
-          No dashboards. Manage everything using simple curl requests.
-        </p>
-      </div>
-
-      <div className="api-grid">
-        <div className="api-docs-content">
-          <div className="api-endpoint">
-            <span className="method-post">POST</span>
-            <code>/v2/wallet</code>
-            <p>Register or retrieve wallet information.</p>
-          </div>
-
-          <div className="api-endpoint">
-            <span className="method-get">GET</span>
-            <code>/v2/sessions</code>
-            <p>List all active proxy sessions and bandwidth utilization.</p>
-          </div>
-
-          <div className="api-endpoint">
-            <span className="method-post">POST</span>
-            <code>/v2/payouts</code>
-            <p>Create a withdrawal order for accrued node yields.</p>
-          </div>
+      <div className="section-inner-container">
+        <div className="section-header">
+          <span className="section-label">Developer Docs</span>
+          <h2>Headless Integration</h2>
+          <p className="section-desc">
+            No dashboards. Manage everything using simple curl requests.
+          </p>
         </div>
 
-        <div className="api-code-block">
-          <div className="code-header">
-            <span>GET /v2/sessions</span>
+        <div className="api-grid">
+          <div className="api-docs-content">
+            <div className="api-endpoint">
+              <div className="api-method-badge">
+                <span className="method-post">POST</span>
+                <span className="api-path">/v2/wallet</span>
+              </div>
+              <p>Register or retrieve wallet information.</p>
+            </div>
+
+            <div className="api-endpoint">
+              <div className="api-method-badge">
+                <span className="method-get">GET</span>
+                <span className="api-path">/v2/sessions</span>
+              </div>
+              <p>List all active proxy sessions and bandwidth utilization.</p>
+            </div>
+
+            <div className="api-endpoint">
+              <div className="api-method-badge">
+                <span className="method-post">POST</span>
+                <span className="api-path">/v2/payouts</span>
+              </div>
+              <p>Create a withdrawal order for accrued node yields.</p>
+            </div>
           </div>
-          <pre>
+
+          <div className="code-block">
+            <div className="code-block-header">
+              <span>GET /v2/sessions</span>
+              <span className="code-block-lang">JSON</span>
+            </div>
+            <pre>
 {`{
   "sessions": [
     {
@@ -289,7 +299,8 @@ function ApiDocs() {
     }
   ]
 }`}
-          </pre>
+            </pre>
+          </div>
         </div>
       </div>
     </section>
@@ -304,45 +315,47 @@ function ApiDocs() {
 function McpSection() {
   return (
     <section className="mcp-section" id="mcp">
-      <div className="section-header">
-        <span className="section-label">LLM Native</span>
-        <h2>Model Context Protocol (MCP) Server</h2>
-        <p className="section-desc">
-          Allow Claude or any other LLM to interact directly with ProxyBase.
-          The agent can purchase proxies autonomously when needed.
-        </p>
-      </div>
-
-      <div className="mcp-grid">
-        <div className="mcp-text">
-          <h3>Autonomous Web Browsing for LLMs</h3>
-          <p>
-            By launching the ProxyBase MCP server, you give your LLM agent tools to
-            manage its own routing infrastructure. The agent can:
+      <div className="section-inner-container">
+        <div className="section-header">
+          <span className="section-label">LLM Native</span>
+          <h2>Model Context Protocol (MCP) Server</h2>
+          <p className="section-desc">
+            Allow Claude or any other LLM to interact directly with ProxyBase.
+            The agent can purchase proxies autonomously when needed.
           </p>
-          <ul className="mcp-features">
-            <li>⚡ Read wallet status and check balance</li>
-            <li>⚡ Generate ephemeral proxy credentials</li>
-            <li>⚡ Switch target locations programmatically</li>
-            <li>⚡ Initiate self-top-up tasks using microcredits</li>
-          </ul>
-          <a
-            href="https://github.com/proxybasehq/proxybase-mcp"
-            className="btn-secondary"
-            style={{ marginTop: 24, display: "inline-block" }}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Setup MCP Server →
-          </a>
         </div>
-        <div className="mcp-code">
-          <div className="mcp-diagram">
-            <div className="mcp-node">LLM Agent</div>
-            <div className="mcp-arrow">↓ MCP Protocol</div>
-            <div className="mcp-node highlight">ProxyBase MCP Server</div>
-            <div className="mcp-arrow">↓ Yamux Tunnel</div>
-            <div className="mcp-node">Residential Node</div>
+
+        <div className="mcp-grid">
+          <div className="mcp-text">
+            <h3>Autonomous Web Browsing for LLMs</h3>
+            <p>
+              By launching the ProxyBase MCP server, you give your LLM agent tools to
+              manage its own routing infrastructure. The agent can:
+            </p>
+            <ul className="mcp-features">
+              <li>Read wallet status and check balance</li>
+              <li>Generate ephemeral proxy credentials</li>
+              <li>Switch target locations programmatically</li>
+              <li>Initiate self-top-up tasks using microcredits</li>
+            </ul>
+            <a
+              href="https://github.com/proxybasehq/proxybase-mcp"
+              className="btn-secondary"
+              style={{ marginTop: 24, display: "inline-block" }}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Setup MCP Server →
+            </a>
+          </div>
+          <div className="mcp-code">
+            <div className="mcp-diagram">
+              <div className="mcp-node">LLM Agent</div>
+              <div className="mcp-arrow">↓ MCP Protocol</div>
+              <div className="mcp-node highlight">ProxyBase MCP Server</div>
+              <div className="mcp-arrow">↓ Yamux Tunnel</div>
+              <div className="mcp-node">Residential Node</div>
+            </div>
           </div>
         </div>
       </div>

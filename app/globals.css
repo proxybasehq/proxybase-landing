@@ -601,6 +601,11 @@ body {
   color: #60a5fa;
 }
 
+.terminal-indent {
+  display: inline-block;
+  padding-left: 24px;
+}
+
 .terminal-comment {
   color: #94a3b8;
 }
@@ -745,6 +750,14 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+}
+
+.pricing-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 880px;
+  margin: 0 auto;
 }
 
 .price-card {
@@ -903,6 +916,14 @@ body {
   grid-template-columns: 280px 1fr;
   gap: 40px;
   align-items: start;
+}
+
+.api-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 48px;
 }
 
 .api-sidebar {
@@ -3538,6 +3559,8 @@ body {
   .openclaw-features,
   .mcp-grid,
   .pricing-grid,
+  .pricing-grid-2,
+  .api-grid,
   .steps-flow,
   .steps-flow-3 {
     grid-template-columns: 1fr !important;
