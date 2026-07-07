@@ -19,6 +19,12 @@ export default function sitemap() {
             priority: 0.9,
         },
         {
+            url: "https://proxybase.xyz/download",
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.9,
+        },
+        {
             url: "https://proxybase.xyz/openclaw",
             lastModified: new Date(),
             changeFrequency: "monthly",

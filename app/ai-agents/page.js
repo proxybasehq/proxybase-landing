@@ -126,51 +126,53 @@ function Hero() {
 function HowItWorks() {
   return (
     <section className="how-it-works" id="how-it-works">
-      <div className="section-header">
-        <span className="section-label">Architecture</span>
-        <h2>Machine-to-Machine Proxying</h2>
-        <p className="section-desc">
-          Designed from the ground up for agentic workflows. Run scrapers,
-          LLMs, and autonomous browser tasks without human intervention.
-        </p>
-      </div>
-
-      <div className="steps-flow">
-        <div className="step-card">
-          <div className="step-num">01</div>
-          <h3>Wallet Authentication</h3>
-          <p>
-            No credit cards, no passwords, no email registrations. Agents auth
-            using cryptographic signatures. Deposit stablecoins to your agent&apos;s
-            balance instantly.
+      <div className="section-inner-container">
+        <div className="section-header">
+          <span className="section-label">Architecture</span>
+          <h2>Machine-to-Machine Proxying</h2>
+          <p className="section-desc">
+            Designed from the ground up for agentic workflows. Run scrapers,
+            LLMs, and autonomous browser tasks without human intervention.
           </p>
         </div>
 
-        <div className="step-card">
-          <div className="step-num">02</div>
-          <h3>Intent-Based SOCKS5</h3>
-          <p>
-            Dynamically request specific IP parameters straight in the SOCKS5
-            connection string (e.g. <code>socks5://wallet:sig@socks5.proxybase.xyz:1080?country=us</code>).
-          </p>
-        </div>
+        <div className="steps-flow">
+          <div className="step-card">
+            <div className="step-num">01</div>
+            <h3>Wallet Authentication</h3>
+            <p>
+              No credit cards, no passwords, no email registrations. Agents auth
+              using cryptographic signatures. Deposit stablecoins to your agent&apos;s
+              balance instantly.
+            </p>
+          </div>
 
-        <div className="step-card">
-          <div className="step-num">03</div>
-          <h3>Dual-Path Self-Healing</h3>
-          <p>
-            Our Rust gateways maintain multiple simultaneous upstream connections
-            per session. If an IP gets throttled, traffic switches paths instantly.
-          </p>
-        </div>
+          <div className="step-card">
+            <div className="step-num">02</div>
+            <h3>Intent-Based SOCKS5</h3>
+            <p>
+              Dynamically request specific IP parameters straight in the SOCKS5
+              connection string (e.g. <code>socks5://wallet:sig@socks5.proxybase.xyz:1080?country=us</code>).
+            </p>
+          </div>
 
-        <div className="step-card">
-          <div className="step-num">04</div>
-          <h3>Real-Time Telemetry</h3>
-          <p>
-            Monitor data usage, bandwidth speed, and path latency directly from
-            the REST API. Automatically top-up balances when thresholds trigger.
-          </p>
+          <div className="step-card">
+            <div className="step-num">03</div>
+            <h3>Dual-Path Self-Healing</h3>
+            <p>
+              Our Rust gateways maintain multiple simultaneous upstream connections
+              per session. If an IP gets throttled, traffic switches paths instantly.
+            </p>
+          </div>
+
+          <div className="step-card">
+            <div className="step-num">04</div>
+            <h3>Real-Time Telemetry</h3>
+            <p>
+              Monitor data usage, bandwidth speed, and path latency directly from
+              the REST API. Automatically top-up balances when thresholds trigger.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -375,28 +377,30 @@ function Faq() {
 
   return (
     <section className="faq-section" id="faq">
-      <div className="section-header">
-        <span className="section-label">Support</span>
-        <h2>FAQ</h2>
-        <p className="section-desc">Common questions regarding ProxyBase client integration.</p>
-      </div>
+      <div className="section-inner-container">
+        <div className="section-header">
+          <span className="section-label">Support</span>
+          <h2>FAQ</h2>
+          <p className="section-desc">Common questions regarding ProxyBase client integration.</p>
+        </div>
 
-      <div className="faq-list">
-        {faqs.map((faq, i) => (
-          <div
-            key={i}
-            className={`faq-item ${openIndex === i ? 'open' : ''}`}
-            onClick={() => setOpenIndex(openIndex === i ? null : i)}
-          >
-            <div className="faq-question">
-              <h3>{faq.q}</h3>
-              <span className="faq-toggle">{openIndex === i ? '−' : '+'}</span>
+        <div className="faq-grid">
+          {faqs.map((faq, i) => (
+            <div
+              key={i}
+              className={`faq-item ${openIndex === i ? 'open' : ''}`}
+              onClick={() => setOpenIndex(openIndex === i ? null : i)}
+            >
+              <div className="faq-question">
+                <h3>{faq.q}</h3>
+                <span className="faq-icon">+</span>
+              </div>
+              <div className="faq-answer">
+                <p>{faq.a}</p>
+              </div>
             </div>
-            <div className="faq-answer">
-              <p>{faq.a}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

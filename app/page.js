@@ -179,37 +179,39 @@ function UntappedWealth() {
 function HowItWorks() {
   return (
     <section className="how-it-works" id="how-it-works" style={{ borderTop: "1px solid var(--border-subtle)", padding: "80px 24px" }}>
-      <div className="section-header">
-        <span className="section-label">Onboarding</span>
-        <h2>How to Start Selling Bandwidth in 3 Steps</h2>
-        <p className="section-desc">
-          Begin earning online in under 5 minutes with zero technical knowledge required.
-        </p>
-      </div>
-
-      <div className="steps-flow">
-        <div className="step-card">
-          <div className="step-num">01</div>
-          <h3>Get the App for Free</h3>
-          <p>
-            Download and install the native ProxyBase client on Windows, macOS, Linux, or Android. The app requires zero configuration.
+      <div className="section-inner-container">
+        <div className="section-header">
+          <span className="section-label">Onboarding</span>
+          <h2>How to Start Selling Bandwidth in 3 Steps</h2>
+          <p className="section-desc">
+            Begin earning online in under 5 minutes with zero technical knowledge required.
           </p>
         </div>
 
-        <div className="step-card">
-          <div className="step-num">02</div>
-          <h3>Share Your Bandwidth</h3>
-          <p>
-            Run the app quietly in the background. It will securely route client SOCKS5 queries through your idle connection.
-          </p>
-        </div>
+        <div className="steps-flow">
+          <div className="step-card">
+            <div className="step-num">01</div>
+            <h3>Get the App for Free</h3>
+            <p>
+              Download and install the native ProxyBase client on Windows, macOS, Linux, or Android. The app requires zero configuration.
+            </p>
+          </div>
 
-        <div className="step-card">
-          <div className="step-num">03</div>
-          <h3>Get Paid Online</h3>
-          <p>
-            Accumulate microcredits and withdraw them instantly to your crypto wallet starting at just $1.00, or use PayPal at $20.00.
-          </p>
+          <div className="step-card">
+            <div className="step-num">02</div>
+            <h3>Share Your Bandwidth</h3>
+            <p>
+              Run the app quietly in the background. It will securely route client SOCKS5 queries through your idle connection.
+            </p>
+          </div>
+
+          <div className="step-card">
+            <div className="step-num">03</div>
+            <h3>Get Paid Online</h3>
+            <p>
+              Accumulate microcredits and withdraw them instantly to your crypto wallet starting at just $1.00, or use PayPal at $20.00.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -431,28 +433,30 @@ function Faq() {
 
   return (
     <section className="faq-section" id="faq" style={{ borderTop: "1px solid var(--border-subtle)" }}>
-      <div className="section-header">
-        <span className="section-label">Support</span>
-        <h2>Frequently Asked Questions</h2>
-        <p className="section-desc">Common questions regarding passive bandwidth sharing on ProxyBase.</p>
-      </div>
+      <div className="section-inner-container">
+        <div className="section-header">
+          <span className="section-label">Support</span>
+          <h2>Frequently Asked Questions</h2>
+          <p className="section-desc">Common questions regarding passive bandwidth sharing on ProxyBase.</p>
+        </div>
 
-      <div className="faq-list">
-        {faqs.map((faq, i) => (
-          <div
-            key={i}
-            className={`faq-item ${openIndex === i ? 'open' : ''}`}
-            onClick={() => setOpenIndex(openIndex === i ? null : i)}
-          >
-            <div className="faq-question">
-              <h3>{faq.q}</h3>
-              <span className="faq-toggle">{openIndex === i ? '−' : '+'}</span>
+        <div className="faq-grid">
+          {faqs.map((faq, i) => (
+            <div
+              key={i}
+              className={`faq-item ${openIndex === i ? 'open' : ''}`}
+              onClick={() => setOpenIndex(openIndex === i ? null : i)}
+            >
+              <div className="faq-question">
+                <h3>{faq.q}</h3>
+                <span className="faq-icon">+</span>
+              </div>
+              <div className="faq-answer">
+                <p>{faq.a}</p>
+              </div>
             </div>
-            <div className="faq-answer">
-              <p>{faq.a}</p>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

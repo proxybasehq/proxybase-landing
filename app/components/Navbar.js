@@ -30,7 +30,7 @@ export default function Navbar() {
                     <li><Link href="/ai-agents#api" data-umami-event="Nav: API Docs">API Docs</Link></li>
                     <li><Link href="/ai-agents#mcp" data-umami-event="Nav: MCP">MCP</Link></li>
                 </ul>
-                <Link href="/ai-agents#api" className="nav-cta" data-umami-event="Nav: Get API Key CTA">Get API Key →</Link>
+                <Link href="/download" className="nav-cta" data-umami-event="Nav: Download CTA">DOWNLOAD →</Link>
 
                 {/* Mobile Hamburger Toggle */}
                 <button
@@ -59,7 +59,7 @@ export default function Navbar() {
                     <li><Link href="/ai-agents#api" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: API Docs">API Docs</Link></li>
                     <li><Link href="/ai-agents#mcp" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: MCP">MCP</Link></li>
                 </ul>
-                <Link href="/ai-agents#api" className="mobile-nav-cta" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Get API Key CTA">Get API Key →</Link>
+                <Link href="/download" className="mobile-nav-cta" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Download CTA">Download →</Link>
             </div>
         </nav>
     );
