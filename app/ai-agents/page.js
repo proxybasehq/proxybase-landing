@@ -94,21 +94,27 @@ function Hero() {
             </div>
             <div className="terminal-body">
               <div className="terminal-line">
-                <span className="terminal-comment"># 1. Register your agent</span>
+                <span className="terminal-comment"># 1. Register your AI agent (no auth required)</span>
               </div>
               <div className="terminal-line">
                 <span className="terminal-prompt">$ </span>
-                curl -X POST https://api.proxybase.xyz/v2/wallet \
+                curl -X POST https://api.proxybase.xyz/v1/agents
               </div>
               <div className="terminal-line">
-                <span className="terminal-indent">&nbsp;&nbsp;&nbsp;&nbsp;-d &apos;&#123;&quot;public_key&quot;: &quot;0xYourAgentWallet...&quot;&#125;&apos;</span>
+                <span className="terminal-comment"># Response: &#123;&quot;agent_id&quot;: &quot;ag_99283a&quot;, &quot;api_key&quot;: &quot;pk_7f8a9b...&quot;&#125;</span>
               </div>
               <div className="terminal-line" style={{ marginTop: 8 }}>
-                <span className="terminal-comment"># 2. Get instantaneous SOCKS5 credentials</span>
+                <span className="terminal-comment"># 2. Create order & provision SOCKS5 proxy</span>
               </div>
               <div className="terminal-line">
                 <span className="terminal-prompt">$ </span>
-                socks5://0xYourAgentWallet:signature@socks5.proxybase.xyz:1080
+                curl -X POST https://api.proxybase.xyz/v1/orders \
+              </div>
+              <div className="terminal-line">
+                <span className="terminal-indent">&nbsp;&nbsp;&nbsp;&nbsp;-H &quot;X-API-Key: pk_7f8a9b...&quot; \</span>
+              </div>
+              <div className="terminal-line">
+                <span className="terminal-indent">&nbsp;&nbsp;&nbsp;&nbsp;-d &apos;&#123;&quot;package_id&quot;: &quot;res_5gb&quot;, &quot;pay_currency&quot;: &quot;usdcsol&quot;&#125;&apos;</span>
               </div>
             </div>
           </div>
@@ -253,7 +259,7 @@ function ApiDocs() {
           <span className="section-label">Developer Docs</span>
           <h2>Headless API Reference</h2>
           <p className="section-desc">
-            Full programmatic control for autonomous agents and scrapers. Manage wallets, query telemetry, and route SOCKS5 tunnels via simple REST and socket requests.
+            Full programmatic control for autonomous agents and scrapers. Register agents, query bandwidth packages, provision orders, and rotate SOCKS5 proxy IPs via simple REST requests.
           </p>
         </div>
 
@@ -267,23 +273,33 @@ function ApiDocs() {
                 </a>
               </li>
               <li>
-                <a href="#wallet" className={activeTab === 'wallet' ? 'active' : ''} onClick={() => setActiveTab('wallet')}>
-                  2. Wallet & Balance
+                <a href="#register" className={activeTab === 'register' ? 'active' : ''} onClick={() => setActiveTab('register')}>
+                  2. Register Agent
                 </a>
               </li>
               <li>
-                <a href="#sessions" className={activeTab === 'sessions' ? 'active' : ''} onClick={() => setActiveTab('sessions')}>
-                  3. Active Sessions
+                <a href="#catalog" className={activeTab === 'catalog' ? 'active' : ''} onClick={() => setActiveTab('catalog')}>
+                  3. Catalog & Currencies
                 </a>
               </li>
               <li>
-                <a href="#socks5" className={activeTab === 'socks5' ? 'active' : ''} onClick={() => setActiveTab('socks5')}>
-                  4. SOCKS5 Gateway
+                <a href="#orders" className={activeTab === 'orders' ? 'active' : ''} onClick={() => setActiveTab('orders')}>
+                  4. Create Order
                 </a>
               </li>
               <li>
-                <a href="#payouts" className={activeTab === 'payouts' ? 'active' : ''} onClick={() => setActiveTab('payouts')}>
-                  5. Yield Payouts
+                <a href="#status" className={activeTab === 'status' ? 'active' : ''} onClick={() => setActiveTab('status')}>
+                  5. Status & Proxy
+                </a>
+              </li>
+              <li>
+                <a href="#topup" className={activeTab === 'topup' ? 'active' : ''} onClick={() => setActiveTab('topup')}>
+                  6. Top-up Bandwidth
+                </a>
+              </li>
+              <li>
+                <a href="#rotate" className={activeTab === 'rotate' ? 'active' : ''} onClick={() => setActiveTab('rotate')}>
+                  7. Rotate Proxy IP
                 </a>
               </li>
             </ul>
@@ -295,11 +311,11 @@ function ApiDocs() {
             <div className="api-endpoint" id="auth">
               <div className="api-method-badge">
                 <span className="method-get">AUTH</span>
-                <span className="api-path">https://api.proxybase.xyz/v2</span>
+                <span className="api-path">https://api.proxybase.xyz/v1</span>
               </div>
-              <h3>Cryptographic Agent Authentication</h3>
+              <h3>API Key Authentication</h3>
               <p>
-                All ProxyBase API endpoints require stateless authentication using ED25519 or ECDSA cryptographic signatures. Instead of managing fragile API keys or OAuth tokens, autonomous AI agents sign requests directly using their private wallet key.
+                The ProxyBase v1 API authenticates requests using stateless API keys. Once you register an agent via <code>POST /v1/agents</code>, you will receive a unique <code>pk_...</code> API key. Include this key in the <code>X-API-Key</code> header for all authenticated requests.
               </p>
 
               <div className="api-params">
@@ -316,22 +332,16 @@ function ApiDocs() {
                     </thead>
                     <tbody>
                       <tr>
-                        <td><code>X-Agent-Wallet</code></td>
+                        <td><code>X-API-Key</code></td>
                         <td>string</td>
                         <td><span className="api-required">Required</span></td>
-                        <td>The public hex address of your agent wallet (e.g., <code>0x71C...8932</code>).</td>
+                        <td>Your agent API key (e.g., <code>pk_7f8a9b0c1d2e3f...</code>).</td>
                       </tr>
                       <tr>
-                        <td><code>X-Agent-Signature</code></td>
+                        <td><code>Content-Type</code></td>
                         <td>string</td>
-                        <td><span className="api-required">Required</span></td>
-                        <td>Hex-encoded cryptographic signature of the unix timestamp string.</td>
-                      </tr>
-                      <tr>
-                        <td><code>X-Timestamp</code></td>
-                        <td>integer</td>
-                        <td><span className="api-required">Required</span></td>
-                        <td>Current unix timestamp in milliseconds. Requests older than 30s are rejected.</td>
+                        <td>Optional</td>
+                        <td>Set to <code>application/json</code> when sending JSON request bodies.</td>
                       </tr>
                     </tbody>
                   </table>
@@ -344,91 +354,62 @@ function ApiDocs() {
                   <span className="code-block-lang">bash</span>
                 </div>
                 <pre>
-{`curl -X GET https://api.proxybase.xyz/v2/wallet \\
-  -H "X-Agent-Wallet: 0x71C8375628293746582937465829374658293746" \\
-  -H "X-Timestamp: 1720339200000" \\
-  -H "X-Agent-Signature: 3045022100a8...f9e202207b1c..."`}
+{`curl -X GET https://api.proxybase.xyz/v1/packages \\
+  -H "X-API-Key: pk_7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a"`}
                 </pre>
               </div>
             </div>
 
-            {/* 2. WALLET & BALANCE */}
-            <div className="api-endpoint" id="wallet">
+            {/* 2. REGISTER AGENT */}
+            <div className="api-endpoint" id="register">
               <div className="api-method-badge">
                 <span className="method-post">POST</span>
-                <span className="api-path">/v2/wallet</span>
+                <span className="api-path">/v1/agents</span>
               </div>
-              <h3>Register or Retrieve Wallet Balance</h3>
+              <h3>Register Autonomous Agent</h3>
               <p>
-                Registers a new agent wallet address on the ProxyBase routing grid or retrieves current real-time stablecoin balances, microcredit allocations, and active proxy utilization tiers.
+                Registers a new AI agent on the ProxyBase routing grid and generates a fresh API key. No prior authentication is required. This endpoint is rate-limited to 3 registrations per IP per 60 seconds (max 10 per hour).
               </p>
 
               <div className="api-params">
-                <h4>Request Body (JSON)</h4>
-                <div style={{ overflowX: "auto" }}>
-                  <table className="api-params-table">
-                    <thead>
-                      <tr>
-                        <th>Parameter</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><code>public_key</code></td>
-                        <td>string</td>
-                        <td><span className="api-required">Required</span></td>
-                        <td>The cryptographic public key or wallet address of the agent.</td>
-                      </tr>
-                      <tr>
-                        <td><code>webhook_url</code></td>
-                        <td>string</td>
-                        <td>Optional</td>
-                        <td>HTTPS endpoint to receive asynchronous balance threshold alerts.</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <h4>Request Parameters</h4>
+                <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", marginBottom: 16 }}>
+                  No request body is required for agent registration.
+                </p>
               </div>
 
               <div className="code-block">
                 <div className="code-block-header">
-                  <span>POST /v2/wallet — Response</span>
+                  <span>POST /v1/agents — Response</span>
                   <span className="code-block-lang">json</span>
                 </div>
                 <pre>
 {`{
-  "status": "success",
-  "wallet": "0x71C8375628293746582937465829374658293746",
-  "balance_usdc": 45.50,
-  "credits_available": 4550000,
-  "active_sessions": 3,
-  "tier": "Residential_Mobile_Hybrid"
+  "agent_id": "ag_8f92a1b0",
+  "api_key": "pk_3a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b"
 }`}
                 </pre>
               </div>
             </div>
 
-            {/* 3. ACTIVE SESSIONS */}
-            <div className="api-endpoint" id="sessions">
+            {/* 3. CATALOG & CURRENCIES */}
+            <div className="api-endpoint" id="catalog">
               <div className="api-method-badge">
                 <span className="method-get">GET</span>
-                <span className="api-path">/v2/sessions</span>
+                <span className="api-path">/v1/packages</span>
               </div>
-              <h3>List Active Proxy Sessions & Telemetry</h3>
+              <h3>Query Packages & Payment Currencies</h3>
               <p>
-                Returns live telemetry on all active SOCKS5 proxy streams connected to your agent wallet, including real-time bandwidth consumption, destination target hosts, latency metrics, and path health.
+                Fetch available proxy bandwidth packages (residential, mobile, and datacenter tiers) via <code>GET /v1/packages</code> and query supported cryptocurrency payment tickers via <code>GET /v1/currencies</code>.
               </p>
 
               <div className="api-params">
-                <h4>Query Parameters</h4>
+                <h4>Required Headers</h4>
                 <div style={{ overflowX: "auto" }}>
                   <table className="api-params-table">
                     <thead>
                       <tr>
-                        <th>Parameter</th>
+                        <th>Header</th>
                         <th>Type</th>
                         <th>Status</th>
                         <th>Description</th>
@@ -436,16 +417,10 @@ function ApiDocs() {
                     </thead>
                     <tbody>
                       <tr>
-                        <td><code>limit</code></td>
-                        <td>integer</td>
-                        <td>Optional</td>
-                        <td>Maximum number of sessions to return (default: 50, max: 250).</td>
-                      </tr>
-                      <tr>
-                        <td><code>status</code></td>
+                        <td><code>X-API-Key</code></td>
                         <td>string</td>
-                        <td>Optional</td>
-                        <td>Filter by session state: <code>Active</code>, <code>Idle</code>, or <code>Terminated</code>.</td>
+                        <td><span className="api-required">Required</span></td>
+                        <td>Your agent API key.</td>
                       </tr>
                     </tbody>
                   </table>
@@ -454,119 +429,43 @@ function ApiDocs() {
 
               <div className="code-block">
                 <div className="code-block-header">
-                  <span>GET /v2/sessions?status=Active — Response</span>
+                  <span>GET /v1/packages & GET /v1/currencies — Responses</span>
                   <span className="code-block-lang">json</span>
                 </div>
                 <pre>
-{`{
-  "sessions": [
-    {
-      "id": "sess_81a2f90b",
-      "target": "api.openai.com:443",
-      "bandwidth_bytes": 1048576,
-      "latency_ms": 94,
-      "node_country": "US",
-      "path_status": "Active"
-    },
-    {
-      "id": "sess_49c3e12a",
-      "target": "scholar.google.com:443",
-      "bandwidth_bytes": 5242880,
-      "latency_ms": 112,
-      "node_country": "GB",
-      "path_status": "Active"
-    }
-  ],
-  "total_active_bandwidth_mb": 6.29
+{`// GET /v1/packages response:
+[
+  {
+    "id": "res_5gb",
+    "name": "Residential 5GB",
+    "price_usd": 15.00,
+    "bandwidth_bytes": 5368709120
+  },
+  {
+    "id": "mob_10gb",
+    "name": "Mobile 10GB",
+    "price_usd": 45.00,
+    "bandwidth_bytes": 10737418240
+  }
+]
+
+// GET /v1/currencies response:
+{
+  "currencies": ["usdcsol", "usdttrc20", "btc", "eth", "sol"]
 }`}
                 </pre>
               </div>
             </div>
 
-            {/* 4. SOCKS5 GATEWAY */}
-            <div className="api-endpoint" id="socks5">
-              <div className="api-method-badge">
-                <span className="method-get">SOCKS5</span>
-                <span className="api-path">socks5://socks5.proxybase.xyz:1080</span>
-              </div>
-              <h3>Intent-Based SOCKS5 Proxy Gateway</h3>
-              <p>
-                Connect your AI agents directly to the headless ProxyBase routing grid using standard SOCKS5 protocols. Specify geolocation, session rotation, and carrier preferences dynamically inside the connection username string.
-              </p>
-
-              <div className="api-params">
-                <h4>Connection String Parameters</h4>
-                <div style={{ overflowX: "auto" }}>
-                  <table className="api-params-table">
-                    <thead>
-                      <tr>
-                        <th>Parameter</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><code>country</code></td>
-                        <td>string</td>
-                        <td>Optional</td>
-                        <td>2-letter ISO country code for geolocation targeting (e.g., <code>us</code>, <code>gb</code>, <code>de</code>).</td>
-                      </tr>
-                      <tr>
-                        <td><code>state</code></td>
-                        <td>string</td>
-                        <td>Optional</td>
-                        <td>State or region targeting for domestic residential nodes (e.g., <code>ca</code>, <code>ny</code>).</td>
-                      </tr>
-                      <tr>
-                        <td><code>session</code></td>
-                        <td>string</td>
-                        <td>Optional</td>
-                        <td>Custom session identifier. Maintain the same ID across requests to keep a sticky IP address.</td>
-                      </tr>
-                      <tr>
-                        <td><code>network</code></td>
-                        <td>string</td>
-                        <td>Optional</td>
-                        <td>Specify IP network type: <code>residential</code> (default) or <code>mobile</code>.</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div className="code-block">
-                <div className="code-block-header">
-                  <span>SOCKS5 Connection Example (Python Requests / cURL)</span>
-                  <span className="code-block-lang">bash</span>
-                </div>
-                <pre>
-{`# cURL example targeting US Residential sticky session
-curl -x "socks5://0xYourWallet:signature_timestamp@socks5.proxybase.xyz:1080?country=us&session=agent_task_1" \\
-  https://httpbin.org/ip
-
-# Python Requests example
-import requests
-
-proxies = {
-    'http': 'socks5://0xYourWallet:sig@socks5.proxybase.xyz:1080?country=de&network=mobile',
-    'https': 'socks5://0xYourWallet:sig@socks5.proxybase.xyz:1080?country=de&network=mobile'
-}
-response = requests.get('https://api.targetdomain.com/data', proxies=proxies)`}
-                </pre>
-              </div>
-            </div>
-
-            {/* 5. YIELD PAYOUTS */}
-            <div className="api-endpoint" id="payouts">
+            {/* 4. CREATE ORDER */}
+            <div className="api-endpoint" id="orders">
               <div className="api-method-badge">
                 <span className="method-post">POST</span>
-                <span className="api-path">/v2/payouts</span>
+                <span className="api-path">/v1/orders</span>
               </div>
-              <h3>Create Yield Withdrawal Order</h3>
+              <h3>Create Proxy Order & Provisioning</h3>
               <p>
-                Initiates an automated on-chain withdrawal of accrued node bandwidth earnings or excess agent balance directly to your specified cryptocurrency wallet address.
+                Creates a new proxy order for a specified package. For standard agents, this returns an automated cryptocurrency payment invoice (via NOWPayments). For recognized third-party integration partners, proxies are provisioned immediately without manual payment.
               </p>
 
               <div className="api-params">
@@ -583,22 +482,22 @@ response = requests.get('https://api.targetdomain.com/data', proxies=proxies)`}
                     </thead>
                     <tbody>
                       <tr>
-                        <td><code>amount_credits</code></td>
-                        <td>integer</td>
-                        <td><span className="api-required">Required</span></td>
-                        <td>Number of microcredits to withdraw (100,000 credits = $1.00 USD). Minimum: 100,000.</td>
-                      </tr>
-                      <tr>
-                        <td><code>destination_address</code></td>
+                        <td><code>package_id</code></td>
                         <td>string</td>
                         <td><span className="api-required">Required</span></td>
-                        <td>On-chain wallet address receiving the stablecoin transfer.</td>
+                        <td>ID of the bandwidth package to purchase (e.g., <code>res_5gb</code>).</td>
                       </tr>
                       <tr>
-                        <td><code>network</code></td>
+                        <td><code>pay_currency</code></td>
                         <td>string</td>
-                        <td><span className="api-required">Required</span></td>
-                        <td>Target blockchain: <code>polygon</code>, <code>solana</code>, <code>arbitrum</code>, or <code>ethereum</code>.</td>
+                        <td>Optional</td>
+                        <td>Cryptocurrency ticker for payment (default: <code>usdcsol</code>).</td>
+                      </tr>
+                      <tr>
+                        <td><code>callback_url</code></td>
+                        <td>string</td>
+                        <td>Optional</td>
+                        <td>HTTPS webhook URL to receive asynchronous status updates.</td>
                       </tr>
                     </tbody>
                   </table>
@@ -607,18 +506,174 @@ response = requests.get('https://api.targetdomain.com/data', proxies=proxies)`}
 
               <div className="code-block">
                 <div className="code-block-header">
-                  <span>POST /v2/payouts — Response</span>
+                  <span>POST /v1/orders — Response</span>
                   <span className="code-block-lang">json</span>
                 </div>
                 <pre>
 {`{
-  "status": "success",
-  "payout_id": "po_99283746a",
-  "amount_usdc": 10.00,
-  "credits_deducted": 1000000,
-  "network": "polygon",
-  "tx_hash": "0x3892847562938475629384756293847562938475629384756293847562938475",
-  "estimated_arrival_seconds": 15
+  "order_id": "ord_71a8b9c0",
+  "payment_id": "5039482930",
+  "pay_address": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+  "pay_currency": "usdcsol",
+  "pay_amount": 15.00,
+  "price_usd": 15.00,
+  "status": "payment_pending",
+  "expiration_estimate_date": "2026-07-07T03:00:00Z"
+}`}
+                </pre>
+              </div>
+            </div>
+
+            {/* 5. ORDER STATUS & PROXY */}
+            <div className="api-endpoint" id="status">
+              <div className="api-method-badge">
+                <span className="method-get">GET</span>
+                <span className="api-path">/v1/orders/&#123;order_id&#125;/status</span>
+              </div>
+              <h3>Poll Order Status & Proxy Credentials</h3>
+              <p>
+                Retrieves real-time order status, live bandwidth utilization metrics (used vs. remaining bytes), and SOCKS5 proxy connection credentials once payment is confirmed and the proxy is provisioned.
+              </p>
+
+              <div className="api-params">
+                <h4>URL Path Parameters</h4>
+                <div style={{ overflowX: "auto" }}>
+                  <table className="api-params-table">
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>order_id</code></td>
+                        <td>string</td>
+                        <td><span className="api-required">Required</span></td>
+                        <td>The masked order identifier returned when creating the order.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span>GET /v1/orders/ord_71a8b9c0/status — Response</span>
+                  <span className="code-block-lang">json</span>
+                </div>
+                <pre>
+{`{
+  "order_id": "ord_71a8b9c0",
+  "status": "proxy_active",
+  "price_usd": 15.00,
+  "bandwidth_bytes": 5368709120,
+  "used_bytes": 1048576,
+  "remaining_bytes": 5367660544,
+  "usage_percentage": 0.0195,
+  "proxy": {
+    "host": "api.proxybase.xyz",
+    "port": 1080,
+    "username": "pb_ag_71a8b9c0",
+    "password": "pass_random_secure_secret"
+  },
+  "created_at": "2026-07-07T02:15:00Z"
+}`}
+                </pre>
+              </div>
+            </div>
+
+            {/* 6. TOP-UP BANDWIDTH */}
+            <div className="api-endpoint" id="topup">
+              <div className="api-method-badge">
+                <span className="method-post">POST</span>
+                <span className="api-path">/v1/orders/&#123;order_id&#125;/topup</span>
+              </div>
+              <h3>Top Up Order Bandwidth</h3>
+              <p>
+                Add additional data transfer capacity to an existing active or exhausted proxy order without changing your SOCKS5 proxy credentials or connection string.
+              </p>
+
+              <div className="api-params">
+                <h4>Request Body (JSON)</h4>
+                <div style={{ overflowX: "auto" }}>
+                  <table className="api-params-table">
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>package_id</code></td>
+                        <td>string</td>
+                        <td><span className="api-required">Required</span></td>
+                        <td>ID of the bandwidth package to add to the order.</td>
+                      </tr>
+                      <tr>
+                        <td><code>pay_currency</code></td>
+                        <td>string</td>
+                        <td>Optional</td>
+                        <td>Cryptocurrency ticker for payment (default: <code>usdcsol</code>).</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span>POST /v1/orders/ord_71a8b9c0/topup — Response</span>
+                  <span className="code-block-lang">json</span>
+                </div>
+                <pre>
+{`{
+  "order_id": "ord_71a8b9c0",
+  "topup_payment_id": "5039483100",
+  "pay_address": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+  "pay_currency": "usdcsol",
+  "pay_amount": 15.00,
+  "additional_bandwidth_bytes": 5368709120,
+  "additional_price_usd": 15.00,
+  "status": "payment_pending"
+}`}
+                </pre>
+              </div>
+            </div>
+
+            {/* 7. ROTATE PROXY IP */}
+            <div className="api-endpoint" id="rotate">
+              <div className="api-method-badge">
+                <span className="method-post">POST</span>
+                <span className="api-path">/v1/orders/&#123;order_id&#125;/rotate</span>
+              </div>
+              <h3>Rotate Proxy IP Address</h3>
+              <p>
+                Triggers an immediate upstream IP rotation for an active proxy order. Your SOCKS5 credentials remain identical, but your very next connection will route through a fresh residential or mobile IP address.
+              </p>
+
+              <div className="api-params">
+                <h4>Request Parameters</h4>
+                <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", marginBottom: 16 }}>
+                  No request body is required. Requires an active order in <code>proxy_active</code> status.
+                </p>
+              </div>
+
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span>POST /v1/orders/ord_71a8b9c0/rotate — Response</span>
+                  <span className="code-block-lang">json</span>
+                </div>
+                <pre>
+{`{
+  "order_id": "ord_71a8b9c0",
+  "message": "Proxy rotated successfully. You will receive a fresh IP on your next connection.",
+  "rotated": true
 }`}
                 </pre>
               </div>
@@ -696,12 +751,12 @@ function Faq() {
 
   const faqs = [
     {
-      q: "How do I deposit funds?",
-      a: "Perform a GET request to `/v2/deposits/address` to fetch your deposit address. Fund it using USDC/USDT on any major supported network. Your balance will credit within 1 block."
+      q: "How do I pay for bandwidth packages?",
+      a: "When you create an order via POST `/v1/orders` or top up via POST `/v1/orders/{id}/topup`, you receive a dedicated cryptocurrency invoice address (e.g., USDC on Solana). Once payment is detected on-chain, your proxy is provisioned automatically."
     },
     {
-      q: "Can my agents check their own balance?",
-      a: "Yes. By utilizing the REST API or the MCP server, your LLM agent can autonomously query `/v2/wallet` and decide when to alert the operator or allocate more resources."
+      q: "Can my agents check their own bandwidth usage?",
+      a: "Yes. Your LLM agent can autonomously query GET `/v1/orders/{order_id}/status` to check real-time bandwidth utilization (used vs. remaining bytes) and decide when to trigger a top-up."
     },
     {
       q: "What is the difference between Residential and Mobile?",
