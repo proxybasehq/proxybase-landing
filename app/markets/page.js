@@ -237,43 +237,53 @@ export default function MarketsPage() {
                     <p className="section-desc">ProxyBase routes traffic through multiple distinct network tiers, optimized for specific speed, reputation, and concurrency needs.</p>
                 </div>
 
-                <div className="proxy-types-grid">
-                    <div className="proxy-type-card">
-                        <span>🏡</span>
-                        <h3>Residential</h3>
-                        <p>
+                <div className="proxy-types-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "24px", marginTop: "48px" }}>
+                    <div className="proxy-type-card" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", transition: "all var(--transition-smooth)", display: "flex", flexDirection: "column", gap: "16px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                            <span style={{ fontSize: "2.2rem", margin: 0 }}>🏡</span>
+                            <h3 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800 }}>Residential</h3>
+                        </div>
+                        <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
                             Sourced from real residential broadband connections (e.g., Comcast, AT&T, BT). Excellent reputation scores ensure these IPs bypass standard anti-bot protections invisible to web host firewalls.
                         </p>
                     </div>
 
-                    <div className="proxy-type-card">
-                        <span>📱</span>
-                        <h3>Mobile</h3>
-                        <p>
+                    <div className="proxy-type-card" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", transition: "all var(--transition-smooth)", display: "flex", flexDirection: "column", gap: "16px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                            <span style={{ fontSize: "2.2rem", margin: 0 }}>📱</span>
+                            <h3 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800 }}>Mobile</h3>
+                        </div>
+                        <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
                             Routed through dynamic 3G/4G/5G mobile carriers. Since thousands of users share mobile gateways, target sites rarely block these IPs to prevent cutting off legitimate consumers.
                         </p>
                     </div>
 
-                    <div className="proxy-type-card">
-                        <span>⚡</span>
-                        <h3>Datacenter</h3>
-                        <p>
+                    <div className="proxy-type-card" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", transition: "all var(--transition-smooth)", display: "flex", flexDirection: "column", gap: "16px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                            <span style={{ fontSize: "2.2rem", margin: 0 }}>⚡</span>
+                            <h3 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800 }}>Datacenter</h3>
+                        </div>
+                        <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
                             Hosted in high-speed enterprise servers. Offers ultra-low latency, maximum throughput, and the lowest cost per gigabyte. Ideal for high-speed indexing where anti-bot rules are relaxed.
                         </p>
                     </div>
 
-                    <div className="proxy-type-card">
-                        <span>💼</span>
-                        <h3>ISP (Static Residential)</h3>
-                        <p>
+                    <div className="proxy-type-card" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", transition: "all var(--transition-smooth)", display: "flex", flexDirection: "column", gap: "16px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                            <span style={{ fontSize: "2.2rem", margin: 0 }}>💼</span>
+                            <h3 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800 }}>ISP (Static Residential)</h3>
+                        </div>
+                        <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
                             Sourced directly from co-located server farms but registered under residential ISP ASN identifiers. Blends the high speed and static nature of servers with the trust score of home broadbands.
                         </p>
                     </div>
 
-                    <div className="proxy-type-card">
-                        <span>🔥</span>
-                        <h3>Burner</h3>
-                        <p>
+                    <div className="proxy-type-card" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", transition: "all var(--transition-smooth)", display: "flex", flexDirection: "column", gap: "16px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                            <span style={{ fontSize: "2.2rem", margin: 0 }}>🔥</span>
+                            <h3 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 800 }}>Burner</h3>
+                        </div>
+                        <p style={{ margin: 0, fontSize: "0.95rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
                             High-rotation, short-lived residential IPs designed for concurrent scraping tasks. These proxies change or auto-expire rapidly, distributing requests across a massive pool.
                         </p>
                     </div>
@@ -281,7 +291,7 @@ export default function MarketsPage() {
             </section>
 
             {/* DOWNLOAD CENTER */}
-            <section className="downloads-section" id="downloads">
+            <section className="downloads-section" id="downloads" style={{ paddingBottom: "120px" }}>
                 <div className="section-header">
                     <span className="section-label">Software Distribution</span>
                     <h2>Download Center</h2>
@@ -289,16 +299,36 @@ export default function MarketsPage() {
                 </div>
 
                 {/* TAB SWITCHER */}
-                <div className="download-tabs">
+                <div className="download-tabs" style={{ display: "flex", justifyContent: "center", gap: "16px", marginBottom: "48px", marginTop: "40px" }}>
                     <button 
                         className={`tab-btn ${activeTab === 'gui' ? 'active' : ''}`}
                         onClick={() => setActiveTab("gui")}
+                        style={{
+                            padding: "12px 24px",
+                            background: activeTab === 'gui' ? 'var(--accent-gradient)' : 'var(--bg-card)',
+                            color: activeTab === 'gui' ? '#ffffff' : 'var(--text-secondary)',
+                            border: "1px solid var(--border-subtle)",
+                            borderRadius: "99px",
+                            fontWeight: 700,
+                            cursor: "pointer",
+                            transition: "all var(--transition-fast)"
+                        }}
                     >
                         🖥️ Native GUI Client
                     </button>
                     <button 
                         className={`tab-btn ${activeTab === 'cli' ? 'active' : ''}`}
                         onClick={() => setActiveTab("cli")}
+                        style={{
+                            padding: "12px 24px",
+                            background: activeTab === 'cli' ? 'var(--accent-gradient)' : 'var(--bg-card)',
+                            color: activeTab === 'cli' ? '#ffffff' : 'var(--text-secondary)',
+                            border: "1px solid var(--border-subtle)",
+                            borderRadius: "99px",
+                            fontWeight: 700,
+                            cursor: "pointer",
+                            transition: "all var(--transition-fast)"
+                        }}
                     >
                         💻 Headless CLI Daemon
                     </button>
@@ -306,53 +336,68 @@ export default function MarketsPage() {
 
                 {/* GUI DOWNLOADS */}
                 {activeTab === 'gui' && (
-                    <div className="downloads-grid">
-                        <div className="download-card macos">
-                            <div className="os-header">
-                                <span className="os-icon">🍎</span>
-                                <div>
-                                    <h3>macOS (GUI)</h3>
-                                    <p className="os-version">v0.1.0 • Universal Apple Silicon / Intel</p>
+                    <div className="downloads-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "24px" }}>
+                        <div className="download-card macos" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                            <div>
+                                <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
+                                    <span className="os-icon" style={{ fontSize: "2rem" }}>🍎</span>
+                                    <div>
+                                        <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>macOS (GUI)</h3>
+                                        <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.1.0 • Universal Apple Silicon / Intel</p>
+                                    </div>
                                 </div>
+                                <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
+                                    Beautiful native app featuring interactive active sessions map, wallet manager, real-time bandwidth logs, and local proxy gateway controller.
+                                </p>
                             </div>
-                            <p className="os-desc">Beautiful native app featuring interactive active sessions map, wallet manager, real-time bandwidth logs, and local proxy gateway controller.</p>
                             <a 
                                 href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/ProxyBase_0.1.0_universal.dmg"
                                 className="btn-download"
+                                style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
                             >
-                                Download Universal .DMG
+                                Download macOS .DMG
                             </a>
                         </div>
 
-                        <div className="download-card windows">
-                            <div className="os-header">
-                                <span className="os-icon">🪟</span>
-                                <div>
-                                    <h3>Windows (GUI)</h3>
-                                    <p className="os-version">v0.1.0 • Windows 10/11 x64</p>
+                        <div className="download-card windows" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                            <div>
+                                <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
+                                    <span className="os-icon" style={{ fontSize: "2rem" }}>🪟</span>
+                                    <div>
+                                        <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>Windows (GUI)</h3>
+                                        <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.1.0 • Windows 10/11 x64</p>
+                                    </div>
                                 </div>
+                                <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
+                                    Native Windows client built on light webview2 architecture. Features taskbar tray integration, automated startup settings, and wallet integration.
+                                </p>
                             </div>
-                            <p className="os-desc">Native Windows client built on light webview2 architecture. Features taskbar tray integration, automated startup settings, and wallet integration.</p>
                             <a 
                                 href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/ProxyBase_0.1.0_x64_en-US.msi"
                                 className="btn-download"
+                                style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
                             >
                                 Download Windows .MSI
                             </a>
                         </div>
 
-                        <div className="download-card linux">
-                            <div className="os-header">
-                                <span className="os-icon">🐧</span>
-                                <div>
-                                    <h3>Linux (GUI)</h3>
-                                    <p className="os-version">v0.1.0 • Ubuntu / Debian amd64</p>
+                        <div className="download-card linux" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                            <div>
+                                <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
+                                    <span className="os-icon" style={{ fontSize: "2rem" }}>🐧</span>
+                                    <div>
+                                        <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>Linux (GUI)</h3>
+                                        <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.1.0 • Debian / Ubuntu</p>
+                                    </div>
                                 </div>
+                                <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
+                                    GTK3 bundle optimized for lightweight Linux desktop environments. Relays local traffic to SOCKS5 gateway with native system tray control panels.
+                                </p>
                             </div>
-                            <p className="os-desc">GTK3 bundle optimized for lightweight Linux desktop environments. Relays local traffic to SOCKS5 gateway with native system tray control panels.</p>
                             <a 
                                 href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/proxybase_0.1.0_amd64.deb"
                                 className="btn-download"
+                                style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
                             >
                                 Download Debian .deb
                             </a>
@@ -362,65 +407,80 @@ export default function MarketsPage() {
 
                 {/* CLI DOWNLOADS */}
                 {activeTab === 'cli' && (
-                    <div className="downloads-grid">
-                        <div className="download-card macos">
-                            <div className="os-header">
-                                <span className="os-icon">🍎</span>
-                                <div>
-                                    <h3>macOS (CLI)</h3>
-                                    <p className="os-version">v0.4.0 • M1/M2/M3 Apple Silicon</p>
+                    <div className="downloads-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "24px" }}>
+                        <div className="download-card macos" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                            <div>
+                                <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
+                                    <span className="os-icon" style={{ fontSize: "2rem" }}>🍎</span>
+                                    <div>
+                                        <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>macOS (CLI)</h3>
+                                        <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.4.0 • M1/M2/M3 Apple Silicon</p>
+                                    </div>
+                                </div>
+                                <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>
+                                    Headless CLI daemon to run proxybase in shell environments. Fully controllable via config.toml and local system APIs.
+                                </p>
+                                <div className="cli-install-cmd" style={{ background: "var(--bg-secondary)", padding: "12px", borderRadius: "6px", fontFamily: "monospace", fontSize: "0.8rem", marginBottom: "20px", overflowX: "auto" }}>
+                                    <code>curl -fsSL https://proxybase.xyz/install.sh | sh</code>
                                 </div>
                             </div>
-                            <p className="os-desc">Headless CLI daemon to run proxybase in shell environments. Fully controllable via config.toml and local system APIs.</p>
                             <a 
                                 href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-aarch64-apple-darwin.tar.gz"
                                 className="btn-download"
+                                style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
                             >
                                 Download macOS Archive (.tar.gz)
                             </a>
-                            <div className="cli-install-cmd">
-                                <code>curl -fsSL https://proxybase.xyz/install.sh | sh</code>
-                            </div>
                         </div>
 
-                        <div className="download-card windows">
-                            <div className="os-header">
-                                <span className="os-icon">🪟</span>
-                                <div>
-                                    <h3>Windows (CLI)</h3>
-                                    <p className="os-version">v0.4.0 • PowerShell Command Line x64</p>
+                        <div className="download-card windows" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                            <div>
+                                <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
+                                    <span className="os-icon" style={{ fontSize: "2rem" }}>🪟</span>
+                                    <div>
+                                        <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>Windows (CLI)</h3>
+                                        <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.4.0 • PowerShell Command Line x64</p>
+                                    </div>
+                                </div>
+                                <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
+                                    Compiled executable for background headless execution. Perfect for integration into Windows background services and automated scripts.
+                                </p>
+                                <div className="cli-install-cmd" style={{ background: "var(--bg-secondary)", padding: "12px", borderRadius: "6px", fontFamily: "monospace", fontSize: "0.8rem", marginBottom: "20px", overflowX: "auto" }}>
+                                    <code>iwr https://proxybase.xyz/install.ps1 | iex</code>
                                 </div>
                             </div>
-                            <p className="os-desc">Compiled executable for background headless execution. Perfect for integration into Windows background services and automated scripts.</p>
                             <a 
                                 href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-x86_64-pc-windows-msvc.zip"
                                 className="btn-download"
+                                style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
                             >
                                 Download Windows Archive (.zip)
                             </a>
-                            <div className="cli-install-cmd">
-                                <code>iwr https://proxybase.xyz/install.ps1 | iex</code>
-                            </div>
                         </div>
 
-                        <div className="download-card linux">
-                            <div className="os-header">
-                                <span className="os-icon">🐧</span>
-                                <div>
-                                    <h3>Linux (CLI)</h3>
-                                    <p className="os-version">v0.4.0 • Systemd Service Ready x64</p>
+                        <div className="download-card linux" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+                            <div>
+                                <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
+                                    <span className="os-icon" style={{ fontSize: "2rem" }}>🐧</span>
+                                    <div>
+                                        <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>Linux (CLI)</h3>
+                                        <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.4.0 • Systemd Service Ready x64</p>
+                                    </div>
+                                </div>
+                                <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>
+                                    High performance daemon built to operate headlessly. Features native systemd configuration templates to run as a boot service.
+                                </p>
+                                <div className="cli-install-cmd" style={{ background: "var(--bg-secondary)", padding: "12px", borderRadius: "6px", fontFamily: "monospace", fontSize: "0.8rem", marginBottom: "20px", overflowX: "auto" }}>
+                                    <code>wget -qO- https://proxybase.xyz/install.sh | sh</code>
                                 </div>
                             </div>
-                            <p className="os-desc">High performance daemon built to operate headlessly. Features native systemd configuration templates to run as a boot service.</p>
                             <a 
                                 href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-x86_64-unknown-linux-gnu.tar.gz"
                                 className="btn-download"
+                                style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
                             >
                                 Download Linux Archive (.tar.gz)
                             </a>
-                            <div className="cli-install-cmd">
-                                <code>wget -qO- https://proxybase.xyz/install.sh | sh</code>
-                            </div>
                         </div>
                     </div>
                 )}

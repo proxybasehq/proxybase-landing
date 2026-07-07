@@ -3469,6 +3469,9 @@ body {
 .mcp-section > *,
 .how-it-works > *,
 .faq-section > *,
+.downloads-section > *,
+.proxy-types-section > *,
+.market-explainers-section > *,
 .section-inner-container {
   max-width: var(--max-width);
   margin-left: auto;
