@@ -21,14 +21,14 @@ export default function Footer() {
                         <a href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/proxybase_0.1.0_amd64.deb" className="footer-os-link" title="Download GUI for Linux" data-umami-event="Footer: Download Linux GUI">🐧</a>
                     </div>
                 </div>
-                
+
                 <div className="footer-vertical-columns">
                     <div className="footer-col">
                         <h4>Product</h4>
                         <ul>
                             <li><Link href="/what-is-proxybase" data-umami-event="Footer: What Is ProxyBase">What It Is</Link></li>
                             <li><Link href="/markets" data-umami-event="Footer: Markets">Markets</Link></li>
-                            <li><Link href="/#pricing" data-umami-event="Footer: Pricing">Pricing</Link></li>
+                            <li><Link href="/ai-agents#pricing" data-umami-event="Footer: Pricing">Pricing</Link></li>
                             <li><Link href="/mpp" data-umami-event="Footer: MPP">MPP</Link></li>
                             <li><Link href="/openclaw" data-umami-event="Footer: OpenClaw">OpenClaw</Link></li>
                             <li><Link href="/connector" data-umami-event="Footer: Connector">Connector</Link></li>

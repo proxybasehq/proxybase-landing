@@ -90,13 +90,13 @@ export default function PolymarketGeoRestrictionsBlog() {
                         <p style={{ marginBottom: "1.5rem" }}>
                             ProxyBase provides an anonymous, KYC-free gateway where you authenticate programmatically using your crypto wallet address and configure target geographical locations directly inside the authentication credentials.
                         </p>
-                        
+
                         <p style={{ marginBottom: "1.5rem" }}>
                             Here is a simple example of how to route a Python trading script through a SOCKS5 proxy using ProxyBase:
                         </p>
 
                         <div className="cli-install-cmd" style={{ whiteSpace: "pre-wrap", padding: "1.5rem", borderRadius: "8px", background: "var(--bg-code)", color: "#a5b4fc", fontFamily: "monospace", fontSize: "0.95rem", marginBottom: "2.5rem" }}>
-{`import requests
+                            {`import requests
 
 # Set up your ProxyBase SOCKS5 credentials
 # Filter specifically for a German residential proxy node
@@ -130,7 +130,7 @@ print(response.json())`}
                         </div>
 
                         <div style={{ display: "flex", gap: "16px", marginTop: "3rem" }}>
-                            <Link href="/#pricing" className="btn-primary" style={{ textDecoration: "none" }}>Get API Key Now</Link>
+                            <Link href="/ai-agents#pricing" className="btn-primary" style={{ textDecoration: "none" }}>Get API Key Now</Link>
                             <Link href="/connector" className="btn-secondary" style={{ textDecoration: "none" }}>Download Chrome Extension</Link>
                         </div>
 

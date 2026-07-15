@@ -33,7 +33,7 @@ export default function CompareBrightDataPage() {
                     <div className="hero-grid-overlay" />
                     <div className="hero-glow-1" />
                     <div className="hero-glow-2" />
-                    
+
                     <div className="compare-hero-content">
                         <div className="compare-badge">
                             Side-by-Side Analysis
@@ -43,7 +43,7 @@ export default function CompareBrightDataPage() {
                             An architectural comparison between ProxyBase’s autonomous, wallet-native proxy network and Bright Data’s centralized enterprise data platform.
                         </p>
                         <div className="hero-actions">
-                            <a href="/#pricing" className="btn-primary">Get API Key (No KYC)</a>
+                            <a href="/ai-agents#pricing" className="btn-primary">Get API Key (No KYC)</a>
                             <a href="#matrix" className="btn-secondary">Compare Features ↓</a>
                         </div>
                     </div>
@@ -200,7 +200,7 @@ export default function CompareBrightDataPage() {
                         <h2>Ready for Programmatic Scale?</h2>
                         <p>Avoid verification queues and centralized outages. Switch to the world's first autonomous proxy infrastructure.</p>
                         <div className="cta-buttons">
-                            <a href="/#pricing" className="btn-primary">Create Account (No KYC)</a>
+                            <a href="/ai-agents#pricing" className="btn-primary">Create Account (No KYC)</a>
                             <a href="/markets" className="btn-secondary">Explore the Marketplace</a>
                         </div>
                     </div>
