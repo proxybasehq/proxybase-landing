@@ -101,8 +101,8 @@ export default function PolymarketGeoRestrictionsBlog() {
 # Set up your ProxyBase SOCKS5 credentials
 # Filter specifically for a German residential proxy node
 proxies = {
-    'http': 'socks5h://r_username-country-de:password@v2.proxybase.io:5000',
-    'https': 'socks5h://r_username-country-de:password@v2.proxybase.io:5000'
+    'http': 'socks5h://r_username-country-de:password@v2.proxybase.xyz:1080',
+    'https': 'socks5h://r_username-country-de:password@v2.proxybase.xyz:1080'
 }
 
 # Fetch the latest market prices from Polymarket API

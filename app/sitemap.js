@@ -198,5 +198,11 @@ export default function sitemap() {
             changeFrequency: "monthly",
             priority: 0.8,
         },
+        {
+            url: "https://proxybase.xyz/blog/how-to-bypass-kalshi-geo-restrictions",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
     ];
 }

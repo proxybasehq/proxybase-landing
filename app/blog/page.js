@@ -20,6 +20,14 @@ export const metadata = {
 export default function BlogIndex() {
     const posts = [
         {
+            title: "Bypassing Kalshi Geo-Restrictions: Why VPNs Fail and How to Use SOCKS5 Proxies",
+            excerpt: "Running trading bots on Kalshi from cloud servers or VPNs often triggers geographic compliance blocks. Learn why these blocks happen and how to use residential SOCKS5 proxies to secure reliable API access.",
+            date: "July 2026",
+            readTime: "6 min read",
+            author: "ProxyBase Team",
+            slug: "/blog/how-to-bypass-kalshi-geo-restrictions"
+        },
+        {
             title: "Bypassing Polymarket Geo-Restrictions: Why VPNs Fail and How to Use SOCKS5 Proxies",
             excerpt: "Learn how to bypass geo-blocking restrictions on Polymarket. Discover why traditional VPNs get flagged and how to configure SOCKS5 residential proxies to automate prediction market trades securely.",
             date: "June 2026",
