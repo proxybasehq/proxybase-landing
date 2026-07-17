@@ -2,11 +2,17 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export const metadata = {
-    title: "Factual Analysis of Network Resource Monetization — ProxyBase",
-    description: "An analysis of passive network bandwidth sharing and how it compares to other digital side gigs. Understand the commitment, skills, and technical requirements.",
-    keywords: "bandwidth sharing guide, monetize idle internet, passive network node, passive income analysis, residential proxy monetization, proxybase",
+    title: "How to Earn Money Online: Passive Bandwidth Sharing vs. Side Gigs",
+    description: "Looking for ways to earn money online? Compare passive internet bandwidth sharing with active side gigs like website testing, microtasks, and digital asset sales.",
+    keywords: "earn money online, make money online, passive income online, bandwidth sharing nodes, sell internet bandwidth, work from home side gigs, proxybase",
     alternates: {
         canonical: "/earn/earn-money-online",
+    },
+    openGraph: {
+        title: "How to Earn Money Online: Passive Bandwidth Sharing vs. Side Gigs",
+        description: "Looking for ways to earn money online? Compare passive internet bandwidth sharing with active side gigs like website testing, microtasks, and digital asset sales.",
+        url: "https://proxybase.xyz/earn/earn-money-online",
+        type: "website",
     },
 };
 
@@ -14,8 +20,8 @@ export default function EarnMoneyOnlinePage() {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": "Analyzing Digital Resource Monetization & Side Gigs",
-        "description": "A technical assessment of resource sharing and digital side-tasks, comparing requirements, operational effort, and return profiles.",
+        "name": "How to Earn Money Online: Passive Bandwidth Sharing Guide",
+        "description": "An in-depth guide comparing passive network resource sharing with other digital side gigs, showing effort levels, skill requirements, and return profiles.",
         "url": "https://proxybase.xyz/earn/earn-money-online"
     };
 
@@ -36,14 +42,14 @@ export default function EarnMoneyOnlinePage() {
                     
                     <div className="compare-hero-content">
                         <div className="compare-badge">
-                            Technical Resource Guide
+                            Side Gig Comparison
                         </div>
-                        <h1>Analyzing Digital Resource Monetization & Side Gigs</h1>
+                        <h1>Earn Money Online: Monetizing Your Idle Internet Bandwidth</h1>
                         <p className="hero-subtitle">
-                            A comparative guide looking at effort levels, skill requirements, and realistic expectations for bandwidth sharing, website testing, and other digital tasks.
+                            An actionable comparison of effort levels, skill requirements, and realistic earning expectations between passive bandwidth sharing and traditional online side tasks.
                         </p>
                         <div className="hero-actions">
-                            <a href="/markets" className="btn-primary">Start Passive Sharing</a>
+                            <a href="/markets" className="btn-primary">Become a Seller</a>
                             <a href="#comparison" className="btn-secondary">Compare Methods ↓</a>
                         </div>
                     </div>
@@ -90,13 +96,13 @@ export default function EarnMoneyOnlinePage() {
                                     <td className="metric-name" style={{ color: "var(--accent-secondary)" }}>Bandwidth Sharing Nodes (e.g., ProxyBase)</td>
                                     <td style={{ color: "var(--text-emerald)", fontWeight: 700 }}>Background Processing (Passive)</td>
                                     <td>None (Basic system setup)</td>
-                                    <td className="highlight-col font-weight-bold" style={{ color: "var(--text-emerald)" }}>Setup once, occasional monitoring</td>
+                                    <td className="highlight-col font-weight-bold" style={{ color: "var(--text-emerald)" }}>Setup once, runs in the background</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name">Microtask & Ad-Watching Apps</td>
                                     <td>Medium (Requires active screen engagement)</td>
                                     <td>None</td>
-                                    <td className="highlight-col">15 to 60 minutes</td>
+                                    <td className="highlight-col">15 to 60 minutes actively</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name">Cashback & Reward Programs</td>
@@ -107,14 +113,14 @@ export default function EarnMoneyOnlinePage() {
                                 <tr>
                                     <td className="metric-name">Platform QA & Usability Testing</td>
                                     <td>Medium (Verbal and visual tasks)</td>
-                                    <td>Clear communication</td>
+                                    <td>Clear communication & microphone</td>
                                     <td className="highlight-col">10 to 20 mins per session</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name">Selling Unused Items (eBay/Vinted)</td>
                                     <td>High (Physical prep & dispatch)</td>
                                     <td>Basic cataloging & photography</td>
-                                    <td className="highlight-col">1 to 3 hours per item</td>
+                                    <td className="highlight-col">1 to 3 hours per listing</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name">Selling Digital Products</td>
@@ -124,6 +130,39 @@ export default function EarnMoneyOnlinePage() {
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </section>
+
+                {/* HOW TO START PASSIVE INCOME */}
+                <section className="compare-deepdive-section" style={{ background: "var(--bg-secondary)", paddingBottom: "60px" }}>
+                    <div className="section-header" style={{ textAlign: "center", marginBottom: "40px" }}>
+                        <span className="section-label">Quick Setup Guide</span>
+                        <h2>How to Start Earning Online with ProxyBase</h2>
+                        <p className="section-desc" style={{ maxWidth: "600px", margin: "0 auto" }}>Get your passive sharing node running in three simple steps. No specialized technical skills required.</p>
+                    </div>
+
+                    <div className="deepdive-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+                        <div className="deepdive-card" style={{ background: "var(--bg-primary)" }}>
+                            <div className="icon-wrapper">💻</div>
+                            <h3>1. Download the Client</h3>
+                            <p>
+                                Get the open-source ProxyBase client for Windows, macOS, Linux, or Android. The installer is fully auditable, allowing you to run the GUI or lightweight CLI terminal daemon with total transparency.
+                            </p>
+                        </div>
+                        <div className="deepdive-card" style={{ background: "var(--bg-primary)" }}>
+                            <div className="icon-wrapper">🔗</div>
+                            <h3>2. Link Your Wallet</h3>
+                            <p>
+                                Authenticate programmatically by binding your crypto wallet address. ProxyBase uses secure public key validation rather than requiring credit cards, logins, or invasive personal identity verifications.
+                            </p>
+                        </div>
+                        <div className="deepdive-card" style={{ background: "var(--bg-primary)" }}>
+                            <div className="icon-wrapper">💰</div>
+                            <h3>3. Share and Withdraw</h3>
+                            <p>
+                                The software handles encrypted data routing tasks in the background. Once your accrued earnings hit the ultra-low $1.00 threshold, claim your stablecoin micro-settlements (USDC/USDT) directly to your wallet.
+                            </p>
+                        </div>
                     </div>
                 </section>
 
@@ -144,7 +183,7 @@ export default function EarnMoneyOnlinePage() {
                                 <h3>ProxyBase: Background Operations</h3>
                             </div>
                             <p className="brand-desc">
-                                ProxyBase runs in the background of active operating systems, processing client queries and routing them through a dynamic network setup.
+                                ProxyBase runs silently in the background of active operating systems, processing client queries and routing them through a dynamic network setup.
                             </p>
                             <ul className="brand-bullets">
                                 <li>⚡ Cross-platform compatibility including Windows, macOS, Linux, and Android</li>
@@ -223,30 +262,30 @@ export default function EarnMoneyOnlinePage() {
 
                     <div className="deepdive-grid grid-2-cols">
                         <div className="deepdive-card">
-                            <h3>What are the realistic earnings from bandwidth sharing?</h3>
+                            <h3>Is bandwidth sharing a safe way to earn money online?</h3>
                             <p>
-                                Earning potential varies based on your geographic location (IP address region), ISP type (residential/mobile), and network stability. Most operators run nodes in the background for modest supplemental yields rather than full-time income.
+                                Yes, provided you run open-source, auditable software. ProxyBase is fully open-source, allowing you to trace all outbound connections and logs. All user data is encrypted, and client traffic is strictly sandboxed.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>How quickly can a node be set up?</h3>
+                            <h3>How much money can you make online by sharing bandwidth?</h3>
                             <p>
-                                Setting up an open-source CLI or GUI node typically takes less than five minutes. Once online, the node registers with the network directory and begins processing traffic immediately.
+                                Earning potential depends on your geographic location, your internet speed, and how long your node stays online. ProxyBase pays premium rates of $1.80/GB for US/EU residential nodes and up to $3.00/GB for mobile connections due to higher buyer demand in those regions.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>Are there any hidden costs to running a node?</h3>
+                            <h3>What are the requirements to start earning?</h3>
                             <p>
-                                There are no fees to download or run the open-source client. However, you should consider your local internet plan's data cap and power usage of the hosting machine, as background data sharing counts toward your monthly upload quota.
+                                You only need a stable internet connection with no data caps and a machine to run the daemon (such as a laptop, desktop, server, or Android device). Setting up takes less than five minutes and begins routing instantly.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>How does ProxyBase handle user security and privacy?</h3>
+                            <h3>How do stablecoin payouts work compared to PayPal?</h3>
                             <p>
-                                Security is key when routing traffic. ProxyBase's GUI and CLI clients are fully open-source and auditable, allowing you to trace all outbound connections. The network encrypts all metadata and authenticates nodes via secure cryptographic wallet keys.
+                                Unlike traditional side gig platforms that require PayPal or bank transfers (often charging 3% to 5% fees and carrying high minimum cashouts), ProxyBase processes payouts on-chain via stablecoins (USDC/USDT). This supports instant payouts starting at just $1.00.
                             </p>
                         </div>
                     </div>
