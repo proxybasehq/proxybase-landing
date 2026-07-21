@@ -20,6 +20,14 @@ export const metadata = {
 export default function BlogIndex() {
     const posts = [
         {
+            title: "Polymarket Blocked in Türkiye: Why the Ban Happened and How to Access It",
+            excerpt: "Türkiye has officially blocked access to Polymarket. Discover the details behind the access block (decision no. 2026/10) and how SOCKS5 residential proxies can bypass local ISP restrictions safely.",
+            date: "July 2026",
+            readTime: "5 min read",
+            author: "ProxyBase Team",
+            slug: "/blog/polymarket-blocked-in-turkiye-how-to-bypass"
+        },
+        {
             title: "Bypassing Kalshi Geo-Restrictions: Why VPNs Fail and How to Use SOCKS5 Proxies",
             excerpt: "Running trading bots on Kalshi from cloud servers or VPNs often triggers geographic compliance blocks. Learn why these blocks happen and how to use residential SOCKS5 proxies to secure reliable API access.",
             date: "July 2026",

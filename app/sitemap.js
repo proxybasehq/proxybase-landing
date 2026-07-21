@@ -204,5 +204,11 @@ export default function sitemap() {
             changeFrequency: "monthly",
             priority: 0.8,
         },
+        {
+            url: "https://proxybase.xyz/blog/polymarket-blocked-in-turkiye-how-to-bypass",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
     ];
 }
