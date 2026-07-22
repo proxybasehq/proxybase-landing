@@ -70,7 +70,7 @@ export default function DomainDnsPage() {
       const result = await dumpAllDnsRecords(cleaned);
       setDnsData(result);
       if (result.errors && Object.keys(result.errors).length > 0 && Object.keys(result.records).length === 0) {
-        setErrorMessage(`Could not resolve DNS records for "${cleaned}". Verify domain name.`);
+        setErrorMessage(`Could not resolve DNS records for "${cleaned}". Please verify the domain name.`);
       }
     } catch (err) {
       console.error("DNS lookup error:", err);
@@ -83,7 +83,10 @@ export default function DomainDnsPage() {
   const handleSearch = (e) => {
     e.preventDefault();
     let cleanDomain = domainInput.trim().toLowerCase();
-    if (!cleanDomain) return;
+    if (!cleanDomain) {
+      setErrorMessage("Please enter a domain name (e.g. proxybase.xyz)");
+      return;
+    }
 
     cleanDomain = cleanDomain.replace(/^(https?:\/\/)?(www\.)?/, "").split("/")[0].split(":")[0];
 
@@ -188,10 +191,10 @@ export default function DomainDnsPage() {
         {/* Hero Header */}
         <section className={styles.heroSection}>
           <div className={styles.badge}>
-            ⚡ Complete DNS Dump & Technical Audit
+            ⚡ Complete DNS Record Dump & Technical Audit
           </div>
           <h1 className={styles.title}>
-            Domain DNS <span className={styles.gradientText}>Record Dump</span>
+            Domain DNS <span className={styles.gradientText}>Record Lookup</span>
           </h1>
           <p className={styles.subtitle}>
             Exhaustively dump all DNS record types (A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, SRV, NAPTR, PTR), DMARC policies, and DNSSEC resolution for any domain.
@@ -203,8 +206,9 @@ export default function DomainDnsPage() {
                 type="text"
                 value={domainInput}
                 onChange={(e) => setDomainInput(e.target.value)}
-                placeholder="Enter domain (e.g., proxybase.xyz or google.com)"
+                placeholder="Enter domain name (e.g. proxybase.xyz or google.com)"
                 className={styles.searchInput}
+                autoFocus
                 required
               />
               <button
@@ -213,12 +217,12 @@ export default function DomainDnsPage() {
                 disabled={isSearching}
                 data-umami-event="DNS Tool: Lookup Click"
               >
-                {isSearching ? "Dump Records..." : "Dump All DNS Records"}
+                {isSearching ? "Dumping..." : "Dump All DNS Records"}
               </button>
             </form>
 
             <div className={styles.quickTags}>
-              <span className={styles.quickTagLabel}>Try domain lookup:</span>
+              <span className={styles.quickTagLabel}>Quick lookup:</span>
               {POPULAR_DOMAINS.map((domain) => (
                 <button
                   key={domain}
@@ -236,7 +240,7 @@ export default function DomainDnsPage() {
           </div>
         </section>
 
-        {/* Results Area */}
+        {/* Results / Prompt Area */}
         <section className={styles.resultsSection}>
           {errorMessage && (
             <div className={styles.errorMessage}>
@@ -252,6 +256,55 @@ export default function DomainDnsPage() {
                 <div className={styles.skeletonLine} style={{ width: "60%" }} />
               </div>
             </div>
+          )}
+
+          {/* Initial State Box when NO domain is supplied */}
+          {!dnsData && !isSearching && (
+            <>
+              <div className={styles.emptyPromptBox}>
+                <div className={styles.emptyPromptIcon}>🌐</div>
+                <h2 className={styles.emptyPromptTitle}>Enter a domain name to inspect DNS records</h2>
+                <p className={styles.emptyPromptDesc}>
+                  Type a domain above (e.g. <code>proxybase.xyz</code>) or click one of the popular domains to instantly dump its A, AAAA, MX, TXT, NS, SOA, and DMARC security records.
+                </p>
+                <div className={styles.quickTags}>
+                  <span className={styles.quickTagLabel}>Try a domain now:</span>
+                  {POPULAR_DOMAINS.map((domain) => (
+                    <button
+                      key={domain}
+                      className={styles.quickTagBtn}
+                      onClick={() => {
+                        setDomainInput(domain);
+                        router.push(`/dns/${domain}`);
+                      }}
+                      data-umami-event={`DNS Tool: Prompt Tag ${domain}`}
+                    >
+                      {domain}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className={styles.featuresGrid}>
+                <div className={styles.featureCard}>
+                  <div className={styles.featureIcon}>🔍</div>
+                  <h3>Exhaustive Record Resolution</h3>
+                  <p>Queries A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, SRV, NAPTR, PTR, and subdomain policies in parallel.</p>
+                </div>
+
+                <div className={styles.featureCard}>
+                  <div className={styles.featureIcon}>🛡️</div>
+                  <h3>DMARC & SPF Deliverability Audit</h3>
+                  <p>Automatically queries `_dmarc` subdomains and audits TXT authentication records for email sender reputation.</p>
+                </div>
+
+                <div className={styles.featureCard}>
+                  <div className={styles.featureIcon}>⚡</div>
+                  <h3>Programmatic API & JSON Export</h3>
+                  <p>Designed for engineers and AI agents. Export raw JSON dumps or query via GET `/api/dns?domain=...`.</p>
+                </div>
+              </div>
+            </>
           )}
 
           {dnsData && !isSearching && (
@@ -615,29 +668,6 @@ export default function DomainDnsPage() {
                 )}
               </div>
             </>
-          )}
-
-          {/* Initial State Cards when no domain searched */}
-          {!dnsData && !isSearching && (
-            <div className={styles.featuresGrid}>
-              <div className={styles.featureCard}>
-                <div className={styles.featureIcon}>🔍</div>
-                <h3>Exhaustive Record Resolution</h3>
-                <p>Queries A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, SRV, NAPTR, PTR, and subdomain policies in parallel.</p>
-              </div>
-
-              <div className={styles.featureCard}>
-                <div className={styles.featureIcon}>🛡️</div>
-                <h3>DMARC & SPF Deliverability Audit</h3>
-                <p>Automatically queries `_dmarc.${domain}` and audits TXT authentication records for email sender reputation.</p>
-              </div>
-
-              <div className={styles.featureCard}>
-                <div className={styles.featureIcon}>⚡</div>
-                <h3>Programmatic API & JSON Export</h3>
-                <p>Designed for engineers and AI agents. Export raw JSON dumps or query via GET `/api/dns?domain=...`.</p>
-              </div>
-            </div>
           )}
 
           {/* SEO Content Section for Search Engines & Users */}
