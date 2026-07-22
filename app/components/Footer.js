@@ -54,11 +54,12 @@ export default function Footer() {
                         <h4>Resources</h4>
                         <ul>
                             <li><Link href="/#api" data-umami-event="Footer: API Docs">API Docs</Link></li>
-                            <li><Link href="/#mcp" data-umami-event="Footer: MCP">MCP</Link></li>
+                            <li><Link href="/ai-agents#mcp" data-umami-event="Footer: MCP">MCP</Link></li>
                             <li><Link href="/headers" data-umami-event="Footer: Headers">Headers</Link></li>
                             <li><Link href="/antibot" data-umami-event="Footer: Antibot">Antibot</Link></li>
                             <li><Link href="/ip" data-umami-event="Footer: IP Whois">IP Whois</Link></li>
                             <li><Link href="/whois" data-umami-event="Footer: Domain Whois">Domain Whois</Link></li>
+                            <li><Link href="/dns" data-umami-event="Footer: DNS Lookup">DNS Lookup</Link></li>
                         </ul>
                     </div>
 
