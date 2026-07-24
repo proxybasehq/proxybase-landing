@@ -87,7 +87,8 @@ function Hero() {
         <p className="hero-subtitle" style={{ maxWidth: "740px", margin: "0 auto 44px" }}>
           Programmatic SOCKS5 proxies built for autonomous AI agents.
           No dashboards. No humans. Just an API, a payment address,
-          and instant proxy credentials.
+          and instant proxy credentials.{" "}
+          <a href="/proxy-for-ai-agents" style={{ color: "var(--accent-primary)", textDecoration: "underline", textUnderlineOffset: "3px" }}>Learn why AI agents need proxy infrastructure →</a>
         </p>
 
         <div className="hero-actions" style={{ justifyContent: "center", marginBottom: "70px" }}>

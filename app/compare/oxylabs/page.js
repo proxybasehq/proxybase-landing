@@ -273,8 +273,8 @@ export default function CompareOxylabsPage() {
                         <h2>Skip the Sales Call — Get Proxies in 60 Seconds</h2>
                         <p>No contracts, no KYC, no monthly minimums. Pay with crypto, credits never expire. Built for developers and AI agents.</p>
                         <div className="cta-buttons">
-                            <a href="/ai-agents#pricing" className="btn-primary">Get API Key Instantly</a>
-                            <a href="/ai-agents#api" className="btn-secondary">Read the API Docs</a>
+                            <a href="/no-kyc-proxy" className="btn-primary">Learn About No-KYC Proxies</a>
+                            <a href="/ai-agents#pricing" className="btn-secondary">See Pricing</a>
                         </div>
                     </div>
                 </section>

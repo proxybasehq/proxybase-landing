@@ -109,6 +109,18 @@ export default function sitemap() {
             priority: 0.8,
         },
         {
+            url: "https://proxybase.xyz/no-kyc-proxy",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
+            url: "https://proxybase.xyz/proxy-for-ai-agents",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
             url: "https://proxybase.xyz/blog/ip-whois-aggregator",
             lastModified: new Date(),
             changeFrequency: "monthly",
@@ -218,6 +230,12 @@ export default function sitemap() {
         },
         {
             url: "https://proxybase.xyz/blog/residential-proxy-vs-datacenter",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/blog/proxy-errors-troubleshooting",
             lastModified: new Date(),
             changeFrequency: "monthly",
             priority: 0.7,

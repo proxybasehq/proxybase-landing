@@ -27,6 +27,8 @@ export default function Footer() {
                         <h4>Product</h4>
                         <ul>
                             <li><Link href="/what-is-proxybase" data-umami-event="Footer: What Is ProxyBase">What It Is</Link></li>
+                            <li><Link href="/no-kyc-proxy" data-umami-event="Footer: No KYC">No KYC Proxy</Link></li>
+                            <li><Link href="/proxy-for-ai-agents" data-umami-event="Footer: AI Agent Proxy">AI Agent Proxy</Link></li>
                             <li><Link href="/markets" data-umami-event="Footer: Markets">Markets</Link></li>
                             <li><Link href="/ai-agents#pricing" data-umami-event="Footer: Pricing">Pricing</Link></li>
                             <li><Link href="/mpp" data-umami-event="Footer: MPP">MPP</Link></li>
@@ -55,6 +57,7 @@ export default function Footer() {
                         <ul>
                             <li><Link href="/#api" data-umami-event="Footer: API Docs">API Docs</Link></li>
                             <li><Link href="/ai-agents#mcp" data-umami-event="Footer: MCP">MCP</Link></li>
+                            <li><Link href="/blog/proxy-errors-troubleshooting" data-umami-event="Footer: Proxy Errors">Proxy Error Guide</Link></li>
                             <li><Link href="/headers" data-umami-event="Footer: Headers">Headers</Link></li>
                             <li><Link href="/antibot" data-umami-event="Footer: Antibot">Antibot</Link></li>
                             <li><Link href="/ip" data-umami-event="Footer: IP Whois">IP Whois</Link></li>
