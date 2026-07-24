@@ -247,6 +247,37 @@ export default function IpWhoisPage() {
       </main>
 
       <Footer />
+
+            {/* SEO Content Section */}
+            <section style={{ maxWidth: "var(--max-width)", margin: "0 auto", padding: "60px 24px 80px", borderTop: "1px solid var(--border-subtle)" }}>
+                <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+                    <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: "16px" }}>Free IP WHOIS Lookup — Check Any IP Address</h2>
+                    <p style={{ color: "var(--text-secondary)", lineHeight: 1.7, fontSize: "1.05rem", marginBottom: "24px" }}>
+                        Look up any IPv4 or IPv6 address across multiple data providers simultaneously. Get ISP details, ASN information, geolocation, network type (residential, mobile, or datacenter), and proxy/VPN detection — all in one unified dashboard.
+                    </p>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "32px" }}>
+                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>IP Geolocation & ISP Data</h3>
+                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                See where an IP is located (city, region, country), which ISP owns it, and whether it's a residential, mobile, or datacenter address. IP-API and IPinfo.io are queried in parallel for cross-verified results.
+                            </p>
+                        </div>
+                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Proxy & VPN Detection</h3>
+                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                Check if an IP is flagged as a proxy, VPN, or hosting/datacenter address. Useful for fraud detection, security audits, and verifying whether your own proxy setup is routing traffic correctly.
+                            </p>
+                        </div>
+                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Need Residential IPs?</h3>
+                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                If you're looking up IPs to verify proxy quality, you need reliable residential proxies. ProxyBase offers KYC-free, pay-as-you-go residential and mobile proxies for AI agents, web scraping, and ad verification. <a href="/mpp" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>Get proxy access →</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
     </div>
   );
 }

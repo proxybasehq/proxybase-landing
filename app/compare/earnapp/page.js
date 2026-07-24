@@ -2,9 +2,9 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export const metadata = {
-    title: "ProxyBase vs EarnApp — Side-by-Side Bandwidth Sharing Comparison",
-    description: "Compare ProxyBase and EarnApp. Discover why ProxyBase's KYC-free model, $1 minimum payout, and open-source clients make it the premium choice for bandwidth sellers.",
-    keywords: "proxybase vs earnapp, earnapp alternative, sell bandwidth, passive income, open source proxy client, kyc free proxy, proxybase, earnapp",
+    title: "EarnApp Review & Alternative — ProxyBase vs EarnApp Comparison (2026)",
+    description: "Honest EarnApp review: how much you really earn, payout limits, and Bright Data connection. ProxyBase is the best EarnApp alternative — KYC-free, $1 cashout, up to 18x higher pay per GB.",
+    keywords: "earnapp review, earnapp alternative, earnapp vs honeygain, proxybase vs earnapp, sell bandwidth, passive income, bandwidth sharing app, open source proxy client, kyc free proxy, proxybase, earnapp",
     alternates: {
         canonical: "/compare/earnapp",
     },

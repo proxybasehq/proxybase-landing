@@ -266,6 +266,37 @@ export default function DomainWhoisPage() {
       </main>
 
       <Footer />
+
+            {/* SEO Content Section */}
+            <section style={{ maxWidth: "var(--max-width)", margin: "0 auto", padding: "60px 24px 80px", borderTop: "1px solid var(--border-subtle)" }}>
+                <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+                    <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: "16px" }}>Free WHOIS & RDAP Domain Lookup Tool</h2>
+                    <p style={{ color: "var(--text-secondary)", lineHeight: 1.7, fontSize: "1.05rem", marginBottom: "24px" }}>
+                        Our free domain WHOIS lookup uses modern RDAP (Registration Data Access Protocol) to query authoritative domain registries directly — no caching, no stale data. Check domain registration dates, nameservers, registrar details, and domain status codes instantly for any TLD.
+                    </p>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "32px" }}>
+                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>What is RDAP WHOIS?</h3>
+                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                RDAP is the modern replacement for the legacy WHOIS protocol. It delivers structured JSON responses with standardized domain registration data — easier for developers to parse and integrate into automated domain research workflows.
+                            </p>
+                        </div>
+                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>When to Use WHOIS Lookup</h3>
+                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                Check domain availability, verify ownership, investigate suspicious domains, monitor expiration dates, or research competitor domains. WHOIS data is essential for cybersecurity researchers, domain investors, and SEO professionals.
+                            </p>
+                        </div>
+                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Need Proxies for Bulk Lookups?</h3>
+                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                Running bulk WHOIS queries can trigger rate limits. Use ProxyBase residential proxies to distribute lookups across multiple IPs — KYC-free, pay-as-you-go, starting at $3/GB. <a href="/mpp" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>Browse proxy packages →</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
     </div>
   );
 }

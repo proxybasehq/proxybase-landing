@@ -333,6 +333,37 @@ export default function HeadersPage() {
       </main>
 
       <Footer />
+
+            {/* SEO Content Section */}
+            <section style={{ maxWidth: "var(--max-width)", margin: "0 auto", padding: "60px 24px 80px", borderTop: "1px solid var(--border-subtle)" }}>
+                <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+                    <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: "16px" }}>Free HTTP Headers Inspector — Debug Your Connection</h2>
+                    <p style={{ color: "var(--text-secondary)", lineHeight: 1.7, fontSize: "1.05rem", marginBottom: "24px" }}>
+                        See every HTTP request and response header your browser or proxy sends. Essential for debugging proxy configurations, verifying IP forwarding headers, checking CDN behavior, and troubleshooting API integrations.
+                    </p>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "32px" }}>
+                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Proxy Header Verification</h3>
+                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                Check that X-Forwarded-For, Via, X-Real-IP, and other proxy-injected headers are correctly set. Verify your proxy chain is working and no headers are leaking your origin IP to target servers.
+                            </p>
+                        </div>
+                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>CDN & Security Headers</h3>
+                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                Inspect Cache-Control, Content-Security-Policy, CORS headers, and other security-related response headers. Verify that your CDN is correctly caching content and your security policies are properly configured.
+                            </p>
+                        </div>
+                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Debugging with Proxies</h3>
+                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+                                Part of ProxyBase's free network debugging suite. Need to test headers from different geographic locations? Use ProxyBase residential proxies to route traffic through IPs worldwide. <a href="/ai-agents#pricing" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>See proxy pricing →</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
     </div>
   );
 }

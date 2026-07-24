@@ -20,7 +20,6 @@ export default function Navbar() {
                         <span className="nav-dropdown-trigger">Earn <span className="dropdown-arrow">▼</span></span>
                         <ul className="nav-dropdown-menu">
                             <li><Link href="/earn/sell-internet" data-umami-event="Nav: Sell Internet">Sell Internet</Link></li>
-                            <li><Link href="/earn/passive-income" data-umami-event="Nav: Passive Income">Passive Income</Link></li>
                             <li><Link href="/earn/earn-money-online" data-umami-event="Nav: Earn Money Online">Earn Money Online</Link></li>
                         </ul>
                     </li>
@@ -50,7 +49,6 @@ export default function Navbar() {
                 <ul className="mobile-nav-links">
                     <li className="mobile-dropdown-header">Earn</li>
                     <li className="mobile-dropdown-item"><Link href="/earn/sell-internet" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Sell Internet">Sell Internet</Link></li>
-                    <li className="mobile-dropdown-item"><Link href="/earn/passive-income" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Passive Income">Passive Income</Link></li>
                     <li className="mobile-dropdown-item"><Link href="/earn/earn-money-online" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: Earn Money Online">Earn Money Online</Link></li>
                     <li className="mobile-nav-divider"></li>
                     <li><Link href="/ai-agents" onClick={() => setMobileMenuOpen(false)} data-umami-event="Mobile Nav: AI Agents">AI Agents</Link></li>

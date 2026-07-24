@@ -2,9 +2,9 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export const metadata = {
-    title: "ProxyBase vs Decodo (Smartproxy) — Side-by-Side Comparison for Developers",
-    description: "Compare ProxyBase.xyz and Decodo (formerly Smartproxy). Discover why developers choose ProxyBase's KYC-free, decentralized, self-healing proxy infrastructure.",
-    keywords: "proxybase vs decodo, decodo alternative, smartproxy alternative, ai proxies, residential proxy comparison, proxybase, decodo, smartproxy",
+    title: "Decodo Review & Alternative (Smartproxy) — ProxyBase vs Decodo",
+    description: "Detailed Decodo (Smartproxy) review: features, pricing, and comparison. ProxyBase is the best Decodo alternative — KYC-free, pay-as-you-go, no monthly commitments, crypto-native.",
+    keywords: "decodo review, decodo alternative, decodo alternatives, smartproxy alternative, proxybase vs decodo, residential proxy comparison, proxybase, decodo, smartproxy",
     alternates: {
         canonical: "/compare/decodo",
     },

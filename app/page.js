@@ -94,7 +94,7 @@ function Hero() {
           <a href="/download" className="btn-primary" data-umami-event="Hero: Download CTA" style={{ padding: "16px 36px", fontSize: "1.05rem" }}>
             Download App for Free
           </a>
-          <a href="/earn/passive-income" className="btn-secondary" data-umami-event="Hero: Learn Passive Link" style={{ padding: "16px 36px", fontSize: "1.05rem" }}>
+          <a href="/earn/sell-internet" className="btn-secondary" data-umami-event="Hero: Learn Passive Link" style={{ padding: "16px 36px", fontSize: "1.05rem" }}>
             Learn How It Works →
           </a>
         </div>

@@ -3,10 +3,10 @@ import Script from "next/script";
 
 export const metadata = {
   metadataBase: new URL("https://proxybase.xyz"),
-  title: "ProxyBase — AI Infrastructure for Agents",
+  title: "ProxyBase — AI Infrastructure for Agents | XYZ Proxy Network",
   description:
-    "Programmatic SOCKS5 proxy infrastructure built exclusively for AI agents. REST API, MCP support, crypto payments. No dashboards, no humans required.",
-  keywords: "socks5 proxy, ai agent, mcp, api, proxy api, residential proxy, mobile proxy, autonomous agents, web scraping",
+    "Programmatic SOCKS5 proxy infrastructure built exclusively for AI agents. REST API, MCP support, crypto payments. XYZ proxies, residential and mobile proxy network. No dashboards, no humans required.",
+  keywords: "xyz proxy, xyz proxies, socks5 proxy, ai agent, mcp, api, proxy api, residential proxy, mobile proxy, autonomous agents, web scraping, proxy xyz, xyz residential proxies",
   authors: [{ name: "ProxyBase" }],
   creator: "ProxyBase",
   applicationName: "ProxyBase",

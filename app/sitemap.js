@@ -181,13 +181,13 @@ export default function sitemap() {
             priority: 0.7,
         },
         {
-            url: "https://proxybase.xyz/earn/sell-internet",
+            url: "https://proxybase.xyz/compare/honeygain",
             lastModified: new Date(),
             changeFrequency: "monthly",
-            priority: 0.8,
+            priority: 0.7,
         },
         {
-            url: "https://proxybase.xyz/earn/passive-income",
+            url: "https://proxybase.xyz/earn/sell-internet",
             lastModified: new Date(),
             changeFrequency: "monthly",
             priority: 0.8,

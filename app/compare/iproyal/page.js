@@ -2,9 +2,9 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export const metadata = {
-    title: "ProxyBase vs IPRoyal — Side-by-Side Comparison for AI & Scrapers",
-    description: "Compare ProxyBase.xyz and IPRoyal.com. Discover why ProxyBase's KYC-free, decentralized, self-healing proxy infrastructure is built for modern AI agents and scrapers.",
-    keywords: "proxybase vs iproyal, iproyal alternative, ai proxies, residential proxy comparison, proxybase, iproyal",
+    title: "IPRoyal Review & Alternative — ProxyBase vs IPRoyal Comparison",
+    description: "Comprehensive IPRoyal review: features, pricing, and KYC policy. ProxyBase is the top IPRoyal alternative — KYC-free, open-source clients, crypto payments, built for AI agents and scrapers.",
+    keywords: "iproyal review, iproyal alternative, iproyal vs, iproyal pawns, proxybase vs iproyal, residential proxy comparison, proxybase, iproyal",
     alternates: {
         canonical: "/compare/iproyal",
     },

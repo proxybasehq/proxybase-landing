@@ -117,6 +117,17 @@ export default function WhyYourAiAgentNeedsAProxy() {
                             You can patch around that with stealth tools and home laptops for a while. But to run reliably across concurrent tasks, you need infrastructure that handles identity, routing, and recovery natively. Proxies aren't a scraping trick. For an autonomous agent, they are core infrastructure.
                         </p>
 
+                        <div style={{ background: "rgba(6, 214, 160, 0.08)", border: "1px solid var(--accent-primary)", padding: "2rem", borderRadius: "12px", margin: "3rem 0", textAlign: "center" }}>
+                            <h3 style={{ color: "var(--text-primary)", fontSize: "1.4rem", marginTop: 0, marginBottom: "0.75rem" }}>Get Proxy Infrastructure Built for AI Agents</h3>
+                            <p style={{ color: "var(--text-secondary)", marginBottom: "1.5rem", fontSize: "1rem" }}>
+                                ProxyBase is a SOCKS5 proxy network built exclusively for autonomous agents. No KYC, pay-as-you-go, MCP server included. Register an agent via API and get proxy credentials in seconds.
+                            </p>
+                            <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
+                                <a href="/ai-agents" style={{ background: "var(--accent-primary)", color: "#000", padding: "12px 28px", borderRadius: "8px", fontWeight: 700, textDecoration: "none", fontSize: "1rem" }}>AI Agent Proxy Infrastructure →</a>
+                                <a href="/ai-agents#api" style={{ background: "transparent", color: "var(--text-primary)", padding: "12px 28px", borderRadius: "8px", fontWeight: 600, textDecoration: "none", border: "1px solid var(--border-subtle)", fontSize: "1rem" }}>Read the API Docs</a>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </article>
