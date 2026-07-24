@@ -8,276 +8,276 @@ import styles from "../ip.module.css";
 
 // Provider registry allows easy extension in the future
 const providers = [
-  {
-    id: "ip-api",
-    name: "IP-API",
-    icon: "🌐",
-    fetchData: async (ip) => {
-      // Call our internal Next.js API route to bypass CORS block on production
-      const res = await fetch(`/api/whois/ip-api?ip=${ip}`);
-      if (!res.ok) throw new Error("Network response was not ok");
-      const data = await res.json();
-      if (data.status === "fail") throw new Error(data.message || "Query failed");
+ {
+ id: "ip-api",
+ name: "IP-API",
+ icon: "🌐",
+ fetchData: async (ip) => {
+ // Call our internal Next.js API route to bypass CORS block on production
+ const res = await fetch(`/api/whois/ip-api?ip=${ip}`);
+ if (!res.ok) throw new Error("Network response was not ok");
+ const data = await res.json();
+ if (data.status === "fail") throw new Error(data.message || "Query failed");
 
-      const results = [];
-      if (data.query) results.push({ label: "IP Address", value: data.query });
-      if (data.reverse) results.push({ label: "Reverse DNS", value: data.reverse });
+ const results = [];
+ if (data.query) results.push({ label: "IP Address", value: data.query });
+ if (data.reverse) results.push({ label: "Reverse DNS", value: data.reverse });
 
-      const loc = [data.city, data.regionName, data.country].filter(Boolean).join(", ");
-      if (loc) results.push({ label: "Location", value: loc });
+ const loc = [data.city, data.regionName, data.country].filter(Boolean).join(", ");
+ if (loc) results.push({ label: "Location", value: loc });
 
-      if (data.district) results.push({ label: "District", value: data.district });
-      if (data.zip) results.push({ label: "Zip Code", value: data.zip });
-      if (data.lat && data.lon) results.push({ label: "Coordinates", value: `${data.lat}, ${data.lon}` });
-      if (data.timezone) results.push({ label: "Timezone", value: data.timezone });
-      if (data.currency) results.push({ label: "Currency", value: data.currency });
+ if (data.district) results.push({ label: "District", value: data.district });
+ if (data.zip) results.push({ label: "Zip Code", value: data.zip });
+ if (data.lat && data.lon) results.push({ label: "Coordinates", value: `${data.lat}, ${data.lon}` });
+ if (data.timezone) results.push({ label: "Timezone", value: data.timezone });
+ if (data.currency) results.push({ label: "Currency", value: data.currency });
 
-      if (data.isp) results.push({ label: "ISP", value: data.isp });
-      if (data.org && data.org !== data.isp) results.push({ label: "Organization", value: data.org });
-      if (data.as) results.push({ label: "ASN", value: data.as });
-      if (data.asname) results.push({ label: "AS Name", value: data.asname });
+ if (data.isp) results.push({ label: "ISP", value: data.isp });
+ if (data.org && data.org !== data.isp) results.push({ label: "Organization", value: data.org });
+ if (data.as) results.push({ label: "ASN", value: data.as });
+ if (data.asname) results.push({ label: "AS Name", value: data.asname });
 
-      // Network flags
-      const flags = [];
-      if (data.mobile) flags.push("Mobile/Cellular");
-      if (data.proxy) flags.push("Proxy");
-      if (data.hosting) flags.push("Hosting/Data Center");
-      if (flags.length > 0) results.push({ label: "Network Type", value: flags.join(" • ") });
-      else results.push({ label: "Network Type", value: "Residential / Standard" });
+ // Network flags
+ const flags = [];
+ if (data.mobile) flags.push("Mobile/Cellular");
+ if (data.proxy) flags.push("Proxy");
+ if (data.hosting) flags.push("Hosting/Data Center");
+ if (flags.length > 0) results.push({ label: "Network Type", value: flags.join(" • ") });
+ else results.push({ label: "Network Type", value: "Residential / Standard" });
 
-      return results;
-    }
-  },
-  {
-    id: "ipinfo",
-    name: "IPinfo.io",
-    icon: "📌",
-    fetchData: async (ip) => {
-      const res = await fetch(`/api/whois/ipinfo?ip=${ip}`);
-      if (!res.ok) throw new Error("Network response was not ok");
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
-      return data; // Return the perfectly mapped array from the backend
-    }
-  }
+ return results;
+ }
+ },
+ {
+ id: "ipinfo",
+ name: "IPinfo.io",
+ icon: "📌",
+ fetchData: async (ip) => {
+ const res = await fetch(`/api/whois/ipinfo?ip=${ip}`);
+ if (!res.ok) throw new Error("Network response was not ok");
+ const data = await res.json();
+ if (data.error) throw new Error(data.error);
+ return data; // Return the perfectly mapped array from the backend
+ }
+ }
 ];
 
 export default function IpWhoisPage() {
-  const params = useParams();
-  const router = useRouter();
+ const params = useParams();
+ const router = useRouter();
 
-  // [[...ip]] catch-all sets params.ip as an array. E.g. /ip/8.8.8.8 -> ["8.8.8.8"]
-  const urlIp = params?.ip?.[0] || "";
+ // [[...ip]] catch-all sets params.ip as an array. E.g. /ip/8.8.8.8 -> ["8.8.8.8"]
+ const urlIp = params?.ip?.[0] || "";
 
-  const [ipInput, setIpInput] = useState(urlIp);
-  const [results, setResults] = useState(null); // null means hasn't searched yet
-  const [isSearching, setIsSearching] = useState(false);
+ const [ipInput, setIpInput] = useState(urlIp);
+ const [results, setResults] = useState(null); // null means hasn't searched yet
+ const [isSearching, setIsSearching] = useState(false);
 
-  const lastSearchedIp = useRef("");
+ const lastSearchedIp = useRef("");
 
-  useEffect(() => {
-    // 1. If we have a URL IP and it differs from the last searched IP
-    if (urlIp && lastSearchedIp.current !== urlIp) {
-      lastSearchedIp.current = urlIp;
-      setIpInput(urlIp);
-      executeSearch(urlIp);
-    }
-    // 2. If visiting just /ip, grab the user's IP to pre-populate
-    else if (!urlIp && !ipInput && lastSearchedIp.current === "") {
-      lastSearchedIp.current = "fetched_own"; // prevent re-fetching
-      fetch('https://api.ipify.org?format=json')
-        .then(res => res.json())
-        .then(data => {
-          if (data.ip) {
-            setIpInput(data.ip);
-          }
-        })
-        .catch(err => console.error("Failed to fetch own IP", err));
-    }
-  }, [urlIp, ipInput]);
+ useEffect(() => {
+ // 1. If we have a URL IP and it differs from the last searched IP
+ if (urlIp && lastSearchedIp.current !== urlIp) {
+ lastSearchedIp.current = urlIp;
+ setIpInput(urlIp);
+ executeSearch(urlIp);
+ }
+ // 2. If visiting just /ip, grab the user's IP to pre-populate
+ else if (!urlIp && !ipInput && lastSearchedIp.current === "") {
+ lastSearchedIp.current = "fetched_own"; // prevent re-fetching
+ fetch('https://api.ipify.org?format=json')
+ .then(res => res.json())
+ .then(data => {
+ if (data.ip) {
+ setIpInput(data.ip);
+ }
+ })
+ .catch(err => console.error("Failed to fetch own IP", err));
+ }
+ }, [urlIp, ipInput]);
 
-  const executeSearch = async (searchIp) => {
-    setIsSearching(true);
+ const executeSearch = async (searchIp) => {
+ setIsSearching(true);
 
-    // Initialize results state with loading for all providers
-    const initialResults = {};
-    providers.forEach(p => {
-      initialResults[p.id] = { status: "loading", data: null, error: null };
-    });
-    setResults(initialResults);
+ // Initialize results state with loading for all providers
+ const initialResults = {};
+ providers.forEach(p => {
+ initialResults[p.id] = { status: "loading", data: null, error: null };
+ });
+ setResults(initialResults);
 
-    // Fetch from all providers concurrently
-    await Promise.allSettled(
-      providers.map(async (provider) => {
-        try {
-          const data = await provider.fetchData(searchIp);
-          setResults(prev => ({
-            ...prev,
-            [provider.id]: { status: "success", data, error: null }
-          }));
-        } catch (err) {
-          setResults(prev => ({
-            ...prev,
-            [provider.id]: { status: "error", data: null, error: err.message }
-          }));
-        }
-      })
-    );
+ // Fetch from all providers concurrently
+ await Promise.allSettled(
+ providers.map(async (provider) => {
+ try {
+ const data = await provider.fetchData(searchIp);
+ setResults(prev => ({
+ ...prev,
+ [provider.id]: { status: "success", data, error: null }
+ }));
+ } catch (err) {
+ setResults(prev => ({
+ ...prev,
+ [provider.id]: { status: "error", data: null, error: err.message }
+ }));
+ }
+ })
+ );
 
-    setIsSearching(false);
-  };
+ setIsSearching(false);
+ };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const cleanIp = ipInput.trim();
-    if (!cleanIp) return;
+ const handleSearch = (e) => {
+ e.preventDefault();
+ const cleanIp = ipInput.trim();
+ if (!cleanIp) return;
 
-    // Changing the URL drives the search via the useEffect hook
-    if (cleanIp !== urlIp) {
-      router.push(`/ip/${cleanIp}`);
-    } else {
-      // Force search again if same IP clicked
-      executeSearch(cleanIp);
-    }
-  };
+ // Changing the URL drives the search via the useEffect hook
+ if (cleanIp !== urlIp) {
+ router.push(`/ip/${cleanIp}`);
+ } else {
+ // Force search again if same IP clicked
+ executeSearch(cleanIp);
+ }
+ };
 
-  return (
-    <div className={styles.ipContainer}>
-      <Navbar />
+ return (
+ <div className={styles.ipContainer}>
+ <Navbar />
 
-      <main className={styles.mainContent}>
-        <section className={styles.heroSection}>
-          <div className="hero-bg">
-            <div className="hero-grid" />
-          </div>
+ <main className={styles.mainContent}>
+ <section className={styles.heroSection}>
+ <div className="hero-bg">
+ <div className="hero-grid" />
+ </div>
 
-          <h1 className={styles.title}>
-            IP Whois <span className={styles.gradientText}>Aggregator</span>
-          </h1>
-          <p className={styles.subtitle}>
-            Instantly query IP addresses across multiple data providers.
-            Get location, ISP, and ASN data in one unified dashboard.
-          </p>
+ <h1 className={styles.title}>
+ IP Whois <span className={styles.gradientText}>Aggregator</span>
+ </h1>
+ <p className={styles.subtitle}>
+ Instantly query IP addresses across multiple data providers.
+ Get location, ISP, and ASN data in one unified dashboard.
+ </p>
 
-          <div className={styles.searchContainer}>
-            <form onSubmit={handleSearch} className={styles.searchForm}>
-              <input
-                type="text"
-                value={ipInput}
-                onChange={(e) => setIpInput(e.target.value)}
-                placeholder="Enter IP address (e.g. 8.8.8.8)"
-                className={styles.searchInput}
-                required
-              />
-              <button
-                type="submit"
-                className={styles.searchButton}
-                disabled={isSearching}
-              >
-                {isSearching ? "Searching..." : "Lookup IP"}
-              </button>
-            </form>
-          </div>
-        </section>
+ <div className={styles.searchContainer}>
+ <form onSubmit={handleSearch} className={styles.searchForm}>
+ <input
+ type="text"
+ value={ipInput}
+ onChange={(e) => setIpInput(e.target.value)}
+ placeholder="Enter IP address (e.g. 8.8.8.8)"
+ className={styles.searchInput}
+ required
+ />
+ <button
+ type="submit"
+ className={styles.searchButton}
+ disabled={isSearching}
+ >
+ {isSearching ? "Searching..." : "Lookup IP"}
+ </button>
+ </form>
+ </div>
+ </section>
 
-        <section className={styles.resultsSection}>
-          {results ? (
-            <div className={styles.resultsGrid}>
-              {providers.map((provider) => {
-                const result = results[provider.id];
-                return (
-                  <div key={provider.id} className={styles.providerCard}>
-                    <div className={styles.providerHeader}>
-                      <div className={styles.providerName}>
-                        <span>{provider.icon}</span> {provider.name}
-                      </div>
-                      {result?.status === "loading" && (
-                        <span className={`${styles.providerStatus} ${styles.loading}`}>Fetching...</span>
-                      )}
-                      {result?.status === "success" && (
-                        <span className={styles.providerStatus}>Success</span>
-                      )}
-                      {result?.status === "error" && (
-                        <span className={`${styles.providerStatus} ${styles.error}`}>Failed</span>
-                      )}
-                    </div>
+ <section className={styles.resultsSection}>
+ {results ? (
+ <div className={styles.resultsGrid}>
+ {providers.map((provider) => {
+ const result = results[provider.id];
+ return (
+ <div key={provider.id} className={styles.providerCard}>
+ <div className={styles.providerHeader}>
+ <div className={styles.providerName}>
+ <span>{provider.icon}</span> {provider.name}
+ </div>
+ {result?.status === "loading" && (
+ <span className={`${styles.providerStatus} ${styles.loading}`}>Fetching...</span>
+ )}
+ {result?.status === "success" && (
+ <span className={styles.providerStatus}>Success</span>
+ )}
+ {result?.status === "error" && (
+ <span className={`${styles.providerStatus} ${styles.error}`}>Failed</span>
+ )}
+ </div>
 
-                    <div className={styles.providerBody}>
-                      {result?.status === "loading" && (
-                        <div className={styles.dataGrid}>
-                          {[1, 2, 3].map(i => (
-                            <div key={i} className={styles.dataRow} style={{ opacity: 0.5 }}>
-                              <div className={styles.dataLabel} style={{ background: 'var(--border-subtle)', width: '30%', height: '12px', borderRadius: '4px' }}></div>
-                              <div className={styles.dataValue} style={{ background: 'var(--bg-secondary)', width: '70%', height: '20px', borderRadius: '4px' }}></div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
+ <div className={styles.providerBody}>
+ {result?.status === "loading" && (
+ <div className={styles.dataGrid}>
+ {[1, 2, 3].map(i => (
+ <div key={i} className={styles.dataRow} style={{ opacity: 0.5 }}>
+ <div className={styles.dataLabel} style={{ background: 'var(--border-subtle)', width: '30%', height: '12px', borderRadius: '4px' }}></div>
+ <div className={styles.dataValue} style={{ background: 'var(--bg-secondary)', width: '70%', height: '20px', borderRadius: '4px' }}></div>
+ </div>
+ ))}
+ </div>
+ )}
 
-                      {result?.status === "error" && (
-                        <div className={styles.dataRow}>
-                          <div className={styles.dataLabel} style={{ color: '#ff5f57' }}>Error</div>
-                          <div className={styles.dataValue}>{result.error}</div>
-                        </div>
-                      )}
+ {result?.status === "error" && (
+ <div className={styles.dataRow}>
+ <div className={styles.dataLabel} style={{ color: '#ff5f57' }}>Error</div>
+ <div className={styles.dataValue}>{result.error}</div>
+ </div>
+ )}
 
-                      {result?.status === "success" && result.data && (
-                        <div className={styles.dataGrid}>
-                          {result.data.map((item, i) => (
-                            <div key={i} className={styles.dataRow}>
-                              <div className={styles.dataLabel}>{item.label}</div>
-                              <div className={styles.dataValue}>{item.value || "N/A"}</div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className={styles.resultsGrid}>
-              <div className={styles.emptyState}>
-                Enter an IP address above to see Whois results!
-              </div>
-            </div>
-          )}
-        </section>
-      </main>
+ {result?.status === "success" && result.data && (
+ <div className={styles.dataGrid}>
+ {result.data.map((item, i) => (
+ <div key={i} className={styles.dataRow}>
+ <div className={styles.dataLabel}>{item.label}</div>
+ <div className={styles.dataValue}>{item.value || "N/A"}</div>
+ </div>
+ ))}
+ </div>
+ )}
+ </div>
+ </div>
+ );
+ })}
+ </div>
+ ) : (
+ <div className={styles.resultsGrid}>
+ <div className={styles.emptyState}>
+ Enter an IP address above to see Whois results!
+ </div>
+ </div>
+ )}
+ </section>
+ </main>
 
-      <Footer />
+ <Footer />
 
-            {/* SEO Content Section */}
-            <section style={{ maxWidth: "var(--max-width)", margin: "0 auto", padding: "60px 24px 80px", borderTop: "1px solid var(--border-subtle)" }}>
-                <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-                    <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: "16px" }}>Free IP WHOIS Lookup — Check Any IP Address</h2>
-                    <p style={{ color: "var(--text-secondary)", lineHeight: 1.7, fontSize: "1.05rem", marginBottom: "24px" }}>
-                        Look up any IPv4 or IPv6 address across multiple data providers simultaneously. Get ISP details, ASN information, geolocation, network type (residential, mobile, or datacenter), and proxy/VPN detection — all in one unified dashboard.
-                    </p>
+ {/* SEO Content Section */}
+ <section style={{ maxWidth: "var(--max-width)", margin: "0 auto", padding: "60px 24px 80px", borderTop: "1px solid var(--border-subtle)" }}>
+ <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+ <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: "16px" }}>Free IP WHOIS Lookup Check Any IP Address</h2>
+ <p style={{ color: "var(--text-secondary)", lineHeight: 1.7, fontSize: "1.05rem", marginBottom: "24px" }}>
+ Look up any IPv4 or IPv6 address across multiple data providers simultaneously. Get ISP details, ASN information, geolocation, network type (residential, mobile, or datacenter), and proxy/VPN detection all in one unified dashboard.
+ </p>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "32px" }}>
-                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
-                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>IP Geolocation & ISP Data</h3>
-                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-                                See where an IP is located (city, region, country), which ISP owns it, and whether it's a residential, mobile, or datacenter address. IP-API and IPinfo.io are queried in parallel for cross-verified results.
-                            </p>
-                        </div>
-                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
-                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Proxy & VPN Detection</h3>
-                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-                                Check if an IP is flagged as a proxy, VPN, or hosting/datacenter address. Useful for fraud detection, security audits, and verifying whether your own proxy setup is routing traffic correctly.
-                            </p>
-                        </div>
-                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
-                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Need Residential IPs?</h3>
-                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-                                If you're looking up IPs to verify proxy quality, you need reliable residential proxies. ProxyBase offers KYC-free, pay-as-you-go residential and mobile proxies for AI agents, web scraping, and ad verification. <a href="/mpp" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>Get proxy access →</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-    </div>
-  );
+ <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "32px" }}>
+ <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+ <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>IP Geolocation & ISP Data</h3>
+ <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+ See where an IP is located (city, region, country), which ISP owns it, and whether it's a residential, mobile, or datacenter address. IP-API and IPinfo.io are queried in parallel for cross-verified results.
+ </p>
+ </div>
+ <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+ <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Proxy & VPN Detection</h3>
+ <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+ Check if an IP is flagged as a proxy, VPN, or hosting/datacenter address. Useful for fraud detection, security audits, and verifying whether your own proxy setup is routing traffic correctly.
+ </p>
+ </div>
+ <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+ <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Need Residential IPs?</h3>
+ <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+ If you're looking up IPs to verify proxy quality, you need reliable residential proxies. ProxyBase offers KYC-free, pay-as-you-go residential and mobile proxies for AI agents, web scraping, and ad verification. <a href="/mpp" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>Get proxy access →</a>
+ </p>
+ </div>
+ </div>
+ </div>
+ </section>
+ </div>
+ );
 }

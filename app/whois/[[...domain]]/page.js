@@ -8,295 +8,295 @@ import styles from "../whois.module.css"; // We'll copy ip.module.css to whois.m
 
 // Provider registry allows easy extension in the future
 const providers = [
-  {
-    id: "rdap",
-    name: "RDAP WHOIS",
-    icon: "🌐",
-    fetchData: async (domain) => {
-      // Call our internal Next.js API route to fetch RDAP data
-      const res = await fetch(`/api/whois/domain?domain=${domain}`);
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        throw new Error(errData.error || "Network response was not ok");
-      }
-      
-      const data = await res.json();
-      
-      const results = [];
-      results.push({ label: "Domain Handle", value: data.handle || "N/A" });
-      
-      const ldhName = data.ldhName;
-      if (ldhName) results.push({ label: "Domain Name", value: ldhName });
+ {
+ id: "rdap",
+ name: "RDAP WHOIS",
+ icon: "🌐",
+ fetchData: async (domain) => {
+ // Call our internal Next.js API route to fetch RDAP data
+ const res = await fetch(`/api/whois/domain?domain=${domain}`);
+ if (!res.ok) {
+ const errData = await res.json().catch(() => ({}));
+ throw new Error(errData.error || "Network response was not ok");
+ }
+ 
+ const data = await res.json();
+ 
+ const results = [];
+ results.push({ label: "Domain Handle", value: data.handle || "N/A" });
+ 
+ const ldhName = data.ldhName;
+ if (ldhName) results.push({ label: "Domain Name", value: ldhName });
 
-      // Parse status
-      if (data.status && data.status.length > 0) {
-        results.push({ label: "Status", value: data.status.join(", ") });
-      }
+ // Parse status
+ if (data.status && data.status.length > 0) {
+ results.push({ label: "Status", value: data.status.join(", ") });
+ }
 
-      // Parse events (registration, expiration, etc)
-      if (data.events) {
-        data.events.forEach((evt) => {
-          let label = evt.eventAction;
-          if (label) {
-            // Capitalize
-            label = label.charAt(0).toUpperCase() + label.slice(1);
-            results.push({ label, value: new Date(evt.eventDate).toLocaleString() });
-          }
-        });
-      }
+ // Parse events (registration, expiration, etc)
+ if (data.events) {
+ data.events.forEach((evt) => {
+ let label = evt.eventAction;
+ if (label) {
+ // Capitalize
+ label = label.charAt(0).toUpperCase() + label.slice(1);
+ results.push({ label, value: new Date(evt.eventDate).toLocaleString() });
+ }
+ });
+ }
 
-      // Nameservers
-      if (data.nameservers) {
-        const nsList = data.nameservers.map(ns => ns.ldhName).join(", ");
-        results.push({ label: "Name Servers", value: nsList });
-      }
+ // Nameservers
+ if (data.nameservers) {
+ const nsList = data.nameservers.map(ns => ns.ldhName).join(", ");
+ results.push({ label: "Name Servers", value: nsList });
+ }
 
-      // Entities (Registrar, Registrant)
-      if (data.entities) {
-        data.entities.forEach(entity => {
-          if (entity.roles && entity.vcardArray && entity.vcardArray[1]) {
-            const role = entity.roles[0];
-            const nameVcard = entity.vcardArray[1].find(item => item[0] === "fn");
-            if (nameVcard) {
-                // capitalize role
-                const roleCapitalized = role.charAt(0).toUpperCase() + role.slice(1);
-                results.push({ label: roleCapitalized, value: nameVcard[3] });
-            }
-          }
-        });
-      }
+ // Entities (Registrar, Registrant)
+ if (data.entities) {
+ data.entities.forEach(entity => {
+ if (entity.roles && entity.vcardArray && entity.vcardArray[1]) {
+ const role = entity.roles[0];
+ const nameVcard = entity.vcardArray[1].find(item => item[0] === "fn");
+ if (nameVcard) {
+ // capitalize role
+ const roleCapitalized = role.charAt(0).toUpperCase() + role.slice(1);
+ results.push({ label: roleCapitalized, value: nameVcard[3] });
+ }
+ }
+ });
+ }
 
-      if (data.port43) {
-        results.push({ label: "Port 43 WHOIS", value: data.port43 });
-      }
+ if (data.port43) {
+ results.push({ label: "Port 43 WHOIS", value: data.port43 });
+ }
 
-      return results;
-    }
-  }
+ return results;
+ }
+ }
 ];
 
 export default function DomainWhoisPage() {
-  const params = useParams();
-  const router = useRouter();
+ const params = useParams();
+ const router = useRouter();
 
-  // [[...domain]] catch-all sets params.domain as an array. E.g. /whois/example.com -> ["example.com"]
-  const urlDomain = params?.domain?.[0] || "";
+ // [[...domain]] catch-all sets params.domain as an array. E.g. /whois/example.com -> ["example.com"]
+ const urlDomain = params?.domain?.[0] || "";
 
-  const [domainInput, setDomainInput] = useState(urlDomain);
-  const [results, setResults] = useState(null); // null means hasn't searched yet
-  const [isSearching, setIsSearching] = useState(false);
+ const [domainInput, setDomainInput] = useState(urlDomain);
+ const [results, setResults] = useState(null); // null means hasn't searched yet
+ const [isSearching, setIsSearching] = useState(false);
 
-  const lastSearchedDomain = useRef("");
+ const lastSearchedDomain = useRef("");
 
-  useEffect(() => {
-    // If we have a URL Domain and it differs from the last searched Domain
-    if (urlDomain && lastSearchedDomain.current !== urlDomain) {
-      lastSearchedDomain.current = urlDomain;
-      setDomainInput(urlDomain);
-      executeSearch(urlDomain);
-    }
-  }, [urlDomain, domainInput]);
+ useEffect(() => {
+ // If we have a URL Domain and it differs from the last searched Domain
+ if (urlDomain && lastSearchedDomain.current !== urlDomain) {
+ lastSearchedDomain.current = urlDomain;
+ setDomainInput(urlDomain);
+ executeSearch(urlDomain);
+ }
+ }, [urlDomain, domainInput]);
 
-  const executeSearch = async (searchDomain) => {
-    setIsSearching(true);
+ const executeSearch = async (searchDomain) => {
+ setIsSearching(true);
 
-    // Clean up domain if it has http/https or trailing slashes
-    let cleaned = searchDomain.trim().toLowerCase();
-    cleaned = cleaned.replace(/^https?:\/\//, '');
-    cleaned = cleaned.split('/')[0];
+ // Clean up domain if it has http/https or trailing slashes
+ let cleaned = searchDomain.trim().toLowerCase();
+ cleaned = cleaned.replace(/^https?:\/\//, '');
+ cleaned = cleaned.split('/')[0];
 
-    // Initialize results state with loading for all providers
-    const initialResults = {};
-    providers.forEach(p => {
-      initialResults[p.id] = { status: "loading", data: null, error: null };
-    });
-    setResults(initialResults);
+ // Initialize results state with loading for all providers
+ const initialResults = {};
+ providers.forEach(p => {
+ initialResults[p.id] = { status: "loading", data: null, error: null };
+ });
+ setResults(initialResults);
 
-    // Fetch from all providers concurrently
-    await Promise.allSettled(
-      providers.map(async (provider) => {
-        try {
-          const data = await provider.fetchData(cleaned);
-          setResults(prev => ({
-            ...prev,
-            [provider.id]: { status: "success", data, error: null }
-          }));
-        } catch (err) {
-          setResults(prev => ({
-            ...prev,
-            [provider.id]: { status: "error", data: null, error: err.message }
-          }));
-        }
-      })
-    );
+ // Fetch from all providers concurrently
+ await Promise.allSettled(
+ providers.map(async (provider) => {
+ try {
+ const data = await provider.fetchData(cleaned);
+ setResults(prev => ({
+ ...prev,
+ [provider.id]: { status: "success", data, error: null }
+ }));
+ } catch (err) {
+ setResults(prev => ({
+ ...prev,
+ [provider.id]: { status: "error", data: null, error: err.message }
+ }));
+ }
+ })
+ );
 
-    setIsSearching(false);
-  };
+ setIsSearching(false);
+ };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    let cleanDomain = domainInput.trim().toLowerCase();
-    if (!cleanDomain) return;
-    
-    // Quick sanitization before routing
-    cleanDomain = cleanDomain.replace(/^https?:\/\//, '').split('/')[0];
+ const handleSearch = (e) => {
+ e.preventDefault();
+ let cleanDomain = domainInput.trim().toLowerCase();
+ if (!cleanDomain) return;
+ 
+ // Quick sanitization before routing
+ cleanDomain = cleanDomain.replace(/^https?:\/\//, '').split('/')[0];
 
-    // Changing the URL drives the search via the useEffect hook
-    if (cleanDomain !== urlDomain) {
-      router.push(`/whois/${cleanDomain}`);
-    } else {
-      // Force search again if same Domain clicked
-      executeSearch(cleanDomain);
-    }
-  };
+ // Changing the URL drives the search via the useEffect hook
+ if (cleanDomain !== urlDomain) {
+ router.push(`/whois/${cleanDomain}`);
+ } else {
+ // Force search again if same Domain clicked
+ executeSearch(cleanDomain);
+ }
+ };
 
-  return (
-    <div className={styles.ipContainer}>
-      <Navbar />
+ return (
+ <div className={styles.ipContainer}>
+ <Navbar />
 
-      <main className={styles.mainContent}>
-        <section className={styles.heroSection}>
-          <div className="hero-bg">
-            <div className="hero-grid" />
-          </div>
+ <main className={styles.mainContent}>
+ <section className={styles.heroSection}>
+ <div className="hero-bg">
+ <div className="hero-grid" />
+ </div>
 
-          <h1 className={styles.title}>
-            Domain Whois <span className={styles.gradientText}>Lookup</span>
-          </h1>
-          <p className={styles.subtitle}>
-            Instantly query domain registration records using modern RDAP protocols.
-            Get registrar, status, and WHOIS details effortlessly.
-          </p>
+ <h1 className={styles.title}>
+ Domain Whois <span className={styles.gradientText}>Lookup</span>
+ </h1>
+ <p className={styles.subtitle}>
+ Instantly query domain registration records using modern RDAP protocols.
+ Get registrar, status, and WHOIS details effortlessly.
+ </p>
 
-          <div className={styles.searchContainer}>
-            <form onSubmit={handleSearch} className={styles.searchForm}>
-              <input
-                type="text"
-                value={domainInput}
-                onChange={(e) => setDomainInput(e.target.value)}
-                placeholder="Enter domain name (e.g. proxybase.xyz)"
-                className={styles.searchInput}
-                required
-              />
-              <button
-                type="submit"
-                className={styles.searchButton}
-                disabled={isSearching}
-              >
-                {isSearching ? "Searching..." : "Lookup Domain"}
-              </button>
-            </form>
-          </div>
-        </section>
+ <div className={styles.searchContainer}>
+ <form onSubmit={handleSearch} className={styles.searchForm}>
+ <input
+ type="text"
+ value={domainInput}
+ onChange={(e) => setDomainInput(e.target.value)}
+ placeholder="Enter domain name (e.g. proxybase.xyz)"
+ className={styles.searchInput}
+ required
+ />
+ <button
+ type="submit"
+ className={styles.searchButton}
+ disabled={isSearching}
+ >
+ {isSearching ? "Searching..." : "Lookup Domain"}
+ </button>
+ </form>
+ </div>
+ </section>
 
-        <section className={styles.resultsSection}>
-          {results ? (
-            <div className={styles.resultsGrid}>
-              {providers.map((provider) => {
-                const result = results[provider.id];
-                return (
-                  <div key={provider.id} className={styles.providerCard}>
-                    <div className={styles.providerHeader}>
-                      <div className={styles.providerName}>
-                        <span>{provider.icon}</span> {provider.name}
-                      </div>
-                      {result?.status === "loading" && (
-                        <span className={`${styles.providerStatus} ${styles.loading}`}>Fetching...</span>
-                      )}
-                      {result?.status === "success" && (
-                        <span className={styles.providerStatus}>Success</span>
-                      )}
-                      {result?.status === "error" && (
-                        <span className={`${styles.providerStatus} ${styles.error}`}>Failed</span>
-                      )}
-                    </div>
+ <section className={styles.resultsSection}>
+ {results ? (
+ <div className={styles.resultsGrid}>
+ {providers.map((provider) => {
+ const result = results[provider.id];
+ return (
+ <div key={provider.id} className={styles.providerCard}>
+ <div className={styles.providerHeader}>
+ <div className={styles.providerName}>
+ <span>{provider.icon}</span> {provider.name}
+ </div>
+ {result?.status === "loading" && (
+ <span className={`${styles.providerStatus} ${styles.loading}`}>Fetching...</span>
+ )}
+ {result?.status === "success" && (
+ <span className={styles.providerStatus}>Success</span>
+ )}
+ {result?.status === "error" && (
+ <span className={`${styles.providerStatus} ${styles.error}`}>Failed</span>
+ )}
+ </div>
 
-                    <div className={styles.providerContent}>
-                      {result?.status === "loading" && (
-                        <div className={styles.skeletonContainer}>
-                          <div className={styles.skeletonLine} />
-                          <div className={styles.skeletonLine} />
-                          <div className={styles.skeletonLine} />
-                        </div>
-                      )}
+ <div className={styles.providerContent}>
+ {result?.status === "loading" && (
+ <div className={styles.skeletonContainer}>
+ <div className={styles.skeletonLine} />
+ <div className={styles.skeletonLine} />
+ <div className={styles.skeletonLine} />
+ </div>
+ )}
 
-                      {result?.status === "error" && (
-                        <div className={styles.errorMessage}>
-                          {result.error}
-                        </div>
-                      )}
+ {result?.status === "error" && (
+ <div className={styles.errorMessage}>
+ {result.error}
+ </div>
+ )}
 
-                      {result?.status === "success" && result.data && (
-                        <div className={styles.dataGrid}>
-                          {result.data.map((item, idx) => (
-                            <div key={idx} className={styles.dataItem}>
-                              <div className={styles.dataLabel}>{item.label}</div>
-                              <div className={styles.dataValue}>{item.value}</div>
-                            </div>
-                          ))}
-                          {result.data.length === 0 && (
-                            <div className={styles.errorMessage}>
-                              No specific data returned for this domain.
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className={styles.featuresGrid}>
-              <div className={styles.featureCard}>
-                <h3>Real-Time Data</h3>
-                <p>Directly queries authoritative registries using RDAP standard.</p>
-              </div>
-              <div className={styles.featureCard}>
-                <h3>Lightning Fast</h3>
-                <p>We query the appropriate TLD namespace instantly.</p>
-              </div>
-              <div className={styles.featureCard}>
-                <h3>Comprehensive Info</h3>
-                <p>Includes Registration, Expiry dates, Nameservers & Status codes.</p>
-              </div>
-            </div>
-          )}
-        </section>
-      </main>
+ {result?.status === "success" && result.data && (
+ <div className={styles.dataGrid}>
+ {result.data.map((item, idx) => (
+ <div key={idx} className={styles.dataItem}>
+ <div className={styles.dataLabel}>{item.label}</div>
+ <div className={styles.dataValue}>{item.value}</div>
+ </div>
+ ))}
+ {result.data.length === 0 && (
+ <div className={styles.errorMessage}>
+ No specific data returned for this domain.
+ </div>
+ )}
+ </div>
+ )}
+ </div>
+ </div>
+ );
+ })}
+ </div>
+ ) : (
+ <div className={styles.featuresGrid}>
+ <div className={styles.featureCard}>
+ <h3>Real-Time Data</h3>
+ <p>Directly queries authoritative registries using RDAP standard.</p>
+ </div>
+ <div className={styles.featureCard}>
+ <h3>Lightning Fast</h3>
+ <p>We query the appropriate TLD namespace instantly.</p>
+ </div>
+ <div className={styles.featureCard}>
+ <h3>Comprehensive Info</h3>
+ <p>Includes Registration, Expiry dates, Nameservers & Status codes.</p>
+ </div>
+ </div>
+ )}
+ </section>
+ </main>
 
-      <Footer />
+ <Footer />
 
-            {/* SEO Content Section */}
-            <section style={{ maxWidth: "var(--max-width)", margin: "0 auto", padding: "60px 24px 80px", borderTop: "1px solid var(--border-subtle)" }}>
-                <div style={{ maxWidth: "800px", margin: "0 auto" }}>
-                    <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: "16px" }}>Free WHOIS & RDAP Domain Lookup Tool</h2>
-                    <p style={{ color: "var(--text-secondary)", lineHeight: 1.7, fontSize: "1.05rem", marginBottom: "24px" }}>
-                        Our free domain WHOIS lookup uses modern RDAP (Registration Data Access Protocol) to query authoritative domain registries directly — no caching, no stale data. Check domain registration dates, nameservers, registrar details, and domain status codes instantly for any TLD.
-                    </p>
+ {/* SEO Content Section */}
+ <section style={{ maxWidth: "var(--max-width)", margin: "0 auto", padding: "60px 24px 80px", borderTop: "1px solid var(--border-subtle)" }}>
+ <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+ <h2 style={{ fontSize: "1.8rem", fontWeight: 800, marginBottom: "16px" }}>Free WHOIS & RDAP Domain Lookup Tool</h2>
+ <p style={{ color: "var(--text-secondary)", lineHeight: 1.7, fontSize: "1.05rem", marginBottom: "24px" }}>
+ Our free domain WHOIS lookup uses modern RDAP (Registration Data Access Protocol) to query authoritative domain registries directly no caching, no stale data. Check domain registration dates, nameservers, registrar details, and domain status codes instantly for any TLD.
+ </p>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "32px" }}>
-                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
-                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>What is RDAP WHOIS?</h3>
-                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-                                RDAP is the modern replacement for the legacy WHOIS protocol. It delivers structured JSON responses with standardized domain registration data — easier for developers to parse and integrate into automated domain research workflows.
-                            </p>
-                        </div>
-                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
-                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>When to Use WHOIS Lookup</h3>
-                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-                                Check domain availability, verify ownership, investigate suspicious domains, monitor expiration dates, or research competitor domains. WHOIS data is essential for cybersecurity researchers, domain investors, and SEO professionals.
-                            </p>
-                        </div>
-                        <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
-                            <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Need Proxies for Bulk Lookups?</h3>
-                            <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-                                Running bulk WHOIS queries can trigger rate limits. Use ProxyBase residential proxies to distribute lookups across multiple IPs — KYC-free, pay-as-you-go, starting at $3/GB. <a href="/mpp" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>Browse proxy packages →</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-    </div>
-  );
+ <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "20px", marginBottom: "32px" }}>
+ <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+ <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>What is RDAP WHOIS?</h3>
+ <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+ RDAP is the modern replacement for the legacy WHOIS protocol. It delivers structured JSON responses with standardized domain registration data easier for developers to parse and integrate into automated domain research workflows.
+ </p>
+ </div>
+ <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+ <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>When to Use WHOIS Lookup</h3>
+ <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+ Check domain availability, verify ownership, investigate suspicious domains, monitor expiration dates, or research competitor domains. WHOIS data is essential for cybersecurity researchers, domain investors, and SEO professionals.
+ </p>
+ </div>
+ <div style={{ padding: "20px", background: "var(--bg-secondary)", borderRadius: "8px" }}>
+ <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: "8px" }}>Need Proxies for Bulk Lookups?</h3>
+ <p style={{ color: "var(--text-secondary)", fontSize: "0.95rem", lineHeight: 1.6 }}>
+ Running bulk WHOIS queries can trigger rate limits. Use ProxyBase residential proxies to distribute lookups across multiple IPs KYC-free, pay-as-you-go, starting at $3/GB. <a href="/mpp" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>Browse proxy packages →</a>
+ </p>
+ </div>
+ </div>
+ </div>
+ </section>
+ </div>
+ );
 }
