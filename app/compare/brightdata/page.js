@@ -14,8 +14,8 @@ export default function CompareBrightDataPage() {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": "ProxyBase vs Bright Data Comparison",
-        "description": "Comprehensive comparison between ProxyBase and Bright Data proxy services, focused on developer and AI agent requirements.",
+        "name": "Bright Data Review & ProxyBase vs Bright Data Comparison",
+        "description": "Comprehensive Bright Data review plus side-by-side comparison with ProxyBase. Pricing, KYC, features, and alternatives analysis.",
         "url": "https://proxybase.xyz/compare/brightdata"
     };
 
@@ -36,64 +36,165 @@ export default function CompareBrightDataPage() {
 
                     <div className="compare-hero-content">
                         <div className="compare-badge">
-                            Side-by-Side Analysis
+                            In-Depth Review & Alternative
                         </div>
-                        <h1>ProxyBase vs Bright Data</h1>
+                        <h1>Bright Data Review: The Enterprise Proxy Giant — And Its Best Alternative</h1>
                         <p className="hero-subtitle">
-                            An architectural comparison between ProxyBase’s autonomous, wallet-native proxy network and Bright Data’s centralized enterprise data platform.
+                            Bright Data is the largest proxy network in the world — but it comes with mandatory KYC, monthly commitments, and enterprise pricing. Here's what they don't tell you, and why ProxyBase is the top Bright Data alternative for developers and AI agents.
                         </p>
                         <div className="hero-actions">
-                            <a href="/ai-agents#pricing" className="btn-primary">Get API Key (No KYC)</a>
-                            <a href="#matrix" className="btn-secondary">Compare Features ↓</a>
+                            <a href="/ai-agents#pricing" className="btn-primary">Get Proxy Access — No KYC</a>
+                            <a href="#review" className="btn-secondary">Read the Review ↓</a>
                         </div>
                     </div>
                 </section>
 
-                {/* THE CORE DIFFERENCE */}
-                <section className="compare-intro-section">
+                {/* Bright Data REVIEW */}
+                <section className="compare-intro-section" id="review">
+                    <div className="section-header" style={{ marginBottom: "48px", textAlign: "center" }}>
+                        <span className="section-label">Honest Assessment</span>
+                        <h2>Bright Data Review: What You Need to Know</h2>
+                        <p className="section-desc" style={{ maxWidth: "700px", margin: "0 auto" }}>
+                            Bright Data dominates the proxy industry with 72M+ IPs and Fortune 500 clients. But for indie developers, AI agent builders, and small teams, the reality is very different.
+                        </p>
+                    </div>
+
                     <div className="intro-card-grid">
                         <div className="intro-card pb-card">
                             <div className="card-brand-header">
                                 <span className="brand-logo-dot active" />
-                                <h3>ProxyBase.xyz</h3>
+                                <h3>What Bright Data Gets Right</h3>
                             </div>
-                            <p className="brand-tagline">Autonomous AI Infrastructure</p>
-                            <p className="brand-desc">
-                                Built specifically for programmatic applications, LLM agents, and high-concurrency scrapers. Authenticate anonymously using crypto wallets, bypass geo-restrictions with intent-based SOCKS5 tags, and benefit from dual-path self-healing routing.
-                            </p>
                             <ul className="brand-bullets">
-                                <li>⚡ Zero KYC or identity checks — get setup in seconds</li>
-                                <li>⚡ True pay-as-you-go — credits never expire</li>
-                                <li>⚡ Dual-path failover — automatic self-healing channels</li>
-                                <li>⚡ Native Model Context Protocol (MCP) support for LLMs</li>
+                                <li>✅ Largest proxy pool in the industry — 72M+ residential IPs across 195 countries</li>
+                                <li>✅ Enterprise-grade infrastructure with 99.99% uptime</li>
+                                <li>✅ Full suite: residential, datacenter, mobile, ISP proxies, web unlocker, scraping browser</li>
+                                <li>✅ Extensive documentation, APIs, and pre-built scrapers</li>
+                                <li>✅ Datasets marketplace for pre-scraped data</li>
                             </ul>
                         </div>
 
                         <div className="intro-card ir-card">
                             <div className="card-brand-header">
                                 <span className="brand-logo-dot legacy" />
-                                <h3>Bright Data</h3>
+                                <h3>Where Bright Data Falls Short</h3>
                             </div>
-                            <p className="brand-tagline">Centralized Industry Giant</p>
-                            <p className="brand-desc">
-                                The world's largest commercial proxy aggregator. Offers massive global pools with datasets and remote scraping browsers, but features complex enterprise setups, compliance checks, and high budget commitments.
-                            </p>
                             <ul className="brand-bullets">
-                                <li>⚠️ Strict manual identity checks & compliance audits</li>
-                                <li>⚠️ Monthly commitments and recurring subscription models</li>
-                                <li>⚠️ Complex control panels with steep developer learning curves</li>
-                                <li>⚠️ Centralized gatekeeper networks with standard ASN checks</li>
+                                <li>⚠️ Mandatory KYC — passport, company documents, compliance calls required before access</li>
+                                <li>⚠️ Enterprise pricing — residential proxies start at $8.40/GB on monthly plans</li>
+                                <li>⚠️ Monthly commitments — unused bandwidth doesn't roll over, pay for what you don't use</li>
+                                <li>⚠️ Complex dashboard — built for data ops teams, not programmatic agents</li>
+                                <li>⚠️ No crypto payments — credit card or wire transfer only, leaving anonymous users out</li>
                             </ul>
                         </div>
                     </div>
                 </section>
 
-                {/* COMPARISON MATRIX */}
+                {/* PRICING COMPARISON */}
                 <section className="compare-matrix-section" id="matrix">
                     <div className="section-header">
-                        <span className="section-label">Technical Breakdown</span>
-                        <h2>Feature Comparison Matrix</h2>
-                        <p className="section-desc">Compare the architecture, pricing, and compliance requirements side by side.</p>
+                        <span className="section-label">Pricing Reality</span>
+                        <h2>Bright Data Pricing vs. ProxyBase: What You Actually Pay</h2>
+                        <p className="section-desc">Bright Data's advertised rates require annual commitments. Here's the real comparison.</p>
+                    </div>
+
+                    <div className="matrix-table-container">
+                        <table className="compare-matrix-table">
+                            <thead>
+                                <tr>
+                                    <th>Pricing Factor</th>
+                                    <th className="highlight-col">ProxyBase</th>
+                                    <th>Bright Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="metric-name">Residential proxy (per GB)</td>
+                                    <td className="highlight-col text-emerald font-weight-bold">$3.00 / GB (pay-as-you-go)</td>
+                                    <td>$8.40 / GB (monthly plan pricing)</td>
+                                </tr>
+                                <tr>
+                                    <td className="metric-name">Minimum spend</td>
+                                    <td className="highlight-col text-emerald font-weight-bold">None — $3 minimum top-up</td>
+                                    <td className="text-danger">$500/month for pay-as-you-go, $10K+ for enterprise</td>
+                                </tr>
+                                <tr>
+                                    <td className="metric-name">Credits expiry</td>
+                                    <td className="highlight-col text-emerald font-weight-bold">Never expire</td>
+                                    <td className="text-danger">Monthly — use it or lose it</td>
+                                </tr>
+                                <tr>
+                                    <td className="metric-name">KYC required</td>
+                                    <td className="highlight-col text-emerald font-weight-bold">None — wallet-only authentication</td>
+                                    <td className="text-danger">Passport, company docs, compliance interview</td>
+                                </tr>
+                                <tr>
+                                    <td className="metric-name">Payment methods</td>
+                                    <td className="highlight-col font-weight-bold">USDC, USDT, BTC, ETH, SOL</td>
+                                    <td>Credit card, wire transfer, invoicing</td>
+                                </tr>
+                                <tr>
+                                    <td className="metric-name">Setup time</td>
+                                    <td className="highlight-col text-emerald font-weight-bold">Under 60 seconds (API key instant)</td>
+                                    <td className="text-danger">2–14 days (KYC processing)</td>
+                                </tr>
+                                <tr>
+                                    <td className="metric-name">API-first design</td>
+                                    <td className="highlight-col text-emerald font-weight-bold">Built for it — headless, no dashboard needed</td>
+                                    <td>API available but dashboard-centric UX</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                {/* WHO SHOULD USE WHAT */}
+                <section className="compare-deepdive-section" style={{ background: "var(--bg-secondary)" }}>
+                    <div className="section-header">
+                        <span className="section-label">Verdict</span>
+                        <h2>Bright Data vs. ProxyBase: Which One Should You Use?</h2>
+                    </div>
+
+                    <div className="deepdive-grid">
+                        <div className="deepdive-card">
+                            <div className="icon-wrapper">🏢</div>
+                            <h3>Use Bright Data if...</h3>
+                            <p>
+                                You're a Fortune 500 company with a legal team to handle KYC compliance. You need the absolute largest IP pool and don't mind paying $8.40+/GB. You want pre-scraped datasets, managed scraping browsers, and have a $10K+/month budget. You need SOC 2 compliance and enterprise SLAs.
+                            </p>
+                        </div>
+
+                        <div className="deepdive-card">
+                            <div className="icon-wrapper">🚀</div>
+                            <h3>Use ProxyBase if...</h3>
+                            <p>
+                                You're a developer, indie hacker, or AI agent builder who needs proxies now — not after a 2-week compliance process. You want to pay with crypto, stay anonymous, and only pay for what you use. You need an API-first proxy network your code can provision autonomously without touching a dashboard.
+                            </p>
+                        </div>
+
+                        <div className="deepdive-card">
+                            <div className="icon-wrapper">💡</div>
+                            <h3>The KYC difference is the dealbreaker</h3>
+                            <p>
+                                For many developers and AI agent builders, Bright Data's mandatory KYC is a non-starter. You need to submit government ID, company registration documents, and sit through a compliance call — just to use a proxy. ProxyBase asks for nothing but a wallet address. You can be proxying traffic in under 60 seconds.
+                            </p>
+                        </div>
+
+                        <div className="deepdive-card">
+                            <div className="icon-wrapper">💰</div>
+                            <h3>Bottom line on pricing</h3>
+                            <p>
+                                Bright Data's residential proxies cost $8.40/GB on monthly plans vs. ProxyBase's $3.00/GB pay-as-you-go. But the real cost difference is the commitment: Bright Data locks you into monthly spend with expiring credits. ProxyBase credits never expire. Spend $20 this month and $0 next month — no penalty.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* FEATURE COMPARISON */}
+                <section className="compare-matrix-section" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+                    <div className="section-header">
+                        <span className="section-label">Full Breakdown</span>
+                        <h2>Complete Feature Comparison</h2>
                     </div>
 
                     <div className="matrix-table-container">
@@ -107,101 +208,73 @@ export default function CompareBrightDataPage() {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td className="metric-name">Core Focus</td>
-                                    <td className="highlight-col font-weight-bold">AI Agents, Scrapers, LLM Tools</td>
-                                    <td>Enterprise Data Acquisition, Market Research, datasets</td>
+                                    <td className="metric-name">IP Pool Size</td>
+                                    <td className="highlight-col font-weight-bold">Growing decentralized network</td>
+                                    <td>72M+ residential IPs (industry largest)</td>
+                                </tr>
+                                <tr>
+                                    <td className="metric-name">Proxy Types</td>
+                                    <td className="highlight-col font-weight-bold">Residential, Mobile (4G/5G)</td>
+                                    <td>Residential, Datacenter, Mobile, ISP</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name">Identity Verification</td>
-                                    <td className="highlight-col text-emerald font-weight-bold">None (Wallet Native & Anonymous)</td>
-                                    <td className="text-danger">Mandatory KYC (Manual document checks)</td>
+                                    <td className="highlight-col text-emerald font-weight-bold">None — wallet-native, anonymous</td>
+                                    <td className="text-danger">Mandatory KYC — ID, company docs, compliance call</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name">Payment Methods</td>
-                                    <td className="highlight-col font-weight-bold">Cryptocurrency & Stablecoins</td>
-                                    <td>Credit Cards, PayPal, Invoicing, Wire Transfer</td>
+                                    <td className="highlight-col font-weight-bold">USDC, USDT, BTC, ETH, SOL</td>
+                                    <td>Credit card, PayPal, wire transfer, invoicing</td>
                                 </tr>
                                 <tr>
-                                    <td className="metric-name">Routing Resiliency</td>
-                                    <td className="highlight-col text-emerald font-weight-bold">Self-Healing Dual-Path Failover</td>
-                                    <td>Standard Gateway Redundancy</td>
+                                    <td className="metric-name">Billing Model</td>
+                                    <td className="highlight-col text-emerald font-weight-bold">Pay-as-you-go — credits never expire</td>
+                                    <td className="text-danger">Monthly plans — use it or lose it</td>
                                 </tr>
                                 <tr>
-                                    <td className="metric-name">Pricing Flexibility</td>
-                                    <td className="highlight-col font-weight-bold">Pay-as-you-go, credits never expire</td>
-                                    <td>Plan-based recurring subscription models</td>
+                                    <td className="metric-name">Residential Price/GB</td>
+                                    <td className="highlight-col text-emerald font-weight-bold">$3.00</td>
+                                    <td>$8.40 (monthly plan)</td>
                                 </tr>
                                 <tr>
-                                    <td className="metric-name">AI Native Integrations</td>
-                                    <td className="highlight-col text-emerald font-weight-bold">Yes (Native MCP Server & SOCKS5 Auth)</td>
-                                    <td>MCP server & remote browser API extensions</td>
+                                    <td className="metric-name">AI Agent Integration</td>
+                                    <td className="highlight-col text-emerald font-weight-bold">Native MCP server, REST API, SOCKS5 auth tags</td>
+                                    <td>MCP server, REST API, scraping browser</td>
+                                </tr>
+                                <tr>
+                                    <td className="metric-name">Routing Architecture</td>
+                                    <td className="highlight-col font-weight-bold">Dual-path self-healing failover</td>
+                                    <td>Standard gateway redundancy</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name">Bandwidth Sourcing</td>
-                                    <td className="highlight-col font-weight-bold">Decentralized Open Seller Marketplace</td>
-                                    <td>Centralized Peer-to-Peer SDK & Partner network</td>
+                                    <td className="highlight-col font-weight-bold">Decentralized open marketplace</td>
+                                    <td>Centralized partner network + EarnApp SDK</td>
                                 </tr>
                                 <tr>
-                                    <td className="metric-name">Uptime Rate</td>
-                                    <td className="highlight-col font-weight-bold">99.9% (Continuous ping failover)</td>
-                                    <td>99.99%</td>
+                                    <td className="metric-name">Geo-Targeting</td>
+                                    <td className="highlight-col font-weight-bold">Country-level via SOCKS5 auth string</td>
+                                    <td>Country, state, city, ASN-level targeting</td>
+                                </tr>
+                                <tr>
+                                    <td className="metric-name">Best For</td>
+                                    <td className="highlight-col font-weight-bold">AI agents, indie devs, scrapers, privacy-first users</td>
+                                    <td>Enterprise data ops, Fortune 500, managed scraping</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </section>
 
-                {/* ARCHITECTURAL DEEP DIVE */}
-                <section className="compare-deepdive-section">
-                    <div className="section-header">
-                        <span className="section-label">Architectural Deep Dive</span>
-                        <h2>Why ProxyBase Outperforms for Modern Developers</h2>
-                        <p className="section-desc">Centralized data giants like Bright Data are built for manual review teams. ProxyBase is a decentralized routing layer built for AI workloads.</p>
-                    </div>
-
-                    <div className="deepdive-grid">
-                        <div className="deepdive-card">
-                            <div className="icon-wrapper">🚀</div>
-                            <h3>1. Zero KYC Friction</h3>
-                            <p>
-                                Bright Data has a compliance process that takes days/weeks before you can use residential IPs. ProxyBase uses crypto-native authentication, letting you spawn anonymous scrapers programmatically with zero onboarding friction.
-                            </p>
-                        </div>
-
-                        <div className="deepdive-card">
-                            <div className="icon-wrapper">🔄</div>
-                            <h3>2. Dual-Path Resiliency</h3>
-                            <p>
-                                If a target gatekeeper server drops on Bright Data, your connection drops, causing request failures in your scraper. ProxyBase keeps two independent routes active simultaneously. If path A experiences latency spikes or disconnects, traffic immediately flushes through path B without dropping the socket.
-                            </p>
-                        </div>
-
-                        <div className="deepdive-card">
-                            <div className="icon-wrapper">💎</div>
-                            <h3>3. True Asset Ownership</h3>
-                            <p>
-                                Centralized providers make you pay for monthly subscription plans. Any unused gigabytes vanish at the end of the billing cycle. With ProxyBase, every byte you purchase is credited as a non-expiring balance stored directly inside your wallet profile.
-                            </p>
-                        </div>
-
-                        <div className="deepdive-card">
-                            <div className="icon-wrapper">🧠</div>
-                            <h3>4. AI-First SOCKS5 Controls</h3>
-                            <p>
-                                Rather than configuring static endpoints in a control panel, ProxyBase lets you choose location, protocol, and node filters directly inside the SOCKS5 username string. This makes it possible for autonomous LLM agents to swap locations on the fly.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
                 {/* CALL TO ACTION */}
                 <section className="compare-cta-section">
                     <div className="cta-card">
-                        <h2>Ready for Programmatic Scale?</h2>
-                        <p>Avoid verification queues and centralized outages. Switch to the world's first autonomous proxy infrastructure.</p>
+                        <h2>Get Proxy Access in 60 Seconds — No KYC Required</h2>
+                        <p>Skip the 2-week compliance process. Pay with crypto, credits never expire. Built for developers and AI agents.</p>
                         <div className="cta-buttons">
-                            <a href="/ai-agents#pricing" className="btn-primary">Create Account (No KYC)</a>
-                            <a href="/markets" className="btn-secondary">Explore the Marketplace</a>
+                            <a href="/ai-agents#pricing" className="btn-primary">Get API Key Instantly</a>
+                            <a href="/ai-agents#api" className="btn-secondary">Read the API Docs</a>
                         </div>
                     </div>
                 </section>

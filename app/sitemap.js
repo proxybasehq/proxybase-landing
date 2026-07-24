@@ -216,5 +216,11 @@ export default function sitemap() {
             changeFrequency: "monthly",
             priority: 0.8,
         },
+        {
+            url: "https://proxybase.xyz/blog/residential-proxy-vs-datacenter",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
     ];
 }
