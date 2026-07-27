@@ -14,7 +14,7 @@ const OS_META = {
   unknown: { label: "your system", icon: "\u{1F4BB}" },
 };
 
-const OS_ORDER = ["macos", "windows", "linux"];
+const OS_ORDER = ["macos", "windows", "linux", "android"];
 const EXT_PRIORITY = { dmg: 0, msi: 0, deb: 0, exe: 1, rpm: 1, appimage: 1, "tar.gz": 0, zip: 0, apk: 0 };
 
 /* ── Helpers ── */
