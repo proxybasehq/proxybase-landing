@@ -258,9 +258,9 @@
   margin-bottom: 16px;
 }
 
-.os_icon {
-  font-size: 2rem;
-  line-height: 1;
+.os_header svg {
+  flex-shrink: 0;
+  color: var(--text-secondary);
 }
 
 .os_text h3 {

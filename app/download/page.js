@@ -7,12 +7,53 @@ import styles from "./download.module.css";
 
 /* ── Constants ── */
 const OS_META = {
-  macos: { label: "macOS", icon: "\u{1F347}" },
-  windows: { label: "Windows", icon: "\u{1FA9F}" },
-  linux: { label: "Linux", icon: "\u{1F427}" },
-  android: { label: "Android", icon: "\u{1F4F1}" },
-  unknown: { label: "your system", icon: "\u{1F4BB}" },
+  macos: { label: "macOS" },
+  windows: { label: "Windows" },
+  linux: { label: "Linux" },
+  android: { label: "Android" },
+  unknown: { label: "your system" },
 };
+
+/* ── OS SVG Icons (24x24, currentColor) ── */
+function OsIcon({ os, size = 36 }) {
+  const s = size;
+  switch (os) {
+    case "macos":
+      return (
+        <svg width={s} height={s} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" fill="currentColor"/>
+        </svg>
+      );
+    case "windows":
+      return (
+        <svg width={s} height={s} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M3 12V6.5l8-1.1V12H3zm0 .5h8v6.6l-8-1.1V12.5zm9.5-7.6L21 3v9h-8.5V4.9zm0 15.2V12H21v9l-8.5-1.1v-6.8z" fill="currentColor"/>
+        </svg>
+      );
+    case "linux":
+      return (
+        <svg width={s} height={s} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-.15 15.85c-2.25 0-4.1-1.5-4.1-3.35 0-.55.15-1.1.35-1.6-.25-.6-.4-1.3-.35-2 .05-.7.25-1.35.55-1.95.45.65 1.05 1.15 1.75 1.5.7.35 1.5.5 2.3.5s1.6-.15 2.3-.5c.7-.35 1.3-.85 1.75-1.5.3.6.5 1.25.55 1.95.05.7-.1 1.4-.35 2 .2.5.35 1.05.35 1.6 0 1.85-1.85 3.35-4.1 3.35z" fill="currentColor"/>
+          <ellipse cx="9.5" cy="10.5" rx="1" ry="1.2" fill="currentColor"/>
+          <ellipse cx="14.5" cy="10.5" rx="1" ry="1.2" fill="currentColor"/>
+          <path d="M10.5 13.5c.5.3 1.1.5 1.5.5.4 0 1-.2 1.5-.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" fill="none"/>
+        </svg>
+      );
+    case "android":
+      return (
+        <svg width={s} height={s} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 18c0 .55.45 1 1 1h1v3.5a1.5 1.5 0 003 0V19h2v3.5a1.5 1.5 0 003 0V19h1c.55 0 1-.45 1-1V8H6v10zM3.5 8C2.67 8 2 8.67 2 9.5v7c0 .83.67 1.5 1.5 1.5S5 17.33 5 16.5v-7C5 8.67 4.33 8 3.5 8zm17 0c-.83 0-1.5.67-1.5 1.5v7c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-7c0-.83-.67-1.5-1.5-1.5zM15.5 2.5l1.3-1.3c.2-.2.2-.5 0-.7s-.5-.2-.7 0L14.7 1.9C13.9 1.4 13 1 12 1s-1.9.4-2.7.9L7.9.5c-.2-.2-.5-.2-.7 0s-.2.5 0 .7L8.5 2.5C7.1 3.5 6 5.1 6 7h12c0-1.9-1.1-3.5-2.5-4.5zM9 6c-.28 0-.5-.22-.5-.5S8.72 5 9 5s.5.22.5.5S9.28 6 9 6zm6 0c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5z" fill="currentColor"/>
+        </svg>
+      );
+    default:
+      return (
+        <svg width={s} height={s} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="2" y="3" width="20" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+          <path d="M8 21h8M12 17v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        </svg>
+      );
+  }
+}
 
 const OS_ORDER = ["macos", "windows", "linux", "android"];
 const EXT_PRIORITY = { dmg: 0, msi: 0, deb: 0, exe: 1, rpm: 1, appimage: 1, "tar.gz": 0, zip: 0, apk: 0 };
@@ -93,7 +134,7 @@ function PlatformCard({ os, assets, isPrimary }) {
         </div>
       )}
       <div className={styles.os_header}>
-        <span className={styles.os_icon}>{meta.icon}</span>
+        <OsIcon os={os} />
         <div className={styles.os_text}>
           <h3>{meta.label}</h3>
           <span>{primary.arch && primary.arch !== "universal" ? primary.arch : ""}</span>
@@ -106,6 +147,8 @@ function PlatformCard({ os, assets, isPrimary }) {
           ? "Windows installer. Download, run the MSI, and you're set."
           : os === "linux"
           ? "Debian package for Ubuntu/Debian. RPM and AppImage also available."
+          : os === "android"
+          ? "Android APK. Sideload on your Android device."
           : `Download for ${meta.label}.`}
       </p>
 
@@ -308,7 +351,7 @@ export default function DownloadPage() {
                     return (
                       <div key={os} className={styles.os_card}>
                         <div className={styles.os_header}>
-                          <span className={styles.os_icon}>{meta.icon}</span>
+                          <OsIcon os={os} />
                           <div className={styles.os_text}>
                             <h3>{meta.label}</h3>
                             <span>Terminal</span>
