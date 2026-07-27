@@ -119,10 +119,11 @@ function LoadingSkeleton() {
 }
 
 /* ── Platform Card ── */
-function PlatformCard({ os, assets, isPrimary }) {
+function PlatformCard({ os, assets, isPrimary, product }) {
   const primary = bestAsset(assets);
   const alternatives = assets.filter((a) => a !== primary);
   const meta = OS_META[os] || OS_META.unknown;
+  const ext = getExt(primary?.name || "");
 
   if (!primary) return null;
 
@@ -166,7 +167,7 @@ function PlatformCard({ os, assets, isPrimary }) {
       <a
         href={primary.url}
         className={styles.download_btn}
-        data-umami-event={`download-${os}`}
+        data-umami-event={`Download: ${isPrimary ? "Primary " : ""}${meta.label} ${ext.toUpperCase()} ${product}`}
         rel="noopener noreferrer"
       >
         Download {meta.label} ({formatSize(primary.size)})
@@ -177,7 +178,7 @@ function PlatformCard({ os, assets, isPrimary }) {
           key={a.name}
           href={a.url}
           className={`${styles.download_btn} ${styles.download_btn_secondary}`}
-          data-umami-event={`download-${os}-alt`}
+          data-umami-event={`Download: ${meta.label} ${getExt(a.name).toUpperCase()} ${product}`}
           rel="noopener noreferrer"
         >
           Download .{getExt(a.name)} ({formatSize(a.size)})
@@ -275,12 +276,14 @@ export default function DownloadPage() {
           <button
             className={`${styles.tab_btn} ${activeTab === "gui" ? styles.tab_btn_active : ""}`}
             onClick={() => setActiveTab("gui")}
+            data-umami-event="Download: Switch GUI"
           >
             GUI Client
           </button>
           <button
             className={`${styles.tab_btn} ${activeTab === "cli" ? styles.tab_btn_active : ""}`}
             onClick={() => setActiveTab("cli")}
+            data-umami-event="Download: Switch CLI"
           >
             CLI Daemon
           </button>
@@ -294,7 +297,7 @@ export default function DownloadPage() {
           <div className={styles.error_container}>
             <h3>Could not load downloads</h3>
             <p>{error}. GitHub may be rate-limiting us — try again in a moment.</p>
-            <button className={styles.retry_btn} onClick={fetchReleases}>
+            <button className={styles.retry_btn} onClick={fetchReleases} data-umami-event="Download: Retry">
               Retry
             </button>
           </div>
@@ -316,6 +319,7 @@ export default function DownloadPage() {
                 os={detectedOS}
                 assets={grouped[detectedOS]}
                 isPrimary
+                product={activeTab === "gui" ? "GUI" : "CLI"}
               />
             )}
 
@@ -334,7 +338,7 @@ export default function DownloadPage() {
                 if (!grouped[os]) return null;
                 if (os === detectedOS) return null; // Already shown as primary
                 return (
-                  <PlatformCard key={os} os={os} assets={grouped[os]} />
+                  <PlatformCard key={os} os={os} assets={grouped[os]} product={activeTab === "gui" ? "GUI" : "CLI"} />
                 );
               })}
             </div>
