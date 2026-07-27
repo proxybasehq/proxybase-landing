@@ -1,234 +1,348 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import styles from "./download.module.css";
 
+/* ── Constants ── */
+const OS_META = {
+  macos: { label: "macOS", icon: "\u{1F347}" },
+  windows: { label: "Windows", icon: "\u{1FA9F}" },
+  linux: { label: "Linux", icon: "\u{1F427}" },
+  android: { label: "Android", icon: "\u{1F4F1}" },
+  unknown: { label: "your system", icon: "\u{1F4BB}" },
+};
+
+const OS_ORDER = ["macos", "windows", "linux"];
+const EXT_PRIORITY = { dmg: 0, msi: 0, deb: 0, exe: 1, rpm: 1, appimage: 1, "tar.gz": 0, zip: 0, apk: 0 };
+
+/* ── Helpers ── */
+function detectOS() {
+  if (typeof window === "undefined") return "unknown";
+  const p = (navigator.platform || "").toLowerCase();
+  const ua = (navigator.userAgent || "").toLowerCase();
+
+  if (p.includes("mac") || ua.includes("mac os")) return "macos";
+  if (p.includes("win")) return "windows";
+  if (p.includes("linux") || p.includes("x11")) return "linux";
+  return "unknown";
+}
+
+function formatSize(bytes) {
+  if (bytes == null) return "";
+  const mb = bytes / (1024 * 1024);
+  if (mb >= 1024) return `${(mb / 1024).toFixed(1)} GB`;
+  return `${mb.toFixed(1)} MB`;
+}
+
+function getExt(name) {
+  const lower = name.toLowerCase();
+  if (lower.endsWith(".tar.gz")) return "tar.gz";
+  if (lower.endsWith(".appimage")) return "appimage";
+  return name.split(".").pop().toLowerCase();
+}
+
+function bestAsset(assets) {
+  if (!assets || assets.length === 0) return null;
+  const sorted = [...assets].sort(
+    (a, b) => (EXT_PRIORITY[getExt(a.name)] ?? 99) - (EXT_PRIORITY[getExt(b.name)] ?? 99)
+  );
+  return sorted[0];
+}
+
+function groupByOS(assets) {
+  const map = {};
+  for (const a of assets) {
+    if (!a.os) continue;
+    if (!map[a.os]) map[a.os] = [];
+    map[a.os].push(a);
+  }
+  return map;
+}
+
+/* ── Skeleton ── */
+function LoadingSkeleton() {
+  return (
+    <div className={styles.loading_grid}>
+      {[1, 2, 3].map((n) => (
+        <div key={n} className={styles.skeleton_card}>
+          <div className={styles.skeleton_line} />
+          <div className={styles.skeleton_line} />
+          <div className={styles.skeleton_line} />
+          <div className={styles.skeleton_line} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ── Platform Card ── */
+function PlatformCard({ os, assets, isPrimary }) {
+  const primary = bestAsset(assets);
+  const alternatives = assets.filter((a) => a !== primary);
+  const meta = OS_META[os] || OS_META.unknown;
+
+  if (!primary) return null;
+
+  return (
+    <div className={`${styles.os_card} ${isPrimary ? styles.primary_card : ""}`}>
+      {isPrimary && (
+        <div className={styles.recommended_badge}>
+          Recommended for your device
+        </div>
+      )}
+      <div className={styles.os_header}>
+        <span className={styles.os_icon}>{meta.icon}</span>
+        <div className={styles.os_text}>
+          <h3>{meta.label}</h3>
+          <span>{primary.arch && primary.arch !== "universal" ? primary.arch : ""}</span>
+        </div>
+      </div>
+      <p className={styles.os_desc}>
+        {os === "macos"
+          ? "Native macOS app. Just open the DMG and drag to Applications."
+          : os === "windows"
+          ? "Windows installer. Download, run the MSI, and you're set."
+          : os === "linux"
+          ? "Debian package for Ubuntu/Debian. RPM and AppImage also available."
+          : `Download for ${meta.label}.`}
+      </p>
+
+      {alternatives.length > 0 && (
+        <div className={styles.asset_list}>
+          {alternatives.map((a) => (
+            <div key={a.name} className={styles.asset_row}>
+              <span className={styles.asset_label}>.{getExt(a.name)}</span>
+              <span className={styles.asset_size}>{formatSize(a.size)}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <a
+        href={primary.url}
+        className={styles.download_btn}
+        data-umami-event={`download-${os}`}
+        rel="noopener noreferrer"
+      >
+        Download {meta.label} ({formatSize(primary.size)})
+      </a>
+
+      {alternatives.map((a) => (
+        <a
+          key={a.name}
+          href={a.url}
+          className={`${styles.download_btn} ${styles.download_btn_secondary}`}
+          data-umami-event={`download-${os}-alt`}
+          rel="noopener noreferrer"
+        >
+          Download .{getExt(a.name)} ({formatSize(a.size)})
+        </a>
+      ))}
+    </div>
+  );
+}
+
+/* ── Main Page ── */
 export default function DownloadPage() {
- const [activeTab, setActiveTab] = useState("gui"); // 'gui' or 'cli'
+  const [activeTab, setActiveTab] = useState("gui");
+  const [releases, setReleases] = useState(null);
+  const [detectedOS, setDetectedOS] = useState("unknown");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
- const jsonLd = {
- "@context": "https://schema.org",
- "@type": "WebPage",
- "name": "Download ProxyBase Client",
- "description": "Download ProxyBase native GUI or headless CLI daemon for Windows, macOS, and Linux to start sharing bandwidth.",
- "url": "https://proxybase.xyz/download"
- };
+  const fetchReleases = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/releases");
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      setReleases(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
- return (
- <>
- <script
- type="application/ld+json"
- dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
- />
- <Navbar />
+  useEffect(() => {
+    setDetectedOS(detectOS());
+    fetchReleases();
+  }, [fetchReleases]);
 
- <div className="compare-page-root">
- {/* HERO */}
- <section className="compare-hero">
- <div className="hero-grid-overlay" />
- <div className="hero-glow-1" />
- <div className="hero-glow-2" />
- 
- <div className="compare-hero-content">
- <div className="compare-badge">
- Client Downloads
- </div>
- <h1>Download ProxyBase</h1>
- <p className="hero-subtitle">
- Run a secure, sandboxed node on your device. Sell idle internet bandwidth and earn stablecoins automatically.
- </p>
- </div>
- </section>
+  const tabData = releases?.[activeTab];
+  const grouped = tabData?.assets ? groupByOS(tabData.assets) : {};
 
- {/* DOWNLOAD SECTION */}
- <section className="compare-intro-section" id="downloads" style={{ paddingBottom: "120px" }}>
- <div className="download-tabs" style={{ display: "flex", justifyContent: "center", gap: "16px", marginBottom: "48px" }}>
- <button 
- className={`tab-btn ${activeTab === 'gui' ? 'active' : ''}`}
- onClick={() => setActiveTab("gui")}
- style={{
- padding: "12px 24px",
- background: activeTab === 'gui' ? 'var(--accent-gradient)' : 'var(--bg-card)',
- color: activeTab === 'gui' ? '#ffffff' : 'var(--text-secondary)',
- border: "1px solid var(--border-subtle)",
- borderRadius: "99px",
- fontWeight: 700,
- cursor: "pointer",
- transition: "all var(--transition-fast)"
- }}
- >
- 🖥️ Native GUI Client
- </button>
- <button 
- className={`tab-btn ${activeTab === 'cli' ? 'active' : ''}`}
- onClick={() => setActiveTab("cli")}
- style={{
- padding: "12px 24px",
- background: activeTab === 'cli' ? 'var(--accent-gradient)' : 'var(--bg-card)',
- color: activeTab === 'cli' ? '#ffffff' : 'var(--text-secondary)',
- border: "1px solid var(--border-subtle)",
- borderRadius: "99px",
- fontWeight: 700,
- cursor: "pointer",
- transition: "all var(--transition-fast)"
- }}
- >
- 💻 Headless CLI Daemon
- </button>
- </div>
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Download ProxyBase Client",
+    description:
+      "Download ProxyBase native GUI or headless CLI daemon for Windows, macOS, and Linux to start sharing bandwidth.",
+    url: "https://proxybase.xyz/download",
+  };
 
- {/* GUI DOWNLOADS */}
- {activeTab === 'gui' && (
- <div className="downloads-grid">
- <div className="download-card macos" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
- <div>
- <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
- <span className="os-icon" style={{ fontSize: "2rem" }}>🍎</span>
- <div>
- <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>macOS (GUI)</h3>
- <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.1.0 • Apple Silicon / Intel</p>
- </div>
- </div>
- <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
- Beautiful native app featuring interactive active sessions map, wallet manager, real-time bandwidth logs, and local proxy gateway controller.
- </p>
- </div>
- <a 
- href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/ProxyBase_0.1.0_universal.dmg"
- className="btn-download"
- style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
- >
- Download macOS .DMG
- </a>
- </div>
+  /* ── Install command helpers ── */
+  const cliInstallCmd = (os) => {
+    switch (os) {
+      case "macos":
+        return "curl -fsSL https://proxybase.xyz/install.sh | sh";
+      case "linux":
+        return "curl -fsSL https://proxybase.xyz/install.sh | sh";
+      case "windows":
+        return 'irm https://proxybase.xyz/install.ps1 | iex';
+      default:
+        return null;
+    }
+  };
 
- <div className="download-card windows" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
- <div>
- <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
- <span className="os-icon" style={{ fontSize: "2rem" }}>🪟</span>
- <div>
- <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>Windows (GUI)</h3>
- <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.1.0 • Windows 10/11 x64</p>
- </div>
- </div>
- <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
- Native Windows client built on light webview2 architecture. Features taskbar tray integration, automated startup settings, and wallet integration.
- </p>
- </div>
- <a 
- href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/ProxyBase_0.1.0_x64_en-US.msi"
- className="btn-download"
- style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
- >
- Download Windows .MSI
- </a>
- </div>
+  const isCli = activeTab === "cli";
 
- <div className="download-card linux" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
- <div>
- <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
- <span className="os-icon" style={{ fontSize: "2rem" }}>🐧</span>
- <div>
- <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>Linux (GUI)</h3>
- <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.1.0 • Debian / Ubuntu</p>
- </div>
- </div>
- <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
- GTK3 bundle optimized for lightweight Linux desktop environments. Relays local traffic to SOCKS5 gateway with native system tray control panels.
- </p>
- </div>
- <a 
- href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/proxybase_0.1.0_amd64.deb"
- className="btn-download"
- style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
- >
- Download Debian .deb
- </a>
- </div>
- </div>
- )}
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Navbar />
 
- {/* CLI DOWNLOADS */}
- {activeTab === 'cli' && (
- <div className="downloads-grid">
- <div className="download-card macos" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
- <div>
- <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
- <span className="os-icon" style={{ fontSize: "2rem" }}>🍎</span>
- <div>
- <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>macOS (CLI)</h3>
- <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.4.0 • Apple Silicon</p>
- </div>
- </div>
- <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>
- Headless CLI daemon to run proxybase in shell environments. Fully controllable via config.toml and local system APIs.
- </p>
- <div className="cli-install-cmd" style={{ background: "var(--bg-secondary)", padding: "12px", borderRadius: "6px", fontFamily: "monospace", fontSize: "0.8rem", marginBottom: "20px", overflowX: "auto" }}>
- <code>curl -fsSL https://proxybase.xyz/install.sh | sh</code>
- </div>
- </div>
- <a 
- href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-aarch64-apple-darwin.tar.gz"
- className="btn-download"
- style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
- >
- Download macOS CLI
- </a>
- </div>
+      {/* ── Hero ── */}
+      <section className={styles.hero}>
+        <div className={styles.hero_overlay} />
+        <div className={styles.hero_glow_1} />
+        <div className={styles.hero_glow_2} />
 
- <div className="download-card windows" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
- <div>
- <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
- <span className="os-icon" style={{ fontSize: "2rem" }}>🪟</span>
- <div>
- <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>Windows (CLI)</h3>
- <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.4.0 • PowerShell x64</p>
- </div>
- </div>
- <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
- Compiled executable for background headless execution. Perfect for integration into Windows background services and automated scripts.
- </p>
- </div>
- <a 
- href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-x86_64-pc-windows-msvc.zip"
- className="btn-download"
- style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
- >
- Download Windows CLI
- </a>
- </div>
+        <div className={styles.hero_content}>
+          <div className={styles.badge}>Client Downloads</div>
+          <h1>Download ProxyBase</h1>
+          <p className={styles.hero_subtitle}>
+            Run a secure, sandboxed node on your device. Sell idle internet
+            bandwidth and earn stablecoins automatically.
+          </p>
+        </div>
+      </section>
 
- <div className="download-card linux" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
- <div>
- <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
- <span className="os-icon" style={{ fontSize: "2rem" }}>🐧</span>
- <div>
- <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>Linux (CLI)</h3>
- <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.4.0 • Linux x64</p>
- </div>
- </div>
- <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "16px" }}>
- Headless background daemon for always-on servers, Linux VPS servers, homelabs, or headless NAS configurations.
- </p>
- <div className="cli-install-cmd" style={{ background: "var(--bg-secondary)", padding: "12px", borderRadius: "6px", fontFamily: "monospace", fontSize: "0.8rem", marginBottom: "20px", overflowX: "auto" }}>
- <code>docker run -d --name proxybase-node proxybase/node</code>
- </div>
- </div>
- <a 
- href="https://github.com/proxybasehq/proxybase-cli/releases/latest/download/proxybase-cli-x86_64-unknown-linux-musl.tar.gz"
- className="btn-download"
- style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
- >
- Download Linux CLI
- </a>
- </div>
- </div>
- )}
- </section>
- </div>
+      {/* ── Downloads ── */}
+      <section className={styles.section}>
+        {/* Tab switcher */}
+        <div className={styles.tab_bar}>
+          <button
+            className={`${styles.tab_btn} ${activeTab === "gui" ? styles.tab_btn_active : ""}`}
+            onClick={() => setActiveTab("gui")}
+          >
+            GUI Client
+          </button>
+          <button
+            className={`${styles.tab_btn} ${activeTab === "cli" ? styles.tab_btn_active : ""}`}
+            onClick={() => setActiveTab("cli")}
+          >
+            CLI Daemon
+          </button>
+        </div>
 
- <Footer />
- </>
- );
+        {/* Loading */}
+        {loading && <LoadingSkeleton />}
+
+        {/* Error */}
+        {!loading && error && (
+          <div className={styles.error_container}>
+            <h3>Could not load downloads</h3>
+            <p>{error}. GitHub may be rate-limiting us — try again in a moment.</p>
+            <button className={styles.retry_btn} onClick={fetchReleases}>
+              Retry
+            </button>
+          </div>
+        )}
+
+        {/* Empty */}
+        {!loading && !error && !tabData && (
+          <div className={styles.empty_state}>
+            No {activeTab === "gui" ? "GUI" : "CLI"} releases available yet.
+          </div>
+        )}
+
+        {/* Content */}
+        {!loading && !error && tabData && (
+          <>
+            {/* Primary recommended card (detected OS) */}
+            {detectedOS !== "unknown" && grouped[detectedOS] && (
+              <PlatformCard
+                os={detectedOS}
+                assets={grouped[detectedOS]}
+                isPrimary
+              />
+            )}
+
+            {/* All-platform grid */}
+            {detectedOS === "unknown" && (
+              <p className={styles.section_label}>Choose your platform</p>
+            )}
+            {detectedOS !== "unknown" && (
+              <p className={styles.section_label}>
+                Other platforms
+              </p>
+            )}
+
+            <div className={styles.cards_grid}>
+              {OS_ORDER.map((os) => {
+                if (!grouped[os]) return null;
+                if (os === detectedOS) return null; // Already shown as primary
+                return (
+                  <PlatformCard key={os} os={os} assets={grouped[os]} />
+                );
+              })}
+            </div>
+
+            {/* CLI install commands */}
+            {isCli && tabData.version && (
+              <div style={{ marginTop: "48px" }}>
+                <p className={styles.section_label}>Or install via command line</p>
+                <div className={styles.cards_grid}>
+                  {OS_ORDER.map((os) => {
+                    const cmd = cliInstallCmd(os);
+                    if (!cmd) return null;
+                    const meta = OS_META[os];
+                    return (
+                      <div key={os} className={styles.os_card}>
+                        <div className={styles.os_header}>
+                          <span className={styles.os_icon}>{meta.icon}</span>
+                          <div className={styles.os_text}>
+                            <h3>{meta.label}</h3>
+                            <span>Terminal</span>
+                          </div>
+                        </div>
+                        <div className={styles.cli_install}>
+                          <strong>$</strong> {cmd}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Version info */}
+            <p
+              style={{
+                textAlign: "center",
+                marginTop: "48px",
+                fontSize: "0.8rem",
+                color: "var(--text-muted)",
+              }}
+            >
+              {activeTab === "gui" ? "GUI" : "CLI"}{" "}
+              {tabData.version}
+              {tabData.published_at &&
+                ` — released ${new Date(tabData.published_at).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}`}
+            </p>
+          </>
+        )}
+      </section>
+
+      <Footer />
+    </>
+  );
 }
