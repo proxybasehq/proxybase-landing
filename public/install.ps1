@@ -1,59 +1,77 @@
+# ── ProxyBase CLI Installer (Windows PowerShell) ──
 $ErrorActionPreference = 'Stop'
 
-# Detect Architecture
+Write-Host "ProxyBase CLI Installer" -ForegroundColor Blue
+Write-Host ""
+
+# ── Detect architecture ──
 $Arch = [System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture
-if ($Arch -eq 'X64') {
-    $Asset = "proxybase-cli-x86_64-pc-windows-msvc.zip"
-} else {
-    Write-Error "Unsupported Windows architecture: Only x64 is supported for Windows CLI."
+switch ($Arch) {
+  'X64'  { $Target = "x86_64-pc-windows-msvc" }
+  'Arm64' { $Target = "aarch64-pc-windows-msvc" }
+  default {
+    Write-Host "Unsupported Windows architecture: $Arch" -ForegroundColor Red
+    Write-Host "ProxyBase CLI supports x64 and ARM64 Windows."
     exit 1
+  }
 }
 
-$Url = "https://github.com/proxybasehq/proxybase-cli/releases/latest/download/$Asset"
-$InstallDir = "$Home\.proxybase\bin"
-$InstallPath = "$InstallDir\proxybase-cli.exe"
+$Asset = "proxybase-cli-${Target}.zip"
+$Url   = "https://github.com/proxybasehq/proxybase-cli/releases/latest/download/${Asset}"
 
-# Create temp extraction folder
-$TempDir = Join-Path $env:TEMP ([Guid]::NewGuid().ToString())
-New-Item -ItemType Directory -Path $TempDir | Out-Null
+Write-Host "Detected: Windows ($Arch)" -ForegroundColor Gray
+Write-Host ""
 
-$ZipPath = Join-Path $TempDir "archive.zip"
+# ── Temp directory ──
+$TempDir = Join-Path $env:TEMP "proxybase-install-$([Guid]::NewGuid().ToString('N').Substring(0, 8))"
+New-Item -ItemType Directory -Path $TempDir -Force | Out-Null
 
-Write-Host "Creating installation directory: $InstallDir"
-If (!(Test-Path $InstallDir)) {
-    New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
-}
+try {
+  $ZipPath = Join-Path $TempDir "archive.zip"
 
-Write-Host "Downloading ProxyBase CLI archive from $Url..."
-Invoke-WebRequest -Uri $Url -OutFile $ZipPath
+  # ── Download ──
+  Write-Host "Downloading proxybase-cli (latest release)..." -ForegroundColor Blue
+  Invoke-WebRequest -Uri $Url -OutFile $ZipPath -UseBasicParsing
 
-Write-Host "Extracting archive..."
-Expand-Archive -Path $ZipPath -DestinationPath $TempDir -Force
+  # ── Extract ──
+  Write-Host "Extracting..." -ForegroundColor Blue
+  Expand-Archive -Path $ZipPath -DestinationPath $TempDir -Force
 
-# Locate proxybase-cli.exe inside extracted files
-$ExtractedExe = Get-ChildItem -Path $TempDir -Filter "proxybase-cli.exe" -Recurse | Select-Object -First 1
-
-if ($null -eq $ExtractedExe) {
-    # Fallback to look for any exe in the temp directory if name differs
-    $ExtractedExe = Get-ChildItem -Path $TempDir -Filter "*.exe" -Recurse | Select-Object -First 1
-}
-
-if ($null -eq $ExtractedExe) {
-    Write-Error "Error: Could not find proxybase-cli.exe inside the extracted archive."
-    Remove-Item -Path $TempDir -Recurse -Force
+  # ── Find binary ──
+  $Binary = Get-ChildItem -Path $TempDir -Filter "proxybase-cli.exe" -Recurse | Select-Object -First 1
+  if (-not $Binary) {
+    $Binary = Get-ChildItem -Path $TempDir -Filter "*.exe" -Recurse | Select-Object -First 1
+  }
+  if (-not $Binary) {
+    Write-Host "Error: Could not find proxybase-cli.exe in the archive." -ForegroundColor Red
     exit 1
-}
+  }
 
-Move-Item -Path $ExtractedExe.FullName -Destination $InstallPath -Force
-Remove-Item -Path $TempDir -Recurse -Force
+  # ── Install ──
+  $InstallDir = "$env:LOCALAPPDATA\proxybase\bin"
+  $InstallPath = Join-Path $InstallDir "proxybase-cli.exe"
+  New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
 
-Write-Host "Successfully installed proxybase-cli to $InstallPath"
+  Move-Item -Path $Binary.FullName -Destination $InstallPath -Force
 
-# Add to User PATH if not already present
-$UserPath = [Environment]::GetEnvironmentVariable("Path", "User")
-if ($UserPath -notlike "*$InstallDir*") {
-    Write-Host "Adding $InstallDir to user PATH environment variable..."
+  Write-Host "Installed -> $InstallPath" -ForegroundColor Green
+
+  # ── PATH check ──
+  $UserPath = [Environment]::GetEnvironmentVariable("Path", "User")
+  if ($UserPath -notlike "*$InstallDir*") {
+    Write-Host ""
+    Write-Host "Adding to user PATH..." -ForegroundColor Yellow
     [Environment]::SetEnvironmentVariable("Path", "$UserPath;$InstallDir", "User")
     $env:Path = "$env:Path;$InstallDir"
-    Write-Host "Successfully added to User PATH. Please restart your terminal/PowerShell session to apply path changes."
+    Write-Host "Added $InstallDir to your PATH." -ForegroundColor Green
+    Write-Host "Restart your terminal for PATH changes to take full effect." -ForegroundColor Yellow
+  }
+
+  # ── Verify ──
+  Write-Host ""
+  Write-Host "Done! Run:" -ForegroundColor Green
+  Write-Host "  proxybase-cli --help" -ForegroundColor White
+
+} finally {
+  Remove-Item -Path $TempDir -Recurse -Force -ErrorAction SilentlyContinue
 }
