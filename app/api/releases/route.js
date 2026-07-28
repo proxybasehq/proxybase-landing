@@ -10,7 +10,7 @@ const GH_HEADERS = {
 
 let cached = null
 let cacheTime = 0
-const CACHE_TTL = 5 * 60 * 1000
+const CACHE_TTL = 60 * 1000
 
 /* ── Rust target triple → { os, arch } ── */
 const TARGET_MAP = {
@@ -76,8 +76,8 @@ export async function GET() {
   }
 
   const [cliRes, guiRes] = await Promise.allSettled([
-    fetch(CLI_REPO, { headers: GH_HEADERS, next: { revalidate: 300 } }),
-    fetch(GUI_REPO, { headers: GH_HEADERS, next: { revalidate: 300 } }),
+    fetch(CLI_REPO, { headers: GH_HEADERS, cache: 'no-store' }),
+    fetch(GUI_REPO, { headers: GH_HEADERS, cache: 'no-store' }),
   ])
 
   const result = { fetched_at: new Date().toISOString() }
