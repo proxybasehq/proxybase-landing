@@ -152,6 +152,7 @@
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0.4;
+  pointer-events: none;
 }
 
 .recommended_badge {
