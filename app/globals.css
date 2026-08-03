@@ -1293,19 +1293,28 @@ body {
 .footer-os-downloads {
   margin-top: 16px;
   display: flex;
-  gap: 16px;
+  gap: 12px;
   align-items: center;
 }
 
 .footer-os-link {
-  font-size: 1.25rem;
-  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-muted);
-  transition: color var(--transition-fast) ease, transform var(--transition-fast) ease;
+  text-decoration: none;
+  transition: all var(--transition-fast) ease;
 }
 
 .footer-os-link:hover {
   color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
 

@@ -5,8 +5,38 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function MarketsPage() {
- const [searchQuery, setSearchQuery] = useState("");
- const [activeTab, setActiveTab] = useState("gui"); // 'gui' or 'cli'
+  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTab, setActiveTab] = useState("gui"); // 'gui' or 'cli'
+  const [guiDownloads, setGuiDownloads] = useState({
+    macos: "https://github.com/proxybasehq/proxybase-gui/releases/download/proxybase-gui-v0.1.53/ProxyBase_0.1.53_universal.dmg",
+    windows: "https://github.com/proxybasehq/proxybase-gui/releases/download/proxybase-gui-v0.1.53/ProxyBase_0.1.53_x64_en-US.msi",
+    linux: "https://github.com/proxybasehq/proxybase-gui/releases/download/proxybase-gui-v0.1.53/ProxyBase_0.1.53_amd64.deb",
+    version: "v0.1.53",
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    fetch("/api/releases")
+      .then((res) => res.json())
+      .then((data) => {
+        if (!isMounted || !data?.gui?.assets) return;
+        const macosAsset = data.gui.assets.find((a) => a.os === "macos" && a.name?.endsWith(".dmg"));
+        const winAsset = data.gui.assets.find((a) => a.os === "windows" && (a.name?.endsWith(".msi") || a.name?.endsWith(".exe")));
+        const linuxAsset = data.gui.assets.find((a) => a.os === "linux" && a.name?.endsWith(".deb"));
+        const ver = data.gui.version ? data.gui.version.replace(/^proxybase-gui-/, "") : "v0.1.53";
+
+        setGuiDownloads({
+          macos: macosAsset?.url || "https://github.com/proxybasehq/proxybase-gui/releases/download/proxybase-gui-v0.1.53/ProxyBase_0.1.53_universal.dmg",
+          windows: winAsset?.url || "https://github.com/proxybasehq/proxybase-gui/releases/download/proxybase-gui-v0.1.53/ProxyBase_0.1.53_x64_en-US.msi",
+          linux: linuxAsset?.url || "https://github.com/proxybasehq/proxybase-gui/releases/download/proxybase-gui-v0.1.53/ProxyBase_0.1.53_amd64.deb",
+          version: ver.startsWith("v") ? ver : `v${ver}`,
+        });
+      })
+      .catch(() => {});
+    return () => {
+      isMounted = false;
+    };
+  }, []);
  
  // Mock initial database mapping to /v2/catalog/pricing used as fallback/pre-render values
  const basePricingFallback = [
@@ -109,7 +139,7 @@ export default function MarketsPage() {
  <div className="role-icon">⚡</div>
  <h3>Become a Buyer</h3>
  <p className="role-summary">
- Access the world's most resilient residential and mobile proxy fleet. Perfect for AI agents, scrapers, and high-concurrency data systems.
+ Access the world&apos;s most resilient residential and mobile proxy fleet. Perfect for AI agents, scrapers, and high-concurrency data systems.
  </p>
  <ul className="role-features">
  <li>
@@ -340,10 +370,12 @@ export default function MarketsPage() {
  <div className="download-card macos" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
  <div>
  <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
- <span className="os-icon" style={{ fontSize: "2rem" }}>🍎</span>
+ <span className="os-icon" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "40px", height: "40px", borderRadius: "10px", background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)", color: "var(--text-primary)" }}>
+ <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" /></svg>
+ </span>
  <div>
  <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>macOS (GUI)</h3>
- <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.1.0 • Universal Apple Silicon / Intel</p>
+ <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>{guiDownloads.version} • Universal Apple Silicon / Intel</p>
  </div>
  </div>
  <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
@@ -351,7 +383,7 @@ export default function MarketsPage() {
  </p>
  </div>
  <a 
- href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/ProxyBase_0.1.0_universal.dmg"
+ href={guiDownloads.macos}
  className="btn-download"
  style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
  >
@@ -362,10 +394,12 @@ export default function MarketsPage() {
  <div className="download-card windows" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
  <div>
  <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
- <span className="os-icon" style={{ fontSize: "2rem" }}>🪟</span>
+ <span className="os-icon" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "40px", height: "40px", borderRadius: "10px", background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)", color: "var(--text-primary)" }}>
+ <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12V6.5l8-1.1V12H3zm0 .5h8v6.6l-8-1.1V12.5zm9.5-7.6L21 3v9h-8.5V4.9zm0 15.2V12H21v9l-8.5-1.1v-6.8z" /></svg>
+ </span>
  <div>
  <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>Windows (GUI)</h3>
- <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.1.0 • Windows 10/11 x64</p>
+ <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>{guiDownloads.version} • Windows 10/11 x64</p>
  </div>
  </div>
  <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
@@ -373,7 +407,7 @@ export default function MarketsPage() {
  </p>
  </div>
  <a 
- href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/ProxyBase_0.1.0_x64_en-US.msi"
+ href={guiDownloads.windows}
  className="btn-download"
  style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
  >
@@ -384,10 +418,12 @@ export default function MarketsPage() {
  <div className="download-card linux" style={{ background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: "var(--radius-lg)", padding: "32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
  <div>
  <div className="os-header" style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "20px" }}>
- <span className="os-icon" style={{ fontSize: "2rem" }}>🐧</span>
+ <span className="os-icon" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "40px", height: "40px", borderRadius: "10px", background: "rgba(255, 255, 255, 0.05)", border: "1px solid rgba(255, 255, 255, 0.1)", color: "var(--text-primary)" }}>
+ <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.37 2.016c-2.584.05-4.87 2.079-5.184 4.67-.184 1.52.28 3.045 1.192 4.257-.96 1.05-1.878 2.29-1.878 3.807 0 2.87 2.454 4.75 5.5 4.75.766 0 1.503-.133 2.193-.374.69.24 1.427.374 2.193.374 3.046 0 5.5-1.88 5.5-4.75 0-1.517-.918-2.757-1.878-3.807.912-1.212 1.376-2.737 1.192-4.257-.314-2.59-2.6-4.62-5.184-4.67h-.456zm-2.12 4.484a.875.875 0 1 1 0 1.75.875.875 0 0 1 0-1.75zm3.5 0a.875.875 0 1 1 0 1.75.875.875 0 0 1 0-1.75z" /></svg>
+ </span>
  <div>
  <h3 style={{ margin: 0, fontSize: "1.2rem", fontWeight: 800 }}>Linux (GUI)</h3>
- <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>v0.1.0 • Debian / Ubuntu</p>
+ <p className="os-version" style={{ margin: 0, fontSize: "0.75rem", color: "var(--text-muted)" }}>{guiDownloads.version} • Debian / Ubuntu</p>
  </div>
  </div>
  <p className="os-desc" style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "24px" }}>
@@ -395,7 +431,7 @@ export default function MarketsPage() {
  </p>
  </div>
  <a 
- href="https://github.com/proxybasehq/proxybase-gui/releases/latest/download/proxybase_0.1.0_amd64.deb"
+ href={guiDownloads.linux}
  className="btn-download"
  style={{ display: "block", textAlign: "center", background: "var(--accent-gradient)", color: "#ffffff", padding: "12px", borderRadius: "var(--radius-md)", fontWeight: 700, textDecoration: "none" }}
  >
