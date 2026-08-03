@@ -1,14 +1,15 @@
 export const metadata = {
-    title: "Domain DNS & SEO Lookup — Free DNS Record Audit | ProxyBase",
+    title: "Free DNS Record Lookup — Check DNS Records, DMARC & SPF | ProxyBase",
     description:
-        "Free domain DNS lookup tool for SEO & web engineering. Instantly query A, AAAA, MX, TXT (SPF/DMARC), NS, CNAME, SOA, CAA, and SRV records for any domain.",
+        "Free DNS lookup tool. Dump all DNS record types (A, AAAA, MX, TXT, NS, CNAME, SOA, CAA, SRV, NAPTR, PTR) for any domain. Includes DMARC audit, SPF verification, and DNS host detection.",
+    keywords: "DNS lookup, free DNS lookup, DNS record lookup, DNS checker, DNS propagation checker, reverse DNS lookup, MX lookup, DNS records, check DNS records, DMARC check",
     alternates: {
         canonical: "/dns",
     },
     openGraph: {
-        title: "Domain DNS & SEO Lookup — Free DNS Record Audit | ProxyBase",
+        title: "Free DNS Record Lookup — Check DNS Records, DMARC & SPF | ProxyBase",
         description:
-            "Free domain DNS lookup tool for SEO & web engineering. Instantly query A, AAAA, MX, TXT (SPF/DMARC), NS, CNAME, SOA, CAA, and SRV records for any domain.",
+            "Free DNS lookup tool. Dump all DNS record types for any domain with DMARC audit, SPF verification, and DNS provider detection.",
         url: "https://proxybase.xyz/dns",
     },
 };

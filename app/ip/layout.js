@@ -1,14 +1,15 @@
 export const metadata = {
-    title: "IP Whois Lookup — Multi-Provider IP Intelligence | ProxyBase",
+    title: "Free IP Lookup — Check IP Address Geolocation, ISP & Proxy Detection | ProxyBase",
     description:
-        "Free IP Whois lookup tool aggregating data from multiple providers. Check IP geolocation, ASN, organization, and network details instantly.",
+        "Free IP lookup tool. Check any IPv4 or IPv6 address across multiple providers. Get geolocation, ISP, ASN, network type, and proxy/VPN detection in one unified dashboard.",
+    keywords: "IP lookup, free IP lookup, IP address lookup, IP geolocation, IP whois, reverse IP lookup, check IP address, IP location finder, my IP address, IP checker",
     alternates: {
         canonical: "/ip",
     },
     openGraph: {
-        title: "IP Whois Lookup — Multi-Provider IP Intelligence | ProxyBase",
+        title: "Free IP Lookup — Check IP Address Geolocation, ISP & Proxy Detection | ProxyBase",
         description:
-            "Free IP Whois lookup tool aggregating data from multiple providers. Check IP geolocation, ASN, organization, and network details instantly.",
+            "Free IP lookup tool. Check any IPv4 or IPv6 address across multiple providers. Geolocation, ISP, ASN, and proxy detection in one dashboard.",
         url: "https://proxybase.xyz/ip",
     },
 };

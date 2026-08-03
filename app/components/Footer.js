@@ -126,6 +126,9 @@ export default function Footer() {
                             <li><Link href="/ip" data-umami-event="Footer: IP Whois">IP Whois</Link></li>
                             <li><Link href="/whois" data-umami-event="Footer: Domain Whois">Domain Whois</Link></li>
                             <li><Link href="/dns" data-umami-event="Footer: DNS Lookup">DNS Lookup</Link></li>
+                            <li><Link href="/http-status-codes" data-umami-event="Footer: HTTP Status Codes">HTTP Status Codes</Link></li>
+                            <li><Link href="/what-is-reverse-proxy" data-umami-event="Footer: Reverse Proxy">Reverse Proxy Guide</Link></li>
+                            <li><Link href="/prediction-markets-proxy" data-umami-event="Footer: Prediction Markets">Prediction Markets Proxy</Link></li>
                         </ul>
                     </div>
 
