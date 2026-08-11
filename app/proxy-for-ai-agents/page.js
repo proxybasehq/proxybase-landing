@@ -3,9 +3,9 @@ import Footer from "../components/Footer";
 import Link from "next/link";
 
 export const metadata = {
-    title: "Best Proxy for AI Agents. SOCKS5 Proxy Infrastructure for LLMs & Autonomous Agents | ProxyBase",
-    description: "The definitive guide to proxy infrastructure for AI agents. Learn why residential proxies are essential for autonomous LLM agents, how to set up SOCKS5 routing for AI, and why ProxyBase is built specifically for machine-to-machine proxy access.",
-    keywords: "best proxy for AI agents, proxy for AI agents, AI agent proxy, proxy for LLM, autonomous agent proxy, SOCKS5 proxy for AI, MCP proxy server, AI web scraping proxy, machine-to-machine proxy",
+    title: "Proxy for AI Agents: SOCKS5 Setup, MCP & API Guide (2026) | ProxyBase",
+    description: "Complete guide to proxy infrastructure for AI agents. How to set up SOCKS5 proxies for Claude, GPT, and LangChain agents. MCP integration, IP rotation, and headless API provisioning — all programmatic, no KYC.",
+    keywords: "proxy for AI agents, AI agent proxy, proxy for LLM, autonomous agent proxy, SOCKS5 proxy for AI, MCP proxy server, AI web scraping proxy, how to set up proxy for AI agent, proxybase",
     alternates: {
         canonical: "/proxy-for-ai-agents",
     },

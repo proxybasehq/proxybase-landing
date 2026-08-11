@@ -2,8 +2,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export const metadata = {
- title: "EarnApp Review & Alternative ProxyBase vs EarnApp Comparison (2026)",
- description: "Honest EarnApp review: how much you really earn, payout limits, and Bright Data connection. ProxyBase is the best EarnApp alternative KYC-free, $1 cashout, up to 18x higher pay per GB.",
+ title: "EarnApp Review 2026: Real Earnings, Payouts & Best Alternative | ProxyBase",
+ description: "Honest EarnApp review: how much you actually earn per GB, payout minimums, and the Bright Data connection. ProxyBase is the best EarnApp alternative — open-source, no KYC, up to 18x higher pay per GB.",
  keywords: "earnapp review, earnapp alternative, earnapp vs honeygain, proxybase vs earnapp, sell bandwidth, passive income, bandwidth sharing app, open source proxy client, kyc free proxy, proxybase, earnapp",
  alternates: {
  canonical: "/compare/earnapp",

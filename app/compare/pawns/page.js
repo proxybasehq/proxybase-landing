@@ -2,8 +2,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export const metadata = {
- title: "Pawns.app Review & Alternative ProxyBase vs Pawns.app (2026)",
- description: "Full Pawns.app review: earnings, payout methods, and IPRoyal connection. ProxyBase is the best Pawns.app alternative KYC-free, up to 9x higher pay per GB, $1 minimum cashout in stablecoins.",
+ title: "Pawns.app Review 2026: Earnings, Payouts & Best Alternative | ProxyBase",
+ description: "Full Pawns.app review: real earnings potential, payout methods, and the IPRoyal connection. ProxyBase is the best Pawns.app alternative — open-source, no KYC, up to 9x higher pay per GB.",
  keywords: "pawns.app review, pawns.app alternative, iproyal pawns, proxybase vs pawns.app, sell bandwidth, passive income, bandwidth sharing app, kyc free proxy, proxybase, pawns",
  alternates: {
  canonical: "/compare/pawns",

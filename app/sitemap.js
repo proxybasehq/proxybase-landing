@@ -79,6 +79,12 @@ export default function sitemap() {
             priority: 0.8,
         },
         {
+            url: "https://proxybase.xyz/blog/how-to-set-up-proxies-for-ai-agents",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
             url: "https://proxybase.xyz/ip",
             lastModified: new Date(),
             changeFrequency: "weekly",
@@ -254,6 +260,18 @@ export default function sitemap() {
         },
         {
             url: "https://proxybase.xyz/what-is-reverse-proxy",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/what-is-datacenter-proxy",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/what-is-mpp",
             lastModified: new Date(),
             changeFrequency: "monthly",
             priority: 0.7,

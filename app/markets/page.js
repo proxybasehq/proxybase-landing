@@ -111,10 +111,10 @@ export default function MarketsPage() {
  ProxyBase v2 Market Protocol Live
  </div>
  <h1>
- The Autonomous <span className="gradient-text">Proxy Brokerage</span>
+ Buy & Sell <span className="gradient-text">Proxy Bandwidth</span>
  </h1>
  <p className="hero-subtitle">
- A decentralized, peer-to-peer SOCKS5 proxy market. Orchestrators buy high-performance residential bandwidth, while global node hosts sell spare connectivity. 100% programmatic, secured in Rust.
+ Browse real-time proxy pricing by country, buy residential and mobile bandwidth by the GB, or run a node to sell your spare connectivity. Self-serve, no KYC, crypto-native.
  </p>
  <div className="hero-actions">
  <a href="#explainers" className="btn-primary">Learn the Roles</a>
