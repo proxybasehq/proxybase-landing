@@ -112,6 +112,9 @@ export default function Footer() {
                             <li><Link href="/compare/pawns" data-umami-event="Footer: Compare Pawns">VS Pawns.app</Link></li>
                             <li><Link href="/compare/packetstream" data-umami-event="Footer: Compare PacketStream">VS PacketStream</Link></li>
                             <li><Link href="/compare/traffmonetizer" data-umami-event="Footer: Compare TraffMonetizer">VS TraffMonetizer</Link></li>
+                            <li><Link href="/compare/proxy-seller" data-umami-event="Footer: Compare Proxy-Seller">VS Proxy-Seller</Link></li>
+                            <li><Link href="/compare/webshare" data-umami-event="Footer: Compare Webshare">VS Webshare</Link></li>
+                            <li><Link href="/compare/proxy-cheap" data-umami-event="Footer: Compare Proxy-Cheap">VS Proxy-Cheap</Link></li>
                         </ul>
                     </div>
 
