@@ -121,6 +121,12 @@ export default function sitemap() {
             priority: 0.8,
         },
         {
+            url: "https://proxybase.xyz/buy-with-crypto",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
             url: "https://proxybase.xyz/proxy-for-ai-agents",
             lastModified: new Date(),
             changeFrequency: "monthly",

@@ -49,7 +49,7 @@ export default function ProxyForAIAgentsPage() {
                             Best Proxy for AI Agents: Why Your LLM Needs Residential Proxy Infrastructure
                         </h1>
                         <p style={{ fontSize: "1.2rem", color: "var(--text-secondary)", lineHeight: 1.6 }}>
-                            Your agent can reason, plan, and execute multi-step workflows. The moment it tries to browse the live web, it gets blocked, CAPTCHA'd, and rate-limited. and how to fix it.
+                            Your agent can reason, plan, and execute multi-step workflows. The moment it tries to browse the live web, it gets blocked, CAPTCHA'd, and rate-limited. Here's the infrastructure that fixes it.
                         </p>
                     </div>
 
@@ -79,15 +79,15 @@ export default function ProxyForAIAgentsPage() {
                             Datacenter proxies are cheap but useless for AI agents. Every major website uses IP reputation databases that flag cloud provider ranges (AWS, GCP, DigitalOcean). Your agent gets blocked before the first HTTP request completes.
                         </p>
                         <p style={{ marginBottom: "1.5rem" }}>
-                            Residential proxies route through real home IPs from ISPs like Comcast, AT&T, and Vodafone. These IPs have established reputation. they look like regular consumers browsing the web. For AI agents, residential is the only viable option for any site with anti-bot protection (which in 2026 is nearly everything).
+                            Residential proxies route through real home IPs from ISPs like Comcast, AT&T, and Vodafone. These IPs have established reputation. They look like regular consumers browsing the web. For AI agents, residential is the only viable option for any site with anti-bot protection (which in 2026 is nearly everything).
                         </p>
                         <p style={{ marginBottom: "2rem" }}>
-                            Mobile proxies go a step further. they use cellular carrier IPs (4G/5G) with the highest trust scores. If your agent is scraping sites protected by Cloudflare, Akamai, or DataDome, mobile IPs are the hardest to detect and block.
+                            Mobile proxies go a step further. They use cellular carrier IPs (4G/5G) with the highest trust scores. If your agent is scraping sites protected by Cloudflare, Akamai, or DataDome, mobile IPs are the hardest to detect and block.
                         </p>
 
                         <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>What makes a proxy "AI agent ready"?</h3>
                         <p style={{ marginBottom: "1.5rem" }}>
-                            Most proxy providers are built for humans clicking through dashboards. If your agent needs you to log in and manually rotate IPs, it's not autonomous. you're just a human middleware layer. Look for these capabilities:
+                            Most proxy providers are built for humans clicking through dashboards. If your agent needs you to log in and manually rotate IPs, it's not autonomous. You're just a human middleware layer. Look for these capabilities:
                         </p>
 
                         <div style={{ overflowX: "auto", marginBottom: "2.5rem" }}>
@@ -117,7 +117,7 @@ export default function ProxyForAIAgentsPage() {
                                     </tr>
                                     <tr style={{ borderBottom: "1px solid var(--border-subtle)" }}>
                                         <td style={{ padding: "12px 16px", fontWeight: 600, color: "var(--text-primary)" }}>No KYC / instant provisioning</td>
-                                        <td style={{ padding: "12px 16px" }}>Your agent can't upload a passport. Wallet-based crypto auth means fully automated onboarding</td>
+                                        <td style={{ padding: "12px 16px" }}>Your agent can't upload a passport. <a href="/buy-with-crypto" style={{ color: "var(--accent-primary)" }}>Wallet-based crypto auth</a> means fully automated onboarding</td>
                                     </tr>
                                     <tr style={{ borderBottom: "1px solid var(--border-subtle)" }}>
                                         <td style={{ padding: "12px 16px", fontWeight: 600, color: "var(--text-primary)" }}>Self-healing routing</td>
@@ -129,7 +129,7 @@ export default function ProxyForAIAgentsPage() {
 
                         <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>How to set up proxies for your AI agent</h3>
                         <p style={{ marginBottom: "1.5rem" }}>
-                            With ProxyBase, your agent provisions its own proxy access programmatically. With ProxyBase, your agent provisions its own proxy access through REST calls it makes autonomously:
+                            With ProxyBase, your agent provisions its own proxy access through REST calls it makes autonomously:
                         </p>
 
                         <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "24px", marginBottom: "2rem", fontFamily: "monospace", fontSize: "0.9rem", lineHeight: 1.8 }}>
@@ -162,7 +162,7 @@ export default function ProxyForAIAgentsPage() {
                             ProxyBase ships a Model Context Protocol (MCP) server that lets Claude, GPT, and other LLMs manage proxy infrastructure natively. Your agent can register itself, check bandwidth, create orders, and rotate IPs using MCP tools without you writing a single API call.
                         </p>
                         <p style={{ marginBottom: "2rem" }}>
-                            The MCP server exposes seven tools: register_agent, list_packages, list_currencies, create_order, check_order_status, topup_order, and rotate_proxy. Your LLM agent can call these as naturally as it calls a search tool. no custom code required.
+                            The MCP server exposes seven tools: register_agent, list_packages, list_currencies, create_order, check_order_status, topup_order, and rotate_proxy. Your LLM agent can call these as naturally as it calls a search tool. No custom code required.
                         </p>
 
                         <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>Why not just use a VPN or Tor?</h3>
@@ -170,15 +170,15 @@ export default function ProxyForAIAgentsPage() {
                             Some builders try VPNs or Tor as proxy substitutes. They don't work for agents:
                         </p>
                         <ul style={{ marginBottom: "2rem", paddingLeft: "1.5rem" }}>
-                            <li style={{ marginBottom: "0.5rem" }}><strong>VPN IPs are even more flagged than datacenter IPs</strong>. every streaming service and e-commerce site blocks known VPN ranges.</li>
-                            <li style={{ marginBottom: "0.5rem" }}><strong>Tor exit nodes are universally distrusted</strong>. most sites block them outright or serve endless CAPTCHAs.</li>
-                            <li style={{ marginBottom: "0.5rem" }}><strong>No programmatic control</strong>. you can't rotate IPs, select geographies, or monitor bandwidth usage via API.</li>
+                            <li style={{ marginBottom: "0.5rem" }}><strong>VPN IPs are even more flagged than datacenter IPs</strong>. Every streaming service and e-commerce site blocks known VPN ranges.</li>
+                            <li style={{ marginBottom: "0.5rem" }}><strong>Tor exit nodes are universally distrusted</strong>. Most sites block them outright or serve endless CAPTCHAs.</li>
+                            <li style={{ marginBottom: "0.5rem" }}><strong>No programmatic control</strong>. You can't rotate IPs, select geographies, or monitor bandwidth usage via API.</li>
                             <li style={{ marginBottom: "0.5rem" }}><strong>Single point of failure</strong>. one blocked exit node and your entire agent session is dead.</li>
                         </ul>
 
                         <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>The proxy stack your AI agent needs</h3>
                         <p style={{ marginBottom: "1rem" }}>
-                            A production AI agent needs more than "a proxy". it needs proxy infrastructure:
+                            A production AI agent needs more than "a proxy". It needs proxy infrastructure:
                         </p>
                         <ol style={{ marginBottom: "2rem", paddingLeft: "1.5rem" }}>
                             <li style={{ marginBottom: "0.5rem" }}><strong>Residential IPs</strong>. real consumer IPs that pass anti-bot checks</li>
@@ -190,7 +190,7 @@ export default function ProxyForAIAgentsPage() {
                         </ol>
 
                         <p style={{ marginBottom: "2rem" }}>
-                            ProxyBase provides this entire stack as a managed service. Residential proxies at $3/GB, mobile at $5/GB, pay-as-you-go with no monthly commitments. Your agent can be proxying traffic in under 60 seconds. fully autonomously.
+                            ProxyBase provides this entire stack as a managed service. Residential proxies at $3/GB, mobile at $5/GB, pay-as-you-go with no monthly commitments. Your agent can be proxying traffic in under 60 seconds. Fully autonomously.
                         </p>
 
                         <div style={{ background: "rgba(6, 214, 160, 0.08)", border: "1px solid var(--accent-primary)", padding: "2rem", borderRadius: "12px", margin: "3rem 0", textAlign: "center" }}>

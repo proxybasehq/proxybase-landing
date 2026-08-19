@@ -3,9 +3,9 @@ import Footer from "../components/Footer";
 import { fetchPackages, enrichPackage } from "../lib/packages";
 
 export const metadata = {
- title: "MPP Pay-per-Request Proxy Access | ProxyBase",
- description: "Buy SOCKS5 proxy bandwidth with a single HTTP request using the Micropayments Protocol (MPP). No accounts, no API keys just pay and connect.",
- keywords: "mpp, micropayments, pay per request, proxy api, socks5 proxy, tempo, pathUSD, ai agent proxy stable coins",
+ title: "Buy SOCKS5 Proxies with Crypto — Pay-Per-GB Store (MPP) | ProxyBase",
+ description: "Buy SOCKS5 proxy bandwidth with crypto. Pay with USDC and other stablecoins via the Micropayments Protocol (MPP) and get instant proxy credentials. No accounts, no API keys — just pay and connect.",
+ keywords: "buy socks5 proxy, socks5 proxy buy, buy proxy with crypto, buy socks5 proxy with crypto, paid proxies, mpp, micropayments, pay per request, proxy api, socks5 proxy, tempo, pathUSD, ai agent proxy stable coins",
  alternates: {
  canonical: "/mpp",
  },

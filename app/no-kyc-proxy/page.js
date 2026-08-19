@@ -317,7 +317,7 @@ export default function NoKycProxyPage() {
  <div className="deepdive-card">
  <h3>What payment methods work without KYC?</h3>
  <p>
- Cryptocurrency and stablecoins. Credit cards and PayPal require identity verification through the payment processor. ProxyBase accepts USDC, USDT, BTC, ETH, SOL, and other major cryptocurrencies, all without linking to your identity.
+ Cryptocurrency and stablecoins. Credit cards and PayPal require identity verification through the payment processor. ProxyBase accepts USDC, USDT, BTC, ETH, SOL, and other major cryptocurrencies, all without linking to your identity. See our <a href="/buy-with-crypto" style={{ color: "var(--accent-primary)" }}>guide to buying proxies with crypto</a>.
  </p>
  </div>
 
