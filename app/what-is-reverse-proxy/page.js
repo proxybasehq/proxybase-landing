@@ -3,15 +3,15 @@ import Footer from "../components/Footer";
 import Link from "next/link";
 
 export const metadata = {
-  title: "What Is a Reverse Proxy? A Plain English Guide | ProxyBase",
+  title: "What Is a Reverse Proxy? How Reverse Proxy Servers Work | ProxyBase",
   description:
-    "Learn what a reverse proxy is, how it differs from a forward proxy, and when to use one. Covers load balancing, SSL termination, caching, and security for web applications.",
-  keywords: "reverse proxy, what is a reverse proxy, reverse proxy explained, forward proxy vs reverse proxy, reverse proxy server, proxy server guide, load balancer, reverse proxy use cases",
+    "Learn what a reverse proxy is, how it differs from a forward proxy, and when to use one. Covers load balancing, SSL termination, caching, security, and real Nginx examples.",
+  keywords: "reverse proxy, what is a reverse proxy, reverse proxy server, reverse proxy explained, forward proxy vs reverse proxy, reverse proxy example, what does a reverse proxy do, load balancer, reverse proxy use cases",
   alternates: {
     canonical: "/what-is-reverse-proxy",
   },
   openGraph: {
-    title: "What Is a Reverse Proxy? A Plain English Guide | ProxyBase",
+    title: "What Is a Reverse Proxy? How Reverse Proxy Servers Work | ProxyBase",
     description:
       "Learn what a reverse proxy is, how it differs from a forward proxy, and when to use one. Covers load balancing, SSL termination, and security.",
     url: "https://proxybase.xyz/what-is-reverse-proxy",
@@ -22,9 +22,64 @@ export default function WhatIsReverseProxy() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "What Is a Reverse Proxy? A Plain English Guide",
+    "headline": "What Is a Reverse Proxy? How Reverse Proxy Servers Work",
     "description": "Learn what a reverse proxy is, how it differs from a forward proxy, and when to use one for load balancing, SSL termination, caching, and security.",
     "url": "https://proxybase.xyz/what-is-reverse-proxy",
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a reverse proxy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A reverse proxy is a server that sits in front of one or more backend servers and forwards client requests to the appropriate backend. It handles routing, encryption, load balancing, and caching so clients never connect directly to your application servers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a reverse proxy used for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Reverse proxies are used for load balancing, SSL termination, caching, compression, security filtering, and request routing. They also hide the internal structure of your server infrastructure from the public internet."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between a forward proxy and a reverse proxy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A forward proxy sits in front of clients and routes their requests to the internet, hiding the client's identity. A reverse proxy sits in front of servers and routes incoming requests to backends, hiding the server infrastructure. Forward proxies protect clients; reverse proxies protect servers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Cloudflare a reverse proxy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Cloudflare is a global reverse proxy and CDN. It sits between your domain and your visitors, absorbing DDoS attacks, caching content at edge locations, and filtering bot traffic before it reaches your origin server."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is a load balancer a reverse proxy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every load balancer is a reverse proxy, but not every reverse proxy is a load balancer. Load balancing is one specific use of reverse proxying: distributing traffic across multiple identical backend servers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a reverse proxy server example?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nginx is the most common reverse proxy server. A minimal Nginx reverse proxy configuration uses a server block with a location directive and proxy_pass to forward requests to a backend, for example: proxy_pass http://127.0.0.1:3000."
+        }
+      }
+    ],
   };
 
   return (
@@ -32,6 +87,10 @@ export default function WhatIsReverseProxy() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Navbar />
 
@@ -195,6 +254,66 @@ export default function WhatIsReverseProxy() {
             </ul>
 
             <h2 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem", fontSize: "1.8rem" }}>
+              Reverse Proxy Example: A Minimal Nginx Setup
+            </h2>
+            <p style={{ marginBottom: "1rem" }}>
+              Here is what a minimal reverse proxy configuration looks like. This Nginx
+              <code>server</code> block accepts traffic for <code>example.com</code>, terminates TLS, and forwards
+              every request to a backend application listening on <code>localhost:3000</code>:
+            </p>
+            <pre style={{
+              background: "var(--bg-secondary)",
+              padding: "20px",
+              borderRadius: "8px",
+              overflowX: "auto",
+              fontSize: "0.9rem",
+              lineHeight: 1.6,
+              marginBottom: "1.5rem",
+            }}>
+{`server {
+    listen 443 ssl;
+    server_name example.com;
+
+    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}`}
+            </pre>
+            <p style={{ marginBottom: "1rem" }}>
+              The <code>proxy_pass</code> directive is the entire reverse proxy in one line: clients talk to
+              Nginx, Nginx talks to your app. Add more <code>location</code> blocks to route{" "}
+              <code>/api/*</code> to one backend and <code>/static/*</code> to another. Add an{" "}
+              <code>upstream</code> block with multiple servers to get load balancing:
+            </p>
+            <pre style={{
+              background: "var(--bg-secondary)",
+              padding: "20px",
+              borderRadius: "8px",
+              overflowX: "auto",
+              fontSize: "0.9rem",
+              lineHeight: 1.6,
+              marginBottom: "1.5rem",
+            }}>
+{`upstream app_servers {
+    server 10.0.0.1:3000;
+    server 10.0.0.2:3000;
+    server 10.0.0.3:3000;
+}
+
+server {
+    location / {
+        proxy_pass http://app_servers;
+    }
+}`}
+            </pre>
+
+            <h2 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem", fontSize: "1.8rem" }}>
               Reverse Proxy vs Load Balancer vs API Gateway
             </h2>
             <p style={{ marginBottom: "1rem" }}>
@@ -257,6 +376,66 @@ export default function WhatIsReverseProxy() {
               understand both.
             </p>
 
+            <h2 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem", fontSize: "1.8rem" }}>
+              Reverse Proxy FAQ
+            </h2>
+            <div style={{ marginBottom: "1rem" }}>
+              <h3 style={{ color: "var(--text-primary)", fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                What is a reverse proxy?
+              </h3>
+              <p style={{ marginBottom: "1.25rem" }}>
+                A reverse proxy is a server that sits in front of one or more backend servers and forwards client
+                requests to the appropriate backend. It handles routing, encryption, load balancing, and caching so
+                clients never connect directly to your application servers.
+              </p>
+
+              <h3 style={{ color: "var(--text-primary)", fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                What is a reverse proxy used for?
+              </h3>
+              <p style={{ marginBottom: "1.25rem" }}>
+                Load balancing, SSL termination, caching, compression, security filtering, and request routing.
+                Reverse proxies also hide the internal structure of your server infrastructure from the public
+                internet — clients only ever see the proxy.
+              </p>
+
+              <h3 style={{ color: "var(--text-primary)", fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                What is the difference between a forward proxy and a reverse proxy?
+              </h3>
+              <p style={{ marginBottom: "1.25rem" }}>
+                A forward proxy sits in front of clients and routes their requests to the internet, hiding the
+                client&rsquo;s identity. A reverse proxy sits in front of servers and routes incoming requests to
+                backends, hiding the server infrastructure. Forward proxies protect clients; reverse proxies
+                protect servers.
+              </p>
+
+              <h3 style={{ color: "var(--text-primary)", fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                Is Cloudflare a reverse proxy?
+              </h3>
+              <p style={{ marginBottom: "1.25rem" }}>
+                Yes. Cloudflare is a global reverse proxy and CDN. It sits between your domain and your visitors,
+                absorbing DDoS attacks, caching content at edge locations worldwide, and filtering bot traffic
+                before it reaches your origin server.
+              </p>
+
+              <h3 style={{ color: "var(--text-primary)", fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                Is a load balancer a reverse proxy?
+              </h3>
+              <p style={{ marginBottom: "1.25rem" }}>
+                Every load balancer is a reverse proxy, but not every reverse proxy is a load balancer. Load
+                balancing is one specific use of reverse proxying: distributing traffic across multiple identical
+                backend servers.
+              </p>
+
+              <h3 style={{ color: "var(--text-primary)", fontSize: "1.2rem", marginBottom: "0.5rem" }}>
+                What is a reverse proxy server example?
+              </h3>
+              <p style={{ marginBottom: "1.25rem" }}>
+                Nginx is the most common reverse proxy server. A minimal setup uses a <code>server</code> block
+                with a <code>location</code> directive and <code>proxy_pass</code> to forward requests to a
+                backend — see the examples above. Other options include HAProxy, Caddy, Envoy, and Cloudflare.
+              </p>
+            </div>
+
             <div style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -290,6 +469,20 @@ export default function WhatIsReverseProxy() {
                 <span style={{ fontWeight: 700, fontSize: "1.05rem" }}>Why AI Agents Need Proxies →</span>
                 <p style={{ margin: "8px 0 0", fontSize: "0.9rem", color: "var(--text-secondary)" }}>
                   How forward and reverse proxies both matter in AI agent infrastructure.
+                </p>
+              </Link>
+              <Link href="/http-status-codes" style={{
+                display: "block",
+                padding: "20px",
+                background: "var(--bg-secondary)",
+                borderRadius: "8px",
+                textDecoration: "none",
+                color: "var(--text-primary)",
+                border: "1px solid var(--border-subtle)",
+              }}>
+                <span style={{ fontWeight: 700, fontSize: "1.05rem" }}>HTTP Status Codes Reference →</span>
+                <p style={{ margin: "8px 0 0", fontSize: "0.9rem", color: "var(--text-secondary)" }}>
+                  Decode the responses your reverse proxy sends back — from 200 to 502.
                 </p>
               </Link>
             </div>

@@ -211,6 +211,24 @@ export default function sitemap() {
             priority: 0.7,
         },
         {
+            url: "https://proxybase.xyz/compare/proxy-seller",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/compare/webshare",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
+            url: "https://proxybase.xyz/compare/proxy-cheap",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+        },
+        {
             url: "https://proxybase.xyz/earn/sell-internet",
             lastModified: new Date(),
             changeFrequency: "monthly",
