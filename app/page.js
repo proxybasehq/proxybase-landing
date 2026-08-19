@@ -91,7 +91,7 @@ function Hero() {
  </p>
 
  <div className="hero-actions" style={{ justifyContent: "center", marginBottom: "70px" }}>
- <a href="/download" className="btn-primary" data-umami-event="Hero: Download CTA" style={{ padding: "16px 36px", fontSize: "1.05rem" }}>
+ <a href="/download" className="btn-primary cta-border-glow" data-umami-event="Hero: Download CTA" style={{ padding: "16px 36px", fontSize: "1.05rem" }}>
  Download App for Free
  </a>
  <a href="/earn/sell-internet" className="btn-secondary" data-umami-event="Hero: Learn Passive Link" style={{ padding: "16px 36px", fontSize: "1.05rem" }}>

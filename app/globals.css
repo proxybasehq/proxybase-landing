@@ -274,6 +274,9 @@ body {
 }
 
 .nav-cta {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
   padding: 8px 20px;
   background: var(--accent-gradient);
   color: #ffffff !important;
@@ -289,8 +292,57 @@ body {
   box-shadow: 0 4px 20px rgba(37, 99, 235, 0.25);
 }
 
-.nav-cta::after {
-  display: none !important;
+.mobile-nav-cta {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Orbiting border glow (download CTAs) ── */
+.cta-border-glow {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  box-shadow:
+    0 0 18px rgba(255, 179, 71, 0.45),
+    0 0 40px rgba(255, 107, 53, 0.2),
+    0 4px 20px rgba(37, 99, 235, 0.2);
+}
+
+.cta-border-glow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250%;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(#ffb347, #ff6b35, #ffd166, #ffb347);
+  animation: ctaBorderSpin 2s linear infinite;
+  z-index: -2;
+}
+
+.cta-border-glow::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: inherit;
+  background: var(--accent-gradient);
+  z-index: -1;
+}
+
+@keyframes ctaBorderSpin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.nav-cta.cta-border-glow::after,
+.mobile-nav-cta.cta-border-glow::after {
+  inset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-border-glow::before {
+    animation: none;
+  }
 }
 
 /* =========================================================================
