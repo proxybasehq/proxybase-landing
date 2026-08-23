@@ -20,6 +20,14 @@ export const metadata = {
 export default function BlogIndex() {
  const posts = [
  {
+ title: "HD Wallets: Run a Seller Fleet From One Seed Phrase",
+ excerpt: "One master seed phrase now derives a distinct BIP-44 wallet for every seller node. Fleet-scale deployment, earnings sweeping, and Kubernetes manifests shipped in the CLI today.",
+ date: "August 2026",
+ readTime: "5 min read",
+ author: "ProxyBase Team",
+ slug: "/blog/hd-wallets-seller-fleets"
+ },
+ {
  title: "Polymarket Blocked in Türkiye: Why the Ban Happened and How to Access It",
  excerpt: "Türkiye has officially blocked access to Polymarket. Discover the details behind the access block (decision no. 2026/10) and how SOCKS5 residential proxies can bypass local ISP restrictions safely.",
  date: "July 2026",

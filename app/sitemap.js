@@ -271,6 +271,12 @@ export default function sitemap() {
             priority: 0.7,
         },
         {
+            url: "https://proxybase.xyz/blog/hd-wallets-seller-fleets",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
             url: "https://proxybase.xyz/dns",
             lastModified: new Date(),
             changeFrequency: "weekly",
