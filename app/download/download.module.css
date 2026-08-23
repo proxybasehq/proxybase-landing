@@ -109,7 +109,7 @@
 
 .tab_btn:hover {
   background: var(--bg-card-hover);
-  color: var(--text-primary);
+  color: #000000 !important;
 }
 
 .tab_btn_active {
