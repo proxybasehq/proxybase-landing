@@ -211,10 +211,22 @@ const NON_BROWSER_PATTERNS = [
 export function middleware(request) {
   const { hostname } = request.nextUrl;
 
-  // Redirect www → non-www (permanent 301)
-  if (hostname === "www.proxybase.xyz") {
+  // Redirect legacy subdomains and www → non-www canonical domain (permanent 301)
+  if (
+    hostname === "www.proxybase.xyz" ||
+    hostname === "relay.proxybase.xyz" ||
+    hostname === "relayhere.proxybase.xyz"
+  ) {
     const url = request.nextUrl.clone();
     url.hostname = "proxybase.xyz";
+    url.protocol = "https:";
+    url.port = "";
+
+    // Map legacy sub-paths if present
+    if (url.pathname === "/docs" || url.pathname === "/support") {
+      url.pathname = "/ai-agents";
+    }
+
     return NextResponse.redirect(url, 301);
   }
 
@@ -240,6 +252,7 @@ export function middleware(request) {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
         "X-Content-Type-Options": "nosniff",
+        "X-Robots-Tag": "noindex, nofollow",
       },
     });
   }

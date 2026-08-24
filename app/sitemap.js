@@ -277,12 +277,6 @@ export default function sitemap() {
             priority: 0.8,
         },
         {
-            url: "https://proxybase.xyz/dns",
-            lastModified: new Date(),
-            changeFrequency: "weekly",
-            priority: 0.8,
-        },
-        {
             url: "https://proxybase.xyz/http-status-codes",
             lastModified: new Date(),
             changeFrequency: "monthly",
