@@ -97,6 +97,7 @@ export default function Footer() {
                             <li><Link href="/ai-agents#pricing" data-umami-event="Footer: Pricing">Pricing</Link></li>
                             <li><Link href="/mpp" data-umami-event="Footer: MPP">MPP</Link></li>
                             <li><Link href="/openclaw" data-umami-event="Footer: OpenClaw">OpenClaw</Link></li>
+                            <li><Link href="/hermes" data-umami-event="Footer: Hermes">Hermes</Link></li>
                             <li><Link href="/connector" data-umami-event="Footer: Connector">Connector</Link></li>
                         </ul>
                     </div>
@@ -116,6 +117,7 @@ export default function Footer() {
                             <li><Link href="/compare/proxy-seller" data-umami-event="Footer: Compare Proxy-Seller">VS Proxy-Seller</Link></li>
                             <li><Link href="/compare/webshare" data-umami-event="Footer: Compare Webshare">VS Webshare</Link></li>
                             <li><Link href="/compare/proxy-cheap" data-umami-event="Footer: Compare Proxy-Cheap">VS Proxy-Cheap</Link></li>
+                            <li><Link href="/compare/hermes-vs-openclaw" data-umami-event="Footer: Compare Hermes Agent">VS Hermes Agent</Link></li>
                         </ul>
                     </div>
 
@@ -130,6 +132,7 @@ export default function Footer() {
                             <li><Link href="/ip" data-umami-event="Footer: IP Whois">IP Whois</Link></li>
                             <li><Link href="/whois" data-umami-event="Footer: Domain Whois">Domain Whois</Link></li>
                             <li><Link href="/dns" data-umami-event="Footer: DNS Lookup">DNS Lookup</Link></li>
+                            <li><Link href="/proxy-checker" data-umami-event="Footer: Proxy Checker">Proxy Checker</Link></li>
                             <li><Link href="/http-status-codes" data-umami-event="Footer: HTTP Status Codes">HTTP Status Codes</Link></li>
                             <li><Link href="/what-is-reverse-proxy" data-umami-event="Footer: Reverse Proxy">Reverse Proxy Guide</Link></li>
                             <li><Link href="/prediction-markets-proxy" data-umami-event="Footer: Prediction Markets">Prediction Markets Proxy</Link></li>
