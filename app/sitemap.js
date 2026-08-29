@@ -31,6 +31,18 @@ export default function sitemap() {
             priority: 0.8,
         },
         {
+            url: "https://proxybase.xyz/hermes",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
+            url: "https://proxybase.xyz/compare/hermes-vs-openclaw",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
             url: "https://proxybase.xyz/mpp",
             lastModified: new Date(),
             changeFrequency: "monthly",
@@ -92,6 +104,12 @@ export default function sitemap() {
         },
         {
             url: "https://proxybase.xyz/whois",
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.8,
+        },
+        {
+            url: "https://proxybase.xyz/proxy-checker",
             lastModified: new Date(),
             changeFrequency: "weekly",
             priority: 0.8,

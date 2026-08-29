@@ -2,9 +2,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
- title: "ProxyBase Connector Chrome Extension SOCKS5 Proxy Manager",
- description: "Manage your SOCKS5 proxy connection directly from Google Chrome. Configure multiple profiles, bypass lists, and toggle status instantly.",
- keywords: "proxybase connector, chrome extension proxy, SOCKS5 chrome manager, deepwalker llc, proxybase extension",
+ title: "SOCKS5 Proxy Extension for Chrome — ProxyBase Connector | ProxyBase",
+ description: "The free SOCKS5 proxy extension for Chrome. One-click toggle, multiple proxy profiles, bypass lists, and encrypted local storage. Works with any SOCKS5 credentials, set up in under 30 seconds.",
+ keywords: "socks5 proxy extension, chrome socks5 proxy extension, socks5 extension chrome, proxy switcher extension, best proxy extension for chrome, socks5 chrome extension, switchyomega alternative, proxybase connector, proxybase extension",
  alternates: {
  canonical: "/connector",
  },
@@ -47,7 +47,7 @@ export default function ConnectorPage() {
  <span className="badge-chrome-icon">🌐</span>
  Official Chrome Extension
  </div>
- <h1>ProxyBase - Connector</h1>
+ <h1>SOCKS5 Proxy Extension for Chrome</h1>
  <p className="hero-subtitle">
  Configure your browser SOCKS5 proxy with profile support, multiple proxy types, and a beautiful UI. Manage your proxy connection with a single click directly from your toolbar.
  </p>
@@ -178,6 +178,42 @@ export default function ConnectorPage() {
  <li>❌ Not used or transferred for purposes unrelated to proxy configuration.</li>
  <li>❌ Never used to evaluate creditworthiness or for lending.</li>
  </ul>
+ </div>
+ </div>
+ </div>
+ </section>
+
+ {/* FAQ */}
+ <section className="connector-privacy-section">
+ <div className="privacy-card-container">
+ <div className="privacy-header">
+ <span className="privacy-badge">❓ FAQ</span>
+ <h2>SOCKS5 Extension for Chrome — Questions</h2>
+ </div>
+ <div className="privacy-grid">
+ <div className="privacy-detail-col">
+ <h4>Does Chrome support SOCKS5 proxies natively?</h4>
+ <p>
+ Chrome routes proxy settings through the operating system, and OS dialogs don't support SOCKS5 with username/password authentication. This extension fills that gap: full SOCKS5 auth support, multiple profiles, and a one-click toggle, all inside the browser.
+ </p>
+ </div>
+ <div className="privacy-detail-col">
+ <h4>How does ProxyBase Connector compare to SwitchyOmega?</h4>
+ <p>
+ SwitchyOmega is a capable proxy switcher, but it's no longer maintained and its rule system is overkill for most users. ProxyBase Connector does the core job (SOCKS5 profiles, auth, bypass lists, one-click toggle) with a cleaner UI and active support.
+ </p>
+ </div>
+ <div className="privacy-detail-col">
+ <h4>Can I use it with ProxyBase SOCKS5 credentials?</h4>
+ <p>
+ Yes. Buy bandwidth with crypto at <a href="/mpp" style={{ color: "var(--accent-primary)" }}>the MPP store</a>, take the SOCKS5 host, port, username, and password from the API response, and paste them into a new profile. The extension is free and works with any provider's SOCKS5 credentials.
+ </p>
+ </div>
+ <div className="privacy-detail-col">
+ <h4>Is the extension safe to use?</h4>
+ <p>
+ Yes. Credentials stay in Chrome's local storage sandbox, nothing is synced or transmitted, and the developer (DEEPWALKER LLC) declares no data collection. The source is available for audit, same as the ProxyBase clients.
+ </p>
  </div>
  </div>
  </div>

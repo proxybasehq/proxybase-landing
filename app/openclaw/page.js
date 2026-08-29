@@ -2,9 +2,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
- title: "proxybase-openclaw-skill Unlock the Internet for Your AI Agent",
- description: "Install proxybase-openclaw-skill to securely grant your AI agents residential internet access. The easiest way to let your AI access the internet without getting blocked.",
- keywords: "proxybase-openclaw-skill, openclaw, ai proxy, residential proxy for ai, openclaw skill",
+ title: "OpenClaw Skills: ProxyBase Skill — Install, Use & Make Money With OpenClaw (2026) | ProxyBase",
+ description: "Install the ProxyBase OpenClaw skill to give your agent residential SOCKS5 proxies it can buy itself with crypto, and learn how OpenClaw users make money by selling spare bandwidth. No KYC.",
+ keywords: "openclaw skills, best openclaw skills, how to use openclaw, proxybase openclaw skill, openclaw proxy, make money with openclaw, openclaw skill install, proxybase",
  alternates: {
  canonical: "/openclaw",
  },
@@ -197,6 +197,38 @@ export default function OpenClawPage() {
  📉 "3 Investing Moves I'm Making Right Now to Prepare for a Recession" (Motley Fool)<br />
  🍽️ "Cava Shares Surge on Upbeat Outlook Can the Stock's Momentum Continue?" (Motley Fool)</p>
  </div>
+ </div>
+ </section>
+
+ <section className="chat-showcase" id="make-money">
+ <div className="section-header">
+ <span className="section-label">Monetization</span>
+ <h2 className="section-title">Make Money With OpenClaw</h2>
+ <p className="section-desc">Your OpenClaw agent runs on a machine that's online 24/7. The connection on that machine can earn while the agent works.</p>
+ </div>
+
+ <div className="openclaw-features">
+ <div className="feature-card">
+ <div className="feature-icon">📡</div>
+ <h3>Sell Your Spare Bandwidth</h3>
+ <p>Run the ProxyBase seller node on the same machine as OpenClaw. It routes residential traffic through your idle connection and pays you per GB in crypto, with payouts from $1 and no KYC. <a href="/earn/sell-internet" style={{ color: "var(--accent-primary)" }}>How to sell your internet</a>.</p>
+ </div>
+ <div className="feature-card">
+ <div className="feature-icon">🤖</div>
+ <h3>The Agent Pays for Itself</h3>
+ <p>The skill you installed above buys proxies with crypto, from $3/GB, no card or subscription. Your agent's proxy budget comes out of what the box earns. <a href="/mpp" style={{ color: "var(--accent-primary)" }}>See the crypto store</a>.</p>
+ </div>
+ <div className="feature-card">
+ <div className="feature-icon">📈</div>
+ <h3>Scale to a Fleet</h3>
+ <p>Earnings scale with each box you add. ProxyBase uses HD wallets, so a fleet of OpenClaw machines provisions programmatically and pays into one wallet. <a href="/blog/hd-wallets-seller-fleets" style={{ color: "var(--accent-primary)" }}>Read the fleet guide</a>.</p>
+ </div>
+ </div>
+
+ <div style={{ maxWidth: "800px", margin: "2.5rem auto 0", padding: "1.5rem 2rem", background: "rgba(6, 214, 160, 0.05)", border: "1px solid rgba(6, 214, 160, 0.2)", borderRadius: "12px", borderLeft: "4px solid var(--accent-primary)", textAlign: "left" }}>
+ <p style={{ margin: 0, color: "var(--text-secondary)", lineHeight: "1.7" }}>
+ <strong style={{ color: "var(--text-primary)" }}>Comparing OpenClaw with Hermes Agent?</strong> Hermes Agent (Nous Research) is the other self-hosted agent people compare against OpenClaw. We broke down both, including which one earns more from the same box: <a href="/compare/hermes-vs-openclaw" style={{ color: "var(--accent-primary)" }}>Hermes Agent vs OpenClaw</a>.
+ </p>
  </div>
  </section>
 
