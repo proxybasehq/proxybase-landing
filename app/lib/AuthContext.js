@@ -34,13 +34,36 @@ export function AuthProvider({ children }) {
   statusRef.current = status;
 
   const postWalletApi = useCallback(async (body) => {
-    const res = await fetch("/api/auth/wallet", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error || `Wallet API error (${res.status})`);
+    let res;
+    try {
+      res = await fetch("/api/auth/wallet", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: AbortSignal.timeout(20000),
+      });
+    } catch (err) {
+      throw new Error(
+        err.name === "TimeoutError"
+          ? "Wallet API timed out — is DATABASE_URL configured and reachable?"
+          : `Wallet API unreachable: ${err.message}`
+      );
+    }
+    const text = await res.text();
+    let data = {};
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = { _raw: text.slice(0, 300) };
+    }
+    if (!res.ok) {
+      throw new Error(
+        data.error ||
+          (data._raw
+            ? `Wallet API error (${res.status}): ${data._raw}`
+            : `Wallet API error (${res.status})`)
+      );
+    }
     return data;
   }, []);
 
@@ -113,6 +136,7 @@ export function AuthProvider({ children }) {
       }
       await activateKeystore(keystoreText);
     } catch (err) {
+      console.error("[auth] wallet resolution failed:", err.message);
       setError(err.message);
       setStatus("signedOut");
     }
@@ -144,10 +168,21 @@ export function AuthProvider({ children }) {
   }, []);
 
   const afterGoogleSession = useCallback(async () => {
-    const s = await fetch("/api/auth/session");
-    const { user: sessionUser } = await s.json();
-    setUser(sessionUser);
-    await resolveWallet();
+    try {
+      const s = await fetch("/api/auth/session", {
+        signal: AbortSignal.timeout(20000),
+      });
+      const { user: sessionUser } = await s.json();
+      if (!sessionUser) {
+        throw new Error("Session cookie was not set — check GOOGLE_CLIENT_ID/SECRET and PB_AUTH_SECRET on the deployment");
+      }
+      setUser(sessionUser);
+      await resolveWallet();
+    } catch (err) {
+      console.error("[auth] post-sign-in resolution failed:", err.message);
+      setError(err.message);
+      setStatus("signedOut");
+    }
   }, [resolveWallet]);
 
   const signIn = useCallback(async () => {
@@ -336,6 +371,27 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider value={value}>
       {children}
       <WalletOnboardingModal />
+      {error && status === "signedOut" && (
+        <div
+          className="console-error-toast"
+          role="alert"
+          onClick={() => setError(null)}
+          title="Dismiss"
+        >
+          <span>⚠ {error}</span>
+          <button
+            type="button"
+            className="console-error-toast-close"
+            onClick={(e) => {
+              e.stopPropagation();
+              setError(null);
+            }}
+            aria-label="Dismiss error"
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </AuthContext.Provider>
   );
 }

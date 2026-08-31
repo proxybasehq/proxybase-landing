@@ -1,7 +1,7 @@
 import { Pool } from "@neondatabase/serverless";
 
 const SCHEMA = `
-  CREATE TABLE IF NOT EXISTS users (
+  CREATE TABLE IF NOT EXISTS pb_users (
     google_id           TEXT PRIMARY KEY,
     email               TEXT NOT NULL,
     name                TEXT NOT NULL,
@@ -74,7 +74,7 @@ export async function getUserByGoogleId(googleId) {
   const { rows } = await getPool().query(
     `SELECT google_id, email, name, avatar, wallet_address, encrypted_keystore,
             public_key_hex, created_at, updated_at
-     FROM users WHERE google_id = $1`,
+     FROM pb_users WHERE google_id = $1`,
     [googleId]
   );
   return rows[0] || null;
@@ -108,7 +108,7 @@ export async function saveUserWallet({
     return row;
   }
   const { rows } = await getPool().query(
-    `INSERT INTO users (google_id, email, name, avatar, wallet_address, encrypted_keystore, public_key_hex)
+    `INSERT INTO pb_users (google_id, email, name, avatar, wallet_address, encrypted_keystore, public_key_hex)
      VALUES ($1, $2, $3, $4, $5, $6, $7)
      ON CONFLICT (google_id) DO UPDATE SET
        email              = EXCLUDED.email,
@@ -137,5 +137,5 @@ export async function deleteUserWallet(googleId) {
     memoryStore.delete(googleId);
     return;
   }
-  await getPool().query("DELETE FROM users WHERE google_id = $1", [googleId]);
+  await getPool().query("DELETE FROM pb_users WHERE google_id = $1", [googleId]);
 }

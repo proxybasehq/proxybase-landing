@@ -26,7 +26,16 @@ export async function POST(req) {
   const action = body.action;
 
   if (action === "load") {
-    const row = await getUserByGoogleId(claims.google_id);
+    let row;
+    try {
+      row = await getUserByGoogleId(claims.google_id);
+    } catch (err) {
+      console.error("[wallet] database load failed:", err.message);
+      return NextResponse.json(
+        { error: `Failed to load wallet from database: ${err.message}` },
+        { status: 500 }
+      );
+    }
     if (!row) {
       return NextResponse.json({ found: false });
     }

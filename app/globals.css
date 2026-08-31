@@ -5753,3 +5753,37 @@ body {
   .console-main { padding: 14px 12px 40px; }
   .console-tab-hint { display: none; }
 }
+
+/* ── Global auth error toast (visible on every page, incl. landing) ────── */
+
+.console-error-toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(92vw, 640px);
+  padding: 13px 18px;
+  border-radius: 14px;
+  background: rgba(30, 10, 16, 0.94);
+  border: 1px solid rgba(248, 113, 113, 0.45);
+  color: #fca5a5;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  animation: console-fade-in 0.2s ease;
+}
+.console-error-toast-close {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.console-error-toast-close:hover { opacity: 1; }
