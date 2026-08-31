@@ -1,5 +1,6 @@
 import "./globals.css";
 import Script from "next/script";
+import { AuthProvider } from "./lib/AuthContext";
 
 export const metadata = {
   metadataBase: new URL("https://proxybase.xyz"),
@@ -55,7 +56,9 @@ export default function RootLayout({ children }) {
           strategy="afterInteractive"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

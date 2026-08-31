@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import { useAuth } from "../lib/AuthContext";
+import { v2 } from "../lib/v2Client";
+import { countryFlag, formatUsd, microcreditsToUsd, shortAddress } from "../lib/walletCrypto";
 
 export default function HomePage() {
  useEffect(() => {
@@ -50,6 +53,7 @@ export default function HomePage() {
  />
  <Navbar />
  <Hero />
+ <ConsoleQuickLaunch />
  <FeaturedOn />
  <UntappedWealth />
  <HowItWorks />
@@ -120,6 +124,123 @@ function Hero() {
  </div>
  </div>
  </section>
+ );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+ PROXYBASE V2 WEB CONSOLE QUICK LAUNCH
+ ═══════════════════════════════════════════════════════════════════════════ */
+
+function ConsoleQuickLaunch() {
+ const { user, wallet, balance, status, signIn } = useAuth();
+ const [preview, setPreview] = useState(null);
+
+ useEffect(() => {
+  if (status !== "ready" || !wallet) return;
+  let cancelled = false;
+  (async () => {
+   try {
+    // Requires an active v2 session token — read from localStorage directly
+    const token = localStorage.getItem("pb_v2_session_token");
+    if (!token) return;
+    const data = await v2.getPricing(token);
+    if (!cancelled) setPreview((data.pricing || []).slice(0, 6));
+   } catch {
+    if (!cancelled) setPreview([]);
+   }
+  })();
+  return () => { cancelled = true; };
+ }, [status, wallet]);
+
+ const signedIn = Boolean(user && wallet);
+
+ return (
+  <section className="console-launch-section" id="console" style={{ padding: "70px 24px 90px", background: "var(--bg-secondary)", borderTop: "1px solid var(--border-subtle)" }}>
+   <div className="console-launch-card">
+    <div className="console-launch-grid" />
+    <div className="console-launch-inner">
+     <div className="console-launch-copy">
+      <span className="console-launch-badge">✦ v2 Marketplace</span>
+      <h2 style={{ fontSize: "2rem", fontWeight: 900, letterSpacing: "-0.02em", margin: "14px 0 12px", color: "#fff" }}>
+       ProxyBase v2 Web Console
+      </h2>
+      <p style={{ color: "rgba(255,255,255,0.72)", lineHeight: 1.65, maxWidth: "560px", marginBottom: "24px" }}>
+       Buy rotating & sticky SOCKS5 proxies for your AI agents straight from
+       the browser. Global catalog pricing, crypto deposits, live session
+       telemetry — your wallet lives encrypted on our backend and follows you
+       across devices.
+      </p>
+
+      {!signedIn ? (
+       <div className="console-launch-actions">
+        <button
+         type="button"
+         className="console-btn-google console-btn-google-large"
+         onClick={signIn}
+         disabled={status === "signingIn"}
+         data-umami-event="Hero: Console Google Sign In"
+        >
+         <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z" />
+          <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.9 1.2 8 3l5.7-5.7C34.3 6.1 29.4 4 24 4 16.3 4 9.7 8.3 6.3 14.7z" />
+          <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.9-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z" />
+          <path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.7l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z" />
+         </svg>
+         1-Click Sign In — Open the Console
+        </button>
+        <span className="console-launch-note">Google Sign-In required · no seller nodes in the browser</span>
+       </div>
+      ) : (
+       <div className="console-launch-actions">
+        <a href="/console" className="btn-primary cta-border-glow" data-umami-event="Hero: Open Console" style={{ padding: "16px 34px", fontSize: "1rem" }}>
+         Open Console →
+        </a>
+        <span className="console-launch-note" style={{ color: "rgba(255,255,255,0.6)" }}>
+         ◈ {shortAddress(wallet.address)} · {balance ? formatUsd(microcreditsToUsd(balance.spendable_balance)) : "…"} spendable
+        </span>
+       </div>
+      )}
+
+      <div className="console-launch-features">
+       <span>⚡ Global catalog pricing</span>
+       <span>🔄 Rotating & 📌 sticky sessions</span>
+       <span>💳 Crypto deposits (NOWPayments)</span>
+       <span>📡 Live SSE telemetry</span>
+       <span>🔑 Wallet stored on backend</span>
+      </div>
+     </div>
+
+     <div className="console-launch-preview">
+      <div className="console-launch-preview-head">
+       <span>live catalog preview</span>
+       <span className="console-launch-preview-dot" />
+      </div>
+      {preview && preview.length > 0 ? (
+       <table className="console-launch-table">
+        <thead>
+         <tr><th>Bucket</th><th className="num">$/GB</th><th className="num">Sellers</th></tr>
+        </thead>
+        <tbody>
+         {preview.map((row) => (
+          <tr key={`${row.country}-${row.network_type}`}>
+           <td>{countryFlag(row.country)} {row.country} · <span className="console-launch-cat">{row.network_type}</span></td>
+           <td className="num">{row.price_per_gb ? `$${row.price_per_gb}` : "—"}</td>
+           <td className="num">{row.available_sellers ?? 0}</td>
+          </tr>
+         ))}
+        </tbody>
+       </table>
+      ) : (
+       <div className="console-launch-preview-idle">
+        {signedIn
+         ? (preview ? "No live seller buckets right now — check back shortly." : "Loading catalog…")
+         : "Sign in to see live country pricing and seller availability."}
+       </div>
+      )}
+     </div>
+    </div>
+   </div>
+  </section>
  );
 }
 
