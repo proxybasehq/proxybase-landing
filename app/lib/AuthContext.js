@@ -27,11 +27,29 @@ export function AuthProvider({ children }) {
   const [status, setStatus] = useState("boot"); // boot | signedOut | signingIn | needsWallet | locked | ready
   const [error, setError] = useState(null);
   const [onboardingOpen, setOnboardingOpen] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "light";
+    const saved = window.localStorage.getItem("pb-console-theme");
+    return saved === "dark" ? "dark" : "light";
+  });
 
   const walletRef = useRef(null);
   const tokenRef = useRef(null);
   const statusRef = useRef("boot");
   statusRef.current = status;
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-console-theme", theme);
+    try {
+      window.localStorage.setItem("pb-console-theme", theme);
+    } catch {
+      /* storage unavailable */
+    }
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((t) => (t === "dark" ? "light" : "dark"));
+  }, []);
 
   const postWalletApi = useCallback(async (body) => {
     let res;
@@ -358,6 +376,8 @@ export function AuthProvider({ children }) {
     error,
     onboardingOpen,
     setOnboardingOpen,
+    theme,
+    toggleTheme,
     signIn,
     signOut,
     completeOnboarding,
