@@ -145,7 +145,7 @@ export default function WalletTab() {
           </p>
         </div>
 
-        <div className="console-onboarding-row">
+        <div className="console-onboarding-row console-wallet-actions">
           <button type="button" className="console-btn" disabled={busy} onClick={handleSync}>
             ↻ Re-sync with backend
           </button>

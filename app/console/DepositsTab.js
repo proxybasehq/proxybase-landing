@@ -9,7 +9,6 @@ import {
   CopyButton,
   EmptyState,
   Field,
-  Modal,
   Notice,
   Panel,
   Spinner,
@@ -40,7 +39,7 @@ function elapsedSince(isoOrSql) {
 }
 
 export default function DepositsTab() {
-  const { sessionToken: token, balance, wallet, refreshBalance } = useAuth();
+  const { sessionToken: token, balance, refreshBalance } = useAuth();
 
   const [currencies, setCurrencies] = useState(null);
   const [currency, setCurrency] = useState("usdcsol");
@@ -48,11 +47,6 @@ export default function DepositsTab() {
   const [creating, setCreating] = useState(false);
   const [invoice, setInvoice] = useState(null); // {deposit, qr}
   const [history, setHistory] = useState(null);
-  const [transferAmount, setTransferAmount] = useState("");
-  const [busyTransfer, setBusyTransfer] = useState(false);
-  const [faucetKey, setFaucetKey] = useState("");
-  const [faucetAmount, setFaucetAmount] = useState("5000000");
-  const [busyFaucet, setBusyFaucet] = useState(false);
   const [notice, setNotice] = useState(null);
 
   const pollRef = useRef(null);
@@ -78,8 +72,6 @@ export default function DepositsTab() {
       })
       .catch(() => setCurrencies(["usdcsol", "btc", "eth", "usdt", "sol"]));
     loadHistory();
-    const storedKey = localStorage.getItem("pb_dev_admin_key");
-    if (storedKey) setFaucetKey(storedKey);
   }, [token, loadHistory, currency]);
 
   useEffect(() => () => clearInterval(pollRef.current), []);
@@ -130,44 +122,6 @@ export default function DepositsTab() {
     }
   }
 
-  async function handleTransfer() {
-    setBusyTransfer(true);
-    setNotice(null);
-    try {
-      const amount = Math.round(parseFloat(transferAmount));
-      if (!amount || amount <= 0) throw new Error("Enter microcredits to move");
-      const b = await v2.transfer(token, amount);
-      refreshBalance();
-      setNotice({
-        type: "success",
-        text: `Transferred ${amount.toLocaleString()} µ$ from seller balance to buyer balance.`,
-      });
-      setTransferAmount("");
-    } catch (err) {
-      setNotice({ type: "error", text: err.message });
-    } finally {
-      setBusyTransfer(false);
-    }
-  }
-
-  async function handleFaucet() {
-    setBusyFaucet(true);
-    setNotice(null);
-    try {
-      localStorage.setItem("pb_dev_admin_key", faucetKey);
-      const r = await v2.devCredit(faucetKey, wallet.address, Number(faucetAmount));
-      refreshBalance();
-      setNotice({ type: "success", text: r.message || `Credited ${Number(r.credited).toLocaleString()} µ$.` });
-    } catch (err) {
-      setNotice({
-        type: "error",
-        text: `${err.message} — requires a backend running with DEV_MODE=true and its ADMIN_API_KEY.`,
-      });
-    } finally {
-      setBusyFaucet(false);
-    }
-  }
-
   if (!token) {
     return <EmptyState icon="🔒" title="No v2 session yet" sub="Complete wallet onboarding first." />;
   }
@@ -182,25 +136,25 @@ export default function DepositsTab() {
         <StatCard
           label="Spendable"
           value={formatUsd(microcreditsToUsd(balance?.spendable_balance))}
-          sub={`${Number(balance?.spendable_balance || 0).toLocaleString()} µ$ · buyer + seller`}
+          sub="buyer + seller balance"
           accent="cyan"
         />
         <StatCard
           label="Buyer available"
           value={formatUsd(microcreditsToUsd(balance?.buyer_available))}
-          sub={`${Number(balance?.buyer_available || 0).toLocaleString()} µ$`}
+          sub="ready to spend"
           accent="green"
         />
         <StatCard
           label="Reserved"
           value={formatUsd(microcreditsToUsd(balance?.buyer_reserved))}
-          sub={`${Number(balance?.buyer_reserved || 0).toLocaleString()} µ$ in open sessions`}
+          sub="held by open sessions"
           accent="violet"
         />
         <StatCard
           label="Spent"
           value={formatUsd(microcreditsToUsd(spent))}
-          sub={`${Number(spent).toLocaleString()} µ$ lifetime`}
+          sub="lifetime total"
           accent="amber"
         />
       </div>
@@ -225,7 +179,7 @@ export default function DepositsTab() {
                   ))}
                 </select>
               </Field>
-              <Field label="Amount (USD)" hint="1 µ$ = $0.000001">
+              <Field label="Amount (USD)" hint="Converts to microcredits (1,000,000 per $1) on the ledger">
                 <div className="console-caprow">
                   <input
                     className="console-input"
@@ -251,7 +205,7 @@ export default function DepositsTab() {
                 </button>
               ))}
               <span className="console-preset-equals">
-                = {(usdToMicrocredits(parseFloat(amountUsd) || 0)).toLocaleString()} µ$
+                = {formatUsd(parseFloat(amountUsd) || 0)}
               </span>
             </div>
             <button
@@ -260,7 +214,7 @@ export default function DepositsTab() {
               disabled={creating}
               onClick={handleCreateDeposit}
             >
-              {creating ? "Creating invoice…" : "Create NOWPayments invoice →"}
+              {creating ? "Creating invoice…" : "Deposit Now!"}
             </button>
           </div>
         )}
@@ -291,7 +245,6 @@ export default function DepositsTab() {
                       <code>{d.deposit_id.slice(0, 14)}…</code>
                     </td>
                     <td className="num">
-                      {Number(d.amount_microcredits).toLocaleString()} µ$ ·{" "}
                       {formatUsd(microcreditsToUsd(d.amount_microcredits))}
                     </td>
                     <td>
@@ -307,67 +260,6 @@ export default function DepositsTab() {
         )}
       </Panel>
 
-      {/* ── Transfer + faucet ───────────────────────────────────────── */}
-      <div className="console-twocol">
-        <Panel title="⇄ Transfer Microcredits" className="console-half">
-          <p className="console-panel-note">
-            Moves <strong>seller_available → buyer_available</strong> (dual-mode
-            wallets only). Current seller balance:{" "}
-            {Number(balance?.seller_available || 0).toLocaleString()} µ$.
-          </p>
-          <div className="console-caprow">
-            <input
-              className="console-input"
-              type="number"
-              min="0"
-              placeholder="Microcredits"
-              value={transferAmount}
-              onChange={(e) => setTransferAmount(e.target.value)}
-            />
-            <span className="console-capunit">µ$</span>
-            <button
-              type="button"
-              className="console-btn console-btn-primary"
-              disabled={busyTransfer}
-              onClick={handleTransfer}
-            >
-              {busyTransfer ? "Moving…" : "Transfer"}
-            </button>
-          </div>
-        </Panel>
-
-        <Panel title="🧪 Dev Credit Faucet" className="console-half">
-          <p className="console-panel-note">
-            Dev only — requires the backend to run with <code>DEV_MODE=true</code>{" "}
-            and this admin API key.
-          </p>
-          <div className="console-caprow">
-            <input
-              className="console-input"
-              type="password"
-              placeholder="ADMIN_API_KEY"
-              value={faucetKey}
-              onChange={(e) => setFaucetKey(e.target.value)}
-            />
-            <input
-              className="console-input"
-              type="number"
-              min="0"
-              value={faucetAmount}
-              onChange={(e) => setFaucetAmount(e.target.value)}
-            />
-            <span className="console-capunit">µ$</span>
-            <button
-              type="button"
-              className="console-btn console-btn-primary"
-              disabled={busyFaucet || !faucetKey}
-              onClick={handleFaucet}
-            >
-              {busyFaucet ? "Crediting…" : "Credit"}
-            </button>
-          </div>
-        </Panel>
-      </div>
     </div>
   );
 }
@@ -407,10 +299,7 @@ function InvoiceCard({ invoice, onDone }) {
               {deposit.pay_amount} {deposit.pay_currency || ""}
             </strong>
           )}
-          <span>
-            {Number(deposit.amount_microcredits).toLocaleString()} µ$ ·{" "}
-            {formatUsd(microcreditsToUsd(deposit.amount_microcredits))}
-          </span>
+          <span>{formatUsd(microcreditsToUsd(deposit.amount_microcredits))}</span>
         </div>
         {deposit.pay_address && (
           <div className="console-copyfield">

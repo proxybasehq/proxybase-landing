@@ -136,6 +136,8 @@ export default function MarketTab() {
   const filteredPricing = useMemo(() => {
     if (!pricing) return [];
     return pricing.filter((row) => {
+      // Buckets with no online sellers are hidden entirely.
+      if (!(row.available_sellers > 0)) return false;
       if (filter.country && row.country !== filter.country) return false;
       if (filter.category && row.network_type !== filter.category) return false;
       if (filter.search) {
@@ -166,7 +168,7 @@ export default function MarketTab() {
             const r = await v2.closeSession(token, created.session_id);
             setNotice({
               type: "info",
-              text: `Session ${created.session_id.slice(0, 8)}… reached its ${deadlineMin} min duration and was closed. ${r.released_microcredits?.toLocaleString?.() ?? ""} µ$ released.`,
+              text: `Session ${created.session_id.slice(0, 8)}… reached its ${deadlineMin} min duration and was closed. ${formatUsd(microcreditsToUsd(r.released_microcredits || 0))} released.`,
             });
           } catch {
             /* already closed */
@@ -225,7 +227,7 @@ export default function MarketTab() {
       const r = await v2.closeSession(token, session.session_id);
       setNotice({
         type: "success",
-        text: `Session closed — ${r.released_microcredits.toLocaleString()} µ$ released, ${r.settled_microcredits.toLocaleString()} µ$ settled.`,
+        text: `Session closed — ${formatUsd(microcreditsToUsd(r.released_microcredits))} released, ${formatUsd(microcreditsToUsd(r.settled_microcredits))} settled.`,
       });
       await Promise.all([loadSessions(), refreshBalance()]);
     } catch (err) {
@@ -256,7 +258,7 @@ export default function MarketTab() {
       results.push({
         step: "Session state",
         ok: true,
-        detail: `status=${s.status} · ${formatBytes(s.cumulative_bytes)} routed · reserve ${s.reserve_microcredits.toLocaleString()} µ$`,
+        detail: `status=${s.status} · ${formatBytes(s.cumulative_bytes)} routed · reserve ${formatUsd(microcreditsToUsd(s.reserve_microcredits))}`,
         ms: Math.round(performance.now() - t0),
       });
     } catch (err) {
@@ -284,13 +286,13 @@ export default function MarketTab() {
         <StatCard
           label="Spendable balance"
           value={formatUsd(microcreditsToUsd(spendable))}
-          sub={`${Number(spendable || 0).toLocaleString()} µ$`}
+          sub="available to spend"
           accent="cyan"
         />
         <StatCard
           label="Reserved (active sessions)"
           value={formatUsd(microcreditsToUsd(balance?.buyer_reserved))}
-          sub={`${Number(balance?.buyer_reserved || 0).toLocaleString()} µ$`}
+          sub="held by open sessions"
           accent="violet"
         />
         <StatCard
@@ -301,7 +303,7 @@ export default function MarketTab() {
         />
         <StatCard
           label="Market buckets"
-          value={pricing ? pricing.length : "…"}
+          value={pricing ? pricing.filter((p) => p.available_sellers > 0).length : "…"}
           sub={pricing ? `${new Set(pricing.map((p) => p.country)).size} countries` : "loading"}
           accent="amber"
         />
@@ -353,7 +355,11 @@ export default function MarketTab() {
         {!pricing && !catalogError && <Spinner label="Loading catalog…" />}
 
         {pricing && filteredPricing.length === 0 && (
-          <EmptyState icon="🗺" title="No buckets match your filters" sub="Try clearing filters — or the market is quiet right now." />
+          <EmptyState
+            icon="🗺"
+            title="No live seller buckets right now"
+            sub="Buckets with zero online sellers are hidden. Adjust the filters or check back shortly."
+          />
         )}
 
         {pricing && filteredPricing.length > 0 && (
@@ -380,7 +386,7 @@ export default function MarketTab() {
                     </td>
                     <td className="num">
                       <strong>{row.price_per_gb ? `$${row.price_per_gb}` : formatUsd(microcreditsToUsd(row.buyer_price_microcredits_per_gb))}</strong>
-                      <span className="console-sub-mono"> {Number(row.buyer_price_microcredits_per_gb).toLocaleString()} µ$/GB</span>
+                      <span className="console-sub-mono"> {Number(row.buyer_price_microcredits_per_gb).toLocaleString()} credits/GB</span>
                     </td>
                     <td className="num">{row.available_sellers ?? 0}</td>
                     <td className="num">{row.version}</td>
@@ -443,7 +449,7 @@ export default function MarketTab() {
                   <div className="console-session-stats">
                     <div>
                       <span className="console-session-stat-label">Reserve</span>
-                      <strong>{Number(s.reserve_microcredits).toLocaleString()} µ$</strong>
+                      <strong>{formatUsd(microcreditsToUsd(s.reserve_microcredits))}</strong>
                     </div>
                     <div>
                       <span className="console-session-stat-label">Routed</span>
@@ -561,7 +567,7 @@ function BuyWizard({ row, created, onClose, spendable, busy, onSubmit }) {
           <Segmented options={DURATIONS} value={duration} onChange={setDuration} />
         </Field>
 
-        <Field label="Spend cap (reserve)" hint="Reserve is the maximum you can spend; unused reserve is refunded on close. Minimum reserve is 1 GB or your cap, whichever is larger.">
+        <Field label="Spend cap (reserve)" hint="Reserve is the maximum you can spend; unused reserve is refunded on close. Minimum reserve is 1 GB of traffic or your cap, whichever is larger. Amounts convert to microcredits (1,000,000 per $1) on the ledger.">
           <div className="console-caprow">
             <input
               className="console-input"
@@ -589,11 +595,11 @@ function BuyWizard({ row, created, onClose, spendable, busy, onSubmit }) {
         <div className="console-buy-summary">
           <div>
             <span>Reserve required</span>
-            <strong>{reserve.toLocaleString()} µ$ ({formatUsd(microcreditsToUsd(reserve))})</strong>
+            <strong>{formatUsd(microcreditsToUsd(reserve))}</strong>
           </div>
           <div>
             <span>Spendable</span>
-            <strong>{Number(spendable).toLocaleString()} µ$ ({formatUsd(microcreditsToUsd(spendable))})</strong>
+            <strong>{formatUsd(microcreditsToUsd(spendable))}</strong>
           </div>
           {insufficient && (
             <Notice type="error" text="Insufficient spendable balance — make a deposit first." />

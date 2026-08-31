@@ -5865,3 +5865,9 @@ body {
   .console-panel-body { padding: 20px; }
   .console-panel-head { padding: 16px 20px; }
 }
+
+/* ── Wallet tab action buttons ────────────────────────────────────────── */
+
+.console-wallet-actions {
+  margin-top: 28px;
+}
