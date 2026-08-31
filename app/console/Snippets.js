@@ -16,36 +16,38 @@ function buildConnection({ gateway, sessionId, token }) {
 }
 
 function curlSnippet(c) {
+  const uri = `socks5h://${c.username}:${c.password}@${c.host}:${c.port}`;
   return [
     "# exit IP through the tunnel",
-    `curl -x socks5h://${c.username}:${c.password}@${c.host}:${c.port} \\`,
-    `  https://api.ipify.org?format=json`,
+    `curl -x "${uri}" "https://api.ipify.org/?format=json"`,
   ].join("\n");
 }
 
 function pythonSnippet(c) {
+  const uri = `socks5h://${c.username}:${c.password}@${c.host}:${c.port}`;
   return [
     "# pip install requests[socks]",
     "import requests",
     "",
     "proxies = {",
-    "    \"http\": \"socks5h://\" + USER + \":\" + PASS + \"@HOST:PORT\",",
-    "    \"https\": \"socks5h://\" + USER + \":\" + PASS + \"@HOST:PORT\",",
+    `    "http":  "${uri}",`,
+    `    "https": "${uri}",`,
     "}",
     "",
-    "resp = requests.get(\"https://api.ipify.org?format=json\", proxies=proxies)",
+    'resp = requests.get("https://api.ipify.org/?format=json", proxies=proxies)',
     "print(resp.json())",
   ].join("\n");
 }
 
 function nodeSnippet(c) {
+  const uri = `socks5h://${c.username}:${c.password}@${c.host}:${c.port}`;
   return [
     "// npm install socks-proxy-agent",
     "import { SocksProxyAgent } from \"socks-proxy-agent\";",
     "",
-    `const agent = new SocksProxyAgent(\`socks5://${c.username}:${c.password}@${c.host}:${c.port}\`);`,
+    `const agent = new SocksProxyAgent("${uri}");`,
     "",
-    "const resp = await fetch(\"https://api.ipify.org?format=json\", { agent });",
+    'const resp = await fetch("https://api.ipify.org/?format=json", { agent });',
     "console.log(await resp.json());",
   ].join("\n");
 }

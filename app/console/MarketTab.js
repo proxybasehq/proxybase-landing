@@ -286,6 +286,91 @@ export default function MarketTab() {
     );
   }
 
+  const hasActiveSessions = Boolean(sessions && sessions.length > 0);
+
+  const sessionsPanel = (
+      <Panel
+        title="📡 Active Sessions"
+        actions={
+          <button type="button" className="console-btn console-btn-ghost" onClick={loadSessions}>
+            ↻ Refresh
+          </button>
+        }
+      >
+        {sessionsError && <Notice type="error" text={`Sessions: ${sessionsError}`} />}
+        {!sessions && !sessionsError && <Spinner label="Loading sessions…" />}
+        {sessions && sessions.length === 0 && (
+          <EmptyState
+            icon="🌀"
+            title="No active sessions"
+            sub="Buy a rotating or sticky session from the catalog and it shows up here."
+          />
+        )}
+        {sessions && sessions.length > 0 && (
+          <div className="console-session-grid">
+            {sessions.map((s) => {
+              const timer = timersRef.current.get(s.session_id);
+              const remaining = timer ? Math.max(0, Math.round((timer.deadline - Date.now()) / 60000)) : null;
+              return (
+                <div className="console-session-card" key={s.session_id}>
+                  <div className="console-session-head">
+                    <div className="console-session-id">
+                      <StatusDot status={s.status} />
+                      <code>{s.session_id.slice(0, 18)}…</code>
+                    </div>
+                    <span className={`console-badge badge-${s.session_type}`}>{s.session_type}</span>
+                  </div>
+                  <div className="console-session-meta">
+                    <span>
+                      {countryFlag(s.country)} {s.country} ·{" "}
+                      <span className={`console-category cat-${s.network_type}`}>
+                        {CATEGORY_BY_VALUE[s.network_type]?.emoji} {s.network_type}
+                      </span>
+                    </span>
+                    <span>{s.status} · {sessionAge(s.created_at)} old</span>
+                  </div>
+                  <div className="console-session-stats">
+                    <div>
+                      <span className="console-session-stat-label">Reserve</span>
+                      <strong>{formatUsd(microcreditsToUsd(s.reserve_microcredits))}</strong>
+                    </div>
+                    <div>
+                      <span className="console-session-stat-label">Routed</span>
+                      <strong>{formatBytes(s.cumulative_bytes)}</strong>
+                    </div>
+                    {remaining !== null && (
+                      <div>
+                        <span className="console-session-stat-label">Auto-close</span>
+                        <strong className="console-countdown">{remaining}m</strong>
+                      </div>
+                    )}
+                  </div>
+                  <div className="console-session-actions">
+                    <button type="button" className="console-btn" onClick={() => setDrawerSession(s)}>
+                      🔌 Connect
+                    </button>
+                    {s.session_type === "sticky" && (
+                      <button type="button" className="console-btn" disabled={busy} onClick={() => handleRotate(s)}>
+                        🔄 Rotate IP
+                      </button>
+                    )}
+                    <button type="button" className="console-btn" onClick={() => handleKeepalive(s)}>
+                      💓 Keepalive
+                    </button>
+                    <button type="button" className="console-btn" onClick={() => runCheck(s)}>
+                      ✓ Check
+                    </button>
+                    <button type="button" className="console-btn console-btn-danger" disabled={busy} onClick={() => handleClose(s)}>
+                      ✕ Close & Refund
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </Panel>  );
+
   return (
     <div className="console-tab">
       <Notice text={notice?.text} type={notice?.type} onDismiss={() => setNotice(null)} />
@@ -318,6 +403,8 @@ export default function MarketTab() {
       </div>
 
       {/* ── Catalog ─────────────────────────────────────────────────── */}
+{hasActiveSessions && sessionsPanel}
+
       <Panel
         title="⚡ Global Catalog & Buying"
         actions={
@@ -428,88 +515,9 @@ export default function MarketTab() {
         )}
       </Panel>
 
-      {/* ── Sessions ────────────────────────────────────────────────── */}
-      <Panel
-        title="📡 Active Sessions"
-        actions={
-          <button type="button" className="console-btn console-btn-ghost" onClick={loadSessions}>
-            ↻ Refresh
-          </button>
-        }
-      >
-        {sessionsError && <Notice type="error" text={`Sessions: ${sessionsError}`} />}
-        {!sessions && !sessionsError && <Spinner label="Loading sessions…" />}
-        {sessions && sessions.length === 0 && (
-          <EmptyState
-            icon="🌀"
-            title="No active sessions"
-            sub="Buy a rotating or sticky session from the catalog and it shows up here."
-          />
-        )}
-        {sessions && sessions.length > 0 && (
-          <div className="console-session-grid">
-            {sessions.map((s) => {
-              const timer = timersRef.current.get(s.session_id);
-              const remaining = timer ? Math.max(0, Math.round((timer.deadline - Date.now()) / 60000)) : null;
-              return (
-                <div className="console-session-card" key={s.session_id}>
-                  <div className="console-session-head">
-                    <div className="console-session-id">
-                      <StatusDot status={s.status} />
-                      <code>{s.session_id.slice(0, 18)}…</code>
-                    </div>
-                    <span className={`console-badge badge-${s.session_type}`}>{s.session_type}</span>
-                  </div>
-                  <div className="console-session-meta">
-                    <span>
-                      {countryFlag(s.country)} {s.country} ·{" "}
-                      <span className={`console-category cat-${s.network_type}`}>
-                        {CATEGORY_BY_VALUE[s.network_type]?.emoji} {s.network_type}
-                      </span>
-                    </span>
-                    <span>{s.status} · {sessionAge(s.created_at)} old</span>
-                  </div>
-                  <div className="console-session-stats">
-                    <div>
-                      <span className="console-session-stat-label">Reserve</span>
-                      <strong>{formatUsd(microcreditsToUsd(s.reserve_microcredits))}</strong>
-                    </div>
-                    <div>
-                      <span className="console-session-stat-label">Routed</span>
-                      <strong>{formatBytes(s.cumulative_bytes)}</strong>
-                    </div>
-                    {remaining !== null && (
-                      <div>
-                        <span className="console-session-stat-label">Auto-close</span>
-                        <strong className="console-countdown">{remaining}m</strong>
-                      </div>
-                    )}
-                  </div>
-                  <div className="console-session-actions">
-                    <button type="button" className="console-btn" onClick={() => setDrawerSession(s)}>
-                      🔌 Connect
-                    </button>
-                    {s.session_type === "sticky" && (
-                      <button type="button" className="console-btn" disabled={busy} onClick={() => handleRotate(s)}>
-                        🔄 Rotate IP
-                      </button>
-                    )}
-                    <button type="button" className="console-btn" onClick={() => handleKeepalive(s)}>
-                      💓 Keepalive
-                    </button>
-                    <button type="button" className="console-btn" onClick={() => runCheck(s)}>
-                      ✓ Check
-                    </button>
-                    <button type="button" className="console-btn console-btn-danger" disabled={busy} onClick={() => handleClose(s)}>
-                      ✕ Close & Refund
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </Panel>
+
+
+{!hasActiveSessions && sessionsPanel}
 
       <BuyWizard
         key={buyRow?.row ? `${buyRow.row.country}-${buyRow.row.network_type}` : buyRow?.created ? "created" : "closed"}
