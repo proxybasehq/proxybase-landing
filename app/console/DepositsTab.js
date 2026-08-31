@@ -18,24 +18,13 @@ import {
 
 const POLL_MS = 10000;
 const PRESETS = [5, 10, 25, 50, 100];
+const INVOICE_WINDOW_SECS = 9 * 60; // countdown display starts at 09:00
 
 function cryptoUri(currency, address, amount) {
   const c = String(currency || "").toLowerCase();
   if (c === "btc") return `bitcoin:${address}?amount=${amount}`;
   if (c === "eth") return `ethereum:${address}?value=${amount}`;
   return address;
-}
-
-function elapsedSince(isoOrSql) {
-  if (!isoOrSql) return "—";
-  const t = Date.parse(String(isoOrSql).replace(" ", "T") + (String(isoOrSql).includes("T") ? "" : "Z"));
-  if (isNaN(t)) return "—";
-  const secs = Math.floor((Date.now() - t) / 1000);
-  if (secs < 0) return "0s";
-  if (secs < 60) return `${secs}s`;
-  const m = Math.floor(secs / 60);
-  if (m < 60) return `${m}m ${secs % 60}s`;
-  return `${Math.floor(m / 60)}h ${m % 60}m`;
 }
 
 export default function DepositsTab() {
@@ -81,14 +70,33 @@ export default function DepositsTab() {
     pollRef.current = setInterval(async () => {
       try {
         const d = await v2.getDeposit(token, depositId);
-        setInvoice((prev) => (prev ? { ...prev, deposit: d } : prev));
+        // The status endpoint doesn't return pay_address/pay_amount/pay_currency —
+        // merge instead of replace so the payment details stay on screen.
+        setInvoice((prev) =>
+          prev
+            ? {
+                ...prev,
+                deposit: {
+                  ...d,
+                  pay_address: prev.deposit.pay_address ?? d.pay_address ?? null,
+                  pay_amount: prev.deposit.pay_amount ?? d.pay_amount ?? null,
+                  pay_currency: prev.deposit.pay_currency ?? d.pay_currency ?? null,
+                },
+              }
+            : prev
+        );
         if (["confirmed", "underpaid", "overpaid", "expired", "failed"].includes(d.status)) {
           clearInterval(pollRef.current);
           refreshBalance();
           loadHistory();
           if (d.status === "confirmed" || d.status === "overpaid") {
             setNotice({ type: "success", text: `Deposit ${d.status} — balance credited.` });
+          } else if (d.status === "underpaid") {
+            setNotice({ type: "info", text: "Deposit underpaid — the amount received has been credited." });
+          } else {
+            setNotice({ type: "error", text: `Deposit ${d.status}.` });
           }
+          setInvoice(null);
         }
       } catch {
         /* transient */
@@ -162,7 +170,7 @@ export default function DepositsTab() {
       {/* ── Deposit ─────────────────────────────────────────────────── */}
       <Panel title="💳 Create Crypto Deposit">
         {invoice ? (
-          <InvoiceCard invoice={invoice} onDone={() => setInvoice(null)} />
+          <InvoiceCard invoice={invoice} />
         ) : (
           <div className="console-deposit-form">
             <div className="console-deposit-row">
@@ -241,17 +249,17 @@ export default function DepositsTab() {
               <tbody>
                 {history.map((d) => (
                   <tr key={d.deposit_id}>
-                    <td>
+                    <td data-label="Deposit">
                       <code>{d.deposit_id.slice(0, 14)}…</code>
                     </td>
-                    <td className="num">
+                    <td data-label="Amount" className="num">
                       {formatUsd(microcreditsToUsd(d.amount_microcredits))}
                     </td>
-                    <td>
+                    <td data-label="Status">
                       <StatusDot status={d.status} /> {d.status}
                     </td>
-                    <td>{d.created_at || "—"}</td>
-                    <td>{d.updated_at || "—"}</td>
+                    <td data-label="Created">{d.created_at || "—"}</td>
+                    <td data-label="Updated">{d.updated_at || "—"}</td>
                   </tr>
                 ))}
               </tbody>
@@ -266,16 +274,18 @@ export default function DepositsTab() {
 
 /* ── Invoice card ──────────────────────────────────────────────────────── */
 
-function InvoiceCard({ invoice, onDone }) {
+function InvoiceCard({ invoice }) {
   const { deposit, qr } = invoice;
-  const [now, setNow] = useState(0);
+  const [remaining, setRemaining] = useState(INVOICE_WINDOW_SECS);
 
   useEffect(() => {
-    const iv = setInterval(() => setNow(Date.now()), 1000);
+    const iv = setInterval(() => setRemaining((r) => Math.max(0, r - 1)), 1000);
     return () => clearInterval(iv);
   }, []);
 
   const done = ["confirmed", "underpaid", "overpaid", "expired", "failed"].includes(deposit.status);
+  const mm = String(Math.floor(remaining / 60)).padStart(2, "0");
+  const ss = String(remaining % 60).padStart(2, "0");
 
   return (
     <div className="console-invoice">
@@ -288,8 +298,8 @@ function InvoiceCard({ invoice, onDone }) {
         <div className="console-invoice-status">
           <StatusDot status={deposit.status} /> {deposit.status}
         </div>
-        <div className="console-invoice-timer" title="Time since invoice creation">
-          ⏱ {elapsedSince(deposit.created_at)}
+        <div className="console-invoice-timer" title="Countdown since invoice creation">
+          ⏱ {mm}:{ss}
         </div>
       </div>
       <div className="console-invoice-details">
@@ -320,11 +330,10 @@ function InvoiceCard({ invoice, onDone }) {
         <p className="console-panel-note">
           {done
             ? "This invoice has finished processing."
-            : "Auto-polling every 10 seconds. Keep this window open until the payment is detected."}
+            : remaining === 0
+              ? "Invoice window elapsed — we'll keep watching for your payment."
+              : "Auto-polling every 10 seconds. Keep this window open until the payment is detected."}
         </p>
-        <button type="button" className="console-btn console-btn-ghost" onClick={onDone}>
-          {done ? "Close invoice" : "Hide invoice (keeps polling in background)"}
-        </button>
       </div>
     </div>
   );

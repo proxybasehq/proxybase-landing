@@ -8,6 +8,7 @@ const TABS = [
   { value: "market", label: "⚡ Market & Buyer", hint: "Catalog · Buy · Sessions" },
   { value: "deposits", label: "💰 Balances & Deposits", hint: "Ledger · Invoices" },
   { value: "wallet", label: "🔑 Wallet & Keystore", hint: "Backup · Export · Reset" },
+  { value: "makemoney", label: "💵 Make Money", hint: "Share bandwidth · Earn" },
 ];
 
 export default function ConsoleLayout({ tab, setTab, error, children }) {

@@ -378,19 +378,19 @@ export default function MarketTab() {
               <tbody>
                 {filteredPricing.map((row) => (
                   <tr key={`${row.country}-${row.network_type}`}>
-                    <td>
+                    <td data-label="Country">
                       <span className="console-flag">{countryFlag(row.country)}</span> {row.country}
                     </td>
-                    <td>
+                    <td data-label="Category">
                       <span className={`console-category cat-${row.network_type}`}>{row.network_type}</span>
                     </td>
-                    <td className="num">
+                    <td data-label="Price / GB" className="num">
                       <strong>{row.price_per_gb ? `$${row.price_per_gb}` : formatUsd(microcreditsToUsd(row.buyer_price_microcredits_per_gb))}</strong>
                       <span className="console-sub-mono"> {Number(row.buyer_price_microcredits_per_gb).toLocaleString()} credits/GB</span>
                     </td>
-                    <td className="num">{row.available_sellers ?? 0}</td>
-                    <td className="num">{row.version}</td>
-                    <td className="right">
+                    <td data-label="Sellers" className="num">{row.available_sellers ?? 0}</td>
+                    <td data-label="Version" className="num">{row.version}</td>
+                    <td data-label=" " className="right">
                       <button
                         type="button"
                         className="console-btn console-btn-primary"

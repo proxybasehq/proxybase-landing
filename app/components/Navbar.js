@@ -75,6 +75,7 @@ export default function Navbar() {
                                 ) : (
                                     <span className="nav-auth-name">{user.name || user.email}</span>
                                 )}
+                                <span className="nav-auth-console-label">Console →</span>
                             </Link>
                             <Link href="/console" className="nav-cta cta-border-glow" data-umami-event="Nav: Console CTA">
                                 CONSOLE →

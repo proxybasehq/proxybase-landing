@@ -4214,8 +4214,17 @@ body {
   cursor: pointer;
 }
 
+.nav-auth-console-label { display: none; }
+
 @media (max-width: 900px) {
-  .nav-auth .nav-auth-address { display: none; }
+  .nav-auth .nav-auth-addr-mono,
+  .nav-auth .nav-auth-balance { display: none; }
+  .nav-auth-console-label {
+    display: inline;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--pb-ink);
+  }
 }
 
 /* ── Landing: console quick-launch card (hero-band-dark pattern) ───────── */
@@ -5870,4 +5879,238 @@ body {
 
 .console-wallet-actions {
   margin-top: 28px;
+}
+
+/* ── Make Money tab ───────────────────────────────────────────────────── */
+
+.console-makemoney-hero {
+  background: var(--pb-surface-dark);
+  border-color: var(--pb-surface-dark);
+}
+.console-makemoney-hero .console-panel-body {
+  padding: 48px;
+}
+
+.console-makemoney-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--pb-primary);
+  padding: 6px 14px;
+  border-radius: var(--pb-radius-pill);
+  margin-bottom: 18px;
+}
+
+.console-makemoney-title {
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  margin: 0 0 16px;
+  color: var(--pb-on-dark);
+}
+
+.console-makemoney-lead {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--pb-on-dark-soft);
+  max-width: 720px;
+  margin: 0 0 14px;
+}
+.console-makemoney-lead strong { color: var(--pb-on-dark); font-weight: 600; }
+
+.console-makemoney-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.console-makemoney-step {
+  background: var(--pb-canvas);
+  border: 1px solid var(--pb-hairline);
+  border-radius: var(--pb-radius-xl);
+  padding: 24px;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.console-makemoney-step:hover {
+  border-color: var(--pb-muted-soft);
+  box-shadow: var(--pb-shadow);
+}
+
+.console-makemoney-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--pb-radius-full);
+  background: var(--pb-primary);
+  color: #ffffff;
+  font-family: var(--pb-mono);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.console-makemoney-step h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  color: var(--pb-ink);
+}
+
+.console-makemoney-step p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--pb-body);
+  margin: 0;
+}
+
+.console-makemoney-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.console-btn-large {
+  height: 56px;
+  padding: 0 32px;
+  font-size: 16px;
+}
+
+@media (max-width: 820px) {
+  .console-makemoney-hero .console-panel-body { padding: 32px 24px; }
+  .console-makemoney-title { font-size: 28px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — console + landing auth (iPhone 375 → tablet)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Landing navbar: compact Google button so the row fits 375px ──────── */
+
+@media (max-width: 640px) {
+  .navbar-inner { gap: 8px; }
+  .nav-google-btn {
+    height: 36px;
+    padding: 0 12px;
+    gap: 6px;
+    font-size: 13px;
+    border-radius: var(--pb-radius-pill);
+  }
+  .mobile-menu-btn { width: 36px; height: 36px; }
+}
+
+@media (max-width: 400px) {
+  .nav-google-btn { padding: 0 10px; gap: 5px; font-size: 12px; }
+  .nav-google-btn svg { width: 14px; height: 14px; }
+  .logo { font-size: 15px; gap: 6px; }
+}
+
+/* ── Console header: wrap into rows on small screens ──────────────────── */
+
+@media (max-width: 720px) {
+  .console-header {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 16px;
+    row-gap: 8px;
+  }
+  .console-brand { flex: 1; }
+  .console-brand-badge { display: none; }
+  .console-header-right {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .console-user { display: none; }
+  .console-pill { height: 36px; padding: 0 12px; font-size: 13px; }
+  .console-balance-pill strong { font-size: 13px; }
+  .console-btn:not(.console-btn-mini):not(.console-btn-glow) {
+    height: 38px;
+    padding: 0 14px;
+    font-size: 14px;
+  }
+  .console-tabs {
+    padding: 8px 12px 0;
+    gap: 2px;
+    scrollbar-width: none;
+  }
+  .console-tabs::-webkit-scrollbar { display: none; }
+  .console-tab-btn { flex-shrink: 0; height: 38px; padding: 0 14px; }
+  .console-main { padding: 20px 16px 48px; gap: 24px; }
+  .console-tab { gap: 24px; }
+  .console-statgrid { gap: 12px; }
+  .console-statcard { padding: 18px 20px; }
+  .console-statcard-value { font-size: 24px; }
+  .console-panel-body { padding: 20px; }
+  .console-panel-head { padding: 16px 20px; }
+  .console-session-grid { grid-template-columns: 1fr; }
+  .console-session-card { padding: 20px; }
+  .console-mnemonic-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Tables become stacked cards on phones ────────────────────────────── */
+
+@media (max-width: 640px) {
+  .console-table-wrap { overflow: visible; }
+  .console-table,
+  .console-table tbody,
+  .console-table tr { display: block; width: 100%; }
+  .console-table thead { display: none; }
+  .console-table tr {
+    border: 1px solid var(--pb-hairline);
+    border-radius: var(--pb-radius-lg);
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    background: var(--pb-canvas);
+  }
+  .console-table tbody tr:hover { background: var(--pb-canvas); }
+  .console-table td {
+    display: block;
+    text-align: right;
+    border: none;
+    padding: 5px 0;
+  }
+  .console-table td::before {
+    content: attr(data-label);
+    float: left;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--pb-muted);
+    padding-top: 2px;
+  }
+  .console-table td.num { font-size: 13px; }
+}
+
+/* ── Modals: compact + full-width on phones ───────────────────────────── */
+
+@media (max-width: 640px) {
+  .console-modal-overlay { padding: 12px; }
+  .console-modal { max-width: 100%; max-height: 94vh; border-radius: var(--pb-radius-xl); }
+  .console-modal-head { padding: 20px 20px 0; }
+  .console-modal-title { font-size: 20px; }
+  .console-modal-body { padding: 16px 20px 22px; }
+  .console-conn-grid { grid-template-columns: 1fr; }
+  .console-gate-card { padding: 36px 24px; }
+  .console-splash h1 { font-size: 28px; }
+  .console-copyfield-row { padding: 10px 12px; }
+  .console-copyfield-value { font-size: 13px; }
+}
+
+/* ── Make Money tab on phones ─────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .console-makemoney-hero .console-panel-body { padding: 28px 20px; }
+  .console-makemoney-title { font-size: 26px; }
+  .console-makemoney-lead { font-size: 15px; }
+  .console-makemoney-steps { grid-template-columns: 1fr; }
+  .console-makemoney-actions { flex-direction: column; align-items: stretch; }
+  .console-makemoney-actions .console-btn { width: 100%; }
 }

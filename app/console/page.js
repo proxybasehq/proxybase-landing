@@ -6,6 +6,7 @@ import ConsoleLayout from "./ConsoleLayout";
 import MarketTab from "./MarketTab";
 import DepositsTab from "./DepositsTab";
 import WalletTab from "./WalletTab";
+import MakeMoneyTab from "./MakeMoneyTab";
 import { Spinner } from "./ui";
 
 export default function ConsolePage() {
@@ -31,6 +32,7 @@ export default function ConsolePage() {
       {tab === "market" && <MarketTab />}
       {tab === "deposits" && <DepositsTab />}
       {tab === "wallet" && <WalletTab />}
+      {tab === "makemoney" && <MakeMoneyTab />}
     </ConsoleLayout>
   );
 }
