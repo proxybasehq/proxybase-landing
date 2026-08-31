@@ -6114,3 +6114,45 @@ body {
   .console-makemoney-actions { flex-direction: column; align-items: stretch; }
   .console-makemoney-actions .console-btn { width: 100%; }
 }
+
+/* ── Catalog category legend ──────────────────────────────────────────── */
+
+.console-catalog-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+  margin: 14px 0 22px;
+}
+
+.console-catalog-legend-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--pb-hairline-soft);
+  border-radius: var(--pb-radius-md);
+  background: var(--pb-surface-soft);
+}
+
+.console-catalog-legend-emoji {
+  font-size: 20px;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+.console-catalog-legend-item strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pb-ink);
+}
+
+.console-catalog-legend-item p {
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--pb-muted);
+}
+
+@media (max-width: 640px) {
+  .console-catalog-legend { grid-template-columns: 1fr; }
+}

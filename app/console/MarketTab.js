@@ -24,7 +24,15 @@ import {
 } from "./ui";
 import Snippets from "./Snippets";
 
-const CATEGORIES = ["residential", "mobile", "datacenter", "isp", "burner"];
+const CATEGORIES = [
+  { value: "residential", emoji: "🏠", label: "Residential", blurb: "Real home IPs — the most trusted. Best for sneaker drops, social media & storefronts that block clouds." },
+  { value: "mobile", emoji: "📱", label: "Mobile", blurb: "Real 4G/5G carrier IPs — the hardest to block. Ideal for apps & social automation." },
+  { value: "datacenter", emoji: "🖥️", label: "Datacenter", blurb: "Cloud IPs — the fastest & cheapest. Best for bulk scraping where reputation matters less." },
+  { value: "isp", emoji: "🌐", label: "ISP", blurb: "Internet-provider ranges — the middle ground: trusted like home, fast like the cloud." },
+  { value: "burner", emoji: "🔥", label: "Burner", blurb: "Short-lived disposable IPs — for one-shot tasks you don't want tied to anything." },
+];
+
+const CATEGORY_BY_VALUE = Object.fromEntries(CATEGORIES.map((c) => [c.value, c]));
 
 const DURATIONS = [
   { value: null, label: "Until closed" },
@@ -327,7 +335,7 @@ export default function MarketTab() {
             <option value="">All countries</option>
             {countries.map((c) => (
               <option key={c.country} value={c.country}>
-                {countryFlag(c.country)} {c.country} · {c.seller_count} seller{c.seller_count === 1 ? "" : "s"}
+                {countryFlag(c.country)} {c.country}
               </option>
             ))}
           </select>
@@ -338,8 +346,8 @@ export default function MarketTab() {
           >
             <option value="">All categories</option>
             {CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c}
+              <option key={c.value} value={c.value}>
+                {c.emoji} {c.label}
               </option>
             ))}
           </select>
@@ -349,6 +357,18 @@ export default function MarketTab() {
             value={filter.search}
             onChange={(e) => setFilter({ ...filter, search: e.target.value })}
           />
+        </div>
+
+        <div className="console-catalog-legend" aria-label="Proxy categories explained">
+          {CATEGORIES.map((c) => (
+            <div className="console-catalog-legend-item" key={c.value}>
+              <span className="console-catalog-legend-emoji">{c.emoji}</span>
+              <div>
+                <strong>{c.label}</strong>
+                <p>{c.blurb}</p>
+              </div>
+            </div>
+          ))}
         </div>
 
         {catalogError && <Notice type="error" text={`Catalog: ${catalogError}`} />}
@@ -370,7 +390,6 @@ export default function MarketTab() {
                   <th>Country</th>
                   <th>Category</th>
                   <th className="num">Price / GB</th>
-                  <th className="num">Sellers</th>
                   <th className="num">Version</th>
                   <th></th>
                 </tr>
@@ -382,13 +401,14 @@ export default function MarketTab() {
                       <span className="console-flag">{countryFlag(row.country)}</span> {row.country}
                     </td>
                     <td data-label="Category">
-                      <span className={`console-category cat-${row.network_type}`}>{row.network_type}</span>
+                      <span className={`console-category cat-${row.network_type}`}>
+                        {CATEGORY_BY_VALUE[row.network_type]?.emoji} {row.network_type}
+                      </span>
                     </td>
                     <td data-label="Price / GB" className="num">
                       <strong>{row.price_per_gb ? `$${row.price_per_gb}` : formatUsd(microcreditsToUsd(row.buyer_price_microcredits_per_gb))}</strong>
                       <span className="console-sub-mono"> {Number(row.buyer_price_microcredits_per_gb).toLocaleString()} credits/GB</span>
                     </td>
-                    <td data-label="Sellers" className="num">{row.available_sellers ?? 0}</td>
                     <td data-label="Version" className="num">{row.version}</td>
                     <td data-label=" " className="right">
                       <button
@@ -442,7 +462,10 @@ export default function MarketTab() {
                   </div>
                   <div className="console-session-meta">
                     <span>
-                      {countryFlag(s.country)} {s.country} · <span className={`console-category cat-${s.network_type}`}>{s.network_type}</span>
+                      {countryFlag(s.country)} {s.country} ·{" "}
+                      <span className={`console-category cat-${s.network_type}`}>
+                        {CATEGORY_BY_VALUE[s.network_type]?.emoji} {s.network_type}
+                      </span>
                     </span>
                     <span>{s.status} · {sessionAge(s.created_at)} old</span>
                   </div>
