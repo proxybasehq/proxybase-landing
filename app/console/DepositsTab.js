@@ -90,9 +90,9 @@ export default function DepositsTab() {
           refreshBalance();
           loadHistory();
           if (d.status === "confirmed" || d.status === "overpaid") {
-            setNotice({ type: "success", text: `Deposit ${d.status} — balance credited.` });
+            setNotice({ type: "success", text: `Deposit ${d.status}. Balance credited.` });
           } else if (d.status === "underpaid") {
-            setNotice({ type: "info", text: "Deposit underpaid — the amount received has been credited." });
+            setNotice({ type: "info", text: "Deposit underpaid. Credited the amount received." });
           } else {
             setNotice({ type: "error", text: `Deposit ${d.status}.` });
           }
@@ -232,7 +232,7 @@ export default function DepositsTab() {
       <Panel title="🧾 Deposit History">
         {!history && <Spinner label="Loading history…" />}
         {history && history.length === 0 && (
-          <EmptyState icon="🧾" title="No deposits yet" sub="Your crypto deposits will be listed here." />
+          <EmptyState icon="🧾" title="No deposits yet" sub="Deposits you create show up here." />
         )}
         {history && history.length > 0 && (
           <div className="console-table-wrap">
@@ -313,7 +313,7 @@ function InvoiceCard({ invoice }) {
         </div>
         {deposit.pay_address && (
           <div className="console-copyfield">
-            <div className="console-copyfield-label">Pay address (exact amount — send only {deposit.pay_currency})</div>
+            <div className="console-copyfield-label">Pay address (send the exact amount, {deposit.pay_currency} only)</div>
             <div className="console-copyfield-row">
               <code className="console-copyfield-value mono">{deposit.pay_address}</code>
               <CopyButton text={deposit.pay_address} />
@@ -331,8 +331,8 @@ function InvoiceCard({ invoice }) {
           {done
             ? "This invoice has finished processing."
             : remaining === 0
-              ? "Invoice window elapsed — we'll keep watching for your payment."
-              : "Auto-polling every 10 seconds. Keep this window open until the payment is detected."}
+              ? "Invoice window elapsed. We'll keep watching for your payment."
+              : "Checks every 10 seconds. Keep this window open until the payment lands."}
         </p>
       </div>
     </div>

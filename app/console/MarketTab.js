@@ -25,11 +25,11 @@ import {
 import Snippets from "./Snippets";
 
 const CATEGORIES = [
-  { value: "residential", emoji: "🏠", label: "Residential", blurb: "Real home IPs — the most trusted. Best for sneaker drops, social media & storefronts that block clouds." },
-  { value: "mobile", emoji: "📱", label: "Mobile", blurb: "Real 4G/5G carrier IPs — the hardest to block. Ideal for apps & social automation." },
-  { value: "datacenter", emoji: "🖥️", label: "Datacenter", blurb: "Cloud IPs — the fastest & cheapest. Best for bulk scraping where reputation matters less." },
-  { value: "isp", emoji: "🌐", label: "ISP", blurb: "Internet-provider ranges — the middle ground: trusted like home, fast like the cloud." },
-  { value: "burner", emoji: "🔥", label: "Burner", blurb: "Short-lived disposable IPs — for one-shot tasks you don't want tied to anything." },
+  { value: "residential", emoji: "🏠", label: "Residential", blurb: "Real home IPs. For sneaker drops, social media, and storefronts that block cloud IPs." },
+  { value: "mobile", emoji: "📱", label: "Mobile", blurb: "Real 4G/5G carrier IPs. For apps and social automation." },
+  { value: "datacenter", emoji: "🖥️", label: "Datacenter", blurb: "Cloud IPs. Fast and cheap; use them for bulk scraping." },
+  { value: "isp", emoji: "🌐", label: "ISP", blurb: "Provider-owned ranges. Trusted like home IPs, faster than home networks." },
+  { value: "burner", emoji: "🔥", label: "Burner", blurb: "Short-lived IPs for one-off tasks you don't want tied to anything." },
 ];
 
 const CATEGORY_BY_VALUE = Object.fromEntries(CATEGORIES.map((c) => [c.value, c]));
@@ -191,7 +191,7 @@ export default function MarketTab() {
       setBuyRow({ created });
       setNotice({
         type: "success",
-        text: `Session created — ${created.session_id.slice(0, 8)}… is ${created.status}.`,
+        text: `Session created. ${created.session_id.slice(0, 8)}… is ${created.status}.`,
       });
     } catch (err) {
       setNotice({ type: "error", text: err.message });
@@ -207,7 +207,7 @@ export default function MarketTab() {
       const r = await v2.rotateSession(token, session.session_id);
       setNotice({
         type: "success",
-        text: `Sticky session rotated to a new seller. New exit IP: ${r.new_exit_ip || "pending"}`,
+        text: `Sticky session rotated. New exit IP: ${r.new_exit_ip || "pending"}`,
       });
       loadSessions();
     } catch (err) {
@@ -221,7 +221,7 @@ export default function MarketTab() {
     setNotice(null);
     try {
       const r = await v2.keepaliveSession(token, session.session_id);
-      setNotice({ type: "success", text: `Keepalive sent — session ${r.status}.` });
+      setNotice({ type: "success", text: `Keepalive sent.` });
     } catch (err) {
       setNotice({ type: "error", text: err.message });
     }
@@ -235,7 +235,7 @@ export default function MarketTab() {
       const r = await v2.closeSession(token, session.session_id);
       setNotice({
         type: "success",
-        text: `Session closed — ${formatUsd(microcreditsToUsd(r.released_microcredits))} released, ${formatUsd(microcreditsToUsd(r.settled_microcredits))} settled.`,
+        text: `Session closed. ${formatUsd(microcreditsToUsd(r.released_microcredits))} released, ${formatUsd(microcreditsToUsd(r.settled_microcredits))} settled.`,
       });
       await Promise.all([loadSessions(), refreshBalance()]);
     } catch (err) {
@@ -275,7 +275,7 @@ export default function MarketTab() {
     results.push({
       step: "SOCKS5 tunnel (exit IP)",
       ok: null,
-      detail: "Browsers cannot open raw SOCKS5 sockets — run the cURL command in the Connection tab to see the exit IP.",
+      detail: "Browsers can't open SOCKS5 sockets. Run the cURL command in the Connection tab to see the exit IP.",
     });
     setChecker({ running: false, results, forId: session.session_id });
   }
@@ -378,7 +378,7 @@ export default function MarketTab() {
           <EmptyState
             icon="🗺"
             title="No live seller buckets right now"
-            sub="Buckets with zero online sellers are hidden. Adjust the filters or check back shortly."
+            sub="Buckets with zero online sellers are hidden. Adjust the filters or check back later."
           />
         )}
 
@@ -443,7 +443,7 @@ export default function MarketTab() {
           <EmptyState
             icon="🌀"
             title="No active sessions"
-            sub="Buy a rotating or sticky session from the catalog above and it will appear here."
+            sub="Buy a rotating or sticky session from the catalog and it shows up here."
           />
         )}
         {sessions && sessions.length > 0 && (
@@ -571,26 +571,26 @@ function BuyWizard({ row, created, onClose, spendable, busy, onSubmit }) {
     <Modal
       open
       onClose={onClose}
-      title={`Buy proxy — ${countryFlag(row.country)} ${row.country} · ${row.network_type}`}
+      title={`Buy proxy · ${countryFlag(row.country)} ${row.country} · ${row.network_type}`}
       subtitle={`$${row.price_per_gb || microcreditsToUsd(row.buyer_price_microcredits_per_gb)} per GB · ${row.available_sellers} seller(s) online`}
     >
       <div className="console-buywizard">
         <Field label="Session type">
           <Segmented
             options={[
-              { value: "rotating", label: "🔄 Rotating — fresh IP per connection" },
-              { value: "sticky", label: "📌 Sticky — same IP, manual rotation" },
+              { value: "rotating", label: "🔄 Rotating: fresh IP per connection" },
+              { value: "sticky", label: "📌 Sticky: same IP, manual rotation" },
             ]}
             value={sessionType}
             onChange={setSessionType}
           />
         </Field>
 
-        <Field label="Duration (client-side auto-close)" hint="Sessions otherwise stay open until you close them or they idle out (25h).">
+        <Field label="Duration (client-side auto-close)" hint="Sessions stay open until you close them or they idle out after 25 hours.">
           <Segmented options={DURATIONS} value={duration} onChange={setDuration} />
         </Field>
 
-        <Field label="Spend cap (reserve)" hint="Reserve is the maximum you can spend; unused reserve is refunded on close. Minimum reserve is 1 GB of traffic or your cap, whichever is larger. Amounts convert to microcredits (1,000,000 per $1) on the ledger.">
+        <Field label="Spend cap (reserve)" hint="The reserve is the most you can spend. We refund the unused part when the session closes. Minimum reserve is 1 GB of traffic or your cap, whichever is larger. The ledger converts dollars to microcredits at 1,000,000 per $1.">
           <div className="console-caprow">
             <input
               className="console-input"
@@ -625,7 +625,7 @@ function BuyWizard({ row, created, onClose, spendable, busy, onSubmit }) {
             <strong>{formatUsd(microcreditsToUsd(spendable))}</strong>
           </div>
           {insufficient && (
-            <Notice type="error" text="Insufficient spendable balance — make a deposit first." />
+            <Notice type="error" text="Insufficient spendable balance. Make a deposit first." />
           )}
         </div>
 

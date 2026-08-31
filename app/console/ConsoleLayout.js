@@ -112,8 +112,8 @@ export default function ConsoleLayout({ tab, setTab, error, children }) {
       </main>
 
       <footer className="console-footer">
-        Seller node features are intentionally absent from the web UI — run a
-        seller relay with the ProxyBase CLI or Desktop app.
+        Seller nodes are not available in the web UI. Run one with the
+        ProxyBase CLI or Desktop app.
       </footer>
     </div>
   );

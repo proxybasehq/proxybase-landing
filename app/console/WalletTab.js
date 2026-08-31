@@ -23,7 +23,7 @@ export default function WalletTab() {
   if (!wallet) {
     return (
       <Panel title="🔑 Wallet & Keystore">
-        <Notice type="error" text="No wallet loaded — complete onboarding first." />
+        <Notice type="error" text="No wallet loaded. Complete onboarding first." />
       </Panel>
     );
   }
@@ -52,7 +52,7 @@ export default function WalletTab() {
   async function handleReset() {
     if (
       !window.confirm(
-        "Reset removes this wallet's association with your Google account on the backend. You will need the seed phrase or private key to recover it. Continue?"
+        "Reset removes this wallet from your Google account. You will need the seed phrase or private key to recover it. Continue?"
       )
     ) {
       return;
@@ -140,7 +140,7 @@ export default function WalletTab() {
             <p className="console-secret-hidden">••••••••••••••••••••••••••••••••••••</p>
           )}
           <p className="console-panel-note">
-            Anyone with the private key or phrase fully controls this wallet. Never
+            Anyone with the private key or phrase controls this wallet. Never
             paste them into tools you don&apos;t trust.
           </p>
         </div>
@@ -158,10 +158,9 @@ export default function WalletTab() {
         </div>
 
         <p className="console-panel-note">
-          Your keystore is encrypted (AES-256-GCM) and stored on the ProxyBase
-          backend, linked to your Google account. Seller node features are
-          intentionally not available in the web UI — use the CLI or desktop GUI
-          to run a seller relay.
+          Your keystore is encrypted (AES-256-GCM) on the ProxyBase backend and
+          linked to your Google account. Seller nodes are not available in the
+          web UI. Use the CLI or desktop app to run one.
         </p>
       </Panel>
     </div>

@@ -44,9 +44,9 @@ function GateScreen({ onSignIn, error, demoMode }) {
         <img src="/logo.svg" alt="ProxyBase" width="48" height="48" />
         <h1>Sign in to the ProxyBase v2 Console</h1>
         <p>
-          Buy rotating & sticky SOCKS5 proxies for your AI agents, fund with
-          crypto, and manage sessions — all in your browser. Your wallet is
-          stored encrypted on our backend and follows you across devices.
+          Buy rotating and sticky SOCKS5 proxies for your AI agents, fund
+          with crypto, and manage sessions in your browser. Your wallet is
+          encrypted on our backend and follows you across devices.
         </p>
         <button type="button" className="console-btn-google" onClick={onSignIn}>
           <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true">
@@ -65,8 +65,8 @@ function GateScreen({ onSignIn, error, demoMode }) {
         )}
         {error && <p className="console-gate-error">⚠ {error}</p>}
         <p className="console-gate-foot">
-          Google Sign-In is mandatory. Seller node features live in the CLI &
-          Desktop app, not the web console.
+          Google Sign-In is required. Seller nodes run in the CLI and Desktop
+          apps.
         </p>
       </div>
     </div>

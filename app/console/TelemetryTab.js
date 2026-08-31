@@ -65,7 +65,7 @@ function EventTerminal({ token }) {
     };
     es.onerror = () => {
       setConnected(false);
-      pushLog({ kind: "error", t: ts(), event: "client", data: "Event stream interrupted — reconnecting…" });
+      pushLog({ kind: "error", t: ts(), event: "client", data: "Event stream interrupted. Reconnecting…" });
     };
 
     return () => {
@@ -109,7 +109,7 @@ function EventTerminal({ token }) {
       </div>
       <div className="console-terminal-body" ref={bodyRef}>
         {visible.length === 0 && (
-          <div className="console-terminal-idle">Waiting for events — {connected ? "listening" : "offline"}…</div>
+          <div className="console-terminal-idle">Waiting for events. {connected ? "listening" : "offline"}…</div>
         )}
         {visible.map((line, i) => (
           <div key={i} className={`console-terminal-line line-${line.kind}`}>

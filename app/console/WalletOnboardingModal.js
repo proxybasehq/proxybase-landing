@@ -99,7 +99,7 @@ export default function WalletOnboardingModal() {
       await unlockWallet(unlockPassword);
       setUnlockPassword("");
     } catch (err) {
-      setError("Wrong password — try again");
+      setError("Wrong password. Try again.");
     } finally {
       setBusy(false);
     }
@@ -114,8 +114,8 @@ export default function WalletOnboardingModal() {
       title={isLocked ? "Unlock your wallet" : "Connect a wallet"}
       subtitle={
         isLocked
-          ? "This wallet is protected with an additional password."
-          : `Signed in as ${user?.email || user?.name || ""} — set up your ProxyBase v2 wallet to continue.`
+          ? "This wallet has an extra password."
+          : `Signed in as ${user?.email || user?.name || ""}. Set up your ProxyBase v2 wallet to continue.`
       }
       wide
     >
@@ -123,8 +123,8 @@ export default function WalletOnboardingModal() {
         {isLocked ? (
           <div className="console-onboarding-unlock">
             <p className="console-onboarding-intro">
-              Your encrypted keystore is stored on the ProxyBase backend. Enter its
-              password to derive your key and sign in.
+              Your encrypted keystore is stored on the ProxyBase backend. Enter
+              the password to derive your key and sign in.
             </p>
             <input
               type="password"
@@ -163,10 +163,9 @@ export default function WalletOnboardingModal() {
                 {!mnemonic ? (
                   <>
                     <p className="console-onboarding-intro">
-                      Generate a brand-new secp256k1 wallet. A 12 or 24-word BIP-39
-                      recovery phrase is created in your browser, encrypted, and
-                      stored with your Google account on the ProxyBase backend —
-                      so it follows you across devices.
+                      Creates a new wallet in your browser. The 12 or 24-word
+                      recovery phrase is encrypted and saved with your Google
+                      account, so you can sign in from any device.
                     </p>
                     <div className="console-onboarding-row">
                       <Segmented
@@ -192,9 +191,9 @@ export default function WalletOnboardingModal() {
                 ) : (
                   <>
                     <p className="console-onboarding-intro">
-                      This is your wallet&apos;s recovery phrase. Anyone with these
-                      words controls your funds — store them offline and never
-                      share them.
+                      This is your recovery phrase. Anyone with these words
+                      controls the funds. Store them offline and never share
+                      them.
                     </p>
                     <div className="console-mnemonic-grid">
                       {words.map((word, i) => (
@@ -231,8 +230,8 @@ export default function WalletOnboardingModal() {
             {tab === "import" && (
               <div className="console-onboarding-pane">
                 <p className="console-onboarding-intro">
-                  Paste a 12 or 24-word recovery phrase, or a raw 64-char hex
-                  private key. The address is derived and shown before saving.
+                  Paste a 12 or 24-word recovery phrase, or a 64-character
+                  private key. We derive the address and show it before saving.
                 </p>
                 <textarea
                   className="console-input console-textarea"
@@ -272,7 +271,7 @@ export default function WalletOnboardingModal() {
                       autoComplete="new-password"
                     />
                     <span className="console-field-hint">
-                      You&apos;ll enter this password when signing in on any device.
+                      You&apos;ll enter this password when you sign in on any device.
                     </span>
                   </label>
                 </div>
@@ -292,9 +291,8 @@ export default function WalletOnboardingModal() {
                 Use a different Google account
               </button>
               <span className="console-onboarding-note">
-                Wallets are encrypted at rest on the ProxyBase backend and linked
-                to your Google account. Seller features are intentionally absent
-                from the web UI.
+                Wallets are encrypted at rest and linked to your Google account.
+                Seller nodes are not available in the web UI.
               </span>
             </div>
           </>

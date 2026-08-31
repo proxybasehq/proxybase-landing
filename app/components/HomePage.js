@@ -165,10 +165,9 @@ function ConsoleQuickLaunch() {
        ProxyBase v2 Web Console
       </h2>
       <p style={{ color: "rgba(255,255,255,0.72)", lineHeight: 1.65, maxWidth: "560px", marginBottom: "24px" }}>
-       Buy rotating & sticky SOCKS5 proxies for your AI agents straight from
-       the browser. Global catalog pricing, crypto deposits, live session
-       telemetry — your wallet lives encrypted on our backend and follows you
-       across devices.
+       Buy rotating and sticky SOCKS5 proxies for your AI agents from the
+       browser. Global pricing, crypto deposits, session telemetry. Your
+       wallet is encrypted on our backend and follows you across devices.
       </p>
 
       {!signedIn ? (
@@ -186,9 +185,9 @@ function ConsoleQuickLaunch() {
           <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.9-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z" />
           <path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.1 5.7l6.2 5.2C36.9 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z" />
          </svg>
-         1-Click Sign In — Open the Console
+         1-Click Sign In · Open the Console
         </button>
-        <span className="console-launch-note">Google Sign-In required · no seller nodes in the browser</span>
+        <span className="console-launch-note">Google Sign-In required. Seller nodes live in the CLI and desktop apps.</span>
        </div>
       ) : (
        <div className="console-launch-actions">
@@ -233,7 +232,7 @@ function ConsoleQuickLaunch() {
       ) : (
        <div className="console-launch-preview-idle">
         {signedIn
-         ? (preview ? "No live seller buckets right now — check back shortly." : "Loading catalog…")
+         ? (preview ? "No live seller buckets right now. Check back later." : "Loading catalog…")
          : "Sign in to see live country pricing and seller availability."}
        </div>
       )}

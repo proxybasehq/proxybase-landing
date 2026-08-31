@@ -17,7 +17,7 @@ function buildConnection({ gateway, sessionId, token }) {
 
 function curlSnippet(c) {
   return [
-    "# Test your proxy — exit IP via the tunnel",
+    "# exit IP through the tunnel",
     `curl -x socks5h://${c.username}:${c.password}@${c.host}:${c.port} \\`,
     `  https://api.ipify.org?format=json`,
   ].join("\n");
