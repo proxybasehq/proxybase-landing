@@ -393,7 +393,7 @@ function EarningMechanics() {
  <div className="mechanic-icon-circle circle-purple">👥</div>
  <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "12px", color: "var(--text-primary)" }}>Referral Yields</h3>
  <p style={{ fontSize: "0.925rem", color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
- Invite friends and earn up to 25% commission on their deposits and bandwidth use. They get a +10% bonus on their first deposit.
+ Invite friends and earn up to 25% commission on their deposits. They get a +10% bonus on their first deposit.
  </p>
  <a href="/referrals" data-umami-event="Home: Referral Program" style={{ display: "inline-block", marginTop: "12px", fontSize: "0.875rem", fontWeight: 600, color: "var(--accent-primary)" }}>
  How the referral program works

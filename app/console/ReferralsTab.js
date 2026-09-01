@@ -127,7 +127,7 @@ export default function ReferralsTab() {
         <StatCard
           label="Commission"
           value={status?.commission_bps != null ? `${(status.commission_bps / 100).toFixed(2)}%` : "—"}
-          sub="on deposits and platform spread"
+          sub="on deposits"
           accent="amber"
         />
       </div>
@@ -156,7 +156,7 @@ export default function ReferralsTab() {
             <EmptyState
               icon="🌱"
               title="No claimable yield yet"
-              sub="You earn a commission on your referees' deposits and on the platform spread from their bandwidth. Share your link to start earning."
+              sub="You earn a commission on your referees' deposits. Share your link to start earning."
             />
           )
         )}

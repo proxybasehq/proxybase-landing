@@ -4,14 +4,14 @@ import Footer from "../components/Footer";
 export const metadata = {
   title: "Referral Program | ProxyBase",
   description:
-    "Earn a 10-25% commission on your referees' deposits and bandwidth use. Referees get a +10% bonus on their first deposit. Claim anytime from the console.",
+    "Earn a 10-25% commission on your referees' deposits. Referees get a +10% bonus on their first deposit. Claim anytime from the console.",
   alternates: {
     canonical: "/referrals",
   },
   openGraph: {
     title: "Referral Program | ProxyBase",
     description:
-      "Earn a 10-25% commission on your referees' deposits and bandwidth use. Referees get a +10% bonus on their first deposit.",
+      "Earn a 10-25% commission on your referees' deposits. Referees get a +10% bonus on their first deposit.",
     url: "https://proxybase.xyz/referrals",
   },
 };
@@ -47,7 +47,7 @@ export default function ReferralProgram() {
               Earn credits from the people you invite
             </h1>
             <p className="section-desc" style={{ maxWidth: "100%", margin: 0, textAlign: "left" }}>
-              You earn a commission on what your referees deposit and spend. They get a bonus on
+              You earn a commission on every deposit your referees make. They get a bonus on
               their first deposit. Both are credited automatically.
             </p>
           </div>
@@ -67,11 +67,6 @@ export default function ReferralProgram() {
                   <td style={tdStyle}>You</td>
                   <td style={tdStyle}>Commission at the rate you set (10-25%)</td>
                   <td style={tdStyle}>On every deposit your referee makes</td>
-                </tr>
-                <tr>
-                  <td style={tdStyle}>You</td>
-                  <td style={tdStyle}>Same rate on the platform share of their bandwidth purchases</td>
-                  <td style={tdStyle}>On every proxy session they run</td>
                 </tr>
                 <tr>
                   <td style={tdStyle}>Your referee</td>
@@ -98,8 +93,7 @@ export default function ReferralProgram() {
                 wallet, the wallet links to you.
               </li>
               <li style={{ marginBottom: "0.5rem" }}>
-                From then on, their deposits and bandwidth use generate your commission and their
-                bonus on the ledger.
+                From then on, every deposit they make generates your commission on the ledger.
               </li>
               <li style={{ marginBottom: "0.5rem" }}>
                 Claim your yield in the Referrals tab. It moves to your spendable balance, ready
@@ -111,11 +105,6 @@ export default function ReferralProgram() {
             <p style={pStyle}>
               Your referee makes a first deposit of $100. $10 gets added to their balance. At a
               15% rate, you get $15 of claimable yield.
-            </p>
-            <p style={pStyle}>
-              They then spend $50 on bandwidth. Of that $50, the seller takes their share and
-              ProxyBase keeps the rest as the platform spread. Your 15% applies to that spread,
-              so sellers keep their full share and your referee pays the normal price.
             </p>
             <p style={pStyle}>
               Claim the $15 whenever you want. It lands in your spendable balance with no minimum
