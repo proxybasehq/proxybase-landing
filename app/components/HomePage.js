@@ -161,10 +161,10 @@ function ConsoleQuickLaunch() {
     <div className="console-launch-inner">
      <div className="console-launch-copy">
       <span className="console-launch-badge">✦ v2 Marketplace</span>
-      <h2 style={{ fontSize: "2rem", fontWeight: 900, letterSpacing: "-0.02em", margin: "14px 0 12px", color: "#fff" }}>
+      <h2 style={{ fontSize: "2rem", fontWeight: 900, letterSpacing: "-0.02em", margin: "14px 0 12px", color: "var(--text-primary)" }}>
        ProxyBase v2 Web Console
       </h2>
-      <p style={{ color: "rgba(255,255,255,0.72)", lineHeight: 1.65, maxWidth: "560px", marginBottom: "24px" }}>
+      <p style={{ color: "var(--text-secondary)", lineHeight: 1.65, maxWidth: "560px", marginBottom: "24px" }}>
        Buy rotating and sticky SOCKS5 proxies for your AI agents from the
        browser. Global pricing, crypto deposits, session telemetry. Your
        wallet is encrypted on our backend and follows you across devices.
@@ -194,7 +194,7 @@ function ConsoleQuickLaunch() {
         <a href="/console" className="btn-primary cta-border-glow" data-umami-event="Hero: Open Console" style={{ padding: "16px 34px", fontSize: "1rem" }}>
          Open Console →
         </a>
-        <span className="console-launch-note" style={{ color: "rgba(255,255,255,0.6)" }}>
+        <span className="console-launch-note">
          ◈ {shortAddress(wallet.address)} · {balance ? formatUsd(microcreditsToUsd(balance.spendable_balance)) : "…"} spendable
         </span>
        </div>
@@ -203,7 +203,7 @@ function ConsoleQuickLaunch() {
       <div className="console-launch-features">
        <span>⚡ Global catalog pricing</span>
        <span>🔄 Rotating & 📌 sticky sessions</span>
-       <span>💳 Crypto deposits (NOWPayments)</span>
+       <span>💳 Crypto deposits</span>
        <span>📡 Live SSE telemetry</span>
        <span>🔑 Wallet stored on backend</span>
       </div>
@@ -217,14 +217,13 @@ function ConsoleQuickLaunch() {
       {preview && preview.length > 0 ? (
        <table className="console-launch-table">
         <thead>
-         <tr><th>Bucket</th><th className="num">$/GB</th><th className="num">Sellers</th></tr>
+         <tr><th>Bucket</th><th className="num">$/GB</th></tr>
         </thead>
         <tbody>
          {preview.map((row) => (
           <tr key={`${row.country}-${row.network_type}`}>
            <td>{countryFlag(row.country)} {row.country} · <span className="console-launch-cat">{row.network_type}</span></td>
            <td className="num">{row.price_per_gb ? `$${row.price_per_gb}` : "—"}</td>
-           <td className="num">{row.available_sellers ?? 0}</td>
           </tr>
          ))}
         </tbody>
@@ -232,8 +231,8 @@ function ConsoleQuickLaunch() {
       ) : (
        <div className="console-launch-preview-idle">
         {signedIn
-         ? (preview ? "No live seller buckets right now. Check back later." : "Loading catalog…")
-         : "Sign in to see live country pricing and seller availability."}
+         ? (preview ? "No live pricing right now. Check back later." : "Loading catalog…")
+         : "Sign in to see live country pricing."}
        </div>
       )}
      </div>
@@ -393,7 +392,7 @@ function EarningMechanics() {
  <div className="mechanic-icon-circle circle-purple">👥</div>
  <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "12px", color: "var(--text-primary)" }}>Referral Yields</h3>
  <p style={{ fontSize: "0.925rem", color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
- Invite friends and earn up to 25% commission on their deposits. They get a +10% bonus on their first deposit.
+ Invite friends and earn 15% commission on their deposits. They get a +10% bonus on their first deposit.
  </p>
  <a href="/referrals" data-umami-event="Home: Referral Program" style={{ display: "inline-block", marginTop: "12px", fontSize: "0.875rem", fontWeight: 600, color: "var(--accent-primary)" }}>
  How the referral program works

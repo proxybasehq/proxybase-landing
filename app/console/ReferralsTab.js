@@ -6,8 +6,6 @@ import { v2 } from "../lib/v2Client";
 import { formatUsd, microcreditsToUsd } from "../lib/walletCrypto";
 import { CopyButton, EmptyState, Field, Notice, Panel, Spinner, StatCard } from "./ui";
 
-const MIN_BPS = 1000;
-const MAX_BPS = 2500;
 const CODE_RE = /^[A-Za-z0-9_-]{3,32}$/;
 
 export default function ReferralsTab() {
@@ -18,7 +16,6 @@ export default function ReferralsTab() {
   const [notice, setNotice] = useState(null);
 
   const [newCode, setNewCode] = useState("");
-  const [newBps, setNewBps] = useState("1500");
   const [saving, setSaving] = useState(false);
   const [claiming, setClaiming] = useState(false);
 
@@ -54,14 +51,12 @@ export default function ReferralsTab() {
       if (code && !CODE_RE.test(code)) {
         throw new Error("Code must be 3-32 characters: letters, numbers, _ or -");
       }
-      let bps = parseInt(newBps, 10);
-      if (Number.isNaN(bps)) bps = 1500;
-      bps = Math.min(MAX_BPS, Math.max(MIN_BPS, bps));
-      await v2.createReferralCode(token, {
-        code: code || undefined,
-        commission_bps: bps,
-      });
-      setNotice({ type: "success", text: `Referral code saved. Commission: ${bps / 100}%.` });
+      const info = await v2.createReferralCode(token, { code: code || undefined });
+      if (status?.ref_code && info.ref_code === status.ref_code) {
+        setNotice({ type: "info", text: "Referral code unchanged." });
+      } else {
+        setNotice({ type: "success", text: `Referral code saved. Commission: ${info.commission_bps / 100}%.` });
+      }
       await load();
     } catch (err) {
       setNotice({ type: "error", text: err.message });
@@ -188,31 +183,15 @@ export default function ReferralsTab() {
       {/* ── Code ─────────────────────────────────────────────────────── */}
       <Panel title="✏️ Create or Edit Your Code">
         <div className="console-deposit-form">
-          <div className="console-deposit-row">
-            <Field label="Referral code" hint="3-32 characters: letters, numbers, _ or -. Leave empty to auto-generate one.">
-              <input
-                className="console-input"
-                type="text"
-                placeholder={status?.ref_code || "fleet01"}
-                value={newCode}
-                onChange={(e) => setNewCode(e.target.value)}
-              />
-            </Field>
-            <Field label="Commission rate" hint={`Clamped to ${MIN_BPS / 100}-${MAX_BPS / 100}%`}>
-              <div className="console-caprow">
-                <input
-                  className="console-input"
-                  type="number"
-                  min={MIN_BPS}
-                  max={MAX_BPS}
-                  step="100"
-                  value={newBps}
-                  onChange={(e) => setNewBps(e.target.value)}
-                />
-                <span className="console-capunit">bps</span>
-              </div>
-            </Field>
-          </div>
+          <Field label="Referral code" hint="3-32 characters: letters, numbers, _ or -. Leave empty to auto-generate one.">
+            <input
+              className="console-input"
+              type="text"
+              placeholder={status?.ref_code || "fleet01"}
+              value={newCode}
+              onChange={(e) => setNewCode(e.target.value)}
+            />
+          </Field>
           <button
             type="button"
             className="console-btn console-btn-primary"

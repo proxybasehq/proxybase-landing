@@ -4,14 +4,14 @@ import Footer from "../components/Footer";
 export const metadata = {
   title: "Referral Program | ProxyBase",
   description:
-    "Earn a 10-25% commission on your referees' deposits. Referees get a +10% bonus on their first deposit. Claim anytime from the console.",
+    "Earn a 15% commission on your referees' deposits. Referees get a +10% bonus on their first deposit. Claim anytime from the console.",
   alternates: {
     canonical: "/referrals",
   },
   openGraph: {
     title: "Referral Program | ProxyBase",
     description:
-      "Earn a 10-25% commission on your referees' deposits. Referees get a +10% bonus on their first deposit.",
+      "Earn a 15% commission on your referees' deposits. Referees get a +10% bonus on their first deposit.",
     url: "https://proxybase.xyz/referrals",
   },
 };
@@ -65,7 +65,7 @@ export default function ReferralProgram() {
               <tbody>
                 <tr>
                   <td style={tdStyle}>You</td>
-                  <td style={tdStyle}>Commission at the rate you set (10-25%)</td>
+                  <td style={tdStyle}>15% commission</td>
                   <td style={tdStyle}>On every deposit your referee makes</td>
                 </tr>
                 <tr>
@@ -82,8 +82,7 @@ export default function ReferralProgram() {
                 Sign in to the console and open the Referrals tab.
               </li>
               <li style={{ marginBottom: "0.5rem" }}>
-                Create a code (3-32 characters) and set your commission rate between 10% and 25%.
-                The default is 15%.
+                Create a code (3-32 characters). Commission is a flat 15% for everyone.
               </li>
               <li style={{ marginBottom: "0.5rem" }}>
                 Share your link. It looks like <code>proxybase.xyz/console?ref=yourcode</code>.
@@ -115,7 +114,7 @@ export default function ReferralProgram() {
             <ul style={{ listStyleType: "disc", paddingLeft: "1.5rem", marginBottom: "1rem" }}>
               <li style={{ marginBottom: "0.5rem" }}>One referrer per wallet. The first code a wallet uses sticks.</li>
               <li style={{ marginBottom: "0.5rem" }}>You can't refer yourself.</li>
-              <li style={{ marginBottom: "0.5rem" }}>Commission rates run from 10% to 25%. Default is 15%.</li>
+              <li style={{ marginBottom: "0.5rem" }}>Commission is a flat 15% for everyone.</li>
               <li style={{ marginBottom: "0.5rem" }}>Codes are 3-32 characters: lowercase letters, numbers, _ and -.</li>
               <li style={{ marginBottom: "0.5rem" }}>The +10% bonus applies to the first deposit only.</li>
               <li style={{ marginBottom: "0.5rem" }}>Commissions are tracked as claimable yield until you claim them.</li>
