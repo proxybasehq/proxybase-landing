@@ -90,6 +90,7 @@ export default function Footer() {
                         <h4>Product</h4>
                         <ul>
                             <li><Link href="/what-is-proxybase" data-umami-event="Footer: What Is ProxyBase">What It Is</Link></li>
+                            <li><Link href="/referrals" data-umami-event="Footer: Referrals">Referral Program</Link></li>
                             <li><Link href="/buy-with-crypto" data-umami-event="Footer: Buy With Crypto">Buy with Crypto</Link></li>
                             <li><Link href="/no-kyc-proxy" data-umami-event="Footer: No KYC">No KYC Proxy</Link></li>
                             <li><Link href="/proxy-for-ai-agents" data-umami-event="Footer: AI Agent Proxy">AI Agent Proxy</Link></li>

@@ -13,6 +13,12 @@ export default function sitemap() {
             priority: 0.9,
         },
         {
+            url: "https://proxybase.xyz/referrals",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
             url: "https://proxybase.xyz/ai-agents",
             lastModified: new Date(),
             changeFrequency: "weekly",
