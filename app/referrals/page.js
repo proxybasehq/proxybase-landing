@@ -4,14 +4,14 @@ import Footer from "../components/Footer";
 export const metadata = {
   title: "Referral Program | ProxyBase",
   description:
-    "Earn a 10-25% commission on your referees' deposits and bandwidth use. Referees get a +10% bonus on every deposit. Claim anytime from the console.",
+    "Earn a 10-25% commission on your referees' deposits and bandwidth use. Referees get a +10% bonus on their first deposit. Claim anytime from the console.",
   alternates: {
     canonical: "/referrals",
   },
   openGraph: {
     title: "Referral Program | ProxyBase",
     description:
-      "Earn a 10-25% commission on your referees' deposits and bandwidth use. Referees get a +10% bonus on every deposit.",
+      "Earn a 10-25% commission on your referees' deposits and bandwidth use. Referees get a +10% bonus on their first deposit.",
     url: "https://proxybase.xyz/referrals",
   },
 };
@@ -48,7 +48,7 @@ export default function ReferralProgram() {
             </h1>
             <p className="section-desc" style={{ maxWidth: "100%", margin: 0, textAlign: "left" }}>
               You earn a commission on what your referees deposit and spend. They get a bonus on
-              every deposit. Both are credited automatically.
+              their first deposit. Both are credited automatically.
             </p>
           </div>
 
@@ -76,7 +76,7 @@ export default function ReferralProgram() {
                 <tr>
                   <td style={tdStyle}>Your referee</td>
                   <td style={tdStyle}>+10% bonus on the deposit amount</td>
-                  <td style={tdStyle}>On every deposit they make</td>
+                  <td style={tdStyle}>On their first deposit</td>
                 </tr>
               </tbody>
             </table>
@@ -109,8 +109,8 @@ export default function ReferralProgram() {
 
             <h2 style={h2Style}>A worked example</h2>
             <p style={pStyle}>
-              Your referee deposits $100. $10 gets added to their balance. At a 15% rate, you get
-              $15 of claimable yield.
+              Your referee makes a first deposit of $100. $10 gets added to their balance. At a
+              15% rate, you get $15 of claimable yield.
             </p>
             <p style={pStyle}>
               They then spend $50 on bandwidth. Of that $50, the seller takes their share and
@@ -128,7 +128,7 @@ export default function ReferralProgram() {
               <li style={{ marginBottom: "0.5rem" }}>You can't refer yourself.</li>
               <li style={{ marginBottom: "0.5rem" }}>Commission rates run from 10% to 25%. Default is 15%.</li>
               <li style={{ marginBottom: "0.5rem" }}>Codes are 3-32 characters: lowercase letters, numbers, _ and -.</li>
-              <li style={{ marginBottom: "0.5rem" }}>The +10% bonus applies to every deposit, not just the first one.</li>
+              <li style={{ marginBottom: "0.5rem" }}>The +10% bonus applies to the first deposit only.</li>
               <li style={{ marginBottom: "0.5rem" }}>Commissions are tracked as claimable yield until you claim them.</li>
             </ul>
 

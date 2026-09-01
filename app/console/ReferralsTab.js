@@ -101,7 +101,7 @@ export default function ReferralsTab() {
       {status?.referred_by_ref_code && (
         <Notice
           type="info"
-          text={`You were referred with code "${status.referred_by_ref_code}". Your deposits earn a +10% bonus.`}
+          text={`You were referred with code "${status.referred_by_ref_code}". Your first deposit earns a +10% bonus.`}
         />
       )}
 
