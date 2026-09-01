@@ -13,6 +13,7 @@ import * as wc from "./walletCrypto";
 import WalletOnboardingModal from "../console/WalletOnboardingModal";
 
 const TOKEN_KEY = "pb_v2_session_token";
+export const PENDING_REF_KEY = "pb_pending_ref_code";
 
 const AuthContext = createContext(null);
 
@@ -363,6 +364,40 @@ export function AuthProvider({ children }) {
     }, 30000);
     return () => clearInterval(iv);
   }, [status, refreshBalance]);
+
+  // Link a pending referral code (?ref=CODE) once a v2 session token exists.
+  // Covers both fresh handshakes and cached-token restores (both set sessionToken).
+  useEffect(() => {
+    if (status !== "ready" || !sessionToken) return;
+    let code = null;
+    try {
+      code = window.localStorage.getItem(PENDING_REF_KEY);
+    } catch {
+      /* storage unavailable */
+    }
+    if (!code) return;
+    v2.linkReferral(sessionToken, { ref_code: code })
+      .then(() => {
+        try {
+          window.localStorage.removeItem(PENDING_REF_KEY);
+        } catch {
+          /* ignore */
+        }
+      })
+      .catch((err) => {
+        // Definitive failures (4xx: unknown code, already linked, self-referral)
+        // drop the code; transient failures retry on the next mount.
+        if (err && err.status && err.status !== 0 && err.status < 500) {
+          try {
+            window.localStorage.removeItem(PENDING_REF_KEY);
+          } catch {
+            /* ignore */
+          }
+        } else {
+          console.warn("[referral] link deferred:", err.message);
+        }
+      });
+  }, [status, sessionToken]);
 
   const value = {
     config,

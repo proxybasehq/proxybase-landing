@@ -393,7 +393,7 @@ function EarningMechanics() {
  <div className="mechanic-icon-circle circle-purple">👥</div>
  <h3 style={{ fontSize: "1.25rem", fontWeight: 800, marginBottom: "12px", color: "var(--text-primary)" }}>Referral Yields</h3>
  <p style={{ fontSize: "0.925rem", color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
- Invite friends to join and earn a lifetime 25% bonus on their overall earnings. More active referrals mean faster cashouts.
+ Invite friends and earn up to 25% commission on their deposits and bandwidth use. They get a +10% bonus on every deposit.
  </p>
  </div>
 

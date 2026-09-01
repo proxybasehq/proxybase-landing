@@ -9,6 +9,7 @@ const TABS = [
   { value: "deposits", label: "💰 Balances & Deposits", hint: "Ledger · Invoices" },
   { value: "wallet", label: "🔑 Wallet & Keystore", hint: "Backup · Export · Reset" },
   { value: "makemoney", label: "💵 Make Money", hint: "Share bandwidth · Earn" },
+  { value: "referrals", label: "🎁 Referrals", hint: "Invite · Earn" },
 ];
 
 export default function ConsoleLayout({ tab, setTab, error, children }) {

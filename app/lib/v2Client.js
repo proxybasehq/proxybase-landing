@@ -69,6 +69,12 @@ export const v2 = {
   getDeposit: (token, id) => request("GET", `/deposits/${id}`, { token }),
   listDeposits: (token) => request("GET", "/deposits", { token }),
 
+  // referrals
+  createReferralCode: (token, body) => request("POST", "/referrals/code", { token, body }),
+  linkReferral: (token, body) => request("POST", "/referrals/link", { token, body }),
+  getReferralStatus: (token) => request("GET", "/referrals/status", { token }),
+  claimReferralYield: (token) => request("POST", "/referrals/claim", { token }),
+
   // admin (dev faucet — requires backend ADMIN_API_KEY + DEV_MODE)
   devCredit: (adminKey, walletAddress, amountMicrocredits) =>
     request("POST", "/dev/credit", {

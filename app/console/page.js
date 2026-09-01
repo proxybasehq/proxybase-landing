@@ -1,17 +1,38 @@
 "use client";
 
-import { useState } from "react";
-import { useAuth } from "../lib/AuthContext";
+import { useEffect, useState } from "react";
+import { PENDING_REF_KEY, useAuth } from "../lib/AuthContext";
 import ConsoleLayout from "./ConsoleLayout";
 import MarketTab from "./MarketTab";
 import DepositsTab from "./DepositsTab";
 import WalletTab from "./WalletTab";
 import MakeMoneyTab from "./MakeMoneyTab";
+import ReferralsTab from "./ReferralsTab";
 import { Spinner } from "./ui";
+
+const REF_CODE_RE = /^[A-Za-z0-9_-]{3,32}$/;
 
 export default function ConsolePage() {
   const { status, user, error, signIn, config } = useAuth();
   const [tab, setTab] = useState("market");
+
+  // Capture ?ref=CODE into localStorage for the auth layer to link once a
+  // v2 session token exists. window.location.search is used instead of
+  // useSearchParams (which requires a Suspense boundary during prerender).
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref");
+    if (ref && REF_CODE_RE.test(ref)) {
+      try {
+        window.localStorage.setItem(PENDING_REF_KEY, ref.toLowerCase());
+      } catch {
+        /* storage unavailable */
+      }
+      const url = new URL(window.location.href);
+      url.searchParams.delete("ref");
+      window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+    }
+  }, []);
 
   if (status === "boot" || status === "signingIn") {
     return (
@@ -33,6 +54,7 @@ export default function ConsolePage() {
       {tab === "deposits" && <DepositsTab />}
       {tab === "wallet" && <WalletTab />}
       {tab === "makemoney" && <MakeMoneyTab />}
+      {tab === "referrals" && <ReferralsTab />}
     </ConsoleLayout>
   );
 }
