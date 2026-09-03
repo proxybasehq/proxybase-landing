@@ -143,18 +143,36 @@ export default function MarketTab() {
 
   const filteredPricing = useMemo(() => {
     if (!pricing) return [];
-    return pricing.filter((row) => {
-      // Buckets with no online sellers are hidden entirely.
-      if (!(row.available_sellers > 0)) return false;
-      if (filter.country && row.country !== filter.country) return false;
-      if (filter.category && row.network_type !== filter.category) return false;
-      if (filter.search) {
-        const hay = `${row.country} ${row.network_type}`.toLowerCase();
-        if (!hay.includes(filter.search.toLowerCase())) return false;
-      }
-      return true;
-    });
+    return pricing
+      .filter((row) => {
+        // Buckets with no online sellers are hidden entirely.
+        if (!(row.available_sellers > 0)) return false;
+        if (filter.country && row.country !== filter.country) return false;
+        if (filter.category && row.network_type !== filter.category) return false;
+        if (filter.search) {
+          const hay = `${row.country} ${row.network_type}`.toLowerCase();
+          if (!hay.includes(filter.search.toLowerCase())) return false;
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        const ca = String(a.country || "").toUpperCase();
+        const cb = String(b.country || "").toUpperCase();
+        if (ca === "WORLDWIDE" && cb !== "WORLDWIDE") return -1;
+        if (cb === "WORLDWIDE" && ca !== "WORLDWIDE") return 1;
+        return 0;
+      });
   }, [pricing, filter]);
+
+  const sortedCountries = useMemo(() => {
+    return [...countries].sort((a, b) => {
+      const ca = String(a.country || "").toUpperCase();
+      const cb = String(b.country || "").toUpperCase();
+      if (ca === "WORLDWIDE") return -1;
+      if (cb === "WORLDWIDE") return 1;
+      return String(a.country || "").localeCompare(String(b.country || ""));
+    });
+  }, [countries]);
 
   const spendable = Number(balance?.spendable_balance || balance?.buyer_available || 0);
 
@@ -420,9 +438,9 @@ export default function MarketTab() {
             onChange={(e) => setFilter({ ...filter, country: e.target.value })}
           >
             <option value="">All countries</option>
-            {countries.map((c) => (
+            {sortedCountries.map((c) => (
               <option key={c.country} value={c.country}>
-                {countryFlag(c.country)} {c.country}
+                {countryFlag(c.country)} {c.country === "WorldWide" ? "WorldWide (Random)" : c.country}
               </option>
             ))}
           </select>
@@ -485,7 +503,15 @@ export default function MarketTab() {
                 {filteredPricing.map((row) => (
                   <tr key={`${row.country}-${row.network_type}`}>
                     <td data-label="Country">
-                      <span className="console-flag">{countryFlag(row.country)}</span> {row.country}
+                      <span className="console-flag">{countryFlag(row.country)}</span>{" "}
+                      <span style={{ fontWeight: row.country === "WorldWide" ? 600 : 400 }}>
+                        {row.country === "WorldWide" ? "WorldWide (Random)" : row.country}
+                      </span>
+                      {row.available_sellers > 0 && (
+                        <span className="console-sub-mono" style={{ marginLeft: 6, fontSize: "0.75rem", opacity: 0.8 }}>
+                          ({row.available_sellers} online)
+                        </span>
+                      )}
                     </td>
                     <td data-label="Category">
                       <span className={`console-category cat-${row.network_type}`}>
@@ -579,8 +605,8 @@ function BuyWizard({ row, created, onClose, spendable, busy, onSubmit }) {
     <Modal
       open
       onClose={onClose}
-      title={`Buy proxy · ${countryFlag(row.country)} ${row.country} · ${row.network_type}`}
-      subtitle={`$${row.price_per_gb || microcreditsToUsd(row.buyer_price_microcredits_per_gb)} per GB · ${row.available_sellers} seller(s) online`}
+      title={`Buy proxy · ${countryFlag(row.country)} ${row.country === "WorldWide" ? "WorldWide (Random)" : row.country} · ${row.network_type}`}
+      subtitle={`$${row.price_per_gb || microcreditsToUsd(row.buyer_price_microcredits_per_gb)} per GB · ${row.available_sellers} seller(s) online${row.country === "WorldWide" ? " across all countries" : ""}`}
     >
       <div className="console-buywizard">
         <Field label="Session type">

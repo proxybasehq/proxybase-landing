@@ -44,7 +44,9 @@ const countryNameMap = {
   "ID": "Indonesia",
   "AE": "United Arab Emirates",
   "IL": "Israel",
-  "ZA": "South Africa"
+  "ZA": "South Africa",
+  "WorldWide": "WorldWide (Random)",
+  "Unknown": "Unknown"
 };
 
 const categoryMap = {

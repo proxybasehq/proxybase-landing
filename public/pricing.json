@@ -1933,5 +1933,95 @@
     "sellerCredit": 0.75,
     "nodes": 917,
     "status": "High Availability"
+  },
+  {
+    "country": "Unknown",
+    "code": "Unknown",
+    "category": "Residential",
+    "price": 2.5,
+    "sellerCredit": 1.5,
+    "nodes": 874,
+    "status": "High Availability"
+  },
+  {
+    "country": "Unknown",
+    "code": "Unknown",
+    "category": "Mobile",
+    "price": 4,
+    "sellerCredit": 2.4,
+    "nodes": 652,
+    "status": "High Availability"
+  },
+  {
+    "country": "Unknown",
+    "code": "Unknown",
+    "category": "Datacenter",
+    "price": 0.8,
+    "sellerCredit": 0.48,
+    "nodes": 303,
+    "status": "Normal"
+  },
+  {
+    "country": "Unknown",
+    "code": "Unknown",
+    "category": "ISP",
+    "price": 1.6,
+    "sellerCredit": 0.96,
+    "nodes": 156,
+    "status": "Limited"
+  },
+  {
+    "country": "Unknown",
+    "code": "Unknown",
+    "category": "Burner",
+    "price": 1,
+    "sellerCredit": 0.6,
+    "nodes": 650,
+    "status": "Normal"
+  },
+  {
+    "country": "WorldWide (Random)",
+    "code": "WorldWide",
+    "category": "Residential",
+    "price": 2.5,
+    "sellerCredit": 1.5,
+    "nodes": 313,
+    "status": "Normal"
+  },
+  {
+    "country": "WorldWide (Random)",
+    "code": "WorldWide",
+    "category": "Mobile",
+    "price": 4,
+    "sellerCredit": 2.4,
+    "nodes": 111,
+    "status": "Limited"
+  },
+  {
+    "country": "WorldWide (Random)",
+    "code": "WorldWide",
+    "category": "Datacenter",
+    "price": 0.8,
+    "sellerCredit": 0.48,
+    "nodes": 580,
+    "status": "Normal"
+  },
+  {
+    "country": "WorldWide (Random)",
+    "code": "WorldWide",
+    "category": "ISP",
+    "price": 1.6,
+    "sellerCredit": 0.96,
+    "nodes": 175,
+    "status": "Limited"
+  },
+  {
+    "country": "WorldWide (Random)",
+    "code": "WorldWide",
+    "category": "Burner",
+    "price": 1,
+    "sellerCredit": 0.6,
+    "nodes": 113,
+    "status": "Limited"
   }
 ]

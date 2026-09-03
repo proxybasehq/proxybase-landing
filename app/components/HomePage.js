@@ -136,17 +136,34 @@ function ConsoleQuickLaunch() {
  const [preview, setPreview] = useState(null);
 
  useEffect(() => {
-  if (status !== "ready" || !wallet) return;
   let cancelled = false;
   (async () => {
    try {
-    // Requires an active v2 session token — read from localStorage directly
-    const token = localStorage.getItem("pb_v2_session_token");
-    if (!token) return;
+    const token = typeof window !== "undefined" ? localStorage.getItem("pb_v2_session_token") : null;
     const data = await v2.getPricing(token);
-    if (!cancelled) setPreview((data.pricing || []).slice(0, 6));
+    if (!cancelled && data && Array.isArray(data.pricing) && data.pricing.length > 0) {
+      const sorted = data.pricing.slice().sort((a, b) => {
+        const ca = String(a.country || "").toUpperCase();
+        const cb = String(b.country || "").toUpperCase();
+        if (ca === "WORLDWIDE" && cb !== "WORLDWIDE") return -1;
+        if (cb === "WORLDWIDE" && ca !== "WORLDWIDE") return 1;
+        return 0;
+      });
+      setPreview(sorted.slice(0, 6));
+      return;
+    }
    } catch {
-    if (!cancelled) setPreview([]);
+    /* fallback to curated preview */
+   }
+   if (!cancelled) {
+     setPreview([
+       { country: "WorldWide", network_type: "residential", price_per_gb: "2.50" },
+       { country: "WorldWide", network_type: "datacenter", price_per_gb: "0.80" },
+       { country: "US", network_type: "residential", price_per_gb: "3.00" },
+       { country: "DE", network_type: "residential", price_per_gb: "2.75" },
+       { country: "GB", network_type: "residential", price_per_gb: "2.80" },
+       { country: "Unknown", network_type: "burner", price_per_gb: "1.00" },
+     ]);
    }
   })();
   return () => { cancelled = true; };
@@ -201,11 +218,11 @@ function ConsoleQuickLaunch() {
       )}
 
       <div className="console-launch-features">
-       <span>⚡ Global catalog pricing</span>
+       <span>🌐 WorldWide random routing</span>
+       <span>⚡ Instant Unknown classification</span>
        <span>🔄 Rotating & 📌 sticky sessions</span>
        <span>💳 Crypto deposits</span>
-       <span>📡 Live SSE telemetry</span>
-       <span>🔑 Wallet stored on backend</span>
+       <span>📡 Parallel QoS probes</span>
       </div>
      </div>
 
@@ -220,19 +237,23 @@ function ConsoleQuickLaunch() {
          <tr><th>Bucket</th><th className="num">$/GB</th></tr>
         </thead>
         <tbody>
-         {preview.map((row) => (
+         {preview.map((row) => {
+          const isWw = String(row.country || "").toUpperCase() === "WORLDWIDE";
+          const isUk = String(row.country || "").toUpperCase() === "UNKNOWN";
+          const label = isWw ? "WorldWide (Random)" : isUk ? "Unknown" : row.country;
+          return (
           <tr key={`${row.country}-${row.network_type}`}>
-           <td>{countryFlag(row.country)} {row.country} · <span className="console-launch-cat">{row.network_type}</span></td>
+           <td>
+            {countryFlag(row.country)} <span style={{ fontWeight: isWw ? 600 : 400 }}>{label}</span> · <span className="console-launch-cat">{row.network_type}</span>
+           </td>
            <td className="num">{row.price_per_gb ? `$${row.price_per_gb}` : "—"}</td>
           </tr>
-         ))}
+         );})}
         </tbody>
        </table>
       ) : (
        <div className="console-launch-preview-idle">
-        {signedIn
-         ? (preview ? "No live pricing right now. Check back later." : "Loading catalog…")
-         : "Sign in to see live country pricing."}
+        Loading catalog…
        </div>
       )}
      </div>

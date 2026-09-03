@@ -237,6 +237,7 @@ export function shortAddress(address) {
 
 export function countryFlag(countryCode) {
   const cc = String(countryCode || "").toUpperCase();
-  if (!/^[A-Z]{2}$/.test(cc)) return "🌐";
+  if (cc === "UNKNOWN") return "❓";
+  if (cc === "WORLDWIDE" || !/^[A-Z]{2}$/.test(cc)) return "🌐";
   return String.fromCodePoint(...[...cc].map((c) => 127397 + c.charCodeAt(0)));
 }
