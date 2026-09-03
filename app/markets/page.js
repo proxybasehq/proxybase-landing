@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { countryFlag, countryName } from "../lib/walletCrypto";
 
 export default function MarketsPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -229,8 +230,8 @@ export default function MarketsPage() {
  filteredPricing.map((item, idx) => (
  <tr key={idx}>
  <td className="country-cell">
- <span className="flag-icon">{item.code}</span>
- {item.country}
+ <span className="flag-icon">{countryFlag(item.code || item.country)}</span>
+ {countryName(item.country || item.code)}
  </td>
  <td className="category-cell">
  <span className={`cat-badge ${item.category.toLowerCase()}`}>

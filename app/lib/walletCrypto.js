@@ -241,3 +241,29 @@ export function countryFlag(countryCode) {
   if (cc === "WORLDWIDE" || !/^[A-Z]{2}$/.test(cc)) return "🌐";
   return String.fromCodePoint(...[...cc].map((c) => 127397 + c.charCodeAt(0)));
 }
+
+const COUNTRY_NAMES = {
+  US: "United States", GB: "United Kingdom", DE: "Germany", FR: "France",
+  JP: "Japan", KR: "South Korea", CN: "China", IN: "India",
+  BR: "Brazil", CA: "Canada", AU: "Australia", NL: "Netherlands",
+  SE: "Sweden", CH: "Switzerland", SG: "Singapore", HK: "Hong Kong",
+  IT: "Italy", ES: "Spain", MX: "Mexico", RU: "Russia",
+  PL: "Poland", TR: "Turkey", AR: "Argentina", CL: "Chile",
+  CO: "Colombia", PE: "Peru", ZA: "South Africa", NG: "Nigeria",
+  KE: "Kenya", EG: "Egypt", ID: "Indonesia", PH: "Philippines",
+  VN: "Vietnam", TH: "Thailand", MY: "Malaysia", TW: "Taiwan",
+  NZ: "New Zealand", IE: "Ireland", AT: "Austria", BE: "Belgium",
+  DK: "Denmark", FI: "Finland", NO: "Norway", PT: "Portugal",
+  CZ: "Czech Republic", RO: "Romania", UA: "Ukraine", AE: "United Arab Emirates",
+  SA: "Saudi Arabia", IL: "Israel", PK: "Pakistan", BD: "Bangladesh",
+  HU: "Hungary", GR: "Greece",
+  WORLDWIDE: "WorldWide", UNKNOWN: "Unknown",
+};
+
+export function countryName(code) {
+  if (!code) return "";
+  const upper = String(code).trim().toUpperCase();
+  if (upper === "WORLDWIDE") return "WorldWide";
+  if (upper === "UNKNOWN") return "Unknown";
+  return COUNTRY_NAMES[upper] || code;
+}

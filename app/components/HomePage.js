@@ -5,7 +5,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { useAuth } from "../lib/AuthContext";
 import { v2 } from "../lib/v2Client";
-import { countryFlag, formatUsd, microcreditsToUsd, shortAddress } from "../lib/walletCrypto";
+import { countryFlag, countryName, formatUsd, microcreditsToUsd, shortAddress } from "../lib/walletCrypto";
 
 export default function HomePage() {
  useEffect(() => {
@@ -232,25 +232,28 @@ function ConsoleQuickLaunch() {
        <span className="console-launch-preview-dot" />
       </div>
       {preview && preview.length > 0 ? (
-       <table className="console-launch-table">
-        <thead>
-         <tr><th>Bucket</th><th className="num">$/GB</th></tr>
-        </thead>
-        <tbody>
-         {preview.map((row) => {
-          const isWw = String(row.country || "").toUpperCase() === "WORLDWIDE";
-          const isUk = String(row.country || "").toUpperCase() === "UNKNOWN";
-          const label = isWw ? "WorldWide" : isUk ? "Unknown" : row.country;
-          return (
-          <tr key={`${row.country}-${row.network_type}`}>
-           <td>
-            {countryFlag(row.country)} <span style={{ fontWeight: isWw ? 600 : 400 }}>{label}</span> · <span className="console-launch-cat">{row.network_type}</span>
-           </td>
-           <td className="num">{row.price_per_gb ? `$${row.price_per_gb}` : "—"}</td>
-          </tr>
-         );})}
-        </tbody>
-       </table>
+       <div className="console-launch-table-wrap">
+        <table className="console-launch-table">
+         <thead>
+          <tr><th>Bucket</th><th className="num">$/GB</th></tr>
+         </thead>
+         <tbody>
+          {preview.map((row) => {
+           const isWw = String(row.country || "").toUpperCase() === "WORLDWIDE";
+           const isUk = String(row.country || "").toUpperCase() === "UNKNOWN";
+           const label = isWw ? "WorldWide" : isUk ? "Unknown" : countryName(row.country);
+           return (
+           <tr key={`${row.country}-${row.network_type}`}>
+            <td className="console-launch-country-cell">
+             <span className="console-launch-flag">{countryFlag(row.country)}</span>{" "}
+             <span className="console-launch-country-name" style={{ fontWeight: isWw ? 600 : 500 }}>{label}</span> · <span className="console-launch-cat">{row.network_type}</span>
+            </td>
+            <td className="num">{row.price_per_gb ? `$${row.price_per_gb}` : "—"}</td>
+           </tr>
+          );})}
+         </tbody>
+        </table>
+       </div>
       ) : (
        <div className="console-launch-preview-idle">
         Loading catalog…

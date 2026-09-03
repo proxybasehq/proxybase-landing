@@ -5,6 +5,7 @@ import { useAuth } from "../lib/AuthContext";
 import { v2, socks5ConnectionString } from "../lib/v2Client";
 import {
   countryFlag,
+  countryName,
   formatBytes,
   formatUsd,
   microcreditsToUsd,
@@ -440,7 +441,7 @@ export default function MarketTab() {
             <option value="">All countries</option>
             {sortedCountries.map((c) => (
               <option key={c.country} value={c.country}>
-                {countryFlag(c.country)} {c.country === "WorldWide" ? "WorldWide" : c.country}
+                {countryFlag(c.country)} {countryName(c.country)}
               </option>
             ))}
           </select>
@@ -505,7 +506,7 @@ export default function MarketTab() {
                     <td data-label="Country">
                       <span className="console-flag">{countryFlag(row.country)}</span>{" "}
                       <span style={{ fontWeight: row.country === "WorldWide" ? 600 : 400 }}>
-                        {row.country === "WorldWide" ? "WorldWide" : row.country}
+                        {countryName(row.country)}
                       </span>
                     </td>
                     <td data-label="Category">
@@ -600,7 +601,7 @@ function BuyWizard({ row, created, onClose, spendable, busy, onSubmit }) {
     <Modal
       open
       onClose={onClose}
-      title={`Buy proxy · ${countryFlag(row.country)} ${row.country === "WorldWide" ? "WorldWide" : row.country} · ${row.network_type}`}
+      title={`Buy proxy · ${countryFlag(row.country)} ${countryName(row.country)} · ${row.network_type}`}
       subtitle={`$${row.price_per_gb || microcreditsToUsd(row.buyer_price_microcredits_per_gb)} per GB`}
     >
       <div className="console-buywizard">

@@ -2407,7 +2407,8 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.02);
 }
 
@@ -2415,6 +2416,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
+  min-width: 580px;
 }
 
 .market-pricing-table th, .market-pricing-table td {
@@ -4335,11 +4337,18 @@ body {
   50% { opacity: 0.35; }
 }
 
+.console-launch-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .console-launch-table {
   width: 100%;
   border-collapse: collapse;
   font-family: var(--pb-mono);
   font-size: 13px;
+  min-width: 280px;
 }
 .console-launch-table th {
   text-align: left;
@@ -4347,16 +4356,36 @@ body {
   font-weight: 500;
   padding: 6px 8px;
   border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
 }
 .console-launch-table td {
   padding: 9px 8px;
   color: var(--text-primary);
   border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
 }
-.console-launch-table .num { text-align: right; }
+.console-launch-country-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.console-launch-flag {
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+.console-launch-country-name {
+  color: var(--text-primary);
+}
+.console-launch-table .num {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
 .console-launch-cat {
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 11px;
+  text-transform: capitalize;
 }
 
 .console-launch-preview-idle {
@@ -4373,6 +4402,32 @@ body {
     grid-template-columns: 1fr;
     padding: 32px 24px;
     gap: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .console-launch-card {
+    border-radius: var(--radius-lg, 16px);
+  }
+  .console-launch-inner {
+    padding: 24px 16px;
+    gap: 20px;
+  }
+  .console-launch-preview {
+    padding: 16px 12px;
+    border-radius: var(--radius-md, 12px);
+  }
+  .console-launch-table {
+    font-size: 12px;
+  }
+  .console-launch-table th,
+  .console-launch-table td {
+    padding: 8px 6px;
+  }
+  .console-launch-country-name {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
