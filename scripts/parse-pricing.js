@@ -45,7 +45,7 @@ const countryNameMap = {
   "AE": "United Arab Emirates",
   "IL": "Israel",
   "ZA": "South Africa",
-  "WorldWide": "WorldWide (Random)",
+  "WorldWide": "WorldWide",
   "Unknown": "Unknown"
 };
 

@@ -218,7 +218,7 @@ function ConsoleQuickLaunch() {
       )}
 
       <div className="console-launch-features">
-       <span>🌐 WorldWide random routing</span>
+       <span>🌐 WorldWide routing</span>
        <span>⚡ Instant Unknown classification</span>
        <span>🔄 Rotating & 📌 sticky sessions</span>
        <span>💳 Crypto deposits</span>
@@ -240,7 +240,7 @@ function ConsoleQuickLaunch() {
          {preview.map((row) => {
           const isWw = String(row.country || "").toUpperCase() === "WORLDWIDE";
           const isUk = String(row.country || "").toUpperCase() === "UNKNOWN";
-          const label = isWw ? "WorldWide (Random)" : isUk ? "Unknown" : row.country;
+          const label = isWw ? "WorldWide" : isUk ? "Unknown" : row.country;
           return (
           <tr key={`${row.country}-${row.network_type}`}>
            <td>

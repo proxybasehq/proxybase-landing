@@ -440,7 +440,7 @@ export default function MarketTab() {
             <option value="">All countries</option>
             {sortedCountries.map((c) => (
               <option key={c.country} value={c.country}>
-                {countryFlag(c.country)} {c.country === "WorldWide" ? "WorldWide (Random)" : c.country}
+                {countryFlag(c.country)} {c.country === "WorldWide" ? "WorldWide" : c.country}
               </option>
             ))}
           </select>
@@ -505,13 +505,8 @@ export default function MarketTab() {
                     <td data-label="Country">
                       <span className="console-flag">{countryFlag(row.country)}</span>{" "}
                       <span style={{ fontWeight: row.country === "WorldWide" ? 600 : 400 }}>
-                        {row.country === "WorldWide" ? "WorldWide (Random)" : row.country}
+                        {row.country === "WorldWide" ? "WorldWide" : row.country}
                       </span>
-                      {row.available_sellers > 0 && (
-                        <span className="console-sub-mono" style={{ marginLeft: 6, fontSize: "0.75rem", opacity: 0.8 }}>
-                          ({row.available_sellers} online)
-                        </span>
-                      )}
                     </td>
                     <td data-label="Category">
                       <span className={`console-category cat-${row.network_type}`}>
@@ -605,8 +600,8 @@ function BuyWizard({ row, created, onClose, spendable, busy, onSubmit }) {
     <Modal
       open
       onClose={onClose}
-      title={`Buy proxy · ${countryFlag(row.country)} ${row.country === "WorldWide" ? "WorldWide (Random)" : row.country} · ${row.network_type}`}
-      subtitle={`$${row.price_per_gb || microcreditsToUsd(row.buyer_price_microcredits_per_gb)} per GB · ${row.available_sellers} seller(s) online${row.country === "WorldWide" ? " across all countries" : ""}`}
+      title={`Buy proxy · ${countryFlag(row.country)} ${row.country === "WorldWide" ? "WorldWide" : row.country} · ${row.network_type}`}
+      subtitle={`$${row.price_per_gb || microcreditsToUsd(row.buyer_price_microcredits_per_gb)} per GB`}
     >
       <div className="console-buywizard">
         <Field label="Session type">
