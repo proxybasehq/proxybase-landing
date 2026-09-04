@@ -90,11 +90,16 @@ export default function MarketsPage() {
  }, []);
 
 
- const filteredPricing = pricing.filter(item => 
- item.country.toLowerCase().includes(searchQuery.toLowerCase()) ||
- item.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
- item.category.toLowerCase().includes(searchQuery.toLowerCase())
- );
+  const filteredPricing = pricing.filter(item => {
+    if (!item.country || !item.country.trim()) return false;
+    const q = searchQuery.toLowerCase();
+    return (
+      (item.country && item.country.toLowerCase().includes(q)) ||
+      (item.code && item.code.toLowerCase().includes(q)) ||
+      (item.category && item.category.toLowerCase().includes(q)) ||
+      countryName(item.code || item.country).toLowerCase().includes(q)
+    );
+  });
 
  return (
  <div className="markets-page-root">

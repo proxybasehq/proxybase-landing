@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useAuth } from "../lib/AuthContext";
-import { v2 } from "../lib/v2Client";
+import { v2, API_BASE } from "../lib/v2Client";
 import { CopyButton, EmptyState, Field, Panel, Segmented, StatusDot } from "./ui";
+
 
 const MAX_LOG = 300;
 
@@ -142,7 +143,7 @@ function Explorer({ token }) {
     setRunning(true);
     const t0 = performance.now();
     try {
-      const res = await fetch(`/api/v2${path}`, {
+      const res = await fetch(`${API_BASE}${path}`, {
         method,
         headers: {
           ...(withAuth && token ? { Authorization: `Bearer ${token}` } : {}),
@@ -175,7 +176,7 @@ function Explorer({ token }) {
     }
   }
 
-  const curl = `curl -X ${method} '${window?.location?.origin || ""}/api/v2${path}'${
+  const curl = `curl -X ${method} '${API_BASE}${path}'${
     withAuth && token ? ` \\\n  -H 'Authorization: Bearer ${token}'` : ""
   }${body.trim() ? ` \\\n  -H 'Content-Type: application/json' \\\n  -d '${body.trim()}'` : ""}`;
 
@@ -243,7 +244,7 @@ function Explorer({ token }) {
           <div className="console-explorer-result-head">
             <span>
               <strong>
-                {result.method} /api/v2{result.path}
+                {result.method} {API_BASE}{result.path}
               </strong>{" "}
               <span className={`console-history-status st-${Math.floor(result.status / 100)}`}>
                 {result.status || "ERR"}
@@ -262,8 +263,7 @@ function Explorer({ token }) {
       )}
 
       <p className="console-panel-note">
-        Requests go through the same-origin <code>/api/v2/*</code> proxy to{" "}
-        <code>BACKEND_API_URL</code>, so the browser never talks cross-origin.
+        Requests connect directly to <code>{API_BASE}/*</code> without routing through Vercel serverless compute.
       </p>
     </div>
   );

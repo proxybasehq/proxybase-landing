@@ -146,12 +146,13 @@ export default function MarketTab() {
     if (!pricing) return [];
     return pricing
       .filter((row) => {
+        if (!row.country || String(row.country).trim() === "") return false;
         // Buckets with no online sellers are hidden entirely.
         if (!(row.available_sellers > 0)) return false;
         if (filter.country && row.country !== filter.country) return false;
         if (filter.category && row.network_type !== filter.category) return false;
         if (filter.search) {
-          const hay = `${row.country} ${row.network_type}`.toLowerCase();
+          const hay = `${row.country} ${countryName(row.country)} ${row.network_type}`.toLowerCase();
           if (!hay.includes(filter.search.toLowerCase())) return false;
         }
         return true;
@@ -161,18 +162,20 @@ export default function MarketTab() {
         const cb = String(b.country || "").toUpperCase();
         if (ca === "WORLDWIDE" && cb !== "WORLDWIDE") return -1;
         if (cb === "WORLDWIDE" && ca !== "WORLDWIDE") return 1;
-        return 0;
+        return countryName(a.country).localeCompare(countryName(b.country));
       });
   }, [pricing, filter]);
 
   const sortedCountries = useMemo(() => {
-    return [...countries].sort((a, b) => {
-      const ca = String(a.country || "").toUpperCase();
-      const cb = String(b.country || "").toUpperCase();
-      if (ca === "WORLDWIDE") return -1;
-      if (cb === "WORLDWIDE") return 1;
-      return String(a.country || "").localeCompare(String(b.country || ""));
-    });
+    return [...countries]
+      .filter((c) => c && c.country && String(c.country).trim() !== "")
+      .sort((a, b) => {
+        const ca = String(a.country || "").toUpperCase();
+        const cb = String(b.country || "").toUpperCase();
+        if (ca === "WORLDWIDE") return -1;
+        if (cb === "WORLDWIDE") return 1;
+        return countryName(a.country).localeCompare(countryName(b.country));
+      });
   }, [countries]);
 
   const spendable = Number(balance?.spendable_balance || balance?.buyer_available || 0);

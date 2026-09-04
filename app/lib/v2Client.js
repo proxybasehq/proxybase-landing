@@ -1,4 +1,10 @@
-const PROXY_BASE = "/api/v2";
+export const BACKEND_URL = (
+  process.env.NEXT_PUBLIC_BACKEND_API_URL ||
+  process.env.BACKEND_API_URL ||
+  "https://api.proxybase.xyz"
+).replace(/\/+$/, "");
+
+export const API_BASE = `${BACKEND_URL}/v2`;
 
 export class ApiError extends Error {
   constructor(status, data, path, method) {
@@ -20,12 +26,13 @@ async function request(method, path, { token, body, query } = {}) {
 
   let res;
   try {
-    res = await fetch(`${PROXY_BASE}${path}${qs}`, {
+    res = await fetch(`${API_BASE}${path}${qs}`, {
       method,
       headers,
       body: body !== undefined ? JSON.stringify(body) : undefined,
       cache: "no-store",
     });
+
   } catch (err) {
     throw new ApiError(0, { error: `Network error: ${err.message}` }, path, method);
   }
@@ -49,6 +56,7 @@ export const v2 = {
   // catalog
   getPricing: (token) => request("GET", "/catalog/pricing", { token }),
   getCountries: (token) => request("GET", "/catalog/countries", { token }),
+  getCountriesMetadata: () => request("GET", "/catalog/countries/metadata"),
 
   // sessions
   createSession: (token, body) => request("POST", "/sessions", { token, body }),
@@ -86,7 +94,7 @@ export const v2 = {
   health: () => request("GET", "/health"),
 
   // SSE — EventSource can't set headers, token goes in the query string
-  eventsUrl: (token) => `${PROXY_BASE}/events?token=${encodeURIComponent(token)}`,
+  eventsUrl: (token) => `${API_BASE}/events?token=${encodeURIComponent(token)}`,
 };
 
 export function socks5ConnectionString({ gateway, sessionId, token }) {

@@ -235,35 +235,203 @@ export function shortAddress(address) {
   return a.length > 12 ? `${a.slice(0, 6)}…${a.slice(-4)}` : a;
 }
 
-export function countryFlag(countryCode) {
-  const cc = String(countryCode || "").toUpperCase();
+let displayNames = null;
+const CODE_TO_NAME = new Map();
+const NAME_TO_CODE = new Map();
+
+try {
+  if (typeof Intl !== "undefined" && typeof Intl.DisplayNames === "function") {
+    displayNames = new Intl.DisplayNames(["en"], { type: "region" });
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    for (const a of letters) {
+      for (const b of letters) {
+        const code = a + b;
+        try {
+          const name = displayNames.of(code);
+          if (name && name !== code && !name.includes("Unknown Region")) {
+            CODE_TO_NAME.set(code, name);
+            NAME_TO_CODE.set(name.toLowerCase(), code);
+          }
+        } catch (_) {}
+      }
+    }
+  }
+} catch (_) {
+  displayNames = null;
+}
+
+// Seed manual overrides and common aliases
+CODE_TO_NAME.set("WORLDWIDE", "WorldWide");
+CODE_TO_NAME.set("UNKNOWN", "Unknown");
+NAME_TO_CODE.set("worldwide", "WorldWide");
+NAME_TO_CODE.set("unknown", "Unknown");
+
+const IP_INTEL_ALIASES = [
+  ["united states of america", "US"],
+  ["usa", "US"],
+  ["u.s.a.", "US"],
+  ["venezuela, bolivarian republic of", "VE"],
+  ["venezuela (bolivarian republic of)", "VE"],
+  ["bolivarian republic of venezuela", "VE"],
+  ["russian federation", "RU"],
+  ["viet nam", "VN"],
+  ["korea, republic of", "KR"],
+  ["republic of korea", "KR"],
+  ["south korea", "KR"],
+  ["korea, democratic people's republic of", "KP"],
+  ["north korea", "KP"],
+  ["taiwan, province of china", "TW"],
+  ["bolivia, plurinational state of", "BO"],
+  ["plurinational state of bolivia", "BO"],
+  ["iran, islamic republic of", "IR"],
+  ["islamic republic of iran", "IR"],
+  ["tanzania, united republic of", "TZ"],
+  ["united republic of tanzania", "TZ"],
+  ["moldova, republic of", "MD"],
+  ["republic of moldova", "MD"],
+  ["syrian arab republic", "SY"],
+  ["united kingdom of great britain and northern ireland", "GB"],
+  ["uk", "GB"],
+  ["uae", "AE"],
+  ["czech republic", "CZ"],
+  ["lao people's democratic republic", "LA"],
+  ["hong kong, special administrative region of china", "HK"],
+  ["macao, special administrative region of china", "MO"],
+  ["brunei darussalam", "BN"],
+  ["congo, democratic republic of the", "CD"],
+  ["congo, republic of the", "CG"],
+  ["cote d'ivoire", "CI"],
+  ["ivory coast", "CI"],
+  ["falkland islands (malvinas)", "FK"],
+  ["micronesia, federated states of", "FM"],
+  ["palestine, state of", "PS"],
+];
+
+for (const [alias, code] of IP_INTEL_ALIASES) {
+  NAME_TO_CODE.set(alias.toLowerCase(), code);
+}
+
+/**
+ * Return full English display name for a country code or long name.
+ * E.g. "US" -> "United States", "Venezuela" -> "Venezuela", "WorldWide" -> "WorldWide".
+ */
+export function countryName(codeOrName) {
+  if (!codeOrName) return "";
+  const trimmed = String(codeOrName).trim();
+  if (!trimmed) return "";
+  const upper = trimmed.toUpperCase();
+  if (upper === "WORLDWIDE") return "WorldWide";
+  if (upper === "UNKNOWN") return "Unknown";
+
+  const directCode = NAME_TO_CODE.get(trimmed.toLowerCase());
+  if (directCode && CODE_TO_NAME.has(directCode)) {
+    return CODE_TO_NAME.get(directCode);
+  }
+
+  if (/^[A-Z]{2}$/.test(upper)) {
+    if (CODE_TO_NAME.has(upper)) return CODE_TO_NAME.get(upper);
+    if (displayNames) {
+      try {
+        const name = displayNames.of(upper);
+        if (name && name.toUpperCase() !== upper) return name;
+      } catch (_) {}
+    }
+  }
+
+  // Resolve prefix / composite match
+  const resolvedCode = countryCode(trimmed);
+  if (resolvedCode && resolvedCode !== upper && CODE_TO_NAME.has(resolvedCode)) {
+    return CODE_TO_NAME.get(resolvedCode);
+  }
+
+  return trimmed;
+}
+
+/**
+ * Return standard 2-letter ISO uppercase code (or "WorldWide" / "Unknown")
+ * from either a country code or long country name.
+ * E.g. "United States" -> "US", "us" -> "US", "Venezuela" -> "VE".
+ */
+export function countryCode(codeOrName) {
+  if (!codeOrName) return "";
+  const trimmed = String(codeOrName).trim();
+  if (!trimmed) return "";
+  const upper = trimmed.toUpperCase();
+  if (upper === "WORLDWIDE") return "WorldWide";
+  if (upper === "UNKNOWN") return "Unknown";
+
+  if (/^[A-Z]{2}$/.test(upper)) {
+    return upper;
+  }
+
+  const code = NAME_TO_CODE.get(trimmed.toLowerCase());
+  if (code) return code;
+
+  // Prefix / composite matching for official variants (e.g. "Venezuela, Bolivarian...")
+  const lower = trimmed.toLowerCase();
+  for (const [c, name] of CODE_TO_NAME.entries()) {
+    if (c.length === 2) {
+      const nameLower = name.toLowerCase();
+      if (lower.startsWith(nameLower)) {
+        const rest = lower.slice(nameLower.length);
+        if (rest.startsWith(",") || rest.startsWith(" (") || rest.startsWith(" of") || rest.startsWith(" -")) {
+          return c;
+        }
+      }
+    }
+  }
+
+  return upper;
+}
+
+/**
+ * Render flag emoji for a country code or country name.
+ * Safely accepts either short code (e.g. "US") or long name (e.g. "United States").
+ */
+export function countryFlag(codeOrName) {
+  if (!codeOrName) return "";
+  const code = countryCode(codeOrName);
+  const cc = String(code).trim().toUpperCase();
+  if (!cc) return "";
   if (cc === "UNKNOWN") return "❓";
-  if (cc === "WORLDWIDE" || !/^[A-Z]{2}$/.test(cc)) return "🌐";
+  if (cc === "WORLDWIDE") return "🌐";
+  if (!/^[A-Z]{2}$/.test(cc)) return "";
   return String.fromCodePoint(...[...cc].map((c) => 127397 + c.charCodeAt(0)));
 }
 
-const COUNTRY_NAMES = {
-  US: "United States", GB: "United Kingdom", DE: "Germany", FR: "France",
-  JP: "Japan", KR: "South Korea", CN: "China", IN: "India",
-  BR: "Brazil", CA: "Canada", AU: "Australia", NL: "Netherlands",
-  SE: "Sweden", CH: "Switzerland", SG: "Singapore", HK: "Hong Kong",
-  IT: "Italy", ES: "Spain", MX: "Mexico", RU: "Russia",
-  PL: "Poland", TR: "Turkey", AR: "Argentina", CL: "Chile",
-  CO: "Colombia", PE: "Peru", ZA: "South Africa", NG: "Nigeria",
-  KE: "Kenya", EG: "Egypt", ID: "Indonesia", PH: "Philippines",
-  VN: "Vietnam", TH: "Thailand", MY: "Malaysia", TW: "Taiwan",
-  NZ: "New Zealand", IE: "Ireland", AT: "Austria", BE: "Belgium",
-  DK: "Denmark", FI: "Finland", NO: "Norway", PT: "Portugal",
-  CZ: "Czech Republic", RO: "Romania", UA: "Ukraine", AE: "United Arab Emirates",
-  SA: "Saudi Arabia", IL: "Israel", PK: "Pakistan", BD: "Bangladesh",
-  HU: "Hungary", GR: "Greece",
-  WORLDWIDE: "WorldWide", UNKNOWN: "Unknown",
-};
+let isHydrating = false;
+/**
+ * Hydrate country names and metadata dynamically from the backend public endpoint.
+ */
+export async function hydrateCountriesFromBackend() {
+  if (typeof window === "undefined" || isHydrating) return;
+  isHydrating = true;
+  try {
+    const backendBase = (
+      process.env.NEXT_PUBLIC_BACKEND_API_URL ||
+      process.env.BACKEND_API_URL ||
+      "https://api.proxybase.xyz"
+    ).replace(/\/+$/, "");
+    const res = await fetch(`${backendBase}/v2/catalog/countries/metadata`);
+    if (!res.ok) return;
+    const data = await res.json();
 
-export function countryName(code) {
-  if (!code) return "";
-  const upper = String(code).trim().toUpperCase();
-  if (upper === "WORLDWIDE") return "WorldWide";
-  if (upper === "UNKNOWN") return "Unknown";
-  return COUNTRY_NAMES[upper] || code;
+    if (data && Array.isArray(data.countries)) {
+      for (const item of data.countries) {
+        if (item.country_code && item.country_name) {
+          const code = item.country_code.toUpperCase();
+          const name = item.country_name;
+          CODE_TO_NAME.set(code, name);
+          NAME_TO_CODE.set(name.toLowerCase(), code);
+          NAME_TO_CODE.set(code.toLowerCase(), code);
+        }
+      }
+    }
+  } catch (_) {
+    // Graceful fallback to built-in / Intl tables
+  }
+}
+
+if (typeof window !== "undefined") {
+  hydrateCountriesFromBackend();
 }

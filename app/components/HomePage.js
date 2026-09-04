@@ -238,7 +238,9 @@ function ConsoleQuickLaunch() {
           <tr><th>Bucket</th><th className="num">$/GB</th></tr>
          </thead>
          <tbody>
-          {preview.map((row) => {
+          {preview
+           .filter((row) => row.country && String(row.country).trim() !== "")
+           .map((row) => {
            const isWw = String(row.country || "").toUpperCase() === "WORLDWIDE";
            const isUk = String(row.country || "").toUpperCase() === "UNKNOWN";
            const label = isWw ? "WorldWide" : isUk ? "Unknown" : countryName(row.country);
