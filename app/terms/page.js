@@ -5,14 +5,14 @@ import Link from "next/link";
 export const metadata = {
     title: "Terms of Service | ProxyBase",
     description:
-        "ProxyBase Terms of Service. Read the rules, acceptable use policy, crypto payment terms, uptime expectations, and data privacy practices for our AI proxy infrastructure.",
+        "ProxyBase Terms of Service. Read the rules, acceptable use policy, IP rotation platform fees, crypto payment terms, uptime expectations, and data privacy practices for our AI proxy infrastructure.",
     alternates: {
         canonical: "/terms",
     },
     openGraph: {
         title: "Terms of Service | ProxyBase",
         description:
-            "ProxyBase Terms of Service acceptable use, crypto payments, uptime, and data privacy for our AI proxy infrastructure.",
+            "ProxyBase Terms of Service: acceptable use, IP rotation platform fees, crypto payments, uptime, and data privacy for our AI proxy infrastructure.",
         url: "https://proxybase.xyz/terms",
     },
 };
@@ -22,7 +22,7 @@ export default function TermsOfService() {
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "Terms of Service | ProxyBase",
-        "description": "ProxyBase Terms of Service: Acceptable Use Policy, Crypto Payment Terms, and Service Availability.",
+        "description": "ProxyBase Terms of Service: Acceptable Use Policy, Crypto Payment Terms, IP Rotation Platform Fees, and Service Availability.",
         "url": "https://proxybase.xyz/terms"
     };
 
@@ -93,6 +93,7 @@ export default function TermsOfService() {
                             <li style={{ marginBottom: "0.5rem" }}>Credential stuffing, carding, or brute-forcing accounts.</li>
                             <li style={{ marginBottom: "0.5rem" }}>Spamming email systems or automated mass commenting.</li>
                             <li style={{ marginBottom: "0.5rem" }}>Distributing malware, phishing, or illegal materials.</li>
+                            <li style={{ marginBottom: "0.5rem" }}>Systematic pool scanning, IP enumeration, network mapping, or harvesting proxy exit nodes—including identifying, classifying, or cataloging residential or mobile connections to repackage, sublicense, syndicate, or resell as a commercial proxy service or data intelligence product.</li>
                         </ul>
                         <p style={{ marginBottom: "1rem" }}>
                             If we detect malicious abuse, we reserve the right to revoke API key access and terminate active sessions immediately.
@@ -106,20 +107,36 @@ export default function TermsOfService() {
                             If an agent underpays an invoice, the system waits until the remaining amount is transferred. In the rare event of a network failure where an order is paid but proxy bandwidth fails to provision, contact us at <a href="mailto:humanshere@proxybase.xyz" style={{ color: "var(--accent-primary)", textDecoration: "none" }}>humanshere@proxybase.xyz</a> and our engineering team will patch your account or provide a replacement API key. Read our full <Link href="/refund" style={{ color: "var(--accent-primary)" }}>Refund Policy</Link>.
                         </p>
 
-                        <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>4. Service Availability & &ldquo;As-Is&rdquo; Provisioning</h3>
+                        <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>4. Connection Rotation, Platform Fees & Pool Integrity</h3>
+                        <p style={{ marginBottom: "1rem" }}>
+                            ProxyBase operates a high-availability, distributed network of residential and mobile exit nodes. To protect pool health, prevent resource depletion, and safeguard our network from unauthorized exploitation, the following provisions govern connection rotation:
+                        </p>
+                        <ul style={{ listStyleType: "disc", paddingLeft: "1.5rem", marginBottom: "1rem" }}>
+                            <li style={{ marginBottom: "0.5rem" }}>
+                                <strong>IP Rotation & Platform Fees:</strong> If you rotate your proxy connection to acquire a new IP address (whether through our <code style={{ background: "rgba(255,255,255,0.1)", padding: "2px 6px", borderRadius: "4px" }}>/rotate</code> API endpoint, automated session cycling, or manual reconnection), you may be assessed a platform fee. Platform fees for rotation requests may be levied per rotation request, per newly assigned IP, or dynamically based on rotation velocity, and will be deducted directly from your account balance in accordance with prevailing platform rate schedules.
+                            </li>
+                            <li style={{ marginBottom: "0.5rem" }}>
+                                <strong>Protection Against Pool Scanning & Reselling:</strong> Our IP pool is provisioned strictly for legitimate web scraping, data routing, and autonomous agent workloads. Systematically rotating connections to scan, probe, map, harvest, or fingerprint our node pool—including identifying and classifying residential or mobile exit connections for the purpose of reselling, syndicating, white-labeling, or offering them as a commercial proxy service or IP database to third parties—is strictly prohibited and constitutes a material breach of this agreement.
+                            </li>
+                            <li style={{ marginBottom: "0.5rem" }}>
+                                <strong>Monitoring & Remediation:</strong> ProxyBase actively monitors rotation velocity, telemetry, and network usage. In the event of abusive rotation behavior, suspected pool reconnaissance, or unauthorized commercial exploitation, ProxyBase reserves the right, in its sole discretion and without prior notice, to assess compensatory platform fees, apply automated rate limits or throttling, revoke API keys, and terminate associated accounts and sessions without entitlement to any refund.
+                            </li>
+                        </ul>
+
+                        <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>5. Service Availability & &ldquo;As-Is&rdquo; Provisioning</h3>
                         <p style={{ marginBottom: "1rem" }}>
                             ProxyBase utilizes a hybrid network of proprietary mobile nodes and decentralized bandwidth contributors. While backend routing is optimized for speed and resilience, residential connection stability depends on real-world ISP nodes.
                         </p>
                         <p style={{ marginBottom: "1rem" }}>
-                            We provide the service strictly on an &ldquo;AS IS&rdquo; and &ldquo;AS AVAILABLE&rdquo; basis. If an IP becomes unresponsive, execute a request to the <code style={{ background: "rgba(255,255,255,0.1)", padding: "2px 6px", borderRadius: "4px" }}>/rotate</code> endpoint — that is what automated rotation is built for.
+                            We provide the service strictly on an &ldquo;AS IS&rdquo; and &ldquo;AS AVAILABLE&rdquo; basis. If an IP becomes unresponsive, execute a request to the <code style={{ background: "rgba(255,255,255,0.1)", padding: "2px 6px", borderRadius: "4px" }}>/rotate</code> endpoint — that is what automated rotation is built for (subject to applicable platform rotation terms).
                         </p>
 
-                        <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>5. Data & Privacy</h3>
+                        <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>6. Data & Privacy</h3>
                         <p style={{ marginBottom: "1rem" }}>
                             We log only byte counters for billing and telemetry necessary to prevent network abuse. We do not maintain personal identification records. Keep your <code style={{ background: "rgba(255,255,255,0.1)", padding: "2px 6px", borderRadius: "4px" }}>PROXYBASE_API_KEY</code> secure, as anyone with access to your key can utilize your prepaid balance. See our <Link href="/privacy" style={{ color: "var(--accent-primary)" }}>Privacy Policy</Link>.
                         </p>
 
-                        <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>6. Modifications</h3>
+                        <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>7. Modifications</h3>
                         <p style={{ marginBottom: "1rem" }}>
                             We may update these terms periodically. Continued use of the API and proxy network represents acceptance of any revised terms.
                         </p>
