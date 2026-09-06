@@ -2,8 +2,8 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
- title: "Hermes Agent Proxies: SOCKS5 Setup + How to Make Money With Hermes | ProxyBase",
- description: "Give your Hermes Agent residential SOCKS5 proxies it can buy itself with crypto, and earn from the same box by selling spare bandwidth. No KYC, payouts from $1.",
+ title: "Hermes Agent SOCKS5 Proxies: Setup and Earnings Guide | ProxyBase",
+ description: "Point Hermes Agent at residential SOCKS5 proxies through the ProxyBase API, and run a seller node on the same machine to earn crypto from spare bandwidth. No KYC, payouts from $1.",
  keywords: "hermes agent, hermes agent proxy, hermes socks5, hermes agent setup, how to make money with hermes agent, hermes agent bandwidth, nous research hermes, proxybase",
  alternates: {
  canonical: "/hermes",

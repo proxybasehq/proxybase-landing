@@ -1,16 +1,16 @@
 export const metadata = {
-  title: "Proxy Marketplace — Buy Residential & Mobile Proxies | ProxyBase",
+  title: "Proxy Marketplace: Buy Residential & Mobile SOCKS5 with Crypto | ProxyBase",
   description:
-    "Peer-to-peer SOCKS5 proxy marketplace. Browse real-time pricing per country, buy residential and mobile proxies by the GB, or sell your spare bandwidth. No KYC, pay with crypto.",
+    "Per-country proxy prices in one table. Buy residential and mobile SOCKS5 by the GB, pay in USDT or other crypto, no KYC.",
   keywords:
     "proxy marketplace, buy proxies, residential proxy pricing, proxy brokerage, sell bandwidth, SOCKS5 proxy market, peer-to-peer proxies",
   alternates: {
     canonical: "/markets",
   },
   openGraph: {
-    title: "Proxy Marketplace — Buy Residential & Mobile Proxies | ProxyBase",
+    title: "Proxy Marketplace: Buy Residential & Mobile SOCKS5 with Crypto | ProxyBase",
     description:
-      "Peer-to-peer SOCKS5 proxy marketplace. Browse real-time pricing per country, buy residential and mobile proxies by the GB. No KYC, pay with crypto.",
+      "Per-country proxy prices in one table. Buy residential and mobile SOCKS5 by the GB, pay in USDT or other crypto, no KYC.",
     url: "https://proxybase.xyz/markets",
   },
 };

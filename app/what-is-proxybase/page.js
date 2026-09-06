@@ -2,16 +2,16 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
- title: "What is ProxyBase? A Plain English Guide | ProxyBase",
+ title: "What is ProxyBase? SOCKS5 Proxy Infrastructure for AI Agents",
  description:
- "ProxyBase is programmatic SOCKS5 proxy infrastructure designed for AI agents, autonomous systems, and web scrapers. Learn what it is, who it's for, and when to use it.",
+ "ProxyBase sells programmatic SOCKS5 proxies built for AI agents and scrapers. Buy by the GB with crypto, no KYC, REST API and MCP server.",
  alternates: {
  canonical: "/what-is-proxybase",
  },
  openGraph: {
- title: "What is ProxyBase? A Plain English Guide",
+ title: "What is ProxyBase? SOCKS5 Proxy Infrastructure for AI Agents",
  description:
- "ProxyBase is programmatic SOCKS5 proxy infrastructure designed for AI agents, autonomous systems, and web scrapers.",
+ "ProxyBase sells programmatic SOCKS5 proxies built for AI agents and scrapers. Buy by the GB with crypto, no KYC, REST API and MCP server.",
  url: "https://proxybase.xyz/what-is-proxybase",
  },
 };
