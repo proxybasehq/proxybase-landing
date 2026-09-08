@@ -72,6 +72,7 @@ export default function MarketTab() {
   const [checker, setChecker] = useState({ running: false, results: null, forId: null });
   const [notice, setNotice] = useState(null);
   const [busy, setBusy] = useState(false);
+  const [health, setHealth] = useState(null);
 
   const timersRef = useRef(new Map()); // session_id -> {close: timeoutId, deadline}
   const sessionsRef = useRef([]);
@@ -80,12 +81,14 @@ export default function MarketTab() {
     if (!token) return;
     setCatalogError(null);
     try {
-      const [p, c] = await Promise.all([
+      const [p, c, h] = await Promise.all([
         v2.getPricing(token),
         v2.getCountries(token),
+        v2.health().catch(() => null),
       ]);
       setPricing(p.pricing || []);
       setCountries(c.countries || []);
+      if (h) setHealth(h);
     } catch (err) {
       setCatalogError(err.message);
     }
@@ -417,9 +420,19 @@ export default function MarketTab() {
           accent="green"
         />
         <StatCard
-          label="Market buckets"
-          value={pricing ? pricing.filter((p) => p.available_sellers > 0).length : "…"}
-          sub={pricing ? `${new Set(pricing.map((p) => p.country)).size} countries` : "loading"}
+          label="Online proxies"
+          value={
+            health?.connected_sellers != null
+              ? health.connected_sellers.toLocaleString()
+              : pricing
+              ? pricing.reduce((sum, p) => sum + (p.available_sellers || 0), 0).toLocaleString()
+              : "…"
+          }
+          sub={
+            pricing
+              ? `${pricing.filter((p) => p.available_sellers > 0).length} market buckets · ${new Set(pricing.map((p) => p.country)).size} countries`
+              : "loading"
+          }
           accent="amber"
         />
       </div>
