@@ -75,10 +75,10 @@ export default function TermsOfService() {
                     <div className="terms-content" style={{ color: "var(--text-secondary)", lineHeight: "1.7", textAlign: "left" }}>
                         <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>1. What is ProxyBase?</h3>
                         <p style={{ marginBottom: "1rem" }}>
-                            ProxyBase (operated by DEEPWALKER LLC) provides programmatic, residential, and mobile SOCKS5 proxy infrastructure designed for autonomous AI agents, scrapers, and developer tools without dashboard friction.
+                            ProxyBase (operated by PROXYBASE XYZ LLC) provides programmatic, residential, and mobile SOCKS5 proxy infrastructure designed for autonomous AI agents, scrapers, and developer tools without dashboard friction.
                         </p>
                         <p style={{ marginBottom: "1rem" }}>
-                            By using our API, our MCP servers, or our OpenClaw skills, you agree to these terms with DEEPWALKER LLC.
+                            By using our API, our MCP servers, or our OpenClaw skills, you agree to these terms with PROXYBASE XYZ LLC.
                         </p>
 
                         <h3 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem" }}>2. Acceptable Use Policy</h3>
