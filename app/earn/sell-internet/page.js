@@ -2,9 +2,9 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export const metadata = {
- title: "Sell Internet Bandwidth & Earn Passive Income ProxyBase",
- description: "Learn how to sell your unused internet bandwidth for passive income. ProxyBase is the KYC-free, open-source bandwidth sharing app $1 minimum payout, up to $3/GB.",
- keywords: "sell internet bandwidth, how to sell internet bandwidth, make money sharing internet, share internet earn money, bandwidth sharing app, best bandwidth sharing app, passive income sharing internet, sell unused internet, sell bandwidth online, passive income app, honeygain alternative, earnapp alternative, proxybase",
+ title: "Sell Internet Bandwidth for Crypto — No KYC, $1 Payout | ProxyBase",
+ description: "Sell your unused internet bandwidth and get paid in crypto, with no KYC and a $1 minimum cashout. Here's what bandwidth is actually worth, what flat-rate apps really pay per GB, and why marketplace pricing beats them.",
+ keywords: "sell internet bandwidth, sell bandwidth for crypto, sell internet data for crypto, get paid crypto for bandwidth, how to sell internet bandwidth, make money sharing internet, share internet earn money, bandwidth sharing app, best bandwidth sharing app, passive income sharing internet, sell unused internet, sell bandwidth online, passive income app, honeygain alternative, earnapp alternative, proxybase",
  alternates: {
  canonical: "/earn/sell-internet",
  },
@@ -276,6 +276,94 @@ export default function SellInternetPage() {
  <a href="/mpp" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>Browse proxy packages →</a>
  </div>
  </div>
+ </section>
+
+ {/* WHAT BANDWIDTH IS ACTUALLY WORTH */}
+ <section className="compare-deepdive-section" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+ <div className="section-header">
+ <span className="section-label">The Economics</span>
+ <h2>What Is Your Bandwidth Actually Worth?</h2>
+ <p className="section-desc">Most &ldquo;earn money sharing your internet&rdquo; articles quote a per-GB rate and stop. The rate is the least interesting part &mdash; where it sits in the supply chain is what determines it.</p>
+ </div>
+
+ <p style={{ marginBottom: "1.5rem" }}>
+ Your connection runs through four hands before it reaches a buyer: your home router, the bandwidth-sharing app, the proxy provider that app sells into, and finally the customer &mdash; usually a business doing web scraping, ad verification, or AI training data collection. Everyone in that chain takes a cut. An analysis of proxy supply-chain economics found that buyers at the top can pay on the order of <strong>80&times; what the household at the bottom receives</strong> per gigabyte. That spread, not any single headline rate, is why two apps can both advertise &ldquo;we pay per GB&rdquo; and differ by a factor of twenty.
+ </p>
+
+ <div className="matrix-table-container">
+ <table className="compare-matrix-table">
+ <thead>
+ <tr>
+ <th>App</th>
+ <th>Reported Rate</th>
+ <th>Minimum Payout</th>
+ <th>Payout Method</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td className="metric-name">Honeygain</td>
+ <td>~$0.10 / GB reported</td>
+ <td className="text-danger">$20.00</td>
+ <td>PayPal, gift cards</td>
+ </tr>
+ <tr>
+ <td className="metric-name">Pawns.app</td>
+ <td>~$0.20 / GB</td>
+ <td>$5.00</td>
+ <td>PayPal, Bitcoin, gift cards</td>
+ </tr>
+ <tr>
+ <td className="metric-name">PacketStream</td>
+ <td>$0.10 / GB</td>
+ <td>$5.00</td>
+ <td className="text-danger">PayPal (USD) only</td>
+ </tr>
+ <tr>
+ <td className="metric-name">EarnApp</td>
+ <td>~$0.36 / GB in the US; time-based since Aug 2025</td>
+ <td>$10.00</td>
+ <td>PayPal, Wise</td>
+ </tr>
+ <tr>
+ <td className="metric-name">ProxyRack</td>
+ <td>Up to $0.50 / GB</td>
+ <td>Varies</td>
+ <td>PayPal, gift cards, wire</td>
+ </tr>
+ <tr>
+ <td className="metric-name highlight-col">ProxyBase</td>
+ <td className="highlight-col text-emerald font-weight-bold">Marketplace rate, set by live demand per country</td>
+ <td className="highlight-col text-emerald font-weight-bold">$1.00</td>
+ <td className="highlight-col text-emerald font-weight-bold">USDT, USDC, crypto</td>
+ </tr>
+ </tbody>
+ </table>
+ </div>
+
+ <p style={{ marginBottom: "1.5rem", fontSize: "0.95rem", color: "var(--text-muted)" }}>
+ <strong>Read that table carefully before you compare it.</strong> These figures are reported by third parties who have reviewed each app; they are not always published as official rates by the companies themselves, and at least one widely-quoted number contradicts the app&rsquo;s own documentation. Rates vary substantially by country &mdash; US and Western European residential IPs earn several times what others do &mdash; and change without notice. Treat every figure as approximate and location-dependent.
+ </p>
+
+ <h3 style={{ color: "var(--text-primary)", fontSize: "1.4rem", margin: "2rem 0 1rem" }}>Why flat-rate apps pay less</h3>
+ <p style={{ marginBottom: "1.5rem" }}>
+ Two structural reasons, and neither is about the app being stingy:
+ </p>
+ <ul style={{ paddingLeft: "1.5rem", marginBottom: "1.5rem" }}>
+ <li style={{ marginBottom: "10px" }}><strong>The app sets the price, you take it.</strong> Flat-rate apps buy your traffic at a fixed price and resell at whatever the market pays. When demand for US residential IPs spikes, the app captures that upside. You still get $0.10.</li>
+ <li style={{ marginBottom: "10px" }}><strong>Flat rates hide IP quality.</strong> A mobile IP in a major market is worth many times a datacenter IP. A single flat rate flattens that difference, which means the highest-value connections subsidise the cheapest ones.</li>
+ </ul>
+ <p style={{ marginBottom: "1.5rem" }}>
+ A marketplace inverts this: buyers bid per country and connection type, and the rate you see reflects what your specific connection is actually worth that day.
+ </p>
+
+ <h3 style={{ color: "var(--text-primary)", fontSize: "1.4rem", margin: "2rem 0 1rem" }}>Selling bandwidth for crypto</h3>
+ <p style={{ marginBottom: "1.5rem" }}>
+ The payout rail matters as much as the rate, and it is where most of these apps fall short. PacketStream pays in USD through PayPal only. Honeygain pays PayPal or gift cards with a $20 threshold you have to reach first. Pawns pays PayPal with a Bitcoin option. All of them require identity verification of some form, and all of them put a fiat intermediary between you and your money.
+ </p>
+ <p style={{ marginBottom: "1.5rem" }}>
+ ProxyBase pays in stablecoins on-chain from $1.00, with no KYC. If you are selling bandwidth for crypto specifically &mdash; because PayPal is unavailable where you live, because you would rather not hand over identity documents for a passive-income app, or because you want the payout to settle in minutes rather than at a monthly threshold &mdash; that difference is the whole point.
+ </p>
  </section>
 
  {/* FAQ */}

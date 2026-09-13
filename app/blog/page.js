@@ -44,10 +44,10 @@ export default function BlogIndex() {
  slug: "/blog/how-to-bypass-kalshi-geo-restrictions"
  },
  {
- title: "Bypassing Polymarket Geo-Restrictions: Why VPNs Fail and How to Use SOCKS5 Proxies",
- excerpt: "Learn how to bypass geo-blocking restrictions on Polymarket. Discover why traditional VPNs get flagged and how to configure SOCKS5 residential proxies to automate prediction market trades securely.",
+ title: "Polymarket VPN: Why VPNs Get Blocked and How to Bypass Geo-Restrictions",
+ excerpt: "Polymarket began blocking known VPN ranges outright in 2026. Here's why commercial VPNs stopped working, what the crackdown actually detects, and how residential SOCKS5 proxies keep automated trading online.",
  date: "June 2026",
- readTime: "7 min read",
+ readTime: "9 min read",
  author: "ProxyBase Team",
  slug: "/blog/how-to-bypass-polymarket-geo-restrictions"
  },

@@ -112,6 +112,17 @@ export default function PredictionMarketsProxyPage() {
               </div>
             </div>
 
+            <p style={{ marginBottom: "1.5rem" }}>
+              One distinction worth getting straight before you configure anything: whether
+              Polymarket is legal where you live is a different question from whether a proxy
+              works. The{" "}
+              <Link href="/polymarket-legal" style={{ color: "var(--accent-primary)" }}>
+                US versus international platform breakdown
+              </Link>{" "}
+              covers it &mdash; the short version is that residency checks are not something a
+              proxy can solve, while IP-based geo-blocks are.
+            </p>
+
             <h2 style={{ color: "var(--text-primary)", marginTop: "2.5rem", marginBottom: "1rem", fontSize: "1.8rem" }}>
               In-Depth Guides
             </h2>
