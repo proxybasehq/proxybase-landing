@@ -88,27 +88,47 @@ export default function KalshiGeoRestrictionsBlog() {
 
  <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>Routing Your Python Bot Through ProxyBase</h3>
  <p style={{ marginBottom: "1.5rem" }}>
- With ProxyBase, you can target specific geographic locations (like US residential nodes) directly through your proxy connection string. Below is a practical example of how to route a Python script targeting the Kalshi API v2 via a ProxyBase SOCKS5 proxy:
+ With ProxyBase, the country is chosen when you open the session, not written into the credential string. You request a US residential session from the v2 API, and the credentials it returns are pinned to a US seller node. Below is a practical example of how to route a Python script targeting the Kalshi API v2 through one:
  </p>
 
  <div className="cli-install-cmd" style={{ whiteSpace: "pre-wrap", padding: "1.5rem", borderRadius: "8px", background: "var(--bg-code)", color: "#a5b4fc", fontFamily: "monospace", fontSize: "0.95rem", marginBottom: "2.5rem" }}>
  {`import requests
 
-# Configure SOCKS5 credentials targeting US residential IPs
-# Format: socks5h://username-country-us:password@v2.proxybase.xyz:1080
+TOKEN   = "sk_your_session_token"
+GATEWAY = "api.proxybase.xyz:1082"   # v2 buyer SOCKS5 gateway
+
+# 1. Open a sticky session that exits from US residential IPs.
+r = requests.post(
+    "https://api.proxybase.xyz/v2/sessions",
+    headers={"Authorization": f"Bearer {TOKEN}"},
+    json={
+        "country": "US",
+        "network_type": "residential",
+        "session_type": "sticky",
+        "spend_cap_microcredits": 5_000_000,
+    },
+    timeout=15,
+)
+r.raise_for_status()
+session_id = r.json()["session_id"]
+
+# 2. username = session_id, password = session token
 proxies = {
- 'http': 'socks5h://r_username-country-us:password@v2.proxybase.xyz:1080',
- 'https': 'socks5h://r_username-country-us:password@v2.proxybase.xyz:1080'
+    "http":  f"socks5h://{session_id}:{TOKEN}@{GATEWAY}",
+    "https": f"socks5h://{session_id}:{TOKEN}@{GATEWAY}",
 }
 
-# Target the Kalshi API v2 Exchange Status endpoint
-url = 'https://external-api.kalshi.com/trade-api/v2/exchange/status'
+# 3. Confirm the exit country before trading.
+print(requests.get(
+    "https://api.ipify.org?format=json", proxies=proxies, timeout=10
+).json())
 
+# 4. Now call the Kalshi API.
+url = "https://external-api.kalshi.com/trade-api/v2/exchange/status"
 try:
- response = requests.get(url, proxies=proxies, timeout=10)
- print("Exchange Status:", response.json())
+    print("Exchange Status:", requests.get(url, proxies=proxies, timeout=10).json())
 except Exception as e:
- print("Connection failed:", e)`}
+    print("Connection failed:", e)`}
  </div>
 
  <p style={{ marginBottom: "2.5rem" }}>
@@ -121,7 +141,7 @@ except Exception as e:
  </p>
  <ul style={{ paddingLeft: "1.5rem", marginBottom: "2.5rem" }}>
  <li style={{ marginBottom: "10px" }}><strong>Self-Healing Infrastructure:</strong> Every connection is protected by dual active tunnels. If a target residential node goes offline, the proxy seamlessly routes traffic through an alternative path with no downtime.</li>
- <li style={{ marginBottom: "10px" }}><strong>US Residential Targeting:</strong> By appending `-country-us` to your proxy credentials, you ensure your bot exits from a verified US residential connection, matching Kalshi’s strict geographic criteria.</li>
+ <li style={{ marginBottom: "10px" }}><strong>US Residential Targeting:</strong> Open the session with <code>&quot;country&quot;: &quot;US&quot;</code> and every request exits from a verified US residential connection, matching Kalshi’s strict geographic criteria.</li>
  <li style={{ marginBottom: "10px" }}><strong>Fast Setup, No KYC Bottlenecks:</strong> You can pay for bandwidth using USDC/crypto, generate credentials instantly, and deploy your bot in minutes without waiting for credit card validation or identity verification.</li>
  </ul>
 

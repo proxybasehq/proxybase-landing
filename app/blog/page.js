@@ -20,6 +20,30 @@ export const metadata = {
 export default function BlogIndex() {
  const posts = [
  {
+ title: "Kalshi & Polymarket API: Run Bots From a Server Without IP Blocks",
+ excerpt: "Your API keys are fine — your server's egress IP is the problem. How datacenter ASN detection blocks prediction market bots, and how to route through a country-matched residential SOCKS5 session.",
+ date: "September 2026",
+ readTime: "8 min read",
+ author: "ProxyBase Team",
+ slug: "/blog/prediction-market-api-proxy"
+ },
+ {
+ title: "Polymarket Arbitrage Bots: Routing Two Venues From One Machine",
+ excerpt: "A cross-venue arbitrage bot needs a US exit and a non-US exit at the same time, from one process. Why a VPS in each country still fails, and how to hold two sticky residential sessions side by side.",
+ date: "September 2026",
+ readTime: "9 min read",
+ author: "ProxyBase Team",
+ slug: "/blog/polymarket-arbitrage-bot-proxy"
+ },
+ {
+ title: "Kalshi Trading Bots: Why a VPS Gets You Blocked",
+ excerpt: "A VPS hands your bot a hosting ASN, which is the exact thing Kalshi's firewall rejects before it ever looks at your credentials. What to change, and what to leave alone.",
+ date: "September 2026",
+ readTime: "7 min read",
+ author: "ProxyBase Team",
+ slug: "/blog/kalshi-trading-bot-proxy"
+ },
+ {
  title: "HD Wallets: Run a Seller Fleet From One Seed Phrase",
  excerpt: "One master seed phrase now derives a distinct BIP-44 wallet for every seller node. Fleet-scale deployment, earnings sweeping, and Kubernetes manifests shipped in the CLI today.",
  date: "August 2026",

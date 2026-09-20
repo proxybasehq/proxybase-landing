@@ -160,7 +160,7 @@ export default function PolymarketGeoRestrictionsBlog() {
  If you are running an automated trading bot using Polymarket’s CLOB API, you can easily route requests through ProxyBase SOCKS5 nodes.
  </p>
  <p style={{ marginBottom: "1.5rem" }}>
- ProxyBase provides an anonymous, KYC-free gateway where you authenticate programmatically using your crypto wallet address and configure target geographical locations directly inside the authentication credentials.
+ ProxyBase provides an anonymous, KYC-free gateway where you authenticate programmatically using your crypto wallet address. The target country is chosen when you open the session, so the credentials you receive are already pinned to a node in that country.
  </p>
 
  <p style={{ marginBottom: "1.5rem" }}>
@@ -170,15 +170,31 @@ export default function PolymarketGeoRestrictionsBlog() {
  <div className="cli-install-cmd" style={{ whiteSpace: "pre-wrap", padding: "1.5rem", borderRadius: "8px", background: "var(--bg-code)", color: "#a5b4fc", fontFamily: "monospace", fontSize: "0.95rem", marginBottom: "2.5rem" }}>
  {`import requests
 
-# Set up your ProxyBase SOCKS5 credentials
-# Filter specifically for a German residential proxy node
+TOKEN   = "sk_your_session_token"
+GATEWAY = "api.proxybase.xyz:1082"   # v2 buyer SOCKS5 gateway
+
+# Open a sticky session pinned to a non-US residential node.
+r = requests.post(
+    "https://api.proxybase.xyz/v2/sessions",
+    headers={"Authorization": f"Bearer {TOKEN}"},
+    json={
+        "country": "DE",           # where YOU are eligible to trade
+        "network_type": "residential",
+        "session_type": "sticky",
+    },
+    timeout=15,
+)
+r.raise_for_status()
+session_id = r.json()["session_id"]
+
+# username = session_id, password = session token
 proxies = {
- 'http': 'socks5h://r_username-country-de:password@v2.proxybase.xyz:1080',
- 'https': 'socks5h://r_username-country-de:password@v2.proxybase.xyz:1080'
+    "http":  f"socks5h://{session_id}:{TOKEN}@{GATEWAY}",
+    "https": f"socks5h://{session_id}:{TOKEN}@{GATEWAY}",
 }
 
-# Fetch the latest market prices from Polymarket API
-response = requests.get('https://clob.polymarket.com/markets', proxies=proxies)
+# Fetch the latest market prices from Polymarket's CLOB API
+response = requests.get("https://clob.polymarket.com/markets", proxies=proxies, timeout=10)
 print(response.json())`}
  </div>
 

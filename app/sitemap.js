@@ -277,6 +277,24 @@ export default function sitemap() {
             priority: 0.8,
         },
         {
+            url: "https://proxybase.xyz/blog/prediction-market-api-proxy",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
+            url: "https://proxybase.xyz/blog/kalshi-trading-bot-proxy",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
+            url: "https://proxybase.xyz/blog/polymarket-arbitrage-bot-proxy",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
             url: "https://proxybase.xyz/blog/polymarket-blocked-in-turkiye-how-to-bypass",
             lastModified: new Date(),
             changeFrequency: "monthly",

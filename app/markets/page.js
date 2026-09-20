@@ -152,7 +152,7 @@ export default function MarketsPage() {
  <strong>No KYC or Dashboards:</strong> Authenticate programmatically with your crypto wallet.
  </li>
  <li>
- <strong>Intent-Based Routing:</strong> Request specific properties directly in SOCKS5 auth strings (e.g. `jwt|country_US|type_mobile`).
+ <strong>Intent-Based Routing:</strong> Open a session for the country and network type you need (e.g. <code>country=&quot;US&quot;</code>, <code>network_type=&quot;mobile&quot;</code>) and connect with the credentials it returns.
  </li>
  <li>
  <strong>Self-Healing Failovers:</strong> Dual-path failover channels immediately reroute traffic if a path goes offline.

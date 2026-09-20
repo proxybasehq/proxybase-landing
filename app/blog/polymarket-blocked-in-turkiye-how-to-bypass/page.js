@@ -100,18 +100,35 @@ export default function PolymarketTurkiyeBanBlog() {
  <div className="cli-install-cmd" style={{ whiteSpace: "pre-wrap", padding: "1.5rem", borderRadius: "8px", background: "var(--bg-code)", color: "#a5b4fc", fontFamily: "monospace", fontSize: "0.95rem", marginBottom: "2.5rem" }}>
  {`import requests
 
-# Configure SOCKS5 residential proxy targeting a Germany (DE) node
+TOKEN   = "sk_your_session_token"
+GATEWAY = "api.proxybase.xyz:1082"   # v2 buyer SOCKS5 gateway
+
+# 1. Open a sticky session pinned to a non-TR residential node.
+r = requests.post(
+    "https://api.proxybase.xyz/v2/sessions",
+    headers={"Authorization": f"Bearer {TOKEN}"},
+    json={
+        "country": "DE",
+        "network_type": "residential",
+        "session_type": "sticky",
+    },
+    timeout=15,
+)
+r.raise_for_status()
+session_id = r.json()["session_id"]
+
+# 2. username = session_id, password = session token
 proxies = {
- 'http': 'socks5h://r_username-country-de:password@v2.proxybase.xyz:1080',
- 'https': 'socks5h://r_username-country-de:password@v2.proxybase.xyz:1080'
+    "http":  f"socks5h://{session_id}:{TOKEN}@{GATEWAY}",
+    "https": f"socks5h://{session_id}:{TOKEN}@{GATEWAY}",
 }
 
-# Fetch the active markets list securely
+# 3. Fetch the active markets list securely
 try:
- response = requests.get('https://clob.polymarket.com/markets', proxies=proxies, timeout=10)
- print("Connection Successful! Active Markets count:", len(response.json()))
+    response = requests.get("https://clob.polymarket.com/markets", proxies=proxies, timeout=10)
+    print("Connection Successful! Active Markets count:", len(response.json()))
 except Exception as e:
- print("Connection failed:", e)`}
+    print("Connection failed:", e)`}
  </div>
 
  <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>Why Choose ProxyBase?</h3>

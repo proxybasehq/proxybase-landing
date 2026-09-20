@@ -245,19 +245,23 @@ export default function HowToSetUpProxiesForAIAgents() {
               Geo-Targeting: Route Through Specific Countries
             </h3>
             <p style={{ marginBottom: "1rem" }}>
-              Need your agent to appear from Japan, Germany, or Brazil? ProxyBase supports geo-targeting
-              via SOCKS5 auth tags — you specify the country in your proxy credentials:
+              Need your agent to appear from Japan, Germany, or Brazil? The country is set when you open
+              the session, and the credentials you get back are already pinned to a seller node in that
+              country:
             </p>
 
             <div style={{ background: "var(--bg-secondary)", borderRadius: "12px", padding: "24px", marginBottom: "2rem", fontFamily: "monospace", fontSize: "0.85rem", lineHeight: 1.8, overflowX: "auto" }}>
               <div style={{ color: "var(--text-muted)", marginBottom: "8px" }}># US residential IP</div>
-              <div style={{ color: "var(--accent-primary)", marginBottom: "16px" }}>socks5://jwt|country_US|type_residential@api.proxybase.xyz:1080</div>
+              <div style={{ color: "var(--accent-primary)", marginBottom: "16px" }}>POST /v2/sessions &nbsp; country=&quot;US&quot; &nbsp; network_type=&quot;residential&quot; &nbsp; session_type=&quot;sticky&quot;</div>
 
               <div style={{ color: "var(--text-muted)", marginBottom: "8px" }}># German mobile (4G/5G) IP</div>
-              <div style={{ color: "var(--accent-primary)", marginBottom: "16px" }}>socks5://jwt|country_DE|type_mobile@api.proxybase.xyz:1080</div>
+              <div style={{ color: "var(--accent-primary)", marginBottom: "16px" }}>POST /v2/sessions &nbsp; country=&quot;DE&quot; &nbsp; network_type=&quot;mobile&quot; &nbsp; session_type=&quot;sticky&quot;</div>
 
-              <div style={{ color: "var(--text-muted)", marginBottom: "8px" }}># Japan residential, auto-rotate on connection</div>
-              <div style={{ color: "var(--accent-primary)" }}>socks5://jwt|country_JP|type_residential|rotate@api.proxybase.xyz:1080</div>
+              <div style={{ color: "var(--text-muted)", marginBottom: "8px" }}># Japan residential, auto-rotate</div>
+              <div style={{ color: "var(--accent-primary)", marginBottom: "16px" }}>POST /v2/sessions &nbsp; country=&quot;JP&quot; &nbsp; network_type=&quot;residential&quot; &nbsp; session_type=&quot;rotating&quot;</div>
+
+              <div style={{ color: "var(--text-muted)", marginBottom: "8px" }}># The returned session_id plus your session token are the SOCKS5 credentials</div>
+              <div style={{ color: "var(--accent-primary)" }}>socks5h://&lt;session_id&gt;:&lt;session_token&gt;@api.proxybase.xyz:1082</div>
             </div>
 
             <h3 style={{ color: "var(--text-primary)", fontSize: "1.8rem", marginTop: "3rem", marginBottom: "1.5rem" }}>

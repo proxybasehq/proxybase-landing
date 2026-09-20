@@ -180,8 +180,8 @@ function HowItWorks() {
  <div className="step-num">02</div>
  <h3>Intent-Based SOCKS5</h3>
  <p>
- Dynamically request specific IP parameters straight in the SOCKS5
- connection string (e.g. <code>socks5://wallet:sig@socks5.proxybase.xyz:1080?country=us</code>).
+ Open a session for the country and network type you need, then connect with the
+ credentials it returns (e.g. <code>socks5h://&lt;session_id&gt;:&lt;session_token&gt;@api.proxybase.xyz:1082</code>).
  </p>
  </div>
 
