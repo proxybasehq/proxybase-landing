@@ -4,14 +4,14 @@ import Link from "next/link";
 
 export const metadata = {
     title: "Buy SOCKS5 Proxies with Crypto — Bitcoin, USDC, USDT, ETH, SOL | ProxyBase",
-    description: "Buy high-reputation residential and mobile SOCKS5 proxies with crypto. Instant provisioning via API & MPP, zero KYC, no credit card required. Pay with USDC, USDT, BTC, ETH, or SOL.",
-    keywords: "buy proxy with crypto, buy socks5 proxy with crypto, buy socks5 proxy with bitcoin, buy proxy usdc, buy proxy usdt, buy proxy solana, buy proxy eth, crypto proxy no kyc, pay proxy with crypto, mpp proxy micropayments, proxybase",
+    description: "Buy residential and mobile SOCKS5 proxies with crypto. Pay in USDC, USDT, BTC, ETH, or SOL — no card, no identity documents. Fixed packages or live market rates.",
+    keywords: "buy proxy with crypto, buy socks5 proxy with crypto, buy socks5 proxy with bitcoin, buy proxy usdc, buy proxy usdt, buy proxy solana, buy proxy eth, crypto proxy no kyc, pay proxy with crypto, proxybase",
     alternates: {
         canonical: "/buy-with-crypto",
     },
     openGraph: {
-        title: "Buy SOCKS5 Proxies with Crypto — No Card, Zero KYC, Instant Provisioning",
-        description: "Pay with Bitcoin, USDC, USDT, ETH, or SOL. Get residential SOCKS5 proxy credentials in under 60 seconds via automated API and Micropayments Protocol.",
+        title: "Buy SOCKS5 Proxies with Crypto — No Card, No KYC",
+        description: "Pay in Bitcoin, USDC, USDT, ETH, or SOL. Fixed prepaid packages, or live market rates billed per session. Credentials issued by the API when payment confirms.",
         url: "https://proxybase.xyz/buy-with-crypto",
         type: "website",
     },
@@ -21,14 +21,15 @@ export default function BuyWithCryptoPage() {
     const webPageJsonLd = {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": "Buy SOCKS5 Proxies with Crypto — Bitcoin, USDC, USDT, ETH, SOL",
-        "description": "Buy high-reputation residential and mobile SOCKS5 proxies using cryptocurrency. Instant programmatic provisioning with zero KYC and no credit cards.",
+        "name": "Buy SOCKS5 Proxies with Crypto",
+        "description": "How to buy residential and mobile SOCKS5 proxy bandwidth with cryptocurrency: fixed prepaid packages versus live market rates, supported coins, and the API flow.",
         "url": "https://proxybase.xyz/buy-with-crypto",
         "publisher": {
             "@type": "Organization",
             "name": "ProxyBase",
             "url": "https://proxybase.xyz"
-        }
+        },
+        "dateModified": "2026-09-24"
     };
 
     const breadcrumbsJsonLd = {
@@ -50,107 +51,72 @@ export default function BuyWithCryptoPage() {
         ]
     };
 
-    const howToJsonLd = {
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        "name": "How to Buy SOCKS5 Proxies with Crypto",
-        "description": "Step-by-step guide to programmatically purchasing residential SOCKS5 proxy bandwidth using cryptocurrency.",
-        "step": [
-            {
-                "@type": "HowToStep",
-                "position": 1,
-                "name": "Register Agent or Access MPP Store",
-                "text": "Send a single POST request to /v1/agents to receive an instant API key, or access the Micropayments Protocol store."
-            },
-            {
-                "@type": "HowToStep",
-                "position": 2,
-                "name": "Generate Crypto Invoice & Select Currency",
-                "text": "Select your bandwidth package (e.g. 1GB, 5GB, 10GB) and payment coin (USDC, USDT, BTC, ETH, SOL) to generate an on-chain deposit address."
-            },
-            {
-                "@type": "HowToStep",
-                "position": 3,
-                "name": "Broadcast Payment on Blockchain",
-                "text": "Transfer the exact invoice amount from your Web3 wallet, automated agent, or exchange account to the provided address."
-            },
-            {
-                "@type": "HowToStep",
-                "position": 4,
-                "name": "Receive Instant SOCKS5 Proxy Credentials",
-                "text": "Once confirmed on-chain (sub-second on Tempo/Solana), your SOCKS5 credentials activate automatically for instant scraping and tool use."
-            }
-        ]
-    };
-
-    const productJsonLd = {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": "ProxyBase Residential Proxy Bandwidth",
-        "description": "High-reputation residential SOCKS5 proxy bandwidth with instant crypto checkout, zero KYC, and programmatic IP rotation.",
-        "brand": {
-            "@type": "Brand",
-            "name": "ProxyBase"
-        },
-        "offers": {
-            "@type": "AggregateOffer",
-            "priceCurrency": "USD",
-            "lowPrice": "3.00",
-            "highPrice": "100.00",
-            "offerCount": "10"
-        }
-    };
-
     const faqJsonLd = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
             {
                 "@type": "Question",
-                "name": "Which cryptocurrencies are supported for buying proxies?",
+                "name": "Which cryptocurrencies can I pay with?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "ProxyBase accepts USDC, USDT, Bitcoin (BTC), Ethereum (ETH), and Solana (SOL). Stablecoins via the Micropayments Protocol (MPP) on Tempo and Solana are recommended for near-instant confirmations and minimal network fees."
+                    "text": "USDC, USDT, Bitcoin, Ethereum, and Solana. Stablecoins settle fastest and cost the least in network fees, so they are the better default if your agent tops up often. The full list is available from GET /v1/currencies."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Is identity verification or KYC required to buy proxies?",
+                "name": "Do I need to verify my identity?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "No. ProxyBase requires zero KYC. You do not need to provide an email, phone number, physical address, or passport. Your cryptographic wallet and API key serve as your authentication."
+                    "text": "No. There is no email, phone number, address, or document upload. Your wallet address and API key are the whole account."
                 }
             },
             {
                 "@type": "Question",
-                "name": "How quickly are proxy credentials delivered after paying with crypto?",
+                "name": "How long until credentials are issued?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Credentials are provisioned automatically as soon as the transaction is confirmed on-chain. On Solana and Tempo (USDC/USDT), access is provisioned in under 10 seconds. On Bitcoin and Ethereum, access activates upon network block confirmation."
+                    "text": "Provisioning runs automatically when the transaction confirms. Stablecoins on Tempo and Solana typically confirm in seconds. Bitcoin and Ethereum wait on block confirmation, so expect minutes rather than seconds."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Can autonomous AI agents purchase proxy bandwidth autonomously?",
+                "name": "Can an agent buy without a human?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Yes. The entire ordering, payment calculation, status polling, and proxy rotation process is 100% headless and API-first. AI agents built with Claude, GPT-4, LangChain, or OpenClaw can fund their own wallets and purchase bandwidth without human intervention."
+                    "text": "Yes. Registration, ordering, status polling, and rotation are all headless HTTP calls, and payment is a wallet signature, so nothing in the flow needs a browser or a card."
                 }
             },
             {
                 "@type": "Question",
-                "name": "Do purchased bandwidth credits expire?",
+                "name": "Does prepaid bandwidth expire?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "No. Unlike traditional monthly subscriptions that wipe unused bandwidth at the end of the billing cycle, ProxyBase prepaid crypto bandwidth credits never expire."
+                    "text": "No. A fixed package keeps its full balance until you transfer the data. This is the main practical difference from monthly plans, which usually forfeit whatever you did not use by the renewal date."
                 }
             },
             {
                 "@type": "Question",
-                "name": "What proxy protocols and features are included?",
+                "name": "Which protocols are supported?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "All purchases provide access to SOCKS5 and HTTP residential and mobile proxy endpoints with dual-path failover, programmatic IP rotation via POST /rotate, and full MCP server compatibility."
+                    "text": "SOCKS5 (including authenticated SOCKS5) and HTTP/HTTPS, over residential and mobile endpoints. IP rotation is available programmatically via POST /v1/orders/{id}/rotate."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What if an invoice is underpaid?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Partial payments are recorded against the order and it stays open. Once the full amount arrives, credentials are issued, so you do not have to start a new order."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I earn crypto by selling bandwidth instead?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, that runs the other direction. On ProxyBase Markets you run a seller node and earn per gigabyte relayed, paid in AlphaUSD or USDC."
                 }
             }
         ]
@@ -165,14 +131,6 @@ export default function BuyWithCryptoPage() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsJsonLd) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
             />
             <script
                 type="application/ld+json"
@@ -199,12 +157,72 @@ export default function BuyWithCryptoPage() {
                         </div>
                         <h1>Buy SOCKS5 Proxies with Crypto — Instant, Zero KYC, API-First</h1>
                         <p className="hero-subtitle">
-                            Purchase high-reputation residential and mobile proxy bandwidth with Bitcoin, USDC, USDT, Ethereum, or Solana.
-                            No credit cards, no KYC compliance delays, and no recurring subscriptions. Automated checkout designed for AI agents and developer workflows.
+                            Pay for residential and mobile proxy bandwidth with Bitcoin, USDC, USDT, Ethereum, or Solana.
+                            No credit cards, no identity checks, no subscriptions. There are two ways to buy, and they price
+                            differently: fixed prepaid packages, or the live marketplace where rates move with supply.
                         </p>
                         <div className="hero-actions">
-                            <Link href="/mpp" className="btn-primary" data-umami-event="BuyWithCrypto: Store CTA">Buy Proxies with Crypto →</Link>
-                            <a href="#supported-chains" className="btn-secondary">Explore Payment Rails ↓</a>
+                            <Link href="/mpp" className="btn-primary" data-umami-event="BuyWithCrypto: Packages CTA">Buy a Fixed Package →</Link>
+                            <Link href="/markets" className="btn-secondary" data-umami-event="BuyWithCrypto: Market CTA">Shop the Live Market →</Link>
+                        </div>
+                    </div>
+                </section>
+
+                {/* TWO WAYS TO BUY */}
+                <section className="compare-intro-section" id="how-pricing-works">
+                    <div className="section-header">
+                        <span className="section-label">How Pricing Works</span>
+                        <h2>Fixed Packages or Live Market: They Price Differently</h2>
+                        <p className="section-desc">
+                            ProxyBase runs two purchasing rails. Pick the one that matches how much you buy and how
+                            much your price needs to be predictable.
+                        </p>
+                    </div>
+
+                    <div className="intro-card-grid">
+                        <div className="intro-card">
+                            <div className="card-brand-header">
+                                <span className="brand-logo-dot active" />
+                                <h3>Fixed Packages</h3>
+                            </div>
+                            <p className="brand-tagline">Set prices, prepaid</p>
+                            <p className="brand-desc">
+                                Buy a block of bandwidth at a set price and keep it until you use it. This is the
+                                simplest rail if you know roughly how much traffic you need and want the cost
+                                settled up front.
+                            </p>
+                            <ul className="brand-bullets">
+                                <li>1 GB: $10</li>
+                                <li>5 GB: $50</li>
+                                <li>10 GB: $100</li>
+                                <li>Bandwidth does not expire</li>
+                            </ul>
+                            <div style={{ marginTop: "12px" }}>
+                                <Link href="/mpp" style={{ color: "var(--accent-primary)", fontSize: "0.9rem" }}>Browse fixed packages →</Link>
+                            </div>
+                        </div>
+
+                        <div className="intro-card">
+                            <div className="card-brand-header">
+                                <span className="brand-logo-dot legacy" />
+                                <h3>Live Marketplace</h3>
+                            </div>
+                            <p className="brand-tagline">Dynamic per-GB rates set by supply</p>
+                            <p className="brand-desc">
+                                Open a session against the peer marketplace and pay the current per-GB rate for that
+                                country and network type. Rates are set per country and category, so they vary,
+                                and they can be materially lower than the fixed package rate. You pay from a
+                                prepaid credit balance, billed per session.
+                            </p>
+                            <ul className="brand-bullets">
+                                <li>US residential from ~$3.00/GB at current rates</li>
+                                <li>US mobile from ~$5.00/GB</li>
+                                <li>Rates move with supply, so check the live table</li>
+                                <li>Billed per session from your credit balance</li>
+                            </ul>
+                            <div style={{ marginTop: "12px" }}>
+                                <Link href="/markets" style={{ color: "var(--accent-primary)", fontSize: "0.9rem" }}>See live market rates →</Link>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -215,7 +233,7 @@ export default function BuyWithCryptoPage() {
                         <span className="section-label">Supported Currencies</span>
                         <h2>Accepted Cryptocurrencies & Payment Rails</h2>
                         <p className="section-desc">
-                            Choose between ultra-fast stablecoins via the <Link href="/mpp" style={{ color: "var(--accent-primary)" }}>Micropayments Protocol (MPP)</Link> or classic on-chain settlement invoices.
+                            Pay with stablecoins through the <Link href="/what-is-mpp" style={{ color: "var(--accent-primary)" }}>Micropayments Protocol</Link>, or settle a conventional on-chain invoice.
                         </p>
                     </div>
 
@@ -270,40 +288,48 @@ export default function BuyWithCryptoPage() {
                             <div className="icon-wrapper">⚡</div>
                             <h3>Micropayments Protocol (MPP)</h3>
                             <p>
-                                Buy proxies without ever generating a traditional invoice. Utilizing the Tempo chain and Solana stablecoins, agents can stream micropayments directly per megabyte or gigabyte of consumed residential bandwidth.
+                                MPP skips the invoice entirely. On Tempo and Solana, stablecoin payments confirm in
+                                under two seconds, so an agent can top up mid-task rather than pre-buying a block it
+                                may never finish.
                             </p>
                             <div style={{ marginTop: "12px" }}>
-                                <Link href="/mpp" style={{ color: "var(--accent-primary)", fontSize: "0.9rem" }}>Learn about MPP →</Link>
+                                <Link href="/what-is-mpp" style={{ color: "var(--accent-primary)", fontSize: "0.9rem" }}>How MPP works →</Link>
                             </div>
                         </div>
 
                         <div className="deepdive-card">
                             <div className="icon-wrapper">🔒</div>
-                            <h3>Zero KYC, Wallet-Native Privacy</h3>
+                            <h3>No identity documents</h3>
                             <p>
-                                Unlike legacy vendors that force passport uploads and compliance calls, ProxyBase connects directly to your wallet. You maintain complete sovereignty with no real-world identity linked to your proxy tunnels.
+                                Your wallet address is the account. There is no email, no phone number, and no
+                                document upload, which means nothing in our records ties your proxy sessions to a
+                                legal identity.
                             </p>
                             <div style={{ marginTop: "12px" }}>
-                                <Link href="/no-kyc-proxy" style={{ color: "var(--accent-primary)", fontSize: "0.9rem" }}>Read about No-KYC architecture →</Link>
+                                <Link href="/no-kyc-proxy" style={{ color: "var(--accent-primary)", fontSize: "0.9rem" }}>How no-KYC access works →</Link>
                             </div>
                         </div>
 
                         <div className="deepdive-card">
                             <div className="icon-wrapper">♾️</div>
-                            <h3>Non-Expiring Bandwidth Balances</h3>
+                            <h3>Prepaid bandwidth doesn&apos;t expire</h3>
                             <p>
-                                Traditional proxy contracts expire unused gigabytes at the end of every 30-day month. With ProxyBase, every gigabyte purchased with crypto remains valid indefinitely until your scraper or agent actually transfers data.
+                                Most providers reset your allowance every 30 days, and whatever you did not use
+                                is forfeited. Fixed packages here hold their full balance until your scraper
+                                transfers the data, whether that takes a week or a year.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
                             <div className="icon-wrapper">🤖</div>
-                            <h3>Built for Autonomous AI Swarms</h3>
+                            <h3>Checkout an agent can complete alone</h3>
                             <p>
-                                AI tools and LLMs operating autonomously cannot pass 3D-Secure SMS credit card checks. Our crypto checkout enables autonomous funding loops for LangChain, Claude Desktop MCP, and OpenClaw agents.
+                                Card payments end at a 3-D Secure prompt or an SMS code, steps no autonomous agent
+                                can clear. A wallet signature is something an agent can produce without a human in
+                                the loop, which is what makes unattended provisioning possible.
                             </p>
                             <div style={{ marginTop: "12px" }}>
-                                <Link href="/proxy-for-ai-agents" style={{ color: "var(--accent-primary)", fontSize: "0.9rem" }}>Guide to proxies for AI agents →</Link>
+                                <Link href="/proxy-for-ai-agents" style={{ color: "var(--accent-primary)", fontSize: "0.9rem" }}>Proxies for AI agents →</Link>
                             </div>
                         </div>
                     </div>
@@ -313,57 +339,62 @@ export default function BuyWithCryptoPage() {
                 <section className="compare-deepdive-section" id="how-it-works" style={{ background: "var(--bg-secondary)", borderTop: "1px solid var(--border-subtle)" }}>
                     <div className="section-header">
                         <span className="section-label">Developer Quickstart</span>
-                        <h2>Automate Crypto Proxy Purchasing in 3 Steps</h2>
-                        <p className="section-desc">Provision residential SOCKS5 credentials programmatically in under 60 seconds.</p>
+                        <h2>Provisioning an Agent End to End</h2>
+                        <p className="section-desc">Three calls: register, order, then poll for credentials. No browser involved at any point.</p>
                     </div>
 
                     <div className="deepdive-grid">
                         <div className="deepdive-card" style={{ gridColumn: "1 / -1" }}>
-                            <h3>Step 1: Register Agent & Obtain API Key</h3>
-                            <p>Send a headless POST request. No email verification or password setup required.</p>
+                            <h3>Step 1: Register an agent and get an API key</h3>
+                            <p>One POST request. No email verification, no password to set.</p>
                             <div style={{ background: "var(--bg-primary)", padding: "16px", borderRadius: "8px", marginTop: "12px", fontFamily: "monospace", fontSize: "0.85rem", overflowX: "auto" }}>
                                 <pre style={{ margin: 0, color: "var(--accent-primary)" }}>{`curl -X POST https://api.proxybase.xyz/v1/agents
 
 # Response:
 # {
-#   "agent_id": "pb_agent_92xL",
-#   "api_key": "pk_live_49f8a2bc91e7..."
+#   "agent_id": "6xAMqAGN",
+#   "api_key": "pk_c8c91c8a0e5b3e2c..."
 # }`}</pre>
                             </div>
                         </div>
 
                         <div className="deepdive-card" style={{ gridColumn: "1 / -1" }}>
-                            <h3>Step 2: Create Order & Generate Crypto Invoice</h3>
-                            <p>Select your bandwidth package and chosen crypto rail (e.g., <code>usdcsol</code>, <code>btc</code>, <code>sol</code>, <code>eth</code>).</p>
+                            <h3>Step 2: Create the order and get a deposit address</h3>
+                            <p>Pick a package and a coin. Valid currency codes come from <code>GET /v1/currencies</code>.</p>
                             <div style={{ background: "var(--bg-primary)", padding: "16px", borderRadius: "8px", marginTop: "12px", fontFamily: "monospace", fontSize: "0.85rem", overflowX: "auto" }}>
                                 <pre style={{ margin: 0, color: "var(--accent-primary)" }}>{`curl -X POST https://api.proxybase.xyz/v1/orders \\
-  -H "X-API-Key: pk_live_49f8a2bc91e7..." \\
+  -H "X-API-Key: pk_c8c91c8a0e5b3e2c..." \\
   -H "Content-Type: application/json" \\
-  -d '{"package_id": "us_residential_5gb", "pay_currency": "usdcsol"}'
+  -d '{"package_id":"us_residential_5gb","pay_currency":"sol"}'
 
 # Response:
 # {
-#   "order_id": "ord_88294a",
-#   "pay_address": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-#   "pay_amount": 15.00,
-#   "pay_currency": "usdcsol",
+#   "order_id": "kQx7p3Wn",
+#   "payment_id": "5832461907",
+#   "pay_address": "TXyz...",
+#   "pay_currency": "sol",
+#   "pay_amount": 0.058,
+#   "price_usd": 50.00,
 #   "status": "payment_pending"
 # }`}</pre>
                             </div>
                         </div>
 
                         <div className="deepdive-card" style={{ gridColumn: "1 / -1" }}>
-                            <h3>Step 3: Connect to High-Reputation SOCKS5 Gateway</h3>
-                            <p>Once on-chain payment is confirmed, poll order status to retrieve your residential SOCKS5 credentials.</p>
+                            <h3>Step 3: Poll for credentials, then connect</h3>
+                            <p>Once the payment confirms on-chain, the status response carries your SOCKS5 username and password.</p>
                             <div style={{ background: "var(--bg-primary)", padding: "16px", borderRadius: "8px", marginTop: "12px", fontFamily: "monospace", fontSize: "0.85rem", overflowX: "auto" }}>
-                                <pre style={{ margin: 0, color: "var(--accent-primary)" }}>{`# Verify order activation:
-curl https://api.proxybase.xyz/v1/orders/ord_88294a/status -H "X-API-Key: pk_live_49f8a2bc91e7..."
+                                <pre style={{ margin: 0, color: "var(--accent-primary)" }}>{`# Poll until status is "proxy_active":
+curl https://api.proxybase.xyz/v1/orders/kQx7p3Wn/status \\
+  -H "X-API-Key: pk_c8c91c8a0e5b3e2c..."
 
-# Connect via cURL:
-curl --socks5 socks5://pb_user:pb_pass@api.proxybase.xyz:1080 https://api.ipify.org?format=json
+# Connect through the proxy:
+curl --socks5-hostname username:password@api.proxybase.xyz:1080 \\
+  https://api.ipify.org?format=json
 
-# Rotate to a fresh residential IP instantly on demand:
-curl -X POST https://api.proxybase.xyz/v1/orders/ord_88294a/rotate -H "X-API-Key: pk_live_49f8a2bc91e7..."`}</pre>
+# Rotate to a fresh IP on demand:
+curl -X POST https://api.proxybase.xyz/v1/orders/kQx7p3Wn/rotate \\
+  -H "X-API-Key: pk_c8c91c8a0e5b3e2c..."`}</pre>
                             </div>
                         </div>
                     </div>
@@ -373,41 +404,42 @@ curl -X POST https://api.proxybase.xyz/v1/orders/ord_88294a/rotate -H "X-API-Key
                 <section className="compare-deepdive-section" style={{ borderTop: "1px solid var(--border-subtle)" }}>
                     <div className="section-header">
                         <span className="section-label">Code Examples</span>
-                        <h2>Programmatic Python & Node.js Integration</h2>
-                        <p className="section-desc">Drop-in proxy authentication for your scrapers, LLM agents, and crawler fleets.</p>
+                        <h2>Python and Node.js</h2>
+                        <p className="section-desc">
+                            Both examples assume credentials from the status call above. Python needs the SOCKS
+                            extra installed: <code>pip install requests[socks]</code>.
+                        </p>
                     </div>
 
                     <div className="deepdive-grid grid-2-cols">
                         <div className="deepdive-card">
-                            <h3>Python (requests & aiohttp)</h3>
+                            <h3>Python (requests)</h3>
                             <div style={{ background: "var(--bg-primary)", padding: "16px", borderRadius: "8px", marginTop: "12px", fontFamily: "monospace", fontSize: "0.85rem", overflowX: "auto" }}>
                                 <pre style={{ margin: 0, color: "var(--text-secondary)" }}>{`import requests
 
-proxies = {
-    "http": "socks5://pb_user:pb_pass@api.proxybase.xyz:1080",
-    "https": "socks5://pb_user:pb_pass@api.proxybase.xyz:1080",
-}
+proxy = "socks5h://username:password@api.proxybase.xyz:1080"
+proxies = {"http": proxy, "https": proxy}
 
-response = requests.get("https://httpbin.org/ip", proxies=proxies)
-print("Connected through Residential IP:", response.json())`}</pre>
+r = requests.get("https://api.ipify.org?format=json", proxies=proxies, timeout=30)
+print(r.json())`}</pre>
                             </div>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>Node.js / TypeScript (axios & socks-proxy-agent)</h3>
+                            <h3>Node.js (axios + socks-proxy-agent)</h3>
                             <div style={{ background: "var(--bg-primary)", padding: "16px", borderRadius: "8px", marginTop: "12px", fontFamily: "monospace", fontSize: "0.85rem", overflowX: "auto" }}>
                                 <pre style={{ margin: 0, color: "var(--text-secondary)" }}>{`import axios from 'axios';
 import { SocksProxyAgent } from 'socks-proxy-agent';
 
 const agent = new SocksProxyAgent(
-  'socks5://pb_user:pb_pass@api.proxybase.xyz:1080'
+  'socks5h://username:password@api.proxybase.xyz:1080'
 );
 
-const { data } = await axios.get('https://httpbin.org/ip', {
+const { data } = await axios.get('https://api.ipify.org?format=json', {
   httpAgent: agent,
   httpsAgent: agent,
 });
-console.log('Active IP:', data.origin);`}</pre>
+console.log(data);`}</pre>
                             </div>
                         </div>
                     </div>
@@ -416,9 +448,13 @@ console.log('Active IP:', data.origin);`}</pre>
                 {/* COMPARISON TABLE */}
                 <section className="compare-matrix-section" style={{ borderTop: "1px solid var(--border-subtle)" }}>
                     <div className="section-header">
-                        <span className="section-label">The Reality</span>
+                        <span className="section-label">Provider Comparison</span>
                         <h2>Crypto Payments: ProxyBase vs. Major Providers</h2>
-                        <p className="section-desc">Most providers treat crypto as a secondary checkout method tied to personal accounts. Compare the differences.</p>
+                        <p className="section-desc">
+                            How crypto checkout, identity checks, and minimum commitments differ. Every provider here
+                            accepts cards or wire. The question is whether crypto is a first-class payment path or a
+                            bolt-on that still needs an account, and whether you must prove who you are before buying.
+                        </p>
                     </div>
 
                     <div className="matrix-table-container">
@@ -438,116 +474,139 @@ console.log('Active IP:', data.origin);`}</pre>
                                     <td className="metric-name font-weight-bold" style={{ color: "var(--accent-primary)" }}>ProxyBase</td>
                                     <td className="text-emerald font-weight-bold">Crypto-Native (USDC, USDT, BTC, ETH, SOL)</td>
                                     <td className="text-emerald font-weight-bold">None (Wallet Only)</td>
-                                    <td className="text-emerald font-weight-bold">$3.00 Pay-As-You-Go</td>
-                                    <td className="text-emerald font-weight-bold">Never Expire</td>
+                                    <td className="text-emerald font-weight-bold">Market rate from ~$3/GB, or $10 for a 1 GB package</td>
+                                    <td className="text-emerald font-weight-bold">Packages never expire</td>
                                     <td className="text-emerald font-weight-bold">Yes (POST /rotate)</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name"><Link href="/compare/proxy-cheap" style={{ color: "inherit", textDecoration: "underline" }}>Proxy-Cheap</Link></td>
-                                    <td>Checkout Add-on (Email Required)</td>
-                                    <td>Email Registration</td>
-                                    <td>~$5.00</td>
-                                    <td>Monthly Plans Reset</td>
-                                    <td>Manual IP Swaps</td>
+                                    <td>BTC, ETH, USDT at checkout (account required)</td>
+                                    <td>Email account</td>
+                                    <td>No advertised minimum</td>
+                                    <td>Top-up packs up to 50 GB/mo</td>
+                                    <td>Manual IP replacement</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name"><Link href="/compare/proxy-seller" style={{ color: "inherit", textDecoration: "underline" }}>Proxy-Seller</Link></td>
-                                    <td>Checkout Add-on</td>
-                                    <td>Email Registration</td>
-                                    <td>~$10.00</td>
-                                    <td>Monthly / Rental</td>
-                                    <td>Manual Replacement</td>
+                                    <td>Checkout add-on</td>
+                                    <td>Email account</td>
+                                    <td>Per-plan</td>
+                                    <td>Monthly or rental term</td>
+                                    <td>Manual replacement</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name"><Link href="/compare/webshare" style={{ color: "inherit", textDecoration: "underline" }}>Webshare</Link></td>
-                                    <td className="text-danger font-weight-bold">No Crypto Accepted</td>
-                                    <td>Credit Card Verification</td>
-                                    <td>~$3.00/mo</td>
-                                    <td>Monthly Recurring</td>
-                                    <td>Dashboard / API</td>
+                                    <td className="text-danger font-weight-bold">No native crypto (card/PayPal via Stripe)</td>
+                                    <td>Card verification</td>
+                                    <td>~$3.00/mo plans</td>
+                                    <td>Monthly recurring</td>
+                                    <td>Dashboard or API</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name"><Link href="/compare/oxylabs" style={{ color: "inherit", textDecoration: "underline" }}>Oxylabs</Link></td>
-                                    <td className="text-danger font-weight-bold">Wire / Invoicing Only</td>
-                                    <td className="text-danger font-weight-bold">Mandatory Corporate ID</td>
-                                    <td className="text-danger font-weight-bold">$300.00+ / mo</td>
-                                    <td>Monthly Expiration</td>
-                                    <td>Automatic Gateway</td>
+                                    <td>Cards via Stripe; wire on higher tiers</td>
+                                    <td>Conditional (required for some targeting filters)</td>
+                                    <td className="text-danger font-weight-bold">Plans from $30/mo (5 GB)</td>
+                                    <td>Monthly</td>
+                                    <td>Automatic gateway</td>
                                 </tr>
                                 <tr>
                                     <td className="metric-name"><Link href="/compare/brightdata" style={{ color: "inherit", textDecoration: "underline" }}>BrightData</Link></td>
-                                    <td className="text-danger font-weight-bold">No Crypto Accepted</td>
-                                    <td className="text-danger font-weight-bold">Mandatory Passport / ID</td>
-                                    <td className="text-danger font-weight-bold">$500.00+ / mo</td>
-                                    <td>Monthly Expiration</td>
-                                    <td>Complex Waterfall</td>
+                                    <td>Crypto listed in their docs; not confirmed at checkout</td>
+                                    <td className="text-danger font-weight-bold">KYC required for residential</td>
+                                    <td className="text-danger font-weight-bold">Pay-as-you-go from $8/GB, or $499+/mo tiers</td>
+                                    <td>Monthly on volume tiers</td>
+                                    <td>Rotating gateway</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+
+                    <p className="section-desc" style={{ marginTop: "1rem", fontSize: "0.85rem" }}>
+                        Competitor details above were checked against each provider&apos;s published pricing and
+                        documentation on 24 September 2026. Proxy vendors change prices and payment options often, so confirm current terms with the provider before you buy. ProxyBase market rates are dynamic and
+                        move with supply; the fixed package prices are listed on the{" "}
+                        <Link href="/mpp" style={{ color: "var(--accent-primary)" }}>package store</Link>.
+                    </p>
                 </section>
 
                 {/* FAQ */}
                 <section className="compare-deepdive-section" style={{ background: "var(--bg-secondary)" }}>
                     <div className="section-header">
                         <span className="section-label">FAQ</span>
-                        <h2>Buying SOCKS5 Proxies with Crypto — Questions & Answers</h2>
+                        <h2>Buying SOCKS5 Proxies with Crypto: Questions and Answers</h2>
                     </div>
 
                     <div className="deepdive-grid grid-2-cols">
                         <div className="deepdive-card">
-                            <h3>Which cryptocurrencies are supported for buying proxies?</h3>
+                            <h3>Which cryptocurrencies can I pay with?</h3>
                             <p>
-                                ProxyBase accepts USDC, USDT, Bitcoin (BTC), Ethereum (ETH), and Solana (SOL). Stablecoins via the Micropayments Protocol (MPP) on Tempo and Solana are recommended for near-instant confirmations and minimal network fees.
+                                USDC, USDT, Bitcoin, Ethereum, and Solana. Stablecoins settle fastest and cost the
+                                least in network fees, so they are the better default if your agent tops up often.
+                                The full list is available from <code>GET /v1/currencies</code>.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>Is identity verification or KYC required to buy proxies?</h3>
+                            <h3>Do I need to verify my identity?</h3>
                             <p>
-                                No. ProxyBase operates on a zero-KYC architecture. You do not need to provide an email, phone number, physical address, or passport. Your cryptographic wallet and API key serve as your authentication.
+                                No. There is no email, phone number, address, or document upload. Your wallet address
+                                and API key are the whole account. See{" "}
+                                <Link href="/no-kyc-proxy" style={{ color: "var(--accent-primary)" }}>how no-KYC access works</Link>.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>How quickly are proxy credentials delivered after paying with crypto?</h3>
+                            <h3>How long until credentials are issued?</h3>
                             <p>
-                                Credentials are provisioned automatically as soon as the transaction is confirmed on-chain. On Solana and Tempo (USDC/USDT), access is provisioned in under 10 seconds. On Bitcoin and Ethereum, access activates upon network block confirmation.
+                                Provisioning runs automatically when the transaction confirms. Stablecoins on Tempo
+                                and Solana typically confirm in seconds. Bitcoin and Ethereum wait on block
+                                confirmation, so expect minutes rather than seconds.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>Can autonomous AI agents purchase proxy bandwidth autonomously?</h3>
+                            <h3>Can an agent buy without a human?</h3>
                             <p>
-                                Yes. The entire ordering, payment calculation, status polling, and proxy rotation process is 100% headless and API-first. AI agents built with Claude, GPT-4, LangChain, or OpenClaw can fund their own wallets and purchase bandwidth without human intervention. See our <Link href="/proxy-for-ai-agents" style={{ color: "var(--accent-primary)" }}>AI Agent Proxy Guide</Link>.
+                                Yes. Registration, ordering, status polling, and rotation are all headless HTTP
+                                calls, and payment is a wallet signature, so nothing in the flow needs a browser or a
+                                card. See{" "}
+                                <Link href="/proxy-for-ai-agents" style={{ color: "var(--accent-primary)" }}>proxies for AI agents</Link>.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>Do purchased bandwidth credits expire?</h3>
+                            <h3>Does prepaid bandwidth expire?</h3>
                             <p>
-                                No. Unlike traditional monthly subscriptions that wipe unused bandwidth at the end of the billing cycle, ProxyBase prepaid crypto bandwidth credits never expire.
+                                No. A fixed package keeps its full balance until you transfer the data. This is the
+                                main practical difference from monthly plans, which usually forfeit whatever you
+                                did not use by the renewal date.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>What proxy protocols and features are included?</h3>
+                            <h3>Which protocols are supported?</h3>
                             <p>
-                                All purchases provide access to SOCKS5 and HTTP residential and mobile proxy endpoints with dual-path failover, programmatic IP rotation via <code>POST /rotate</code>, and full MCP server compatibility.
+                                SOCKS5 (including authenticated SOCKS5) and HTTP/HTTPS, over residential and mobile
+                                endpoints. IP rotation is available programmatically via{" "}
+                                <code>POST /v1/orders/&#123;id&#125;/rotate</code>.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>What happens if my agent underpays a crypto invoice?</h3>
+                            <h3>What if an invoice is underpaid?</h3>
                             <p>
-                                The smart order tracker records the incoming partial payment and waits for the remaining balance. Once the exact total is reached, your proxy credentials activate instantly.
+                                Partial payments are recorded against the order and it stays open. Once the full
+                                amount arrives, credentials are issued, so you do not have to start a new order.
                             </p>
                         </div>
 
                         <div className="deepdive-card">
-                            <h3>Can I sell my unused bandwidth for crypto?</h3>
+                            <h3>Can I earn crypto by selling bandwidth instead?</h3>
                             <p>
-                                Yes. Through <Link href="/markets" style={{ color: "var(--accent-primary)" }}>ProxyBase Markets</Link>, node operators can run a lightweight seller daemon and earn AlphaUSD / USDC per gigabyte of relayed traffic.
+                                Yes, that runs the other direction. On{" "}
+                                <Link href="/markets" style={{ color: "var(--accent-primary)" }}>ProxyBase Markets</Link>{" "}
+                                you run a seller node and earn per gigabyte relayed, paid in AlphaUSD or USDC.
                             </p>
                         </div>
                     </div>
@@ -556,11 +615,14 @@ console.log('Active IP:', data.origin);`}</pre>
                 {/* CALL TO ACTION */}
                 <section className="compare-cta-section">
                     <div className="cta-card">
-                        <h2>Pay with Crypto. Connect in Under 60 Seconds.</h2>
-                        <p>No credit cards. Zero KYC. High-reputation residential SOCKS5 proxies starting at $3/GB.</p>
+                        <h2>Buy bandwidth with crypto, no card and no ID</h2>
+                        <p>
+                            Fixed packages from $10 for 1 GB, or pay the live market rate from about $3/GB.
+                            Credentials are issued by the API as soon as the payment confirms.
+                        </p>
                         <div className="cta-buttons">
-                            <Link href="/mpp" className="btn-primary" data-umami-event="BuyWithCrypto: Bottom CTA">Buy Proxies with Crypto →</Link>
-                            <Link href="/ai-agents#api" className="btn-secondary">Explore API Documentation</Link>
+                            <Link href="/mpp" className="btn-primary" data-umami-event="BuyWithCrypto: Bottom CTA">Browse Fixed Packages →</Link>
+                            <Link href="/markets" className="btn-secondary" data-umami-event="BuyWithCrypto: Bottom Market CTA">See Market Rates</Link>
                         </div>
                     </div>
                 </section>
