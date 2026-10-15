@@ -7,7 +7,7 @@ import { CopyHandbookLinkButton } from "./HandbookActions";
 export const metadata = {
   title: "Residential Proxy Pool Handbook: Architecture & Ethical Sourcing Standards | ProxyBase",
   description:
-    "Download the official ProxyBase Residential Proxy Pool Handbook (PDF). Complete technical whitepaper on Tier A+ peer node sourcing, Yamux sandboxing, outbound-only WebSocket relay architecture, and ethical bandwidth monetization.",
+    "Download the ProxyBase Residential Proxy Pool Handbook (PDF). 11 pages on Tier A+ peer node sourcing, Yamux sandboxing, and how our outbound-only WebSocket relay works.",
   keywords:
     "residential proxy handbook, residential proxy pool handbook, ethical proxy sourcing, proxy whitepaper, residential proxy architecture, socks5 proxy pool, peer-to-peer proxy network, proxy compliance standards, yamux proxy routing, proxybase handbook, download proxy handbook",
   alternates: {
@@ -16,7 +16,7 @@ export const metadata = {
   openGraph: {
     title: "ProxyBase Residential Proxy Pool Handbook: Standards & Architecture Whitepaper",
     description:
-      "A complete guide to ethical residential proxy acquisition, sandboxed routing, and peer compensation. Download the official 11-page technical whitepaper.",
+      "How we source residential IPs with consent and pay the people whose bandwidth we route. The official 11-page technical whitepaper, free to download.",
     url: "https://proxybase.xyz/residential-proxy-handbook",
     type: "article",
     siteName: "ProxyBase",
@@ -25,34 +25,34 @@ export const metadata = {
     card: "summary_large_image",
     title: "ProxyBase Residential Proxy Pool Handbook (PDF)",
     description:
-      "A complete guide to ethical residential proxy acquisition, sandboxed routing, and peer compensation. Download the 11-page technical whitepaper.",
+      "How we source residential IPs with consent and pay the people whose bandwidth we route. The official 11-page technical whitepaper, free to download.",
   },
 };
 
 const handbookFaqs = [
   {
     q: "What is the ProxyBase Residential Proxy Pool Handbook?",
-    a: "The ProxyBase Residential Proxy Pool Handbook is an 11-page engineering whitepaper and compliance standard published by the ProxyBase Trust & Infrastructure Team. It documents how ProxyBase sources, verifies, isolates, and operates its peer-to-peer residential proxy network, providing complete transparency into our Tier A+ opt-in criteria, Yamux multiplexing architecture, and fair peer compensation model.",
+    a: "It's an 11-page engineering whitepaper published by the ProxyBase Trust & Infrastructure Team. It documents how we source, verify, and isolate nodes in our peer-to-peer residential proxy network, including our Tier A+ opt-in criteria, the Yamux multiplexing architecture, and how peer compensation works.",
   },
   {
     q: "How does ProxyBase ensure residential proxies are ethically sourced?",
-    a: "Every residential IP in the ProxyBase network originates exclusively from fully informed, consenting individuals (Seller Nodes) who voluntarily share idle internet bandwidth via lightweight sandboxed clients in exchange for automated monetary compensation. ProxyBase strictly rejects hidden SDKs, bundled Terms of Service, and uncompensated proxy models.",
+    a: "Every residential IP comes from a consenting individual (a Seller Node) who installed a sandboxed client to share idle bandwidth for money. We don't use hidden SDKs, bundled terms of service, or unpaid proxy models.",
   },
   {
     q: "What is the difference between Tier A+ and Tier B/C proxy pools?",
-    a: "Tier A+ (ProxyBase's standard) guarantees all four user-centric pillars: explicit consent, continuous user awareness, clear technical disclosures, and direct financial rewards. Tier B captures consent deceptively through bundled terms or obscured extensions without ongoing awareness. Tier C consists of unauthorized botnets and malware. ProxyBase operates exclusively on Tier A+ Seller Nodes and audited direct ISP partnerships, strictly banning Tier B and Tier C acquisition.",
+    a: "Tier A+ meets all four of our user-centric pillars: explicit consent, clear technical disclosure, ongoing awareness, and direct payment. Tier B gets consent deceptively, through bundled terms or an extension the user forgot about. Tier C is botnets and malware. We source from Tier A+ Seller Nodes and audited ISP partnerships only; Tier B and Tier C acquisition is banned.",
   },
   {
     q: "Does running a ProxyBase seller node expose the host's local home network?",
-    a: "No. ProxyBase Seller Nodes utilize outbound-only WebSocket tunnels combined with Yamux stream multiplexing. Because connections are strictly outbound to the ProxyBase Relay Core, host devices never open inbound listening ports on their home routers. Requests are sandboxed with zero access to local filesystem resources, browser storage, or internal LAN devices.",
+    a: "No. Seller Nodes connect outbound-only to the ProxyBase Relay Core over WebSocket tunnels, multiplexed with Yamux. Because the connection only ever goes outbound, host devices never open an inbound listening port on their home routers. Each request runs in its own sandboxed stream with no access to the filesystem, browser storage, or other devices on the LAN.",
   },
   {
     q: "Why are residential proxies critical for autonomous AI agents?",
-    a: "Autonomous AI agents perform complex, multi-step web navigation, market intelligence, and automated research. Cloud datacenter IPs (AWS, GCP, DigitalOcean) are easily flagged by Web Application Firewalls (Cloudflare, Akamai, Datadome). Consensual residential proxies provide genuine consumer ISP reputation, achieving pass-through rates exceeding 99% without triggering CAPTCHAs or IP blocks.",
+    a: "Your agent gets blocked when its requests leave from a datacenter range. Cloudflare, Akamai, and DataDome flag AWS, GCP, and DigitalOcean IPs quickly, and that happens before anything looks at your credentials. Consensual residential proxies carry genuine consumer ISP reputation instead, so far fewer requests hit a CAPTCHA or an IP block.",
   },
   {
     q: "Where can I download the official Residential Proxy Pool Handbook PDF?",
-    a: "You can download the full, unredacted 11-page handbook directly from this page using the download button, or access the direct PDF at https://proxybase.xyz/ProxyBase_Residential_Proxy_Pool_Handbook.pdf. It is completely free and requires no registration or personal information.",
+    a: "Use the download button on this page, or grab the PDF directly at https://proxybase.xyz/ProxyBase_Residential_Proxy_Pool_Handbook.pdf. It's free, with no registration or personal information required.",
   },
 ];
 
@@ -65,7 +65,7 @@ export default function ResidentialProxyHandbookPage() {
         "@id": "https://proxybase.xyz/residential-proxy-handbook#article",
         "headline": "ProxyBase Residential Proxy Pool Handbook: Node Procurement, Relay Architecture & Ethical Policies",
         "name": "ProxyBase Residential Proxy Pool Handbook",
-        "description": "Comprehensive engineering whitepaper and compliance standard detailing Tier A+ residential proxy acquisition, Yamux sandboxed routing, and peer bandwidth monetization.",
+        "description": "Engineering whitepaper on Tier A+ residential proxy sourcing, Yamux sandboxed routing, and how seller nodes get paid for bandwidth.",
         "url": "https://proxybase.xyz/residential-proxy-handbook",
         "inLanguage": "en-US",
         "author": {
@@ -91,7 +91,7 @@ export default function ResidentialProxyHandbookPage() {
         "name": "ProxyBase Residential Proxy Pool Handbook (PDF)",
         "encodingFormat": "application/pdf",
         "url": "https://proxybase.xyz/ProxyBase_Residential_Proxy_Pool_Handbook.pdf",
-        "description": "The official 11-page PDF whitepaper covering ethical proxy sourcing, Yamux multiplexed routing, and peer compensation.",
+        "description": "The 11-page PDF: how ProxyBase sources residential IPs with consent, routes them over Yamux, and compensates seller nodes.",
         "inLanguage": "en-US",
         "fileSize": "536KB",
         "numberOfPages": 11,
@@ -158,7 +158,7 @@ export default function ResidentialProxyHandbookPage() {
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
               </svg>
-              <span>Official Transparency & Architecture Whitepaper • 2026 Edition</span>
+              <span>Official Whitepaper • 2026 Edition</span>
             </div>
 
             <h1 className={styles.heroTitle}>
@@ -166,7 +166,7 @@ export default function ResidentialProxyHandbookPage() {
             </h1>
 
             <p className={styles.heroSubtitle}>
-              A comprehensive technical whitepaper on ethical node procurement, cryptographic stream sandboxing, and fair peer-to-peer bandwidth compensation for autonomous AI agents and high-throughput data systems.
+              How we source consenting Seller Nodes, isolate every stream, and pay the people whose bandwidth your traffic runs through.
             </p>
 
             <div className={styles.heroActions}>
@@ -204,11 +204,11 @@ export default function ResidentialProxyHandbookPage() {
               </div>
               <div className={styles.trustItem}>
                 <span className={styles.trustItemDot}>✓</span>
-                <span>Unaltered Pure Data Relay</span>
+                <span>Unaltered Data Relay</span>
               </div>
               <div className={styles.trustItem}>
                 <span className={styles.trustItemDot}>✓</span>
-                <span>100% Free Public Whitepaper</span>
+                <span>Free Public Whitepaper</span>
               </div>
             </div>
           </div>
@@ -222,18 +222,18 @@ export default function ResidentialProxyHandbookPage() {
                 <div>
                   <span className={styles.sectionLabel}>Executive Summary</span>
                   <h2 style={{ fontSize: "1.85rem", fontWeight: 800, color: "var(--text-primary)", marginBottom: "16px" }}>
-                    Setting the Gold Standard for Residential Proxy Transparency
+                    Why We Published Our Sourcing Standards
                   </h2>
                   <p style={{ color: "var(--text-secondary)", lineHeight: "1.7", marginBottom: "16px" }}>
-                    Out of all proxy types, residential proxies stand out as the most sensitive to mistreatment and ethical violations. Because traffic routes through real consumer networks, ProxyBase procures and manages all IP pools under strict standards of user sovereignty, cryptographic isolation, transparency, and compliance.
+                    Residential proxies route through real people&rsquo;s home connections, which makes them the easiest kind of proxy to run unethically. Every pool we manage has to meet the same four standards: the user opts in, the user can see what is happening, each session is isolated, and the user gets paid.
                   </p>
                   <p style={{ color: "var(--text-secondary)", lineHeight: "1.7" }}>
-                    This whitepaper is part of ProxyBase&rsquo;s company-wide transparency initiative. It provides complete visibility into our peer-to-peer SOCKS5 and WebSocket residential proxy network—explaining how nodes are sourced, verified, sandboxed, and operated without sacrificing privacy or host performance.
+                    The handbook explains how nodes are sourced, verified, sandboxed, and operated across our peer-to-peer SOCKS5 and WebSocket network, and what we do to keep host performance and privacy intact. It is the same document we hand to partners who ask how the pool works.
                   </p>
                 </div>
 
                 <div className={styles.summaryQuote}>
-                  &ldquo;ProxyBase operates strictly within the boundaries of an explicitly consenting, verifiable residential proxy pool. As autonomous AI agents and high-throughput data pipelines drive unprecedented demand for residential bandwidth, strict standards of ethics, cryptographic sandboxing, and transparency remain at the core of our engineering and business operations.&rdquo;
+                  &ldquo;Our residential pool is built entirely from nodes whose owners opted in and can verify it. Demand for residential bandwidth from agents and data pipelines keeps growing; the consent standard does not move because of it.&rdquo;
                   <div className={styles.quoteAuthor}>— ProxyBase Trust & Infrastructure Team</div>
                 </div>
               </div>
@@ -316,7 +316,7 @@ export default function ResidentialProxyHandbookPage() {
               <span className={styles.sectionLabel}>Ethical Sourcing Framework</span>
               <h2 className={styles.sectionTitle}>The 4 User-Centric Pillars of ProxyBase</h2>
               <p className={styles.sectionDesc}>
-                True transparency requires more than vague legal jargon. ProxyBase grades all residential proxy sourcing practices against four non-negotiable principles.
+                We grade every residential proxy sourcing method we know of, ours included, against four rules.
               </p>
             </div>
 
@@ -325,7 +325,7 @@ export default function ResidentialProxyHandbookPage() {
                 <span className={styles.pillarNumber}>01</span>
                 <h3 className={styles.pillarTitle}>Explicit User Consent</h3>
                 <p className={styles.pillarDesc}>
-                  Opt-in consent must be affirmative, dedicated, and unambiguous. Users explicitly choose to join the network via the ProxyBase client or audited partner apps. Activating relay traffic before consent is granted is strictly prohibited under our engineering guidelines.
+                  Consent has to be affirmative and specific. A seller joins through the ProxyBase client or an audited partner app, and no relay traffic moves through a device before they do.
                 </p>
               </div>
 
@@ -333,7 +333,7 @@ export default function ResidentialProxyHandbookPage() {
                 <span className={styles.pillarNumber}>02</span>
                 <h3 className={styles.pillarTitle}>Clear Technical Disclosure</h3>
                 <p className={styles.pillarDesc}>
-                  Participants receive plain-language explanations of how their devices operate: only idle outbound bandwidth is utilized, local network boundaries remain cryptographically isolated via Yamux stream sandboxing, and participation can be paused or revoked at any time.
+                  Sellers get a plain-language explanation of what the software does: only idle outbound bandwidth is used, each session is isolated in its own Yamux stream, and they can pause or quit whenever they want.
                 </p>
               </div>
 
@@ -341,7 +341,7 @@ export default function ResidentialProxyHandbookPage() {
                 <span className={styles.pillarNumber}>03</span>
                 <h3 className={styles.pillarTitle}>Continuous User Awareness</h3>
                 <p className={styles.pillarDesc}>
-                  Consenting is not a one-time trick. An ethical proxy platform continuously keeps users aware of active relays through live Seller Node telemetry dashboards, transparent documentation, and real-time bandwidth consumption metrics.
+                  A seller should be able to see what is happening at any time, not just at signup. The node dashboard shows active relays and how much bandwidth has moved.
                 </p>
               </div>
 
@@ -349,7 +349,7 @@ export default function ResidentialProxyHandbookPage() {
                 <span className={styles.pillarNumber}>04</span>
                 <h3 className={styles.pillarTitle}>Direct Financial Reward</h3>
                 <p className={styles.pillarDesc}>
-                  Bandwidth contributors are legitimate economic partners. ProxyBase maintains an automated monetary reward ledger that compensates end-users directly (in crypto or fiat) for every megabyte of idle capacity routed through their node.
+                  Sellers get paid for what they share. An automated ledger credits their account for every megabyte routed through their node, payable in crypto or fiat.
                 </p>
               </div>
             </div>
@@ -360,10 +360,10 @@ export default function ResidentialProxyHandbookPage() {
         <section className={`${styles.section} ${styles.sectionBorder}`}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
-              <span className={styles.sectionLabel}>Industry Audit Matrix</span>
+              <span className={styles.sectionLabel}>Sourcing Standards</span>
               <h2 className={styles.sectionTitle}>Residential Proxy Acquisition Standards</h2>
               <p className={styles.sectionDesc}>
-                How ProxyBase grades residential proxy acquisition across the industry—and why we reject deceptive Tier B and Tier C sourcing models entirely.
+                How we grade sourcing across the industry, and why we do not buy from Tier B or Tier C pools.
               </p>
             </div>
 
@@ -391,7 +391,7 @@ export default function ResidentialProxyHandbookPage() {
                       </ul>
                     </td>
                     <td>
-                      End-users install dedicated ProxyBase background clients or verified apps specifically to monetize idle bandwidth. Full awareness, active control, and automated payouts.
+                      Sellers install the ProxyBase client or a verified partner app to monetize idle bandwidth. They can see the relays, control participation, and get automatic payouts.
                     </td>
                     <td>
                       <strong style={{ color: "#15803d" }}>Core Sourcing (Majority)</strong>
@@ -414,12 +414,12 @@ export default function ResidentialProxyHandbookPage() {
                       </ul>
                     </td>
                     <td>
-                      A partner application explicitly requests permission to utilize the device as an exit node (e.g. in exchange for free premium features or open-source support).
+                      A partner app asks the user for explicit permission to use the device as an exit node, usually in exchange for free premium features or funding open-source work.
                     </td>
                     <td>
                       <strong style={{ color: "#0369a1" }}>Audited Integrations Only</strong>
                       <div style={{ fontSize: "0.825rem", color: "var(--text-muted)", marginTop: "4px" }}>
-                        Strictly vetted with direct ISP capacity.
+                        Vetted against direct ISP capacity.
                       </div>
                     </td>
                   </tr>
@@ -437,7 +437,7 @@ export default function ResidentialProxyHandbookPage() {
                       </ul>
                     </td>
                     <td>
-                      An app or browser extension hides proxy exit functions inside dense, bundled Terms of Service. Users click &ldquo;agree&rdquo; without understanding their device is a proxy.
+                      An app or browser extension buries the proxy exit function in a long, bundled Terms of Service, so users click agree without realizing their device is a proxy.
                     </td>
                     <td>
                       <strong style={{ color: "#b45309" }}>Strictly Prohibited</strong>
@@ -460,12 +460,12 @@ export default function ResidentialProxyHandbookPage() {
                       </ul>
                     </td>
                     <td>
-                      Malware, botnets, or silently bundled trojans silently convert infected consumer devices into exit relays without permission or knowledge.
+                      Malware and botnets turn infected machines into exit relays. The owner never knows.
                     </td>
                     <td>
                       <strong style={{ color: "#b91c1c" }}>Banned & Filtered</strong>
                       <div style={{ fontSize: "0.825rem", color: "var(--text-muted)", marginTop: "4px" }}>
-                        Active telemetry anomaly defense.
+                        Flagged and dropped by telemetry checks.
                       </div>
                     </td>
                   </tr>
@@ -482,7 +482,7 @@ export default function ResidentialProxyHandbookPage() {
               <span className={styles.sectionLabel}>Technical Deep Dive</span>
               <h2 className={styles.sectionTitle}>The ProxyBase Relay Procedure</h2>
               <p className={styles.sectionDesc}>
-                How requests travel from an autonomous AI agent through our relay core to a consenting seller node with zero router exposure.
+                How a request travels from an agent, through the relay core, and out of a consenting seller node.
               </p>
             </div>
 
@@ -494,7 +494,7 @@ export default function ResidentialProxyHandbookPage() {
                 </div>
                 <h3 className={styles.stepTitle}>Buyer & AI Agent</h3>
                 <p className={styles.stepDesc}>
-                  Autonomous agents connect via SOCKS5, HTTP REST endpoints, or MCP (Model Context Protocol). Billing is handled programmatically via micro-credits or crypto with zero KYC friction.
+                  Agents connect over SOCKS5, the REST API, or MCP (Model Context Protocol). Billing runs on micro-credits or crypto, with no KYC.
                 </p>
               </div>
 
@@ -505,7 +505,7 @@ export default function ResidentialProxyHandbookPage() {
                 </div>
                 <h3 className={styles.stepTitle}>ProxyBase Relay Core</h3>
                 <p className={styles.stepDesc}>
-                  Validates cryptographic session challenge-signatures, applies anti-abuse protocol filters, and routes streams over multiplexed WebSockets to available residential nodes while crediting rewards.
+                  The core verifies the session&rsquo;s challenge signature, runs anti-abuse filters, routes the stream over multiplexed WebSockets to an available residential node, and credits the seller&rsquo;s reward.
                 </p>
               </div>
 
@@ -516,7 +516,7 @@ export default function ResidentialProxyHandbookPage() {
                 </div>
                 <h3 className={styles.stepTitle}>Consenting Seller Node</h3>
                 <p className={styles.stepDesc}>
-                  The opted-in physical user device executes the outbound request through a genuine consumer ISP connection. The destination web server sees an authentic, unflagged residential IP address.
+                  The seller&rsquo;s device makes the outbound request over its own consumer ISP connection, so the destination server sees a residential IP.
                 </p>
               </div>
             </div>
@@ -526,7 +526,7 @@ export default function ResidentialProxyHandbookPage() {
               <div className={styles.techCalloutContent}>
                 <h4>Yamux Multiplexing & Outbound-Only Sandboxing</h4>
                 <p>
-                  Seller Nodes establish outbound-only secure WebSocket tunnels to the ProxyBase Relay Core. By utilizing Yamux multiplexed streaming, individual sessions operate inside sandboxed byte channels. Seller hosts never open inbound listening ports on their home routers, ensuring zero exposure to LAN neighbors, port scanners, or external attack vectors.
+                  Seller Nodes open outbound-only WebSocket tunnels to the relay core. Yamux multiplexing gives each session its own sandboxed byte channel, and the host never opens an inbound port on its router. Port scanners and LAN neighbors have nothing to reach.
                 </p>
               </div>
             </div>
@@ -540,7 +540,7 @@ export default function ResidentialProxyHandbookPage() {
               <span className={styles.sectionLabel}>Operations & Safety</span>
               <h2 className={styles.sectionTitle}>Core Proxy Management Policies</h2>
               <p className={styles.sectionDesc}>
-                Engineered safeguards that protect bandwidth providers and buyers on every transaction.
+                What protects sellers and buyers on every transaction.
               </p>
             </div>
 
@@ -550,7 +550,7 @@ export default function ResidentialProxyHandbookPage() {
                   <span>🛡️</span> 1. Host Sandboxing & Zero LAN Access
                 </h3>
                 <p className={styles.policyDesc}>
-                  Traffic is strictly isolated within sandboxed execution streams. The ProxyBase client has zero access to local device storage, operating system files, browser session caches, or other local devices on the host&rsquo;s home Wi-Fi network.
+                  Traffic runs inside sandboxed streams. The client cannot reach local storage, system files, browser session caches, or any other device on the host&rsquo;s home network.
                 </p>
               </div>
 
@@ -559,7 +559,7 @@ export default function ResidentialProxyHandbookPage() {
                   <span>⚡</span> 2. Idle-Only Bandwidth Throttling
                 </h3>
                 <p className={styles.policyDesc}>
-                  Intelligent rate-limiters ensure host devices are never degraded. Bandwidth relaying automatically dials back during active host gaming, streaming, or video calls, utilizing exclusively idle network headroom.
+                  Rate limiters keep the host&rsquo;s connection out of the way. Relaying backs off when the seller is gaming, streaming, or on a video call, and only uses idle headroom.
                 </p>
               </div>
 
@@ -568,7 +568,7 @@ export default function ResidentialProxyHandbookPage() {
                   <span>📦</span> 3. Pure Unaltered Data Relay
                 </h3>
                 <p className={styles.policyDesc}>
-                  When customers or AI agents transmit a request, the destination server receives it byte-for-byte. ProxyBase strictly forbids header injection, payload tampering, man-in-the-middle script injection, or ad replacement.
+                  The destination server receives the request byte-for-byte. We do not inject headers or scripts, tamper with payloads, or replace ads.
                 </p>
               </div>
 
@@ -577,7 +577,7 @@ export default function ResidentialProxyHandbookPage() {
                   <span>⚖️</span> 4. Proactive Abuse & Endpoint Filtering
                 </h3>
                 <p className={styles.policyDesc}>
-                  Continuous automated protocol inspection prevents malicious behavior. Sensitive endpoints, SMTP spam ports, and credential abuse patterns are blocked before reaching residential seller nodes.
+                  Automated protocol inspection runs continuously. SMTP spam ports, sensitive endpoints, and credential-abuse patterns get blocked before they reach a seller node.
                 </p>
               </div>
             </div>
@@ -591,7 +591,7 @@ export default function ResidentialProxyHandbookPage() {
               <span className={styles.sectionLabel}>Full Content Outline</span>
               <h2 className={styles.sectionTitle}>Handbook Table of Contents</h2>
               <p className={styles.sectionDesc}>
-                Here is what is covered across all 11 pages of the official handbook:
+                What is in the 11 pages:
               </p>
             </div>
 
@@ -601,7 +601,7 @@ export default function ResidentialProxyHandbookPage() {
                 <div className={styles.chapterContent}>
                   <h4>Cover & Introduction to Residential Proxy Sourcing</h4>
                   <p>
-                    Overview of the ProxyBase company-wide transparency initiative and our commitment to verifiable, consent-driven residential proxy infrastructure for AI agents.
+                    Why we published our sourcing standards, and what we mean by consent-driven residential proxy infrastructure.
                   </p>
                 </div>
               </div>
@@ -611,7 +611,7 @@ export default function ResidentialProxyHandbookPage() {
                 <div className={styles.chapterContent}>
                   <h4>Importance of Ethical Residential IP Procurement</h4>
                   <p>
-                    Why consumer ISP IP addresses require higher ethical standards than datacenter subnets, how physical user devices participate voluntarily, and the risks of gray-market pools.
+                    Why consumer ISP addresses need stricter handling than datacenter subnets, how seller devices participate, and what goes wrong in gray-market pools.
                   </p>
                 </div>
               </div>
@@ -621,7 +621,7 @@ export default function ResidentialProxyHandbookPage() {
                 <div className={styles.chapterContent}>
                   <h4>Standards for Residential Proxy Acquisition (Tier Matrix)</h4>
                   <p>
-                    The 4-tier grading system (Tier A+, Tier A, Tier B, Tier C) evaluating user consent, ongoing awareness, technical disclosures, and direct financial compensation.
+                    The four-tier grading system (Tier A+, Tier A, Tier B, Tier C) scored on consent, ongoing awareness, technical disclosure, and direct payment.
                   </p>
                 </div>
               </div>
@@ -631,7 +631,7 @@ export default function ResidentialProxyHandbookPage() {
                 <div className={styles.chapterContent}>
                   <h4>A Closer Look at the 4 User-Centric Pillars</h4>
                   <p>
-                    In-depth breakdown of informed consent prompts, Yamux stream sandboxing disclosures, live telemetry visibility for nodes, and the automated monetary payout ledger.
+                    What the consent prompt actually says, how Yamux stream sandboxing is disclosed, what the node dashboard shows, and how payouts are calculated.
                   </p>
                 </div>
               </div>
@@ -641,7 +641,7 @@ export default function ResidentialProxyHandbookPage() {
                 <div className={styles.chapterContent}>
                   <h4>ProxyBase Residential Proxy Acquisition & Relay Procedure</h4>
                   <p>
-                    End-to-end routing walkthrough: AI Agent SOCKS5 request &rarr; ProxyBase Relay Core &rarr; Multiplexed WebSocket &rarr; Consenting Seller Node exit.
+                    The full path a request takes: AI agent SOCKS5 request &rarr; ProxyBase Relay Core &rarr; Multiplexed WebSocket &rarr; Consenting Seller Node exit.
                   </p>
                 </div>
               </div>
@@ -651,7 +651,7 @@ export default function ResidentialProxyHandbookPage() {
                 <div className={styles.chapterContent}>
                   <h4>ProxyBase&rsquo;s Residential Proxy Management Policies</h4>
                   <p>
-                    Four foundational operational guarantees: host privacy & sandboxing, idle-only throttling, bit-for-bit unaltered data relay, and endpoint compliance.
+                    The four operational guarantees, with the reasoning behind each: host sandboxing, idle-only throttling, bit-for-bit unaltered relay, and endpoint filtering.
                   </p>
                 </div>
               </div>
@@ -661,7 +661,7 @@ export default function ResidentialProxyHandbookPage() {
                 <div className={styles.chapterContent}>
                   <h4>Conclusion, Enterprise Inquiries & Integration Resources</h4>
                   <p>
-                    The vision for sustainable, trust-based agentic proxy infrastructure. Contact information for high-volume enterprise pipelines and verified SDK partnerships.
+                    Where the network is headed, plus contacts for high-volume enterprise pipelines and verified SDK partnerships.
                   </p>
                 </div>
               </div>
@@ -676,10 +676,10 @@ export default function ResidentialProxyHandbookPage() {
               <div className={styles.downloadCardContent}>
                 <span className={styles.sectionLabel} style={{ color: "#60a5fa" }}>Direct Download</span>
                 <h2 className={styles.downloadCardTitle}>
-                  Get the Official Handbook Today
+                  Get the Official Handbook
                 </h2>
                 <p className={styles.downloadCardDesc}>
-                  Download the unredacted 11-page PDF handbook to review our sourcing models, compliance standards, and architecture diagrams. 100% free with no email required.
+                  The full 11-page PDF, including the architecture diagrams and the sourcing standards we hold ourselves to. Free, no email required.
                 </p>
 
                 <div className={styles.downloadCardActions}>
@@ -725,9 +725,9 @@ export default function ResidentialProxyHandbookPage() {
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
               <span className={styles.sectionLabel}>Frequently Asked Questions</span>
-              <h2 className={styles.sectionTitle}>Everything You Need to Know</h2>
+              <h2 className={styles.sectionTitle}>Questions About the Handbook</h2>
               <p className={styles.sectionDesc}>
-                Common questions about the ProxyBase Residential Proxy Pool Handbook and our sourcing ethics.
+                Questions we get about the handbook and how we source IPs.
               </p>
             </div>
 
@@ -747,10 +747,10 @@ export default function ResidentialProxyHandbookPage() {
           <div className={styles.container} style={{ textAlign: "center", maxWidth: "800px" }}>
             <span className={styles.sectionLabel}>Ready to Build?</span>
             <h2 style={{ fontSize: "2.4rem", fontWeight: 900, letterSpacing: "-0.02em", color: "var(--text-primary)", marginBottom: "16px" }}>
-              Experience Ethical Residential Proxies
+              Route Your Agents Through Consenting Residential IPs
             </h2>
             <p style={{ fontSize: "1.15rem", color: "var(--text-secondary)", lineHeight: 1.6, marginBottom: "36px" }}>
-              Launch autonomous AI web scraping, market intelligence, and localized data workflows through authentic, consensual residential IPs. Self-serve, no KYC, pay-as-you-go with crypto or cards.
+              Scrape, research, and run localized data jobs through residential IPs from sellers who opted in. Self-serve, no KYC, pay as you go with crypto or card.
             </p>
 
             <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
