@@ -354,5 +354,17 @@ export default function sitemap() {
             changeFrequency: "weekly",
             priority: 0.8,
         },
+        {
+            url: "https://proxybase.xyz/residential-proxy-handbook",
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.9,
+        },
+        {
+            url: "https://proxybase.xyz/ProxyBase_Residential_Proxy_Pool_Handbook.pdf",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
     ];
 }

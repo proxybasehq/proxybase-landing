@@ -136,6 +136,7 @@ export default function Footer() {
                             <li><Link href="/proxy-checker" data-umami-event="Footer: Proxy Checker">Proxy Checker</Link></li>
                             <li><Link href="/http-status-codes" data-umami-event="Footer: HTTP Status Codes">HTTP Status Codes</Link></li>
                             <li><Link href="/what-is-reverse-proxy" data-umami-event="Footer: Reverse Proxy">Reverse Proxy Guide</Link></li>
+                            <li><Link href="/residential-proxy-handbook" data-umami-event="Footer: Residential Proxy Handbook">Proxy Pool Handbook</Link></li>
                             <li><Link href="/prediction-markets-proxy" data-umami-event="Footer: Prediction Markets">Prediction Markets Proxy</Link></li>
                         </ul>
                     </div>
