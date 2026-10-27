@@ -56,6 +56,15 @@ function OsIcon({ os, size = 36 }) {
 }
 
 const OS_ORDER = ["macos", "windows", "linux", "android"];
+const ARCH_ORDER = ["universal", "x86_64", "aarch64", "armv7", "i686", "unknown"];
+const ARCH_LABEL = {
+  universal: "Universal",
+  x86_64: "x86_64",
+  aarch64: "arm64",
+  armv7: "armv7",
+  i686: "i686",
+  unknown: "unknown",
+};
 const EXT_PRIORITY = { dmg: 0, msi: 0, deb: 0, exe: 1, rpm: 1, appimage: 1, "tar.gz": 0, zip: 0, apk: 0 };
 
 /* ── Helpers ── */
@@ -68,6 +77,39 @@ function detectOS() {
   if (p.includes("win")) return "windows";
   if (p.includes("linux") || p.includes("x11")) return "linux";
   return "unknown";
+}
+
+/**
+ * Detect the visitor's CPU architecture. The GUI now ships Linux x86_64 and
+ * arm64 bundles; macOS GUI is universal, Windows is x64, and the APK is
+ * universal. The detected macOS arch still matters for the CLI tab, whose
+ * macOS assets are per-architecture.
+ */
+async function detectPlatform() {
+  const os = detectOS();
+  if (os === "unknown") return null;
+  if (os === "android") return { os, arch: "universal" };
+  if (os === "windows") return { os, arch: "x86_64" };
+
+  try {
+    const hints = await navigator.userAgentData?.getHighEntropyValues?.([
+      "architecture",
+      "bitness",
+    ]);
+    const arch = (hints?.architecture || "").toLowerCase();
+    if (arch.includes("arm")) return { os, arch: "aarch64" };
+    if (arch.includes("x86")) {
+      return { os, arch: hints?.bitness === "32" ? "i686" : "x86_64" };
+    }
+  } catch {
+    // High-entropy client hints are optional; fall back to the UA string.
+  }
+
+  const ua = (navigator.userAgent || "").toLowerCase();
+  if (/(aarch64|arm64|armv8)/.test(ua)) return { os, arch: "aarch64" };
+  if (/(armv7|armhf)/.test(ua)) return { os, arch: "armv7" };
+  if (/(i686|i386)/.test(ua)) return { os, arch: "i686" };
+  return { os, arch: "x86_64" };
 }
 
 function formatSize(bytes) {
@@ -92,14 +134,39 @@ function bestAsset(assets) {
   return sorted[0];
 }
 
-function groupByOS(assets) {
+function platformKey(os, arch) {
+  return `${os}:${arch || "unknown"}`;
+}
+
+function groupByPlatform(assets) {
   const map = {};
   for (const a of assets) {
     if (!a.os) continue;
-    if (!map[a.os]) map[a.os] = [];
-    map[a.os].push(a);
+    const key = platformKey(a.os, a.arch);
+    if (!map[key]) map[key] = [];
+    map[key].push(a);
   }
   return map;
+}
+
+function orderedPlatformKeys(grouped) {
+  return Object.keys(grouped).sort((a, b) => {
+    const [osA, archA] = a.split(":");
+    const [osB, archB] = b.split(":");
+    const osDiff = OS_ORDER.indexOf(osA) - OS_ORDER.indexOf(osB);
+    if (osDiff !== 0) return osDiff;
+    return ARCH_ORDER.indexOf(archA) - ARCH_ORDER.indexOf(archB);
+  });
+}
+
+function pickPrimaryKey(grouped, detected) {
+  if (!detected) return null;
+  const exact = platformKey(detected.os, detected.arch);
+  if (grouped[exact]) return exact;
+  // A universal build satisfies any architecture for that OS.
+  const universal = platformKey(detected.os, "universal");
+  if (grouped[universal]) return universal;
+  return null;
 }
 
 /* ── Skeleton ── */
@@ -119,10 +186,11 @@ function LoadingSkeleton() {
 }
 
 /* ── Platform Card ── */
-function PlatformCard({ os, assets, isPrimary, product }) {
+function PlatformCard({ os, arch, assets, isPrimary, product }) {
   const primary = bestAsset(assets);
   const alternatives = assets.filter((a) => a !== primary);
   const meta = OS_META[os] || OS_META.unknown;
+  const archLabel = ARCH_LABEL[arch] || arch || "";
   const ext = getExt(primary?.name || "");
 
   if (!primary) return null;
@@ -138,16 +206,16 @@ function PlatformCard({ os, assets, isPrimary, product }) {
         <OsIcon os={os} />
         <div className={styles.os_text}>
           <h3>{meta.label}</h3>
-          <span>{primary.arch && primary.arch !== "universal" ? primary.arch : ""}</span>
+          <span>{archLabel}</span>
         </div>
       </div>
       <p className={styles.os_desc}>
         {os === "macos"
-          ? "Native macOS app. Just open the DMG and drag to Applications."
+          ? "Native macOS app for Apple Silicon and Intel. Just open the DMG and drag to Applications."
           : os === "windows"
           ? "Windows installer. Download, run the MSI, and you're set."
           : os === "linux"
-          ? "Debian package for Ubuntu/Debian. RPM and AppImage also available."
+          ? `Debian package for Ubuntu/Debian${arch === "aarch64" ? " on ARM64" : arch === "x86_64" ? " on x86_64" : ""}. RPM and AppImage also available.`
           : os === "android"
           ? "Android APK. Sideload on your Android device."
           : `Download for ${meta.label}.`}
@@ -167,10 +235,10 @@ function PlatformCard({ os, assets, isPrimary, product }) {
       <a
         href={primary.url}
         className={styles.download_btn}
-        data-umami-event={`Download: ${isPrimary ? "Primary " : ""}${meta.label} ${ext.toUpperCase()} ${product}`}
+        data-umami-event={`Download: ${isPrimary ? "Primary " : ""}${meta.label} ${archLabel} ${ext.toUpperCase()} ${product}`}
         rel="noopener noreferrer"
       >
-        Download {meta.label} ({formatSize(primary.size)})
+        Download {meta.label} {archLabel} ({formatSize(primary.size)})
       </a>
 
       {alternatives.map((a) => (
@@ -178,7 +246,7 @@ function PlatformCard({ os, assets, isPrimary, product }) {
           key={a.name}
           href={a.url}
           className={`${styles.download_btn} ${styles.download_btn_secondary}`}
-          data-umami-event={`Download: ${meta.label} ${getExt(a.name).toUpperCase()} ${product}`}
+          data-umami-event={`Download: ${meta.label} ${archLabel} ${getExt(a.name).toUpperCase()} ${product}`}
           rel="noopener noreferrer"
         >
           Download .{getExt(a.name)} ({formatSize(a.size)})
@@ -192,7 +260,7 @@ function PlatformCard({ os, assets, isPrimary, product }) {
 export default function DownloadPage() {
   const [activeTab, setActiveTab] = useState("gui");
   const [releases, setReleases] = useState(null);
-  const [detectedOS, setDetectedOS] = useState("unknown");
+  const [detectedPlatform, setDetectedPlatform] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -213,12 +281,26 @@ export default function DownloadPage() {
   }, []);
 
   useEffect(() => {
-    setDetectedOS(detectOS());
+    let cancelled = false;
+    detectPlatform().then((platform) => {
+      if (!cancelled) setDetectedPlatform(platform);
+    });
     fetchReleases();
+    return () => {
+      cancelled = true;
+    };
   }, [fetchReleases]);
 
   const tabData = releases?.[activeTab];
-  const grouped = tabData?.assets ? groupByOS(tabData.assets) : {};
+  const grouped = tabData?.assets ? groupByPlatform(tabData.assets) : {};
+  const primaryKey = pickPrimaryKey(grouped, detectedPlatform);
+  const platformKeys = orderedPlatformKeys(grouped);
+  const [primaryOS, primaryArch] = primaryKey ? primaryKey.split(":") : [null, null];
+  const sectionLabel = primaryKey
+    ? "Other platforms"
+    : detectedPlatform
+      ? "Available downloads"
+      : "Choose your platform";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -313,32 +395,32 @@ export default function DownloadPage() {
         {/* Content */}
         {!loading && !error && tabData && (
           <>
-            {/* Primary recommended card (detected OS) */}
-            {detectedOS !== "unknown" && grouped[detectedOS] && (
+            {/* Primary recommended card (detected OS + architecture) */}
+            {primaryKey && (
               <PlatformCard
-                os={detectedOS}
-                assets={grouped[detectedOS]}
+                os={primaryOS}
+                arch={primaryArch}
+                assets={grouped[primaryKey]}
                 isPrimary
                 product={activeTab === "gui" ? "GUI" : "CLI"}
               />
             )}
 
-            {/* All-platform grid */}
-            {detectedOS === "unknown" && (
-              <p className={styles.section_label}>Choose your platform</p>
-            )}
-            {detectedOS !== "unknown" && (
-              <p className={styles.section_label}>
-                Other platforms
-              </p>
-            )}
+            {/* Remaining platforms / architectures */}
+            <p className={styles.section_label}>{sectionLabel}</p>
 
             <div className={styles.cards_grid}>
-              {OS_ORDER.map((os) => {
-                if (!grouped[os]) return null;
-                if (os === detectedOS) return null; // Already shown as primary
+              {platformKeys.map((key) => {
+                if (key === primaryKey) return null; // Already shown as primary
+                const [os, arch] = key.split(":");
                 return (
-                  <PlatformCard key={os} os={os} assets={grouped[os]} product={activeTab === "gui" ? "GUI" : "CLI"} />
+                  <PlatformCard
+                    key={key}
+                    os={os}
+                    arch={arch}
+                    assets={grouped[key]}
+                    product={activeTab === "gui" ? "GUI" : "CLI"}
+                  />
                 );
               })}
             </div>

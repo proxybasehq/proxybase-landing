@@ -26,15 +26,33 @@ const TARGET_MAP = {
   'armv7-unknown-linux-gnueabihf': { os: 'linux', arch: 'armv7', libc: 'gnu' },
 }
 
+/* ── Architecture parsed from a release asset filename ── */
+function archFromName(lower) {
+  if (/(^|[^a-z0-9])(aarch64|arm64)([^a-z0-9]|$)/.test(lower)) return 'aarch64'
+  if (/(^|[^a-z0-9])(x86_64|amd64|x64)([^a-z0-9]|$)/.test(lower)) return 'x86_64'
+  if (/(^|[^a-z0-9])(armv7|armhf|arm32)([^a-z0-9]|$)/.test(lower)) return 'armv7'
+  if (/(^|[^a-z0-9])(i686|i386|ia32)([^a-z0-9]|$)/.test(lower)) return 'i686'
+  return null
+}
+
 /* ── GUI extension → { os, arch } ── */
 function classifyGuiAsset(name) {
   const lower = name.toLowerCase()
-  if (lower.endsWith('.dmg')) return { os: 'macos', arch: 'universal' }
-  if (lower.endsWith('.msi') || lower.endsWith('.exe')) return { os: 'windows', arch: 'x86_64' }
-  if (lower.endsWith('.deb')) return { os: 'linux', arch: 'amd64' }
-  if (lower.endsWith('.rpm')) return { os: 'linux', arch: 'x86_64' }
-  if (lower.endsWith('.appimage')) return { os: 'linux', arch: 'x86_64' }
-  if (lower.endsWith('.apk')) return { os: 'android', arch: 'aarch64' }
+  const arch = archFromName(lower)
+  if (lower.endsWith('.dmg')) return { os: 'macos', arch: arch || 'universal' }
+  if (lower.endsWith('.msi') || lower.endsWith('.exe')) {
+    return { os: 'windows', arch: arch || 'x86_64' }
+  }
+  // Tauri names Linux bundles by architecture:
+  //   ProxyBase_<ver>_amd64.deb / ProxyBase_<ver>_arm64.deb
+  //   ProxyBase-<ver>-1.x86_64.rpm / ProxyBase-<ver>-1.aarch64.rpm
+  //   ProxyBase_<ver>_amd64.AppImage / ProxyBase_<ver>_aarch64.AppImage
+  // Default to x86_64 for older assets that carried no arch in the name.
+  if (lower.endsWith('.deb') || lower.endsWith('.rpm') || lower.endsWith('.appimage')) {
+    return { os: 'linux', arch: arch || 'x86_64' }
+  }
+  // Tauri's universal APK bundles the supported ABIs.
+  if (lower.endsWith('.apk')) return { os: 'android', arch: 'universal' }
   return null
 }
 

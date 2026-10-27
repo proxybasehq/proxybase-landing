@@ -20,6 +20,14 @@ export const metadata = {
 export default function BlogIndex() {
  const posts = [
  {
+ title: "Turn Any Residential Proxy Into a One-Click VPN",
+ excerpt: "Forget IP lists, port numbers, and browser settings. ProxyBase now lets you route your entire computer through any residential proxy connection with a single toggle switch.",
+ date: "October 2026",
+ readTime: "5 min read",
+ author: "ProxyBase Team",
+ slug: "/blog/one-click-vpn"
+ },
+ {
  title: "Kalshi & Polymarket API: Run Bots From a Server Without IP Blocks",
  excerpt: "Your API keys are fine — your server's egress IP is the problem. How datacenter ASN detection blocks prediction market bots, and how to route through a country-matched residential SOCKS5 session.",
  date: "September 2026",
