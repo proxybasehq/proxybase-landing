@@ -1,9 +1,10 @@
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import PayoutCalculator from "./PayoutCalculator";
 
 export const metadata = {
- title: "Sell Internet Bandwidth for Crypto — No KYC, $1 Payout | ProxyBase",
- description: "Sell your unused internet bandwidth and get paid in crypto, with no KYC and a $1 minimum cashout. Here's what bandwidth is actually worth, what flat-rate apps really pay per GB, and why marketplace pricing beats them.",
+ title: "Sell Internet Data & Bandwidth for Crypto: $1 Payout | ProxyBase",
+ description: "Sell your internet data or unused bandwidth for crypto. No KYC, $1 minimum cashout. See what flat-rate apps really pay per GB and why marketplace pricing beats them.",
  keywords: "sell internet bandwidth, sell bandwidth for crypto, sell internet data for crypto, get paid crypto for bandwidth, how to sell internet bandwidth, make money sharing internet, share internet earn money, bandwidth sharing app, best bandwidth sharing app, passive income sharing internet, sell unused internet, sell bandwidth online, passive income app, honeygain alternative, earnapp alternative, proxybase",
  alternates: {
  canonical: "/earn/sell-internet",
@@ -217,6 +218,16 @@ export default function SellInternetPage() {
  </tbody>
  </table>
  </div>
+ </section>
+
+ {/* PAYOUT CALCULATOR */}
+ <section className="compare-deepdive-section" id="payout-calculator" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+ <div className="section-header">
+ <span className="section-label">Interactive Tool</span>
+ <h2>Bandwidth Payout Calculator</h2>
+ <p className="section-desc">Enter how much data you can share each month to see what it pays on flat-rate apps versus the ProxyBase marketplace.</p>
+ </div>
+ <PayoutCalculator />
  </section>
 
  {/* ALL BANDWIDTH SHARING APPS COMPARED */}

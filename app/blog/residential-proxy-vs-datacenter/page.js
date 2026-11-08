@@ -163,6 +163,7 @@ export default function ResidentialVsDatacenterPage() {
  <div style={{ display: "flex", gap: "16px", justifyContent: "center", flexWrap: "wrap" }}>
  <a href="/ai-agents#pricing" style={{ background: "var(--accent-primary)", color: "#000", padding: "12px 28px", borderRadius: "8px", fontWeight: 700, textDecoration: "none", fontSize: "1rem" }}>See Proxy Pricing →</a>
  <a href="/blog/proxy-errors-troubleshooting" style={{ background: "transparent", color: "var(--text-primary)", padding: "12px 28px", borderRadius: "8px", fontWeight: 600, textDecoration: "none", border: "1px solid var(--border-subtle)", fontSize: "1rem" }}>Proxy Error Troubleshooting Guide</a>
+ <a href="/blog/proxy-for-web-scraping" style={{ background: "transparent", color: "var(--text-primary)", padding: "12px 28px", borderRadius: "8px", fontWeight: 600, textDecoration: "none", border: "1px solid var(--border-subtle)", fontSize: "1rem" }}>Scraping Proxy Setup Guide</a>
  </div>
  </div>
 

@@ -20,6 +20,30 @@ export const metadata = {
 export default function BlogIndex() {
  const posts = [
  {
+ title: "Playwright Proxy Setup: What Chromium Supports and What It Does Not",
+ excerpt: "Chromium authenticates to HTTP proxies but not SOCKS5. Why credentials in the URL fail, how per-context proxies work in Playwright, and the Puppeteer and Selenium equivalents.",
+ date: "November 2026",
+ readTime: "8 min read",
+ author: "ProxyBase Team",
+ slug: "/blog/playwright-proxy"
+ },
+ {
+ title: "Rotating Proxy: How Rotation Actually Works and When It Hurts",
+ excerpt: "Per-request, per-connection, and sticky rotation are three different policies. Why keep-alive can pin one exit, how to rotate a sticky session on purpose, and what rotation does not fix.",
+ date: "November 2026",
+ readTime: "8 min read",
+ author: "ProxyBase Team",
+ slug: "/blog/rotating-proxy"
+ },
+ {
+ title: "Proxy for Web Scraping: What Gets Blocked and What Actually Works",
+ excerpt: "When datacenter IPs fail, how residential and mobile exits differ, why sticky sessions beat per-request rotation, and working SOCKS5 setup for Python, curl, and browser automation.",
+ date: "November 2026",
+ readTime: "9 min read",
+ author: "ProxyBase Team",
+ slug: "/blog/proxy-for-web-scraping"
+ },
+ {
  title: "Turn Any Residential Proxy Into a One-Click VPN",
  excerpt: "Forget IP lists, port numbers, and browser settings. ProxyBase now lets you route your entire computer through any residential proxy connection with a single toggle switch.",
  date: "October 2026",

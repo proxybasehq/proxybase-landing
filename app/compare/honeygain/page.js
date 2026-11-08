@@ -2,8 +2,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export const metadata = {
- title: "Honeygain Review 2026: Real Payouts, Safety & Best Alternative | ProxyBase",
- description: "Honest Honeygain review: actual earnings per GB, payout minimums, and app safety assessment. ProxyBase is the best Honeygain alternative — open-source, no KYC, up to 30x higher pay per GB.",
+ title: "How Much Does Honeygain Pay per GB in 2026? | ProxyBase",
+ description: "Honeygain pays a flat $0.10 per GB. You need 200 GB to reach its $20 payout. Here is the math, plus an open-source alternative paying $1.80–$3.00/GB with $1 cashouts.",
  keywords: "honeygain review, honeygain alternative, proxybase vs honeygain, sell bandwidth, passive income, bandwidth sharing app, open source proxy client, kyc free proxy, proxybase, honeygain",
  alternates: {
  canonical: "/compare/honeygain",
@@ -46,6 +46,17 @@ export default function CompareHoneygainPage() {
  <a href="/markets" className="btn-primary">Start Earning More</a>
  <a href="#matrix" className="btn-secondary">Compare Features ↓</a>
  </div>
+ </div>
+ </section>
+
+ {/* DIRECT ANSWER */}
+ <section className="compare-intro-section" style={{ paddingBottom: "0" }}>
+ <div className="section-header" style={{ textAlign: "center", marginBottom: "0" }}>
+ <span className="section-label">Quick Answer</span>
+ <h2>How Much Does Honeygain Pay per GB?</h2>
+ <p className="section-desc" style={{ maxWidth: "760px", margin: "0 auto" }}>
+ Honeygain pays a flat <strong>$0.10 per GB</strong> in the US. The rate does not change when your IP is in demand. That means you need to share <strong>200 GB</strong> just to reach its $20 minimum payout. ProxyBase&apos;s marketplace pays $1.80–$3.00/GB for US residential traffic, with a $1 cashout. <a href="/earn/sell-internet#payout-calculator" style={{ color: "var(--accent-primary)", fontWeight: 600 }}>Try the payout calculator</a>
+ </p>
  </div>
  </section>
 

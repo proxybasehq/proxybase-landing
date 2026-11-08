@@ -79,6 +79,24 @@ export default function sitemap() {
             priority: 0.7,
         },
         {
+            url: "https://proxybase.xyz/blog/proxy-for-web-scraping",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
+            url: "https://proxybase.xyz/blog/rotating-proxy",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
+            url: "https://proxybase.xyz/blog/playwright-proxy",
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        {
             url: "https://proxybase.xyz/blog/openclaw-bot-protections",
             lastModified: new Date(),
             changeFrequency: "monthly",
